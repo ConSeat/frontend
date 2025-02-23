@@ -1,4 +1,4 @@
-const Compare = ({ searchParams }: SearchParams) => {
+const Compare = () => {
   return <div>Compare Result page</div>;
 };
 
