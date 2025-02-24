@@ -1,4 +1,4 @@
-import { createApiService } from './commonApi';
+import { apiService } from './apiService';
 import { cookies } from 'next/headers';
 
 export const getServerAccessToken = async (): Promise<string> => {
@@ -6,5 +6,5 @@ export const getServerAccessToken = async (): Promise<string> => {
   return cookieStore.get('access_token')?.value || '';
 };
 
-const serverApi = createApiService(getServerAccessToken);
+const serverApi = apiService(getServerAccessToken);
 export default serverApi;

@@ -1,9 +1,9 @@
-import { createApiService } from './commonApi';
+import { apiService } from './apiService';
 import Cookies from 'js-cookie';
 
-const getClientAccessToken = (): string => {
+const getClientAccessToken = async (): Promise<string> => {
   return Cookies.get('access_token') || '';
 };
 
-const clientApi = createApiService(getClientAccessToken);
+const clientApi = apiService(getClientAccessToken);
 export default clientApi;

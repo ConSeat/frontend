@@ -24,7 +24,7 @@ export const fetchWithToken = async <T = unknown>(
   return response.json() as Promise<T>;
 };
 
-export const createBaseRequestInit = (
+export const createRequestInit = (
   method: Method,
   headers: Record<string, string>,
   body: object | null,
@@ -39,7 +39,7 @@ export const createBaseRequestInit = (
   body: body ? JSON.stringify(body) : null,
 });
 
-export const createApiService = (getAccessToken: () => Promise<string> | string) => {
+export const apiService = (getAccessToken: () => Promise<string>) => {
   const request = async <T = unknown>({
     method,
     endpoint,
@@ -47,8 +47,8 @@ export const createApiService = (getAccessToken: () => Promise<string> | string)
     body = null,
     errorMessage = '',
   }: RequestProps): Promise<T> => {
-    const token = typeof getAccessToken === 'function' ? await getAccessToken() : getAccessToken;
-    const requestInit = createBaseRequestInit(method, headers, body, token);
+    const token = await getAccessToken();
+    const requestInit = createRequestInit(method, headers, body, token);
     return await fetchWithToken<T>(endpoint, requestInit, errorMessage);
   };
 
@@ -63,6 +63,5 @@ export const createApiService = (getAccessToken: () => Promise<string> | string)
       request({ method: 'PATCH', endpoint, headers, body, errorMessage }),
     delete: ({ endpoint, headers = {}, errorMessage = '' }: ApiProps) =>
       request({ method: 'DELETE', endpoint, headers, errorMessage }),
-    request,
   };
 };
