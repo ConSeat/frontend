@@ -1,24 +1,31 @@
 import Link from 'next/link';
+import hallNameMap from '@/utils/consts/allowrdHallNames';
 
-const Hall = (props) => {
+interface Hall {
+  hall: string;
+}
+
+export async function generateStaticParams(): Promise<Hall[]> {
+  const staticParams = Object.values(hallNameMap).map((value) => {
+    return { hall: value };
+  });
+
+  return staticParams;
+}
+
+const Hall = ({ params }) => {
   return (
     <div>
-      {props.params.hall}
+      {params.hall}
       <ul>
         <li>
-          <Link
-            href={`/home/${props.params.hall}/single`}
-          >{`/home/${props.params.hall}/single`}</Link>
+          <Link href={`/home/${params.hall}/single`}>{`/home/${params.hall}/single`}</Link>
         </li>
         <li>
-          <Link
-            href={`/home/${props.params.hall}/compare`}
-          >{`/home/${props.params.hall}/compare`}</Link>
+          <Link href={`/home/${params.hall}/compare`}>{`/home/${params.hall}/compare`}</Link>
         </li>
         <li>
-          <Link
-            href={`/home/${props.params.hall}/review`}
-          >{`/home/${props.params.hall}/review`}</Link>
+          <Link href={`/home/${params.hall}/review`}>{`/home/${params.hall}/review`}</Link>
         </li>
       </ul>
     </div>
