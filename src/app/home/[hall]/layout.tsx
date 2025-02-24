@@ -1,5 +1,4 @@
 import { ALL_HALL_NAME } from '../constants/hallName';
-import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
   const staticParams = ALL_HALL_NAME.map((value) => {
@@ -9,12 +8,10 @@ export async function generateStaticParams() {
   return staticParams;
 }
 
+export const dynamicParams = false;
+
 const HallLayout = async ({ params, children }) => {
   const { hall } = await params;
-
-  if (!Object.values(ALL_HALL_NAME).includes(hall)) {
-    notFound();
-  }
 
   return (
     <div>
