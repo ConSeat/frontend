@@ -12,18 +12,6 @@ export interface RequestProps extends ApiProps {
   method: Method;
 }
 
-export const fetchWithToken = async <T = unknown>(
-  endpoint: string,
-  requestInit: RequestInit,
-  errorMessage: string = MESSAGES.ERROR.DEFAULT,
-): Promise<T> => {
-  const response = await fetch(endpoint, requestInit);
-  if (!response.ok) {
-    throw new Error(errorMessage);
-  }
-  return response.json() as Promise<T>;
-};
-
 export const createRequestInit = (
   method: Method,
   headers: Record<string, string>,
@@ -38,6 +26,21 @@ export const createRequestInit = (
   },
   body: body ? JSON.stringify(body) : null,
 });
+
+export const fetchWithToken = async <T = unknown>(
+  endpoint: string,
+  requestInit: RequestInit,
+  errorMessage: string,
+): Promise<T> => {
+  const response = await fetch(endpoint, requestInit); // TODO: endpoint base url 추가
+  // const message = response.headers.get('message'); TODO: message 변수명 맞추기
+
+  if (!response.ok) {
+    throw new Error(errorMessage || MESSAGES.ERROR.DEFAULT);
+  }
+
+  return response.json() as Promise<T>;
+};
 
 export const apiService = (getAccessToken: () => Promise<string>) => {
   const request = async <T = unknown>({
@@ -55,12 +58,16 @@ export const apiService = (getAccessToken: () => Promise<string>) => {
   return {
     get: ({ endpoint, headers = {}, errorMessage = '' }: ApiProps) =>
       request({ method: 'GET', endpoint, headers, errorMessage }),
+
     post: ({ endpoint, headers = {}, body = {}, errorMessage = '' }: ApiProps) =>
       request({ method: 'POST', endpoint, headers, body, errorMessage }),
+
     put: ({ endpoint, headers = {}, body = {}, errorMessage = '' }: ApiProps) =>
       request({ method: 'PUT', endpoint, headers, body, errorMessage }),
+
     patch: ({ endpoint, headers = {}, body = {}, errorMessage = '' }: ApiProps) =>
       request({ method: 'PATCH', endpoint, headers, body, errorMessage }),
+
     delete: ({ endpoint, headers = {}, errorMessage = '' }: ApiProps) =>
       request({ method: 'DELETE', endpoint, headers, errorMessage }),
   };
