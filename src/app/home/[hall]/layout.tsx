@@ -1,8 +1,8 @@
+import { ALL_HALL_NAME } from '../constants/hallName';
 import { notFound } from 'next/navigation';
-import hallNameMap from '@/utils/consts/allowrdHallNames';
 
 export async function generateStaticParams() {
-  const staticParams = Object.values(hallNameMap).map((value) => {
+  const staticParams = ALL_HALL_NAME.map((value) => {
     return { hall: value };
   });
 
@@ -12,7 +12,7 @@ export async function generateStaticParams() {
 const HallLayout = async ({ params, children }) => {
   const { hall } = await params;
 
-  if (!Object.values(hallNameMap).includes(hall)) {
+  if (!Object.values(ALL_HALL_NAME).includes(hall)) {
     notFound();
   }
 
