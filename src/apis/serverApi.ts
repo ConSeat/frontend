@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie';
+import { cookies } from 'next/headers';
 import MESSAGES from '@/constants/message';
 import { Method } from '@/types/apiService';
 
@@ -14,11 +14,6 @@ interface RequestProps extends ApiProps {
 }
 
 const fetchWithToken = async (endpoint: string, requestInit: RequestInit, errorMessage: string) => {
-  // if (!navigator.onLine) {
-  //   throw new Error(MESSAGES.ERROR.OFFLINE);
-  // }
-  console.log(endpoint, requestInit);
-
   const response = await fetch(endpoint, requestInit); // TODO: endpoint base url 추가
   // const message = response.headers.get('message'); TODO: message 변수명 맞추기
   console.log(response);
@@ -35,7 +30,8 @@ const createRequestInit = async (
   headers: Record<string, string>,
   body: object | null,
 ): Promise<RequestInit> => {
-  const accessToken = Cookies.get('access_token') as string;
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get('access_token')?.value as string;
 
   return {
     method,
@@ -48,21 +44,21 @@ const createRequestInit = async (
   };
 };
 
-const clientApi = {
+const serverApi = {
   get: ({ endpoint, headers = {}, errorMessage = '' }: ApiProps) =>
-    clientApi.request({ method: 'GET', endpoint, headers, errorMessage }),
+    serverApi.request({ method: 'GET', endpoint, headers, errorMessage }),
 
   post: ({ endpoint, headers = {}, body = {}, errorMessage = '' }: ApiProps) =>
-    clientApi.request({ method: 'POST', endpoint, headers, body, errorMessage }),
+    serverApi.request({ method: 'POST', endpoint, headers, body, errorMessage }),
 
   put: ({ endpoint, headers = {}, body = {}, errorMessage = '' }: ApiProps) =>
-    clientApi.request({ method: 'PUT', endpoint, headers, body, errorMessage }),
+    serverApi.request({ method: 'PUT', endpoint, headers, body, errorMessage }),
 
   patch: ({ endpoint, headers = {}, body = {}, errorMessage = '' }: ApiProps) =>
-    clientApi.request({ method: 'PATCH', endpoint, headers, body, errorMessage }),
+    serverApi.request({ method: 'PATCH', endpoint, headers, body, errorMessage }),
 
   delete: ({ endpoint, headers = {}, errorMessage = '' }: ApiProps) =>
-    clientApi.request({ method: 'DELETE', endpoint, headers, errorMessage }),
+    serverApi.request({ method: 'DELETE', endpoint, headers, errorMessage }),
 
   request: async ({
     method,
@@ -76,4 +72,4 @@ const clientApi = {
   },
 };
 
-export default clientApi;
+export default serverApi;
