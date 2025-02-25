@@ -1,5 +1,13 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "cssModules.enable": true
+  "cssModules.enable": true,
+  "css.validate": false,
+  "scss.validate": false,
+  "stylelint.validate": ["css", "scss"],
+  "stylelint.configFile": ".stylelintrc.json",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true
+  },
+  "scss.lint.unknownAtRules": "ignore"
 }
