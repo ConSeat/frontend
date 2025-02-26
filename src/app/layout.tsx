@@ -1,3 +1,4 @@
+import styles from './page.module.scss';
 import type { Metadata } from 'next';
 import '@/styles/global.scss';
 
@@ -9,7 +10,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="kr">
-      <body>{children}</body>
+      <body>
+        <div className={styles.layout}>{children}</div>
+      </body>
     </html>
   );
 }
