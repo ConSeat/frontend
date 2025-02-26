@@ -1,24 +1,20 @@
 import Link from 'next/link';
 
-const Hall = (props) => {
+const Hall = async ({ params }) => {
+  const { hall } = await params;
+
   return (
     <div>
-      {props.params.hall}
+      {hall}
       <ul>
         <li>
-          <Link
-            href={`/home/${props.params.hall}/single`}
-          >{`/home/${props.params.hall}/single`}</Link>
+          <Link href={`/home/${hall}/single`}>{`/home/${hall}/single`}</Link>
         </li>
         <li>
-          <Link
-            href={`/home/${props.params.hall}/compare`}
-          >{`/home/${props.params.hall}/compare`}</Link>
+          <Link href={`/home/${hall}/compare`}>{`/home/${hall}/compare`}</Link>
         </li>
         <li>
-          <Link
-            href={`/home/${props.params.hall}/review`}
-          >{`/home/${props.params.hall}/review`}</Link>
+          <Link href={`/home/${hall}/review`}>{`/home/${hall}/review`}</Link>
         </li>
       </ul>
     </div>
