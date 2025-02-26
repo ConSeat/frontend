@@ -1,21 +1,21 @@
-import Link from 'next/link';
+'use client';
 
-function Home() {
-  return (
-    <div>
-      <ul>
-        <li>
-          <Link href="/home">home</Link>
-        </li>
-        <li>
-          <Link href="/mypage">mypage</Link>
-        </li>
-        <li>
-          <Link href="/signin">signin</Link>
-        </li>
-      </ul>
-    </div>
-  );
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+
+export default function RootPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const hasVisited = sessionStorage.getItem('visited');
+
+    if (!hasVisited) {
+      sessionStorage.setItem('visited', 'true');
+      router.replace('/splash');
+    } else {
+      router.replace('/home');
+    }
+  }, []);
+
+  return null;
 }
-
-export default Home;
