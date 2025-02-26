@@ -1,22 +1,17 @@
-import { ALL_HALL_NAME } from './constants/hallName';
 import Link from 'next/link';
-import { Pencil } from '@/assets';
+import { ALL_HALL_IDS } from '@/constants/hallName';
+import { getDisplayName } from '@/utils/hallName';
 
 const Home = () => {
-  const hallLinks = ALL_HALL_NAME.map((name) => {
-    return (
-      <li key={name}>
-        <Link href={`/home/${name}`}>{`home/${name}`}</Link>
-      </li>
-    );
-  });
-
   return (
     <div>
-      <div style={{ width: '500px', height: '500px', backgroundColor: 'black' }}>
-        <Pencil width={30} height={30} />
-      </div>
-      <ul>{hallLinks}</ul>
+      <ul>
+        {ALL_HALL_IDS.map((id) => (
+          <li key={id}>
+            <Link href={`/home/${id}`}>{getDisplayName(id)}</Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

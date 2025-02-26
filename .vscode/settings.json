@@ -7,7 +7,7 @@
   "stylelint.validate": ["css", "scss"],
   "stylelint.configFile": ".stylelintrc.json",
   "editor.codeActionsOnSave": {
-    "source.fixAll.stylelint": true
+    "source.fixAll.stylelint": "explicit"
   },
   "scss.lint.unknownAtRules": "ignore"
 }

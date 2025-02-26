@@ -5,7 +5,6 @@ const Hall = async ({ params }) => {
 
   return (
     <div>
-      {hall}
       <ul>
         <li>
           <Link href={`/home/${hall}/single`}>{`/home/${hall}/single`}</Link>
