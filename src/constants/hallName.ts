@@ -1,3 +1,6 @@
+export type HallKey = keyof typeof HALL_INFO;
+export type HallId = (typeof HALL_INFO)[HallKey]['id'];
+
 export const HALL_INFO = {
   KSPO_DOME: {
     id: 'kspo-dome',
@@ -8,8 +11,5 @@ export const HALL_INFO = {
     displayName: '잠실 실내체육관',
   },
 } as const;
-
-export type HallKey = keyof typeof HALL_INFO;
-export type HallId = (typeof HALL_INFO)[HallKey]['id'];
 
 export const ALL_HALL_IDS: HallId[] = Object.values(HALL_INFO).map((hall) => hall.id);
