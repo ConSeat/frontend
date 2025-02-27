@@ -1,5 +1,5 @@
-const Single = async () => {
+const SinglePage = async () => {
   return <div>Single page</div>;
 };
 
-export default Single;
+export default SinglePage;

@@ -15,7 +15,7 @@ const SplashPage = () => {
   }, []);
 
   return (
-    <div className={styles.layout}>
+    <div className={styles.splashLayout}>
       <MainLogo className={styles.mainLogo} width={204} height={47} />
       <LargeC className={styles.svgC} width={293} height={472} />
       <LargeO className={styles.svgO} width={201} height={320} />

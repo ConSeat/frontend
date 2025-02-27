@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ALL_HALL_IDS } from '@/constants/hallName';
 import { getDisplayName } from '@/utils/hallName';
 
-const Home = () => {
+const HomePage = () => {
   return (
     <div>
       <ul>
@@ -16,4 +16,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

@@ -1,5 +1,5 @@
-const Compare = () => {
+const ComparePage = () => {
   return <div>Compare Result page</div>;
 };
 
-export default Compare;
+export default ComparePage;
