@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-export default function RootPage() {
+const RootPage = () => {
   const router = useRouter();
 
   useEffect(() => {
@@ -18,4 +18,6 @@ export default function RootPage() {
   }, []);
 
   return null;
-}
+};
+
+export default RootPage;
