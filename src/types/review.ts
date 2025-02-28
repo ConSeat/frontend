@@ -3,6 +3,7 @@ import {
   CONCERT_SELECT,
   IMAGE_UP_LOAD,
   REVIEW_INPUT,
+  ReviewStep,
   SEAT_INFO_SELECT,
   SUMMARY_INFO_SELECT,
   VIEW_BLOCK_SELECT,
@@ -21,3 +22,46 @@ export type Review =
 
 export type AddtionalInfo = (typeof additionalInfoArray)[number];
 export type ViewBlockInfo = (typeof viewBlockInfoArray)[number];
+
+// type ImageFile = File & {
+//   type: 'image/jpeg' | 'image/png' | 'image/gif' | 'image/webp';
+// };
+
+interface ImageData {
+  // file: ImageFile;
+  file: string;
+  previewUrl: string;
+}
+
+export interface SeatInfo {
+  floor: string;
+  section: string;
+  column?: string;
+}
+
+export interface ReviewData {
+  hall: string;
+  concert: string | null;
+  seatInfo: SeatInfo;
+  additionalInfo: Set<AddtionalInfo> | Set<unknown>;
+  images: ImageData[];
+  reviewSummary: [number, number, number];
+  viewBlockInfo: Set<ViewBlockInfo> | Set<unknown>;
+  review: string;
+  currentStep: ReviewStep;
+}
+
+interface ActionPayload {
+  concert?: string;
+  seatInfo?: SeatInfo;
+  additionalInfo?: AddtionalInfo;
+  images?: ImageData;
+  reviewSummary?: { index: number; value: number };
+  viewBlockInfo?: ViewBlockInfo;
+  review?: string;
+}
+
+export interface ReviewAction {
+  type: Review;
+  payload: ActionPayload;
+}
