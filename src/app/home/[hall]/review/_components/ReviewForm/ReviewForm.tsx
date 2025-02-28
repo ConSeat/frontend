@@ -42,7 +42,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
         )}
         {isRender(ReviewStep.AdditionalInfoSelect) && (
           <div className={styles.reviewBanner}>
-            <h1>추가 좌성 정보 선택</h1>
+            <h1>추가 좌석 정보 선택</h1>
           </div>
         )}
         {isRender(ReviewStep.ImageUpload) && (
