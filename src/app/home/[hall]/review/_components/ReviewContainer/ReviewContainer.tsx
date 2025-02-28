@@ -50,7 +50,7 @@ const updateState = (state: ReviewData, updates: Partial<ReviewData>) => ({
   ...updates,
 });
 
-const isSelectAll = (seatInfo: SeatInfo) => {
+const isSeatInfoComplete = (seatInfo: SeatInfo) => {
   return (
     (seatInfo.floor === FLOOR && seatInfo.section) ||
     (seatInfo.floor !== FLOOR && seatInfo.section && seatInfo.column)
@@ -67,10 +67,9 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
     case 'SEAT_INFO_SELECT':
       const { seatInfo } = action.payload;
-
       if (seatInfo === undefined) return state;
 
-      const step = isSelectAll(seatInfo)
+      const step = isSeatInfoComplete(seatInfo)
         ? ReviewStep.SeatInfoSelect + 1
         : ReviewStep.SeatInfoSelect;
 
@@ -78,7 +77,6 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
     case 'ADDITIONAL_INFO_SELECT': {
       const { additionalInfo } = action.payload;
-
       if (additionalInfo === undefined) return state;
 
       return updateState(state, {
