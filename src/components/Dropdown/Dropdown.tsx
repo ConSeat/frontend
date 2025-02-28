@@ -7,18 +7,21 @@ import { ReactNode, forwardRef } from 'react';
 interface DropdownProps {
   value: string;
   onChange: (value: string) => void;
+  className?: string;
   children: ReactNode;
 }
 
-// ✅ `DropdownComponent`를 `forwardRef`로 감싸서 ref를 사용할 수 있도록 변경
 const DropdownComponent = forwardRef<HTMLDivElement, DropdownProps>(function Dropdown(
-  { value, onChange, children },
+  { value, onChange, className, children },
   ref,
 ) {
-  return <div ref={ref}>{children}</div>;
+  return (
+    <div ref={ref} className={classNames(styles.dropdownContainer, className)}>
+      {children}
+    </div>
+  );
 });
 
-// ✅ 하위 컴포넌트 추가
 const Trigger = ({ as }: { as: ReactNode }) => {
   return as;
 };
@@ -69,7 +72,6 @@ const Item = ({
   );
 };
 
-// ✅ `DropdownComponent`에 하위 컴포넌트 추가
 const Dropdown = Object.assign(DropdownComponent, {
   Trigger,
   Menu,
@@ -77,5 +79,4 @@ const Dropdown = Object.assign(DropdownComponent, {
   Item,
 });
 
-// ✅ `Dropdown`을 그대로 export
 export default Dropdown;
