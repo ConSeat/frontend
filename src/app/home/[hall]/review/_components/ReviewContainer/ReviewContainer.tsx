@@ -102,9 +102,10 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       if (reviewSummary === undefined) return state;
 
       const { index, value } = reviewSummary;
-      state.reviewSummary[index] = value;
 
-      const nextSummary = state.reviewSummary;
+      const nextSummary = state.reviewSummary.slice();
+      nextSummary[index] = value;
+
       const step = nextSummary.every((elem) => elem !== NONE_SELECT)
         ? ReviewStep.SummaryInfoSelect + 1
         : ReviewStep.SummaryInfoSelect;

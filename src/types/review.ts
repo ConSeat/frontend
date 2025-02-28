@@ -45,7 +45,7 @@ export interface ReviewData {
   seatInfo: SeatInfo;
   additionalInfo: Set<AddtionalInfo> | Set<unknown>;
   images: ImageData[];
-  reviewSummary: [number, number, number];
+  reviewSummary: number[];
   viewBlockInfo: Set<ViewBlockInfo> | Set<unknown>;
   review: string;
   currentStep: ReviewStep;
