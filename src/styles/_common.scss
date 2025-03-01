@@ -13,28 +13,14 @@
     height: 0;
   }
 
-  &::-webkit-scrollbar-button:vertical:start:decrement,
-  &::-webkit-scrollbar-button:vertical:start:increment,
-  &::-webkit-scrollbar-button:vertical:end:decrement {
-    display: block;
-    height: 25px;
-  }
-
   &::-webkit-scrollbar-thumb {
-    opacity: 50%;
-    background-color: $sub-gray5;
     border-radius: 10px;
+    opacity: 0.5;
+    background-color: $sub-gray5;
   }
 
   &::-webkit-scrollbar-track {
-    box-shadow: none;
     background-color: transparent;
-  }
-
-  &::-webkit-scrollbar-button:start:decrement,
-  &::-webkit-scrollbar-button:end:increment {
-    display: none;
-    width: 0;
-    height: 0;
+    box-shadow: none;
   }
 }
