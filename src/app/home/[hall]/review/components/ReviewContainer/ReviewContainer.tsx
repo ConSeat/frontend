@@ -4,7 +4,7 @@ import ReviewForm from '../ReviewForm';
 import { useReducer } from 'react';
 import { NONE, ReviewStep } from '@/constants/review';
 import type {
-  AddtionalInfo,
+  AdditionalInfo,
   ReviewAction,
   ReviewData,
   SeatInfo,
@@ -35,6 +35,7 @@ const createInitReviewData = (hall: string): ReviewData => {
 
 const toggleSetItem = <T extends string>(set: Set<T | unknown>, item: T): Set<T | unknown> => {
   const newSet = new Set<T | unknown>(set);
+  newSet.delete(NONE);
 
   if (newSet.has(item)) {
     newSet.delete(item);
@@ -80,7 +81,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       if (additionalInfo === undefined) return state;
 
       return updateState(state, {
-        additionalInfo: toggleSetItem<AddtionalInfo>(state.additionalInfo, additionalInfo),
+        additionalInfo: toggleSetItem<AdditionalInfo>(state.additionalInfo, additionalInfo),
         currentStep: ReviewStep.ImageUpload,
       });
     }
@@ -121,7 +122,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       let nextInfo = new Set<ViewBlockInfo | unknown>();
 
       if (viewBlockInfo === NONE) {
-        nextInfo = new Set(NONE);
+        nextInfo = new Set([NONE]);
       } else {
         nextInfo = toggleSetItem<ViewBlockInfo>(state.viewBlockInfo, viewBlockInfo);
       }
