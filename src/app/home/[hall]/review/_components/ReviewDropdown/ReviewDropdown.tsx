@@ -1,10 +1,11 @@
 'use client';
 
-import ReviewDropdownButton from '../ReivewDropdownButton/ReviewDropdownButton';
 import styles from './ReviewDropdown.module.scss';
+import classNames from 'classnames';
 import useDropdown from '@/hooks/useDropdown';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import Splitter from '@/components/Splitter/Splitter';
+import { DownArrow, UpArrow } from '@/assets';
 
 interface ReviewDropdownProps {
   value: string;
@@ -20,12 +21,15 @@ const ReviewDropdown = ({ value, onChange, options, placeholder }: ReviewDropdow
     <Dropdown value={value} onChange={onChange} ref={dropdownRef}>
       <Dropdown.Trigger
         as={
-          <ReviewDropdownButton
-            value={value}
-            placeholder={placeholder}
-            isDropdownOpen={isDropdownOpen}
-            handleToggleDropdown={handleToggleDropdown}
-          />
+          <button
+            onClick={handleToggleDropdown}
+            className={classNames(styles.reviewDropdownButton, {
+              [styles.isOpen]: isDropdownOpen,
+            })}
+          >
+            <span className={value ? '' : styles.placeholder}>{value || placeholder}</span>
+            {isDropdownOpen ? <UpArrow /> : <DownArrow />}
+          </button>
         }
       />
       {isDropdownOpen && (
