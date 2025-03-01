@@ -1,13 +1,12 @@
 .dropdownContainer {
   position: relative;
   width: 100%;
-  height: 40px;
 }
 
 .dropdownMenu {
   position: absolute;
-  list-style: none;
   width: 100%;
+  list-style: none;
 }
 
 .dropdownModal {
@@ -21,10 +20,10 @@
 }
 
 .dropdownList {
+  width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
-  width: 100%;
 }
 
 .dropdownItem {
