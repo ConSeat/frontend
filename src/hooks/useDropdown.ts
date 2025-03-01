@@ -8,6 +8,14 @@ const useDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const handleOpenDropdown = () => {
+    setIsDropdownOpen(true);
+  };
+
+  const handleCloseDropdown = () => {
+    setIsDropdownOpen(false);
+  };
+
   const handleClickOutside = (event: MouseEvent) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
       setIsDropdownOpen(false);
@@ -21,7 +29,13 @@ const useDropdown = () => {
     };
   }, []);
 
-  return { isDropdownOpen, handleToggleDropdown, dropdownRef };
+  return {
+    isDropdownOpen,
+    handleToggleDropdown,
+    handleOpenDropdown,
+    handleCloseDropdown,
+    dropdownRef,
+  };
 };
 
 export default useDropdown;
