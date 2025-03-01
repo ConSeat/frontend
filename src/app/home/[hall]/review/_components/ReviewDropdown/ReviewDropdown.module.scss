@@ -1,0 +1,17 @@
+@import '@/styles/style';
+
+.reviewDropdownMenu {
+  border-radius: 0px 0px 5px 5px;
+  background-color: $main-mint6;
+  border-top: 2px solid $sub-gray8;
+  max-height: 162px;
+  padding: 0 12px;
+  box-sizing: border-box;
+
+  @include scrollbar(4px);
+}
+
+.reviewDropdownItem {
+  color: $sub-gray4;
+  padding: 10px 12px;
+}
