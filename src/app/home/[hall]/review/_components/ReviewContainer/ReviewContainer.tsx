@@ -118,10 +118,13 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       const { viewBlockInfo } = action.payload;
       if (viewBlockInfo === undefined) return state;
 
-      const nextInfo =
-        viewBlockInfo === NONE
-          ? new Set(NONE)
-          : toggleSetItem<ViewBlockInfo>(state.viewBlockInfo, viewBlockInfo);
+      let nextInfo = new Set<ViewBlockInfo | unknown>();
+
+      if (viewBlockInfo === NONE) {
+        nextInfo = new Set(NONE);
+      } else {
+        nextInfo = toggleSetItem<ViewBlockInfo>(state.viewBlockInfo, viewBlockInfo);
+      }
 
       return updateState(state, {
         viewBlockInfo: nextInfo,
