@@ -1,1 +1,43 @@
 @import '@/styles/style';
+
+.button {
+  display: flex;
+  outline: none;
+  transition:
+    background 0.2s ease,
+    color 0.1s ease;
+  justify-content: center;
+  align-items: center;
+}
+
+// 타입별
+.primary {
+  color: $sub-black;
+  background-color: $main-mint1;
+  border: 1px solid $main-mint1;
+}
+
+.secondary {
+  color: $sub-gray5;
+  background-color: $sub-gray8;
+  border: 1px solid $sub-gray6;
+}
+
+.inactive {
+  color: $sub-black;
+  background-color: $sub-gray5;
+  border: 1px solid $sub-gray5;
+}
+
+// 크기별
+.small {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+.medium {
+  width: 100%;
+  height: 52px;
+  border-radius: 100px;
+}

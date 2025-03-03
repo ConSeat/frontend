@@ -3,6 +3,8 @@
 import ReviewDropdown from './_components/ReviewDropdown/ReviewDropdown';
 import ReviewDropdownInput from './_components/ReviewDropdownInput/ReviewDropdownInput';
 import { useState } from 'react';
+import Button from '@/components/Button/Button';
+import ButtonContainer from '@/components/ButtonContainer/ButtonContainer';
 
 const ReviewPage = () => {
   const [selected, setSelected] = useState<string>('');
@@ -32,6 +34,12 @@ const ReviewPage = () => {
         ]}
         placeholder="층을 선택해주세요"
       />
+      <ButtonContainer>
+        <>
+          <Button variant="secondary">이전</Button>
+          <Button>다음</Button>
+        </>
+      </ButtonContainer>
     </div>
   );
 };
