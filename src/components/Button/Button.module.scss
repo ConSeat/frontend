@@ -2,31 +2,33 @@
 
 .button {
   display: flex;
+  align-items: center;
+  justify-content: center;
+
   outline: none;
+
   transition:
     background 0.2s ease,
     color 0.1s ease;
-  justify-content: center;
-  align-items: center;
 }
 
 // 타입별
 .primary {
+  border: 1px solid $main-mint1;
   color: $sub-black;
   background-color: $main-mint1;
-  border: 1px solid $main-mint1;
 }
 
 .secondary {
+  border: 1px solid $sub-gray6;
   color: $sub-gray5;
   background-color: $sub-gray8;
-  border: 1px solid $sub-gray6;
 }
 
 .inactive {
+  border: 1px solid $sub-gray5;
   color: $sub-black;
   background-color: $sub-gray5;
-  border: 1px solid $sub-gray5;
 }
 
 // 크기별

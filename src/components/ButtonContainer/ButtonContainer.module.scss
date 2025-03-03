@@ -1,9 +1,11 @@
 .footer {
   position: fixed;
-  display: flex;
-  padding: 36px 24px 32px;
-  gap: 12px;
   bottom: 0;
   left: 0;
+
+  display: flex;
+  gap: 12px;
+
   width: 100%;
+  padding: 36px 24px 32px;
 }

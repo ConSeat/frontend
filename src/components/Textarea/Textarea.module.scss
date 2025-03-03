@@ -1,0 +1,48 @@
+@import '@/styles/style';
+
+.textareaWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px 16px;
+  border-radius: 5px;
+
+  background-color: $sub-black;
+}
+
+.textarea {
+  resize: none;
+
+  overflow: hidden auto;
+
+  width: 100%;
+  padding: 0;
+  border: none;
+
+  line-height: normal;
+  color: $sub-gray3;
+
+  background-color: transparent;
+  outline: none;
+  outline-color: none;
+
+  @include scrollbar(4px);
+}
+
+.charCount {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+
+  .valueLength {
+    color: $sub-gray4;
+  }
+
+  .maxLength {
+    color: $sub-gray6;
+  }
+}
