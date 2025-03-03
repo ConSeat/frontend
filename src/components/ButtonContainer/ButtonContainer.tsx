@@ -6,7 +6,7 @@ interface FooterProps {
 }
 
 const ButtonContainer = ({ children }: FooterProps) => {
-  return <div className={styles.footer}>{children}</div>;
+  return <div className={styles.buttonContainer}>{children}</div>;
 };
 
 export default ButtonContainer;

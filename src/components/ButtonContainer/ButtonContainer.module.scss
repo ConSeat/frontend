@@ -1,11 +1,14 @@
-.footer {
-  position: fixed;
+.buttonContainer {
+  position: absolute;
   bottom: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
 
   display: flex;
   gap: 12px;
 
   width: 100%;
+  min-width: 344px;
+  max-width: 640px;
   padding: 36px 24px 32px;
 }
