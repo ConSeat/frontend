@@ -9,7 +9,6 @@ interface Hall {
 
 interface HallLayoutProps {
   children: ReactNode;
-  footer?: ReactNode;
   params: Promise<Hall>;
 }
 
@@ -19,14 +18,13 @@ export async function generateStaticParams() {
 
 export const dynamicParams = false;
 
-const HallLayout = async ({ children, footer, params }: HallLayoutProps) => {
+const HallLayout = async ({ children, params }: HallLayoutProps) => {
   const { hall } = await params;
 
   return (
     <div className={styles.hallLayout}>
       <Header hall={hall} />
       <main className={styles.hallMain}>{children}</main>
-      {footer && <footer className={styles.hallFooter}>{footer}</footer>}
     </div>
   );
 };
