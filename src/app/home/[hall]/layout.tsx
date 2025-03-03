@@ -1,4 +1,5 @@
 import styles from './page.module.scss';
+import { ReactNode } from 'react';
 import Header from '@/components/Header/Header';
 import { ALL_HALL_IDS } from '@/constants/hallName';
 
@@ -7,7 +8,8 @@ interface Hall {
 }
 
 interface HallLayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
+  footer?: ReactNode;
   params: Promise<Hall>;
 }
 
@@ -17,13 +19,14 @@ export async function generateStaticParams() {
 
 export const dynamicParams = false;
 
-const HallLayout = async ({ children, params }: HallLayoutProps) => {
+const HallLayout = async ({ children, footer, params }: HallLayoutProps) => {
   const { hall } = await params;
 
   return (
     <div className={styles.hallLayout}>
       <Header hall={hall} />
       <main className={styles.hallMain}>{children}</main>
+      {footer && <footer className={styles.hallFooter}>{footer}</footer>}
     </div>
   );
 };
