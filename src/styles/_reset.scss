@@ -95,6 +95,7 @@ textarea {
 
   font: inherit;
   font-size: 62.5%;
+  white-space: pre-line;
   vertical-align: baseline;
 
   -ms-overflow-style: none;
@@ -156,8 +157,8 @@ table {
 button {
   cursor: pointer;
   border: none;
-  outline: none;
   background-color: transparent;
+  outline: none;
 }
 
 a {
