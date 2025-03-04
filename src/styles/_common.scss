@@ -1,0 +1,26 @@
+@import './variables';
+
+@mixin scrollbar($size) {
+  overflow: hidden auto;
+
+  &::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
+
+  &::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    opacity: 0.5;
+    background-color: $sub-gray5;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}

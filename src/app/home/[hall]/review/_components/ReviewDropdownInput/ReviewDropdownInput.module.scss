@@ -1,0 +1,47 @@
+@import '@/styles/style';
+
+.reviewDropdownTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  height: 44px;
+  padding: 10px 12px;
+  border-radius: 5px;
+
+  color: $sub-white;
+
+  background-color: $main-mint6;
+
+  &.isOpen {
+    border-radius: 5px 5px 0 0;
+  }
+
+  .placeholder {
+    color: rgba($sub-white, 0.5);
+  }
+}
+
+.reviewDropdownInput {
+  all: unset;
+  width: 100%;
+  height: 100%;
+}
+
+.reviewDropdownMenu {
+  box-sizing: border-box;
+  max-height: 162px;
+  padding: 0 12px;
+  border-top: 2px solid $sub-gray8;
+  border-radius: 0 0 5px 5px;
+
+  background-color: $main-mint6;
+
+  @include scrollbar(4px);
+}
+
+.reviewDropdownItem {
+  padding: 10px 12px;
+  color: $sub-gray4;
+}
