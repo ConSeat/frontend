@@ -1,6 +1,6 @@
 import Badge from '../Badge';
 import styles from './AdditionalSeatInfo.module.scss';
-import { ADDITIONAL_INFO, REVIEW_ACTIONS } from '@/constants/review';
+import { ADDITIONAL_INFO, REVIEW } from '@/constants/review';
 import type { AdditionalInfo, ReviewDispatch } from '@/types/review';
 
 interface AdditionalSeatInfoProps {
@@ -31,7 +31,7 @@ const AdditionalSeatInfo = ({ additionalInfo, dispatch }: AdditionalSeatInfoProp
 
           const handleBadgeClick = () => {
             dispatch({
-              type: REVIEW_ACTIONS.ADDITIONAL_INFO_SELECT,
+              type: REVIEW.ACTIONS.ADDITIONAL_INFO_SELECT,
               payload: { additionalInfo: info },
             });
           };

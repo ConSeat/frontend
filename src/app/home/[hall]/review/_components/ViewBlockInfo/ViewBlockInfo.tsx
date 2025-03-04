@@ -1,6 +1,6 @@
 import Badge from '../Badge';
 import styles from './ViewBlockInfo.module.scss';
-import { REVIEW_ACTIONS, VIEW_BLOCK_INFO } from '@/constants/review';
+import { REVIEW, VIEW_BLOCK_INFO } from '@/constants/review';
 import type { ReviewDispatch, ViewBlockInfo } from '@/types/review';
 
 interface ViewBlockInfoBannerProps {
@@ -28,7 +28,7 @@ const ViewBlockInfoBanner = ({ viewBlockInfo, dispatch }: ViewBlockInfoBannerPro
               {part.map((info) => {
                 const handleClickBadge = () => {
                   dispatch({
-                    type: REVIEW_ACTIONS.VIEW_BLOCK_SELECT,
+                    type: REVIEW.ACTIONS.VIEW_BLOCK_SELECT,
                     payload: { viewBlockInfo: info },
                   });
                 };

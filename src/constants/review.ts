@@ -20,7 +20,7 @@ export const VIEW_BLOCK_INFO = [
   NONE,
 ] as const;
 
-export const REVIEW_ACTIONS = {
+const REVIEW_ACTIONS = {
   CONCERT_SELECT: 'CONCERT_SELECT',
   SEAT_INFO_SELECT: 'SEAT_INFO_SELECT',
   ADDITIONAL_INFO_SELECT: 'ADDITIONAL_INFO_SELECT',
@@ -31,7 +31,7 @@ export const REVIEW_ACTIONS = {
   SUBMIT: 'SUBMIT',
 } as const;
 
-export const REVIEW_STEPS = {
+const REVIEW_STEPS = {
   CONCERT_SELECT: 0,
   SEAT_INFO_SELECT: 1,
   ADDITIONAL_INFO_SELECT: 2,
@@ -42,10 +42,7 @@ export const REVIEW_STEPS = {
   SUBMIT: 7,
 } as const;
 
-export const REVIEW_MESSAGE: Record<
-  string,
-  { TITLE?: string; SUBTITLE?: string; QUESTIONS?: string[]; PLACEHOLDER?: string }
-> = {
+const REVIEW_MESSAGE = {
   CONCERT_SELECT: {
     TITLE: '내가 다녀온\n콘서트를 선택해주세요',
     SUBTITLE: '*영문 또는 한글로 가수명을 검색해 보세요.',
@@ -78,4 +75,10 @@ export const REVIEW_MESSAGE: Record<
   REVIEW_INPUT: {
     TITLE: '자유롭게 후기를 남겨주세요!',
   },
+};
+
+export const REVIEW = {
+  ACTIONS: REVIEW_ACTIONS,
+  STEPS: REVIEW_STEPS,
+  MESSAGE: REVIEW_MESSAGE,
 };

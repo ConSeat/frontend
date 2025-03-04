@@ -1,11 +1,11 @@
 import { Dispatch } from 'react';
-import { ADDITIONAL_INFO, REVIEW_ACTIONS, REVIEW_STEPS, VIEW_BLOCK_INFO } from '@/constants/review';
+import { ADDITIONAL_INFO, REVIEW, VIEW_BLOCK_INFO } from '@/constants/review';
 
-export type Review = (typeof REVIEW_ACTIONS)[keyof typeof REVIEW_ACTIONS];
+export type Review = (typeof REVIEW.ACTIONS)[keyof typeof REVIEW.ACTIONS];
 export type AdditionalInfo = (typeof ADDITIONAL_INFO)[number];
 export type ViewBlockInfo = (typeof VIEW_BLOCK_INFO)[number];
 
-export type Step = (typeof REVIEW_STEPS)[keyof typeof REVIEW_STEPS];
+export type Step = (typeof REVIEW.STEPS)[keyof typeof REVIEW.STEPS];
 // type ImageFile = File & {
 //   type: 'image/jpeg' | 'image/png' | 'image/gif' | 'image/webp';
 // };

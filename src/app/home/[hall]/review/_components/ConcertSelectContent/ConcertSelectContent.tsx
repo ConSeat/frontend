@@ -1,6 +1,6 @@
 import ReviewDropdownInput from '../ReviewDropdownInput/ReviewDropdownInput';
 import { useState } from 'react';
-import { REVIEW_ACTIONS, REVIEW_MESSAGE } from '@/constants/review';
+import { REVIEW } from '@/constants/review';
 import { ReviewDispatch } from '@/types/review';
 
 interface ConcertSelectContentProps {
@@ -22,7 +22,7 @@ const ConcertSelectContent = ({ data, dispatch }: ConcertSelectContentProps) => 
   const handleConcertSelect = (value: string) => {
     setSelected(value);
     dispatch({
-      type: REVIEW_ACTIONS.CONCERT_SELECT,
+      type: REVIEW.ACTIONS.CONCERT_SELECT,
       payload: { concert: selected },
     });
   };
@@ -34,7 +34,7 @@ const ConcertSelectContent = ({ data, dispatch }: ConcertSelectContentProps) => 
         handleConcertSelect(value);
       }}
       options={options}
-      placeholder={REVIEW_MESSAGE.CONCERT_SELECT.PLACEHOLDER}
+      placeholder={REVIEW.MESSAGE.CONCERT_SELECT.PLACEHOLDER}
     />
   );
 };
