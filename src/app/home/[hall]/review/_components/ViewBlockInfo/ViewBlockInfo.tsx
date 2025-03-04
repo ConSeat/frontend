@@ -35,15 +35,12 @@ const ViewBlockInfoBanner = ({ viewBlockInfo, dispatch }: ViewBlockInfoBannerPro
                   });
                 };
 
-                const style = viewBlockInfo.has(info) ? styles.select : styles.badge;
-
                 return (
                   <Badge
                     key={info}
-                    backgroundStyle={style}
-                    contentStyle={styles.badgeText}
                     text={info}
                     onClick={handleClickBadge}
+                    isSelected={viewBlockInfo.has(info)}
                   />
                 );
               })}

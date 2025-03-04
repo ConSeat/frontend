@@ -1,11 +1,7 @@
 import styles from './ReviewSection.module.scss';
 import { ReactNode } from 'react';
 
-interface ReviewSectionProps {
-  children: ReactNode;
-}
-
-const ReviewSection = ({ children }: ReviewSectionProps) => {
+const ReviewSection = ({ children }: { children: ReactNode }) => {
   return <section className={styles.reviewSection}>{children}</section>;
 };
 
