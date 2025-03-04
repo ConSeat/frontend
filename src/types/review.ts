@@ -1,29 +1,11 @@
 import { ActionDispatch } from 'react';
-import {
-  ADDITIONAL_INFO_SELECT,
-  CONCERT_SELECT,
-  IMAGE_UP_LOAD,
-  REVIEW_INPUT,
-  ReviewStep,
-  SEAT_INFO_SELECT,
-  SUMMARY_INFO_SELECT,
-  VIEW_BLOCK_SELECT,
-  additionalInfoArray,
-  viewBlockInfoArray,
-} from '@/constants/review';
+import { REVIEW, additionalInfoArray, viewBlockInfoArray } from '@/constants/review';
 
-export type Review =
-  | typeof CONCERT_SELECT
-  | typeof SEAT_INFO_SELECT
-  | typeof ADDITIONAL_INFO_SELECT
-  | typeof IMAGE_UP_LOAD
-  | typeof SUMMARY_INFO_SELECT
-  | typeof VIEW_BLOCK_SELECT
-  | typeof REVIEW_INPUT;
-
+export type Review = (typeof REVIEW.ACTIONS)[keyof typeof REVIEW.ACTIONS];
 export type AdditionalInfo = (typeof additionalInfoArray)[number];
 export type ViewBlockInfo = (typeof viewBlockInfoArray)[number];
 
+export type Step = (typeof REVIEW.STEP)[keyof typeof REVIEW.STEP];
 // type ImageFile = File & {
 //   type: 'image/jpeg' | 'image/png' | 'image/gif' | 'image/webp';
 // };
@@ -49,7 +31,7 @@ export interface ReviewData {
   reviewSummary: number[];
   viewBlockInfo: Set<ViewBlockInfo> | Set<unknown>;
   review: string;
-  currentStep: ReviewStep;
+  currentStep: Step;
 }
 
 interface ActionPayload {

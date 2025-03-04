@@ -4,13 +4,15 @@ import AdditionalSeatInfo from '../AdditionalSeatInfo';
 import ViewBlockInfoBanner from '../ViewBlockInfo';
 import styles from './ReviewForm.module.scss';
 import { ActionDispatch, useRef } from 'react';
-import { ReviewStep } from '@/constants/review';
+import { REVIEW } from '@/constants/review';
 import type { ReviewAction, ReviewData } from '@/types/review';
 
 interface ReviewFormProps {
   reviewData: ReviewData;
   dispatch: ActionDispatch<[action: ReviewAction]>;
 }
+
+const { STEP } = REVIEW;
 
 const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
   const {
@@ -31,42 +33,42 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
 
   return (
     <form className={styles.reviewFormLayout}>
-      {isRender(ReviewStep.ConcertSelect) && (
+      {isRender(STEP.CONCERT_SELECT) && (
         <div className={styles.reviewBanner}>
           <h1>콘서트 선택</h1>
         </div>
       )}
-      {isRender(ReviewStep.SeatInfoSelect) && (
+      {isRender(STEP.SEAT_INFO_SELECT) && (
         <div className={styles.reviewBanner}>
           <h1>좌석 선택</h1>
         </div>
       )}
-      {isRender(ReviewStep.AdditionalInfoSelect) && (
+      {isRender(STEP.ADDITIONAL_INFO_SELECT) && (
         <div className={styles.reviewBanner}>
           <AdditionalSeatInfo additionalInfo={additionalInfo} dispatch={dispatch} />
         </div>
       )}
-      {isRender(ReviewStep.ImageUpload) && (
+      {isRender(STEP.IMAGE_UPLOAD) && (
         <div className={styles.reviewBanner}>
           <h1>시야 사진 등록</h1>
         </div>
       )}
-      {isRender(ReviewStep.SummaryInfoSelect) && (
+      {isRender(STEP.SUMMARY_INFO_SELECT) && (
         <div className={styles.reviewBanner}>
           <h1>시야 요약 정보</h1>
         </div>
       )}
-      {isRender(ReviewStep.viewBlockSelect) && (
+      {isRender(STEP.VIEW_BLOCK_SELECT) && (
         <div className={styles.reviewBanner}>
           <ViewBlockInfoBanner viewBlockInfo={viewBlockInfo} dispatch={dispatch} />
         </div>
       )}
-      {isRender(ReviewStep.reviewInput) && (
+      {isRender(STEP.REVIEW_INPUT) && (
         <div className={styles.reviewBanner}>
           <h1>리뷰 작성</h1>
         </div>
       )}
-      {isRender(ReviewStep.submit) && (
+      {isRender(STEP.SUBMIT) && (
         <div className={styles.reviewBanner}>
           <h1>리뷰 제출</h1>
         </div>

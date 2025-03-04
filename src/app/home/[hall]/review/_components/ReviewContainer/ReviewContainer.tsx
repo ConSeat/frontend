@@ -8,8 +8,10 @@ import type {
   ReviewAction,
   ReviewData,
   SeatInfo,
+  Step,
   ViewBlockInfo,
 } from '@/types/review';
+import { toggleSetItem } from '@/utils/toggleSetItem';
 
 const FLOOR = 'FLOOR';
 const NONE_SELECT = 0;
@@ -34,19 +36,6 @@ const createInitReviewData = (hall: string): ReviewData => {
   return initData;
 };
 
-const toggleSetItem = <T extends string>(set: Set<T | unknown>, item: T): Set<T | unknown> => {
-  const newSet = new Set<T | unknown>(set);
-  newSet.delete(NONE);
-
-  if (newSet.has(item)) {
-    newSet.delete(item);
-  } else {
-    newSet.add(item);
-  }
-
-  return newSet;
-};
-
 const updateState = (state: ReviewData, updates: Partial<ReviewData>) => ({
   ...state,
   ...updates,
@@ -59,15 +48,17 @@ const isSeatInfoComplete = (seatInfo: SeatInfo) => {
   );
 };
 
+const { ACTIONS } = REVIEW;
+
 const reviewReducer = (state: ReviewData, action: ReviewAction) => {
   switch (action.type) {
-    case 'CONCERT_SELECT':
+    case ACTIONS.CONCERT_SELECT:
       return updateState(state, {
         concert: action.payload.concert,
         currentStep: REVIEW.STEP.SEAT_INFO_SELECT,
       });
 
-    case 'SEAT_INFO_SELECT':
+    case ACTIONS.SEAT_INFO_SELECT:
       const { seatInfo } = action.payload;
       if (seatInfo === undefined) return state;
 
@@ -75,9 +66,9 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
         ? REVIEW.STEP.SEAT_INFO_SELECT + 1
         : REVIEW.STEP.SEAT_INFO_SELECT;
 
-      return updateState(state, { seatInfo: action.payload.seatInfo, currentStep: step });
+      return updateState(state, { seatInfo: action.payload.seatInfo, currentStep: step as Step });
 
-    case 'ADDITIONAL_INFO_SELECT': {
+    case ACTIONS.ADDITIONAL_INFO_SELECT: {
       const { additionalInfo } = action.payload;
       if (additionalInfo === undefined) return state;
 
@@ -87,7 +78,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       });
     }
 
-    case 'IMAGE_UP_LOAD': {
+    case ACTIONS.IMAGE_UPLOAD: {
       const { images } = action.payload;
       if (images === undefined) return state;
 
@@ -97,7 +88,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       });
     }
 
-    case 'SUMMARY_INFO_SELECT': {
+    case ACTIONS.SUMMARY_INFO_SELECT: {
       const { reviewSummary } = action.payload;
       if (reviewSummary === undefined) return state;
 
@@ -112,11 +103,11 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
       return updateState(state, {
         reviewSummary: nextSummary,
-        currentStep: step,
+        currentStep: step as Step,
       });
     }
 
-    case 'VIEW_BLOCK_SELECT': {
+    case ACTIONS.VIEW_BLOCK_SELECT: {
       const { viewBlockInfo } = action.payload;
       if (viewBlockInfo === undefined) return state;
 
@@ -125,6 +116,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       if (viewBlockInfo === NONE) {
         nextInfo = new Set([NONE]);
       } else {
+        state.viewBlockInfo.delete(NONE);
         nextInfo = toggleSetItem<ViewBlockInfo>(state.viewBlockInfo, viewBlockInfo);
       }
 
@@ -134,7 +126,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       });
     }
 
-    case 'REVIEW_INPUT':
+    case ACTIONS.REVIEW_INPUT:
       return updateState(state, { review: action.payload.review, currentStep: REVIEW.STEP.SUBMIT });
 
     default:
