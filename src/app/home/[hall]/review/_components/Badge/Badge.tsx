@@ -7,13 +7,14 @@ interface BadgeProps {
   text: string;
   onClick: () => void;
   isSelected: boolean;
+  variant?: 'default' | 'dark';
 }
 
-const Badge = ({ text, onClick, isSelected }: BadgeProps) => {
+const Badge = ({ text, onClick, isSelected, variant = 'default' }: BadgeProps) => {
   return (
     <button
       type="button"
-      className={classNames(styles.badge, { [styles.select]: isSelected })}
+      className={classNames(styles.badge, styles[variant], { [styles.select]: isSelected })}
       onClick={onClick}
     >
       <span className={styles.badgeText} aria-label={text}>

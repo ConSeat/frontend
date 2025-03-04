@@ -4,7 +4,7 @@ import AdditionalSeatInfo from '../AdditionalSeatInfo';
 import ConcertSelect from '../ConcertSelect/ConcertSelect';
 import ReviewSection from '../ReviewSection/ReviewSection';
 import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
-import ViewBlockInfoBanner from '../ViewBlockInfo';
+import ViewBlockInfo from '../ViewBlockInfo';
 import styles from './ReviewForm.module.scss';
 import { Dispatch, useRef } from 'react';
 import Button from '@/components/Button/Button';
@@ -58,13 +58,17 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
             title={REVIEW.MESSAGE.IMAGE_UPLOAD.TITLE}
             subtitle={REVIEW.MESSAGE.IMAGE_UPLOAD.SUBTITLE}
           />
+          <div>사진 추가</div>
         </ReviewSection>
       )}
       {isRender(REVIEW.STEPS.SUMMARY_INFO_SELECT) && (
         <ReviewSection>
           <ReviewSection.Title title={REVIEW.MESSAGE.SUMMARY_INFO_SELECT.QUESTIONS[0]} />
+          <div>라디오 버튼 추가</div>
           <ReviewSection.Title title={REVIEW.MESSAGE.SUMMARY_INFO_SELECT.QUESTIONS[1]} />
+          <div>라디오 버튼 추가</div>
           <ReviewSection.Title title={REVIEW.MESSAGE.SUMMARY_INFO_SELECT.QUESTIONS[2]} />
+          <div>라디오 버튼 추가</div>
         </ReviewSection>
       )}
       {isRender(REVIEW.STEPS.VIEW_BLOCK_SELECT) && (
@@ -73,7 +77,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
             title={REVIEW.MESSAGE.VIEW_BLOCK_SELECT.TITLE}
             subtitle={REVIEW.MESSAGE.VIEW_BLOCK_SELECT.SUBTITLE}
           />
-          <ViewBlockInfoBanner viewBlockInfo={reviewData.viewBlockInfo} dispatch={dispatch} />
+          <ViewBlockInfo data={reviewData.viewBlockInfo} dispatch={dispatch} />
         </ReviewSection>
       )}
       {isRender(REVIEW.STEPS.REVIEW_INPUT) && (

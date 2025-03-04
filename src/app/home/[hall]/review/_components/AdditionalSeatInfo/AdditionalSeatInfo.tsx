@@ -11,7 +11,7 @@ interface AdditionalSeatInfoProps {
 }
 
 const AdditionalSeatInfo = ({ data, dispatch }: AdditionalSeatInfoProps) => {
-  const handleBadgeClick = (info: AdditionalInfo) => {
+  const toggleAdditionalInfo = (info: AdditionalInfo) => {
     dispatch({
       type: REVIEW.ACTIONS.ADDITIONAL_INFO_SELECT,
       payload: { additionalInfo: info },
@@ -24,7 +24,7 @@ const AdditionalSeatInfo = ({ data, dispatch }: AdditionalSeatInfoProps) => {
         <Badge
           key={seatInfo}
           text={seatInfo}
-          onClick={() => handleBadgeClick(seatInfo)}
+          onClick={() => toggleAdditionalInfo(seatInfo)}
           isSelected={data.has(seatInfo)}
         />
       ))}

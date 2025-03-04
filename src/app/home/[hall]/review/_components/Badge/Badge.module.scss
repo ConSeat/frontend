@@ -24,10 +24,16 @@
 
   padding: 10px 16px;
   border-radius: 50px;
+}
 
+.default {
   color: $sub-gray1;
-
   background: $sub-gray7;
+}
+
+.dark {
+  color: $sub-gray1;
+  background: $main-mint6;
 }
 
 .select {
