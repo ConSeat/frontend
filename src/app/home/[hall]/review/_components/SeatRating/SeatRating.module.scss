@@ -1,0 +1,88 @@
+@import '@/styles/style';
+
+.ratingLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 302px;
+}
+
+.ratingWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.ratingTitle {
+  //   font-family: Pretendard;
+  font-size: 20px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 28px; /* 140% */
+  color: $sub-gray1;
+  text-align: center;
+  letter-spacing: -0.4px;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+  justify-content: center;
+
+  width: 234px;
+}
+
+.radioLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+
+  width: 51px;
+  height: 76px;
+}
+
+.radioIcon {
+  cursor: pointer;
+
+  path {
+    fill: $main-mint6;
+  }
+}
+
+.radioText {
+  //   font-family: Pretendard;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: normal;
+  color: $sub-gray3;
+  text-align: center;
+  letter-spacing: -0.28px;
+  white-space: nowrap;
+}
+
+.radioInput {
+  display: none;
+
+  &:checked {
+    + .radioIcon {
+      path {
+        fill: $main-mint1;
+      }
+    }
+
+    + .radioText {
+      color: $main-mint1;
+    }
+  }
+}
