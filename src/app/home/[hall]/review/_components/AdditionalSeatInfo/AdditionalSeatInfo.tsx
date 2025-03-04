@@ -1,6 +1,6 @@
 import Badge from '../Badge';
 import styles from './AdditionalSeatInfo.module.scss';
-import { REVIEW, additionalInfoArray } from '@/constants/review';
+import { ADDITIONAL_INFO, REVIEW_ACTIONS } from '@/constants/review';
 import type { AdditionalInfo, ReviewDispatch } from '@/types/review';
 
 interface AdditionalSeatInfoProps {
@@ -13,8 +13,8 @@ const NUMBER_OF_LINE = 3;
 const splitSeatInfo = () => {
   const result: AdditionalInfo[][] = [];
 
-  for (let i = 0; i < additionalInfoArray.length; i += NUMBER_OF_LINE) {
-    result.push(additionalInfoArray.slice(i, i + NUMBER_OF_LINE));
+  for (let i = 0; i < ADDITIONAL_INFO.length; i += NUMBER_OF_LINE) {
+    result.push(ADDITIONAL_INFO.slice(i, i + NUMBER_OF_LINE));
   }
 
   return result;
@@ -31,7 +31,7 @@ const AdditionalSeatInfo = ({ additionalInfo, dispatch }: AdditionalSeatInfoProp
 
           const handleBadgeClick = () => {
             dispatch({
-              type: REVIEW.ACTIONS.ADDITIONAL_INFO_SELECT,
+              type: REVIEW_ACTIONS.ADDITIONAL_INFO_SELECT,
               payload: { additionalInfo: info },
             });
           };

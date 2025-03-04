@@ -5,7 +5,6 @@ const ReviewPage = async ({ params }) => {
 
   return (
     <div>
-      Review page
       <ReviewContainer hall={hall} />
     </div>
   );

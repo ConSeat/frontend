@@ -2,7 +2,7 @@
 
 import ReviewForm from '../ReviewForm';
 import { useReducer } from 'react';
-import { NONE, REVIEW } from '@/constants/review';
+import { NONE, REVIEW_ACTIONS, REVIEW_STEPS } from '@/constants/review';
 import type {
   AdditionalInfo,
   ReviewAction,
@@ -48,47 +48,45 @@ const isSeatInfoComplete = (seatInfo: SeatInfo) => {
   );
 };
 
-const { ACTIONS } = REVIEW;
-
 const reviewReducer = (state: ReviewData, action: ReviewAction) => {
   switch (action.type) {
-    case ACTIONS.CONCERT_SELECT:
+    case REVIEW_ACTIONS.CONCERT_SELECT:
       return updateState(state, {
         concert: action.payload.concert,
-        currentStep: REVIEW.STEP.SEAT_INFO_SELECT,
+        currentStep: REVIEW_STEPS.SEAT_INFO_SELECT,
       });
 
-    case ACTIONS.SEAT_INFO_SELECT:
+    case REVIEW_ACTIONS.SEAT_INFO_SELECT:
       const { seatInfo } = action.payload;
       if (seatInfo === undefined) return state;
 
       const step = isSeatInfoComplete(seatInfo)
-        ? REVIEW.STEP.SEAT_INFO_SELECT + 1
-        : REVIEW.STEP.SEAT_INFO_SELECT;
+        ? REVIEW_STEPS.SEAT_INFO_SELECT + 1
+        : REVIEW_STEPS.SEAT_INFO_SELECT;
 
       return updateState(state, { seatInfo: action.payload.seatInfo, currentStep: step as Step });
 
-    case ACTIONS.ADDITIONAL_INFO_SELECT: {
+    case REVIEW_ACTIONS.ADDITIONAL_INFO_SELECT: {
       const { additionalInfo } = action.payload;
       if (additionalInfo === undefined) return state;
 
       return updateState(state, {
         additionalInfo: toggleSetItem<AdditionalInfo>(state.additionalInfo, additionalInfo),
-        currentStep: REVIEW.STEP.IMAGE_UPLOAD,
+        currentStep: REVIEW_STEPS.IMAGE_UPLOAD,
       });
     }
 
-    case ACTIONS.IMAGE_UPLOAD: {
+    case REVIEW_ACTIONS.IMAGE_UPLOAD: {
       const { images } = action.payload;
       if (images === undefined) return state;
 
       return updateState(state, {
         images: [...state.images, images],
-        currentStep: REVIEW.STEP.SUMMARY_INFO_SELECT,
+        currentStep: REVIEW_STEPS.SUMMARY_INFO_SELECT,
       });
     }
 
-    case ACTIONS.SUMMARY_INFO_SELECT: {
+    case REVIEW_ACTIONS.SUMMARY_INFO_SELECT: {
       const { reviewSummary } = action.payload;
       if (reviewSummary === undefined) return state;
 
@@ -98,8 +96,8 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       nextSummary[index] = value;
 
       const step = nextSummary.every((elem) => elem !== NONE_SELECT)
-        ? REVIEW.STEP.SUMMARY_INFO_SELECT + 1
-        : REVIEW.STEP.SUMMARY_INFO_SELECT;
+        ? REVIEW_STEPS.SUMMARY_INFO_SELECT + 1
+        : REVIEW_STEPS.SUMMARY_INFO_SELECT;
 
       return updateState(state, {
         reviewSummary: nextSummary,
@@ -107,7 +105,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       });
     }
 
-    case ACTIONS.VIEW_BLOCK_SELECT: {
+    case REVIEW_ACTIONS.VIEW_BLOCK_SELECT: {
       const { viewBlockInfo } = action.payload;
       if (viewBlockInfo === undefined) return state;
 
@@ -122,12 +120,15 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
       return updateState(state, {
         viewBlockInfo: nextInfo,
-        currentStep: REVIEW.STEP.REVIEW_INPUT,
+        currentStep: REVIEW_STEPS.REVIEW_INPUT,
       });
     }
 
-    case ACTIONS.REVIEW_INPUT:
-      return updateState(state, { review: action.payload.review, currentStep: REVIEW.STEP.SUBMIT });
+    case REVIEW_ACTIONS.REVIEW_INPUT:
+      return updateState(state, {
+        review: action.payload.review,
+        currentStep: REVIEW_STEPS.SUBMIT,
+      });
 
     default:
       return state;
