@@ -1,6 +1,14 @@
 import styles from './page.module.scss';
 import type { Metadata } from 'next';
+import localFont from 'next/font/local';
 import '@/styles/global.scss';
+
+const pretendard = localFont({
+  src: '../assets/fonts/PretendardVariable.woff2',
+  display: 'swap',
+  weight: '45 920',
+  variable: '--font-pretendard',
+});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -9,8 +17,8 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <html lang="kr">
-      <body>
+    <html lang="kr" className={`${pretendard.variable}`}>
+      <body className={pretendard.className}>
         <div className={styles.layout}>{children}</div>
       </body>
     </html>
