@@ -1,6 +1,7 @@
 'use client';
 
 import AdditionalSeatInfo from '../AdditionalSeatInfo';
+import SeatRating from '../SeatRating';
 import ViewBlockInfoBanner from '../ViewBlockInfo';
 import styles from './ReviewForm.module.scss';
 import { ActionDispatch, useRef } from 'react';
@@ -55,7 +56,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
       )}
       {isRender(STEP.SUMMARY_INFO_SELECT) && (
         <div className={styles.reviewBanner}>
-          <h1>시야 요약 정보</h1>
+          <SeatRating />
         </div>
       )}
       {isRender(STEP.VIEW_BLOCK_SELECT) && (
