@@ -56,7 +56,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
       )}
       {isRender(STEP.SUMMARY_INFO_SELECT) && (
         <div className={styles.reviewBanner}>
-          <SeatRating />
+          <SeatRating dispatch={dispatch} />
         </div>
       )}
       {isRender(STEP.VIEW_BLOCK_SELECT) && (

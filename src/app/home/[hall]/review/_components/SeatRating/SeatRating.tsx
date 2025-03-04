@@ -1,6 +1,10 @@
 import styles from './SeatRating.module.scss';
-import Splitter from '@/components/Splitter/Splitter';
 import { ChoiceCircle } from '@/assets';
+import { ReviewDispatch } from '@/types/review';
+
+interface SeatRatingProps {
+  dispatch: ReviewDispatch;
+}
 
 const RAITING_VALUE = {
   CLOSE_DIST: '가까워요',
@@ -27,21 +31,33 @@ const ratingFactorArray = [
   },
 ];
 
-const SeatRating = () => {
-  const ratingContents = ratingFactorArray.map((ratingFactor) => {
+const SeatRating = ({ dispatch }: SeatRatingProps) => {
+  const handleChageRating = (index: number, value: number) => {
+    dispatch({ type: 'SUMMARY_INFO_SELECT', payload: { reviewSummary: { index, value } } });
+  };
+
+  const ratingContents = ratingFactorArray.map((ratingFactor, factorIdx) => {
     const { name, title, value } = ratingFactor;
 
     return (
       <div key={name} className={styles.ratingWrapper}>
         <div className={styles.ratingTitle}>{title}</div>
         <div className={styles.radioGroup}>
-          {value.map((elem, index) => {
+          {value.map((elem, valueIdx) => {
             return (
-              <label key={index} className={styles.radioLabel}>
-                <input type="radio" name={name} value={elem} className={styles.radioInput} />
+              <label key={valueIdx} className={styles.radioLabel}>
+                <input
+                  type="radio"
+                  name={name}
+                  value={elem}
+                  className={styles.radioInput}
+                  onChange={() => {
+                    handleChageRating(factorIdx, valueIdx);
+                  }}
+                />
                 <ChoiceCircle className={styles.radioIcon} />
                 <div className={styles.radioText}>{elem}</div>
-                {index < value.length - 1 && <div className={styles.radioSplitter} />}
+                {valueIdx < value.length - 1 && <div className={styles.radioSplitter} />}
               </label>
             );
           })}
