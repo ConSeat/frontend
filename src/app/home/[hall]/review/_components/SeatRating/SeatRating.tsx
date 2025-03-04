@@ -1,4 +1,5 @@
 import styles from './SeatRating.module.scss';
+import Splitter from '@/components/Splitter/Splitter';
 import { ChoiceCircle } from '@/assets';
 
 const RAITING_VALUE = {
@@ -40,6 +41,7 @@ const SeatRating = () => {
                 <input type="radio" name={name} value={elem} className={styles.radioInput} />
                 <ChoiceCircle className={styles.radioIcon} />
                 <div className={styles.radioText}>{elem}</div>
+                {index < value.length - 1 && <div className={styles.radioSplitter} />}
               </label>
             );
           })}

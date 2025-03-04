@@ -41,6 +41,8 @@
 }
 
 .radioLabel {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -49,6 +51,17 @@
 
   width: 51px;
   height: 76px;
+
+  .radioSplitter {
+    position: absolute;
+    top: 24px;
+    left: 51px;
+
+    width: 42px;
+    height: 3px;
+
+    background-color: $main-mint6;
+  }
 }
 
 .radioIcon {
