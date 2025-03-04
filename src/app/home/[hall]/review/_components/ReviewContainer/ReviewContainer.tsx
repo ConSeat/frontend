@@ -2,7 +2,7 @@
 
 import ReviewForm from '../ReviewForm';
 import { useReducer } from 'react';
-import { NONE, ReviewStep } from '@/constants/review';
+import { NONE, REVIEW } from '@/constants/review';
 import type {
   AdditionalInfo,
   ReviewAction,
@@ -21,6 +21,7 @@ const createInitReviewData = (hall: string): ReviewData => {
     seatInfo: {
       floor: '',
       section: '',
+      column: undefined,
     },
     additionalInfo: new Set(),
     images: [],
@@ -63,7 +64,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
     case 'CONCERT_SELECT':
       return updateState(state, {
         concert: action.payload.concert,
-        currentStep: ReviewStep.SeatInfoSelect,
+        currentStep: REVIEW.STEP.SEAT_INFO_SELECT,
       });
 
     case 'SEAT_INFO_SELECT':
@@ -71,8 +72,8 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       if (seatInfo === undefined) return state;
 
       const step = isSeatInfoComplete(seatInfo)
-        ? ReviewStep.SeatInfoSelect + 1
-        : ReviewStep.SeatInfoSelect;
+        ? REVIEW.STEP.SEAT_INFO_SELECT + 1
+        : REVIEW.STEP.SEAT_INFO_SELECT;
 
       return updateState(state, { seatInfo: action.payload.seatInfo, currentStep: step });
 
@@ -82,7 +83,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
       return updateState(state, {
         additionalInfo: toggleSetItem<AdditionalInfo>(state.additionalInfo, additionalInfo),
-        currentStep: ReviewStep.ImageUpload,
+        currentStep: REVIEW.STEP.IMAGE_UPLOAD,
       });
     }
 
@@ -92,7 +93,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
       return updateState(state, {
         images: [...state.images, images],
-        currentStep: ReviewStep.SummaryInfoSelect,
+        currentStep: REVIEW.STEP.SUMMARY_INFO_SELECT,
       });
     }
 
@@ -106,8 +107,8 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       nextSummary[index] = value;
 
       const step = nextSummary.every((elem) => elem !== NONE_SELECT)
-        ? ReviewStep.SummaryInfoSelect + 1
-        : ReviewStep.SummaryInfoSelect;
+        ? REVIEW.STEP.SUMMARY_INFO_SELECT + 1
+        : REVIEW.STEP.SUMMARY_INFO_SELECT;
 
       return updateState(state, {
         reviewSummary: nextSummary,
@@ -129,12 +130,12 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
       return updateState(state, {
         viewBlockInfo: nextInfo,
-        currentStep: ReviewStep.reviewInput,
+        currentStep: REVIEW.STEP.REVIEW_INPUT,
       });
     }
 
     case 'REVIEW_INPUT':
-      return updateState(state, { review: action.payload.review, currentStep: ReviewStep.submit });
+      return updateState(state, { review: action.payload.review, currentStep: REVIEW.STEP.SUBMIT });
 
     default:
       return state;

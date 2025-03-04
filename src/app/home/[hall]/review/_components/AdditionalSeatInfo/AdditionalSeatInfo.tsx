@@ -1,6 +1,6 @@
 import Badge from '../Badge';
 import styles from './AdditionalSeatInfo.module.scss';
-import { ADDITIONAL_INFO_SELECT, additionalInfoArray } from '@/constants/review';
+import { REVIEW, additionalInfoArray } from '@/constants/review';
 import type { AdditionalInfo, ReviewDispatch } from '@/types/review';
 
 interface AdditionalSeatInfoProps {
@@ -30,7 +30,10 @@ const AdditionalSeatInfo = ({ additionalInfo, dispatch }: AdditionalSeatInfoProp
           const badgeStyle = additionalInfo.has(info) ? styles.select : styles.badge;
 
           const handleBadgeClick = () => {
-            dispatch({ type: ADDITIONAL_INFO_SELECT, payload: { additionalInfo: info } });
+            dispatch({
+              type: REVIEW.ACTIONS.ADDITIONAL_INFO_SELECT,
+              payload: { additionalInfo: info },
+            });
           };
 
           return (
