@@ -1,3 +1,5 @@
+'use client';
+
 import ReviewDropdownInput from '../ReviewDropdownInput/ReviewDropdownInput';
 import { useState } from 'react';
 import { REVIEW } from '@/constants/review';
@@ -17,7 +19,7 @@ const options = [
 ];
 
 const ConcertSelectContent = ({ data, dispatch }: ConcertSelectContentProps) => {
-  const [selected, setSelected] = useState<string>(data || '');
+  const [selected, setSelected] = useState<string>(data);
 
   const handleConcertSelect = (value: string) => {
     setSelected(value);

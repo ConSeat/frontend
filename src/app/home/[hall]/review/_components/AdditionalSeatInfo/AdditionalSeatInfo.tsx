@@ -1,3 +1,5 @@
+'use client';
+
 import Badge from '../Badge';
 import styles from './AdditionalSeatInfo.module.scss';
 import { ADDITIONAL_INFO, REVIEW } from '@/constants/review';

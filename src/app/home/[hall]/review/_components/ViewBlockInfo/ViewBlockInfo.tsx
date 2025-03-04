@@ -1,3 +1,5 @@
+'use client';
+
 import Badge from '../Badge';
 import styles from './ViewBlockInfo.module.scss';
 import { REVIEW, VIEW_BLOCK_INFO } from '@/constants/review';
