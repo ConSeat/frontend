@@ -2,7 +2,7 @@
 
 import styles from './ReviewDropdownInput.module.scss';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import useDropdown from '@/hooks/useDropdown';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import Splitter from '@/components/Splitter/Splitter';
@@ -63,9 +63,8 @@ const ReviewDropdownInput = ({
         <Dropdown.Menu className={styles.reviewDropdownMenu}>
           {filteredOptions.length > 0 &&
             filteredOptions.map((option) => (
-              <>
+              <Fragment key={option}>
                 <Dropdown.Item
-                  key={option}
                   className={styles.reviewDropdownItem}
                   isSelected={value === option}
                   onClick={() => {
@@ -77,7 +76,7 @@ const ReviewDropdownInput = ({
                   {option}
                 </Dropdown.Item>
                 <Splitter color="subGray7" />
-              </>
+              </Fragment>
             ))}
         </Dropdown.Menu>
       )}
