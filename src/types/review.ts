@@ -26,10 +26,10 @@ export interface ReviewData {
   hall: string;
   concert: string;
   seatInfo: SeatInfo;
-  additionalInfo: Set<AdditionalInfo> | Set<unknown>;
+  additionalInfo: Set<AdditionalInfo>;
   images: ImageData[];
   reviewSummary: number[];
-  viewBlockInfo: Set<ViewBlockInfo> | Set<unknown>;
+  viewBlockInfo: Set<ViewBlockInfo>;
   review: string;
   currentStep: Step;
 }

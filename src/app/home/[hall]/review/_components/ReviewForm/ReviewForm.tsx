@@ -50,7 +50,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
             title={REVIEW.MESSAGE.ADDITIONAL_INFO_SELECT.TITLE}
             subtitle={REVIEW.MESSAGE.ADDITIONAL_INFO_SELECT.SUBTITLE}
           />
-          <AdditionalSeatInfo additionalInfo={reviewData.additionalInfo} dispatch={dispatch} />
+          <AdditionalSeatInfo data={reviewData.additionalInfo} dispatch={dispatch} />
         </ReviewSection>
       )}
       {isRender(REVIEW.STEPS.IMAGE_UPLOAD) && (

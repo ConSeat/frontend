@@ -22,10 +22,10 @@ const createInitReviewData = (hall: string): ReviewData => {
       section: '',
       column: '',
     },
-    additionalInfo: new Set(),
+    additionalInfo: new Set<AdditionalInfo>(),
     images: [],
     reviewSummary: [0, 0, 0],
-    viewBlockInfo: new Set(),
+    viewBlockInfo: new Set<ViewBlockInfo>(),
     review: '',
     currentStep: 0,
   };
@@ -105,7 +105,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       const { viewBlockInfo } = action.payload;
       if (!viewBlockInfo) return state;
 
-      let nextInfo = new Set<ViewBlockInfo | unknown>();
+      let nextInfo = new Set<ViewBlockInfo>();
 
       if (viewBlockInfo === NONE) {
         nextInfo = new Set([NONE]);

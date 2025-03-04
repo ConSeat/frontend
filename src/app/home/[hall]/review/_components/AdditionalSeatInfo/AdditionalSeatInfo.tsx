@@ -6,7 +6,7 @@ import { ADDITIONAL_INFO, REVIEW } from '@/constants/review';
 import type { AdditionalInfo, ReviewDispatch } from '@/types/review';
 
 interface AdditionalSeatInfoProps {
-  additionalInfo: Set<AdditionalInfo> | Set<unknown>;
+  data: Set<AdditionalInfo>;
   dispatch: ReviewDispatch;
 }
 
@@ -22,14 +22,14 @@ const splitSeatInfo = () => {
   return result;
 };
 
-const AdditionalSeatInfo = ({ additionalInfo, dispatch }: AdditionalSeatInfoProps) => {
+const AdditionalSeatInfo = ({ data, dispatch }: AdditionalSeatInfoProps) => {
   const seatInfoArray = splitSeatInfo();
 
   const badgeArray = seatInfoArray.map((seatInfo, index) => {
     return (
       <div key={index} className={styles.badgeContainer}>
         {seatInfo.map((info) => {
-          const badgeStyle = additionalInfo.has(info) ? styles.select : styles.badge;
+          const badgeStyle = data.has(info) ? styles.select : styles.badge;
 
           const handleBadgeClick = () => {
             dispatch({

@@ -6,7 +6,7 @@ import { REVIEW, VIEW_BLOCK_INFO } from '@/constants/review';
 import type { ReviewDispatch, ViewBlockInfo } from '@/types/review';
 
 interface ViewBlockInfoBannerProps {
-  viewBlockInfo: Set<ViewBlockInfo> | Set<unknown>;
+  viewBlockInfo: Set<ViewBlockInfo>;
   dispatch: ReviewDispatch;
 }
 

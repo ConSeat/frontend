@@ -1,8 +1,5 @@
-export const toggleSetItem = <T extends string>(
-  set: Set<T | unknown>,
-  item: T,
-): Set<T | unknown> => {
-  const newSet = new Set<T | unknown>(set);
+export const toggleSetItem = <T extends string>(set: Set<T>, item: T): Set<T> => {
+  const newSet = new Set<T>(set);
 
   if (newSet.has(item)) {
     newSet.delete(item);
