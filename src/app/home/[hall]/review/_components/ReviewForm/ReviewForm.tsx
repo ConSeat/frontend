@@ -4,15 +4,17 @@ import AdditionalSeatInfo from '../AdditionalSeatInfo';
 import ConcertSelectContent from '../ConcertSelectContent/ConcertSelectContent';
 import SelectionBox from '../ReviewSection/ReviewSection';
 import ReviewSection from '../ReviewSection/ReviewSection';
+import SeatInfoSelectContent from '../SeatInfoSelectContent/SeatInfoSelectContent';
 import ViewBlockInfoBanner from '../ViewBlockInfo';
 import styles from './ReviewForm.module.scss';
-import { ActionDispatch, useRef } from 'react';
+import { Dispatch, useRef } from 'react';
+import Button from '@/components/Button/Button';
 import { REVIEW } from '@/constants/review';
 import type { ReviewAction, ReviewData } from '@/types/review';
 
 interface ReviewFormProps {
   reviewData: ReviewData;
-  dispatch: ActionDispatch<[action: ReviewAction]>;
+  dispatch: Dispatch<ReviewAction>;
 }
 
 const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
@@ -33,40 +35,54 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
         </ReviewSection>
       )}
       {isRender(REVIEW.STEPS.SEAT_INFO_SELECT) && (
-        <div className={styles.reviewBanner}>
-          <h1>좌석 선택</h1>
-        </div>
+        <ReviewSection>
+          <div>좌석 배치도</div>
+          <SelectionBox.Title
+            title={REVIEW.MESSAGE.SEAT_INFO_SELECT.TITLE}
+            subtitle={REVIEW.MESSAGE.SEAT_INFO_SELECT.SUBTITLE}
+          />
+          <SeatInfoSelectContent data={reviewData.seatInfo} dispatch={dispatch} />
+        </ReviewSection>
       )}
       {isRender(REVIEW.STEPS.ADDITIONAL_INFO_SELECT) && (
-        <div className={styles.reviewBanner}>
+        <ReviewSection>
+          <SelectionBox.Title
+            title={REVIEW.MESSAGE.ADDITIONAL_INFO_SELECT.TITLE}
+            subtitle={REVIEW.MESSAGE.ADDITIONAL_INFO_SELECT.SUBTITLE}
+          />
           <AdditionalSeatInfo additionalInfo={reviewData.additionalInfo} dispatch={dispatch} />
-        </div>
+        </ReviewSection>
       )}
       {isRender(REVIEW.STEPS.IMAGE_UPLOAD) && (
-        <div className={styles.reviewBanner}>
-          <h1>시야 사진 등록</h1>
-        </div>
+        <ReviewSection>
+          <SelectionBox.Title
+            title={REVIEW.MESSAGE.IMAGE_UPLOAD.TITLE}
+            subtitle={REVIEW.MESSAGE.IMAGE_UPLOAD.SUBTITLE}
+          />
+        </ReviewSection>
       )}
       {isRender(REVIEW.STEPS.SUMMARY_INFO_SELECT) && (
-        <div className={styles.reviewBanner}>
-          <h1>시야 요약 정보</h1>
-        </div>
+        <ReviewSection>
+          <SelectionBox.Title title={REVIEW.MESSAGE.SUMMARY_INFO_SELECT.QUESTIONS[0]} />
+          <SelectionBox.Title title={REVIEW.MESSAGE.SUMMARY_INFO_SELECT.QUESTIONS[1]} />
+          <SelectionBox.Title title={REVIEW.MESSAGE.SUMMARY_INFO_SELECT.QUESTIONS[2]} />
+        </ReviewSection>
       )}
       {isRender(REVIEW.STEPS.VIEW_BLOCK_SELECT) && (
-        <div className={styles.reviewBanner}>
+        <ReviewSection>
+          <SelectionBox.Title
+            title={REVIEW.MESSAGE.VIEW_BLOCK_SELECT.TITLE}
+            subtitle={REVIEW.MESSAGE.VIEW_BLOCK_SELECT.SUBTITLE}
+          />
           <ViewBlockInfoBanner viewBlockInfo={reviewData.viewBlockInfo} dispatch={dispatch} />
-        </div>
+        </ReviewSection>
       )}
       {isRender(REVIEW.STEPS.REVIEW_INPUT) && (
-        <div className={styles.reviewBanner}>
-          <h1>리뷰 작성</h1>
-        </div>
+        <ReviewSection>
+          <SelectionBox.Title title={REVIEW.MESSAGE.REVIEW_INPUT.TITLE} />
+        </ReviewSection>
       )}
-      {isRender(REVIEW.STEPS.SUBMIT) && (
-        <div className={styles.reviewBanner}>
-          <h1>리뷰 제출</h1>
-        </div>
-      )}
+      {isRender(REVIEW.STEPS.SUBMIT) && <Button>작성완료</Button>}
     </form>
   );
 };

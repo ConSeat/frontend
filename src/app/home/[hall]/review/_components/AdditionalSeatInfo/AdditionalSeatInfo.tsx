@@ -54,10 +54,6 @@ const AdditionalSeatInfo = ({ additionalInfo, dispatch }: AdditionalSeatInfoProp
 
   return (
     <>
-      <div className={styles.title}>추가 좌석 정보를 선택해주세요</div>
-      <div className={styles.description}>
-        *플로어의 경우 공연별 변동사항이 많이 발생하여, 해당 정보가 꼭 필요해요
-      </div>
       <div className={styles.additionInfoSection}>{badgeArray}</div>
     </>
   );
