@@ -2,7 +2,7 @@
 
 import ReviewForm from '../ReviewForm';
 import { useReducer } from 'react';
-import { NONE, REVIEW } from '@/constants/review';
+import { FLOOR, NONE, NONE_SELECT, REVIEW } from '@/constants/review';
 import type {
   AdditionalInfo,
   ReviewAction,
@@ -13,9 +13,6 @@ import type {
 } from '@/types/review';
 import { toggleSetItem } from '@/utils/toggleSetItem';
 
-const FLOOR = 'FLOOR';
-const NONE_SELECT = 0;
-
 const createInitReviewData = (hall: string): ReviewData => {
   const initData: ReviewData = {
     hall,
@@ -23,7 +20,7 @@ const createInitReviewData = (hall: string): ReviewData => {
     seatInfo: {
       floor: '',
       section: '',
-      column: undefined,
+      column: '',
     },
     additionalInfo: new Set(),
     images: [],
@@ -42,10 +39,9 @@ const updateState = (state: ReviewData, updates: Partial<ReviewData>) => ({
 });
 
 const isSeatInfoComplete = (seatInfo: SeatInfo) => {
-  return (
-    (seatInfo.floor === FLOOR && seatInfo.section) ||
-    (seatInfo.floor !== FLOOR && seatInfo.section && seatInfo.column)
-  );
+  return seatInfo.floor === FLOOR
+    ? !!seatInfo.floor && !!seatInfo.section
+    : !!seatInfo.floor && !!seatInfo.section && !!seatInfo.column;
 };
 
 const reviewReducer = (state: ReviewData, action: ReviewAction) => {
@@ -58,17 +54,17 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
     case REVIEW.ACTIONS.SEAT_INFO_SELECT:
       const { seatInfo } = action.payload;
-      if (seatInfo === undefined) return state;
+      if (!seatInfo) return state;
 
       const step = isSeatInfoComplete(seatInfo)
         ? REVIEW.STEPS.SEAT_INFO_SELECT + 1
         : REVIEW.STEPS.SEAT_INFO_SELECT;
 
-      return updateState(state, { seatInfo: action.payload.seatInfo, currentStep: step as Step });
+      return updateState(state, { seatInfo, currentStep: step as Step });
 
     case REVIEW.ACTIONS.ADDITIONAL_INFO_SELECT: {
       const { additionalInfo } = action.payload;
-      if (additionalInfo === undefined) return state;
+      if (!additionalInfo) return state;
 
       return updateState(state, {
         additionalInfo: toggleSetItem<AdditionalInfo>(state.additionalInfo, additionalInfo),
@@ -78,7 +74,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
     case REVIEW.ACTIONS.IMAGE_UPLOAD: {
       const { images } = action.payload;
-      if (images === undefined) return state;
+      if (!images) return state;
 
       return updateState(state, {
         images: [...state.images, images],
@@ -88,7 +84,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
     case REVIEW.ACTIONS.SUMMARY_INFO_SELECT: {
       const { reviewSummary } = action.payload;
-      if (reviewSummary === undefined) return state;
+      if (!reviewSummary) return state;
 
       const { index, value } = reviewSummary;
 
@@ -107,7 +103,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
     case REVIEW.ACTIONS.VIEW_BLOCK_SELECT: {
       const { viewBlockInfo } = action.payload;
-      if (viewBlockInfo === undefined) return state;
+      if (!viewBlockInfo) return state;
 
       let nextInfo = new Set<ViewBlockInfo | unknown>();
 
