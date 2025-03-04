@@ -1,7 +1,6 @@
 'use client';
 
 import ReviewDropdown from '../ReviewDropdown/ReviewDropdown';
-import { useState } from 'react';
 import { FLOOR, REVIEW } from '@/constants/review';
 import { ReviewDispatch, SeatInfo } from '@/types/review';
 
@@ -13,43 +12,36 @@ interface SeatInfoSelectProps {
 }
 
 const SeatInfoSelect = ({ data, dispatch }: SeatInfoSelectProps) => {
-  const [selected, setSelected] = useState<SeatInfo>(data);
-
   const handleSeatInfoSelect = (value: string, key: SeatInfoKey) => {
-    setSelected((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-
     dispatch({
       type: REVIEW.ACTIONS.SEAT_INFO_SELECT,
-      payload: { seatInfo: { ...selected, [key]: value } },
+      payload: { seatInfo: { ...data, [key]: value } },
     });
   };
 
   return (
     <>
       <ReviewDropdown
-        value={selected.floor}
+        value={data.floor}
         onChange={(value) => {
           handleSeatInfoSelect(value, 'floor');
         }}
         options={['FLOOR', '1층', '2층']}
         placeholder="층을 선택해주세요"
       />
-      {selected.floor && (
+      {data.floor && (
         <ReviewDropdown
-          value={selected.section}
+          value={data.section}
           onChange={(value) => {
             handleSeatInfoSelect(value, 'section');
           }}
-          options={['1구열', '2구역', '3구열', '4구역', '5구열', '6구역']}
+          options={['1구열', '2구역', '3구역', '4구역', '5구역', '6구역']}
           placeholder="층을 선택해주세요"
         />
       )}
-      {selected.floor !== FLOOR && selected.section && (
+      {data.floor !== FLOOR && data.section && (
         <ReviewDropdown
-          value={selected.column as string}
+          value={data.column as string}
           onChange={(value) => {
             handleSeatInfoSelect(value, 'column');
           }}

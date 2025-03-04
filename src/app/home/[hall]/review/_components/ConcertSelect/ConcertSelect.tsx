@@ -1,7 +1,6 @@
 'use client';
 
 import ReviewDropdownInput from '../ReviewDropdownInput/ReviewDropdownInput';
-import { useState } from 'react';
 import { REVIEW } from '@/constants/review';
 import { ReviewDispatch } from '@/types/review';
 
@@ -19,10 +18,7 @@ const options = [
 ];
 
 const ConcertSelect = ({ data, dispatch }: ConcertSelectProps) => {
-  const [selected, setSelected] = useState<string>(data);
-
   const handleConcertSelect = (value: string) => {
-    setSelected(value);
     dispatch({
       type: REVIEW.ACTIONS.CONCERT_SELECT,
       payload: { concert: value },
@@ -31,7 +27,7 @@ const ConcertSelect = ({ data, dispatch }: ConcertSelectProps) => {
 
   return (
     <ReviewDropdownInput
-      value={selected}
+      value={data}
       onChange={(value) => {
         handleConcertSelect(value);
       }}

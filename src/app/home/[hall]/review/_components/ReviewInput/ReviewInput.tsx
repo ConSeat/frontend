@@ -14,6 +14,7 @@ const ReviewInput = ({ data, dispatch }: ReviewInputProps) => {
       payload: { review: value },
     });
   };
+
   return (
     <Textarea
       value={data}
