@@ -1,0 +1,40 @@
+@import '@/styles/style';
+
+// section
+.reviewSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  align-self: stretch;
+
+  width: 100%;
+  height: fit-content;
+  padding: 32px 20px 24px;
+  border-radius: 5px;
+
+  background-color: $sub-gray8;
+}
+
+// Title
+.reviewSectionTitleWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  align-self: stretch;
+}
+
+.reviewSectionTitle {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  color: $sub-gray1;
+}
+
+.reviewSectionSubtitle {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  color: $sub-gray3;
+}
