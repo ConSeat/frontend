@@ -1,10 +1,13 @@
 'use client';
 
 import AdditionalSeatInfo from '../AdditionalSeatInfo';
+import ConcertSelectContent from '../ConcertSelectContent/ConcertSelectContent';
+import SelectionBox from '../ReviewSection/ReviewSection';
+import ReviewSection from '../ReviewSection/ReviewSection';
 import ViewBlockInfoBanner from '../ViewBlockInfo';
 import styles from './ReviewForm.module.scss';
 import { ActionDispatch, useRef } from 'react';
-import { REVIEW_STEPS } from '@/constants/review';
+import { REVIEW_MESSAGE, REVIEW_STEPS } from '@/constants/review';
 import type { ReviewAction, ReviewData } from '@/types/review';
 
 interface ReviewFormProps {
@@ -21,9 +24,13 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
   return (
     <form className={styles.reviewFormLayout}>
       {isRender(REVIEW_STEPS.CONCERT_SELECT) && (
-        <div className={styles.reviewBanner}>
-          <h1>콘서트 선택</h1>
-        </div>
+        <ReviewSection>
+          <SelectionBox.Title
+            title={REVIEW_MESSAGE.CONCERT_SELECT.TITLE}
+            subtitle={REVIEW_MESSAGE.CONCERT_SELECT.SUBTITLE}
+          />
+          <ConcertSelectContent data={reviewData.concert} dispatch={dispatch} />
+        </ReviewSection>
       )}
       {isRender(REVIEW_STEPS.SEAT_INFO_SELECT) && (
         <div className={styles.reviewBanner}>

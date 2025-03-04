@@ -42,10 +42,14 @@ export const REVIEW_STEPS = {
   SUBMIT: 7,
 } as const;
 
-export const REVIEW_MESSAGE = {
+export const REVIEW_MESSAGE: Record<
+  string,
+  { TITLE?: string; SUBTITLE?: string; QUESTIONS?: string[]; PLACEHOLDER?: string }
+> = {
   CONCERT_SELECT: {
     TITLE: '내가 다녀온\n콘서트를 선택해주세요',
     SUBTITLE: '*영문 또는 한글로 가수명을 검색해 보세요.',
+    PLACEHOLDER: '층을 선택해주세요',
   },
   SEAT_INFO_SELECT: {
     TITLE: '좌석을 선택해주세요',
@@ -74,4 +78,4 @@ export const REVIEW_MESSAGE = {
   REVIEW_INPUT: {
     TITLE: '자유롭게 후기를 남겨주세요!',
   },
-} as const;
+};

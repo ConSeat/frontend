@@ -19,7 +19,7 @@ const NONE_SELECT = 0;
 const createInitReviewData = (hall: string): ReviewData => {
   const initData: ReviewData = {
     hall,
-    concert: null,
+    concert: '',
     seatInfo: {
       floor: '',
       section: '',
