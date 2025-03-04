@@ -22,6 +22,7 @@ const ReviewDropdown = ({ value, onChange, options, placeholder }: ReviewDropdow
       <Dropdown.Trigger
         as={
           <button
+            type="button"
             onClick={handleToggleDropdown}
             className={classNames(styles.reviewDropdownButton, {
               [styles.isOpen]: isDropdownOpen,
