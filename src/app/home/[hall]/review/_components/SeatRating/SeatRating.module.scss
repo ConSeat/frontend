@@ -20,6 +20,15 @@
   width: 100%;
 }
 
+.radioGroup {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 234px;
+}
+
 .ratingTitle {
   //   font-family: Pretendard;
   font-size: 20px;
@@ -29,15 +38,6 @@
   color: $sub-gray1;
   text-align: center;
   letter-spacing: -0.4px;
-}
-
-.radioGroup {
-  display: flex;
-  gap: 36px;
-  align-items: center;
-  justify-content: center;
-
-  width: 234px;
 }
 
 .radioLabel {
@@ -75,13 +75,13 @@
   display: none;
 
   &:checked {
-    + .radioIcon {
+    ~ .radioIcon {
       path {
         fill: $main-mint1;
       }
     }
 
-    + .radioText {
+    ~ .radioText {
       color: $main-mint1;
     }
   }
