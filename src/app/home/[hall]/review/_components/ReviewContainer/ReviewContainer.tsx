@@ -49,7 +49,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
     case REVIEW.ACTIONS.CONCERT_SELECT:
       return updateState(state, {
         concert: action.payload.concert,
-        currentStep: REVIEW.STEPS.SEAT_INFO_SELECT,
+        currentStep: REVIEW.STEPS.SUBMIT,
       });
 
     case REVIEW.ACTIONS.SEAT_INFO_SELECT:
@@ -137,6 +137,7 @@ interface ReviewContainerProps {
 
 const ReviewContainer = ({ hall }: ReviewContainerProps) => {
   const [state, dispatch] = useReducer(reviewReducer, createInitReviewData(hall));
+  console.log(state);
 
   return <ReviewForm reviewData={state} dispatch={dispatch} />;
 };

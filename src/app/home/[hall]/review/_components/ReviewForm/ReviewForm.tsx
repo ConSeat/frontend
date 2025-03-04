@@ -2,6 +2,7 @@
 
 import AdditionalSeatInfo from '../AdditionalSeatInfo';
 import ConcertSelect from '../ConcertSelect/ConcertSelect';
+import ReviewInput from '../ReviewInput/ReviewInput';
 import ReviewSection from '../ReviewSection/ReviewSection';
 import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
 import ViewBlockInfo from '../ViewBlockInfo';
@@ -83,6 +84,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
       {isRender(REVIEW.STEPS.REVIEW_INPUT) && (
         <ReviewSection>
           <ReviewSection.Title title={REVIEW.MESSAGE.REVIEW_INPUT.TITLE} />
+          <ReviewInput data={reviewData.review} dispatch={dispatch} />
         </ReviewSection>
       )}
       {isRender(REVIEW.STEPS.SUBMIT) && <Button>작성완료</Button>}

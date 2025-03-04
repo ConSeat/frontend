@@ -7,6 +7,7 @@
   align-items: center;
   justify-content: center;
 
+  width: 100%;
   padding: 20px 16px;
   border-radius: 5px;
 
@@ -22,7 +23,10 @@
   padding: 0;
   border: none;
 
-  line-height: normal;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 20px;
   color: $sub-gray3;
 
   background-color: transparent;
@@ -32,6 +36,14 @@
   @include scrollbar(4px);
 }
 
+.textarea::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 20px;
+  color: $sub-gray6;
+}
+
 .charCount {
   display: flex;
   align-items: center;
@@ -39,10 +51,18 @@
   width: 100%;
 
   .valueLength {
+    font-size: 16px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: normal;
     color: $sub-gray4;
   }
 
   .maxLength {
+    font-size: 16px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: normal;
     color: $sub-gray6;
   }
 }
