@@ -1,0 +1,80 @@
+@import '@/styles/style';
+
+.viewBlockInfoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+
+  width: 302px;
+}
+
+.badgeContainer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  align-self: stretch;
+  justify-content: center;
+}
+
+.badgeText {
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}
+
+.badge {
+  cursor: pointer;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 16px;
+  border-radius: 50px;
+
+  color: $sub-gray2;
+
+  background: $main-mint6;
+}
+
+.select {
+  cursor: pointer;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 16px;
+  border-radius: 50px;
+
+  color: $sub-black;
+
+  background: $main-mint1;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 28px;
+  color: $sub-gray1;
+  text-align: center;
+  letter-spacing: -0.4px;
+}
+
+.description {
+  padding: 0 15px;
+
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 16px; /* 133.333% */
+  color: $sub-gray3;
+  text-align: center;
+  letter-spacing: -0.24px;
+}
