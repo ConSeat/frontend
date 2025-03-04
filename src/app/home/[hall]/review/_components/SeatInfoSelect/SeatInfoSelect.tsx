@@ -7,12 +7,12 @@ import { ReviewDispatch, SeatInfo } from '@/types/review';
 
 type SeatInfoKey = keyof SeatInfo;
 
-interface SeatInfoSelectContentProps {
+interface SeatInfoSelectProps {
   data: SeatInfo;
   dispatch: ReviewDispatch;
 }
 
-const SeatInfoSelectContent = ({ data, dispatch }: SeatInfoSelectContentProps) => {
+const SeatInfoSelect = ({ data, dispatch }: SeatInfoSelectProps) => {
   const [selected, setSelected] = useState<SeatInfo>(data);
 
   const handleSeatInfoSelect = (value: string, key: SeatInfoKey) => {
@@ -61,4 +61,4 @@ const SeatInfoSelectContent = ({ data, dispatch }: SeatInfoSelectContentProps) =
   );
 };
 
-export default SeatInfoSelectContent;
+export default SeatInfoSelect;

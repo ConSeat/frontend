@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { REVIEW } from '@/constants/review';
 import { ReviewDispatch } from '@/types/review';
 
-interface ConcertSelectContentProps {
+interface ConcertSelectProps {
   data: string;
   dispatch: ReviewDispatch;
 }
@@ -18,14 +18,14 @@ const options = [
   '텐(NCT) 2025 - 서울',
 ];
 
-const ConcertSelectContent = ({ data, dispatch }: ConcertSelectContentProps) => {
+const ConcertSelect = ({ data, dispatch }: ConcertSelectProps) => {
   const [selected, setSelected] = useState<string>(data);
 
   const handleConcertSelect = (value: string) => {
     setSelected(value);
     dispatch({
       type: REVIEW.ACTIONS.CONCERT_SELECT,
-      payload: { concert: selected },
+      payload: { concert: value },
     });
   };
 
@@ -41,4 +41,4 @@ const ConcertSelectContent = ({ data, dispatch }: ConcertSelectContentProps) => 
   );
 };
 
-export default ConcertSelectContent;
+export default ConcertSelect;
