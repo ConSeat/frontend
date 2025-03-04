@@ -1,3 +1,4 @@
+import { ActionDispatch } from 'react';
 import {
   ADDITIONAL_INFO_SELECT,
   CONCERT_SELECT,
@@ -20,7 +21,7 @@ export type Review =
   | typeof VIEW_BLOCK_SELECT
   | typeof REVIEW_INPUT;
 
-export type AddtionalInfo = (typeof additionalInfoArray)[number];
+export type AdditionalInfo = (typeof additionalInfoArray)[number];
 export type ViewBlockInfo = (typeof viewBlockInfoArray)[number];
 
 // type ImageFile = File & {
@@ -43,7 +44,7 @@ export interface ReviewData {
   hall: string;
   concert: string | null;
   seatInfo: SeatInfo;
-  additionalInfo: Set<AddtionalInfo> | Set<unknown>;
+  additionalInfo: Set<AdditionalInfo> | Set<unknown>;
   images: ImageData[];
   reviewSummary: number[];
   viewBlockInfo: Set<ViewBlockInfo> | Set<unknown>;
@@ -54,7 +55,7 @@ export interface ReviewData {
 interface ActionPayload {
   concert?: string;
   seatInfo?: SeatInfo;
-  additionalInfo?: AddtionalInfo;
+  additionalInfo?: AdditionalInfo;
   images?: ImageData;
   reviewSummary?: { index: number; value: number };
   viewBlockInfo?: ViewBlockInfo;
@@ -65,3 +66,5 @@ export interface ReviewAction {
   type: Review;
   payload: ActionPayload;
 }
+
+export type ReviewDispatch = ActionDispatch<[action: ReviewAction]>;
