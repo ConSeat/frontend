@@ -1,16 +1,16 @@
-import styles from './RadioLabel.module.scss';
+import styles from './RadioArea.module.scss';
 import { ChoiceCircle } from '@/assets';
 
-interface RadioLabelProps {
+interface RadioAreaProps {
   name: string;
   value: string;
   onChange: () => void;
   isLastLabel: boolean;
 }
 
-const RadioLabel = ({ name, value, isLastLabel, onChange }: RadioLabelProps) => {
+const RadioArea = ({ name, value, isLastLabel, onChange }: RadioAreaProps) => {
   return (
-    <label className={styles.radioLabel}>
+    <label className={styles.RadioArea}>
       <input
         type="radio"
         name={name}
@@ -25,4 +25,4 @@ const RadioLabel = ({ name, value, isLastLabel, onChange }: RadioLabelProps) => 
   );
 };
 
-export default RadioLabel;
+export default RadioArea;

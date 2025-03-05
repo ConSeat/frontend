@@ -1,4 +1,4 @@
-import RadioLabel from '../RadioLabel';
+import RadioArea from '../RadioArea';
 import styles from './SeatRating.module.scss';
 import { REVIEW } from '@/constants/review';
 import { ReviewDispatch } from '@/types/review';
@@ -49,7 +49,7 @@ const SeatRating = ({ dispatch }: SeatRatingProps) => {
         <div className={styles.radioGroup}>
           {value.map((elem, valueIdx) => {
             return (
-              <RadioLabel
+              <RadioArea
                 key={valueIdx}
                 name={name}
                 value={elem}
