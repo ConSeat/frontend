@@ -1,5 +1,5 @@
+import RadioLabel from '../RadioLabel';
 import styles from './SeatRating.module.scss';
-import { ChoiceCircle } from '@/assets';
 import { REVIEW } from '@/constants/review';
 import { ReviewDispatch } from '@/types/review';
 
@@ -33,7 +33,7 @@ const ratingFactorArray = [
 ];
 
 const SeatRating = ({ dispatch }: SeatRatingProps) => {
-  const handleChageRating = (index: number, value: number) => {
+  const handleChangeInput = (index: number, value: number) => {
     dispatch({
       type: REVIEW.ACTIONS.RATING_INFO_SELECT,
       payload: { seatRating: { index, value } },
@@ -49,20 +49,13 @@ const SeatRating = ({ dispatch }: SeatRatingProps) => {
         <div className={styles.radioGroup}>
           {value.map((elem, valueIdx) => {
             return (
-              <label key={valueIdx} className={styles.radioLabel}>
-                <input
-                  type="radio"
-                  name={name}
-                  value={elem}
-                  className={styles.radioInput}
-                  onChange={() => {
-                    handleChageRating(factorIdx, valueIdx);
-                  }}
-                />
-                <ChoiceCircle className={styles.radioIcon} />
-                <div className={styles.radioText}>{elem}</div>
-                {valueIdx < value.length - 1 && <div className={styles.radioSplitter} />}
-              </label>
+              <RadioLabel
+                key={valueIdx}
+                name={name}
+                value={elem}
+                onChange={() => handleChangeInput(factorIdx, valueIdx)}
+                isLastLabel={valueIdx === value.length - 1}
+              />
             );
           })}
         </div>
