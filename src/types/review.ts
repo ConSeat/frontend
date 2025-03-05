@@ -28,7 +28,7 @@ export interface ReviewData {
   seatInfo: SeatInfo;
   additionalInfo: Set<AdditionalInfo> | Set<unknown>;
   images: ImageData[];
-  reviewSummary: number[];
+  seatRating: number[];
   viewBlockInfo: Set<ViewBlockInfo> | Set<unknown>;
   review: string;
   currentStep: Step;
@@ -39,7 +39,7 @@ interface ActionPayload {
   seatInfo?: SeatInfo;
   additionalInfo?: AdditionalInfo;
   images?: ImageData;
-  reviewSummary?: { index: number; value: number };
+  seatRating?: { index: number; value: number };
   viewBlockInfo?: ViewBlockInfo;
   review?: string;
 }

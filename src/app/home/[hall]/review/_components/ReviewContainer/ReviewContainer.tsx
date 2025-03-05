@@ -27,7 +27,7 @@ const createInitReviewData = (hall: string): ReviewData => {
     },
     additionalInfo: new Set(),
     images: [],
-    reviewSummary: [0, 0, 0],
+    seatRating: [0, 0, 0],
     viewBlockInfo: new Set(),
     review: '',
     currentStep: 0,
@@ -84,25 +84,25 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
       return updateState(state, {
         images: [...state.images, images],
-        currentStep: REVIEW.STEP.SUMMARY_INFO_SELECT,
+        currentStep: REVIEW.STEP.RATING_INFO_SELECT,
       });
     }
 
-    case ACTIONS.SUMMARY_INFO_SELECT: {
-      const { reviewSummary } = action.payload;
-      if (reviewSummary === undefined) return state;
+    case ACTIONS.RATING_INFO_SELECT: {
+      const { seatRating } = action.payload;
+      if (seatRating === undefined) return state;
 
-      const { index, value } = reviewSummary;
+      const { index, value } = seatRating;
 
-      const nextSummary = state.reviewSummary.slice();
-      nextSummary[index] = value;
+      const nextRating = state.seatRating.slice();
+      nextRating[index] = value;
 
-      const step = nextSummary.every((elem) => elem !== NONE_SELECT)
-        ? REVIEW.STEP.SUMMARY_INFO_SELECT + 1
-        : REVIEW.STEP.SUMMARY_INFO_SELECT;
+      const step = nextRating.every((elem) => elem !== NONE_SELECT)
+        ? REVIEW.STEP.RATING_INFO_SELECT + 1
+        : REVIEW.STEP.RATING_INFO_SELECT;
 
       return updateState(state, {
-        reviewSummary: nextSummary,
+        seatRating: nextRating,
         currentStep: step as Step,
       });
     }

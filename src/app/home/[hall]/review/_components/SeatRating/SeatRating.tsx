@@ -1,5 +1,6 @@
 import styles from './SeatRating.module.scss';
 import { ChoiceCircle } from '@/assets';
+import { REVIEW } from '@/constants/review';
 import { ReviewDispatch } from '@/types/review';
 
 interface SeatRatingProps {
@@ -33,7 +34,10 @@ const ratingFactorArray = [
 
 const SeatRating = ({ dispatch }: SeatRatingProps) => {
   const handleChageRating = (index: number, value: number) => {
-    dispatch({ type: 'SUMMARY_INFO_SELECT', payload: { reviewSummary: { index, value } } });
+    dispatch({
+      type: REVIEW.ACTIONS.RATING_INFO_SELECT,
+      payload: { seatRating: { index, value } },
+    });
   };
 
   const ratingContents = ratingFactorArray.map((ratingFactor, factorIdx) => {

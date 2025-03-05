@@ -21,7 +21,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
     seatInfo,
     additionalInfo,
     images,
-    reviewSummary,
+    seatRating,
     viewBlockInfo,
     review,
     currentStep,
@@ -54,7 +54,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
           <h1>시야 사진 등록</h1>
         </div>
       )}
-      {isRender(STEP.SUMMARY_INFO_SELECT) && (
+      {isRender(STEP.RATING_INFO_SELECT) && (
         <div className={styles.reviewBanner}>
           <SeatRating dispatch={dispatch} />
         </div>
