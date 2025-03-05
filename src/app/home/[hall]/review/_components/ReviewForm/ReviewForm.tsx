@@ -5,6 +5,7 @@ import ConcertSelect from '../ConcertSelect/ConcertSelect';
 import ReviewInput from '../ReviewInput/ReviewInput';
 import ReviewSection from '../ReviewSection/ReviewSection';
 import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
+import SeatRating from '../SeatRating';
 import ViewBlockInfo from '../ViewBlockInfo';
 import styles from './ReviewForm.module.scss';
 import { Dispatch, useRef } from 'react';
@@ -62,14 +63,15 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
           <div>사진 추가</div>
         </ReviewSection>
       )}
-      {isRender(REVIEW.STEPS.SUMMARY_INFO_SELECT) && (
+      {isRender(REVIEW.STEPS.RATING_INFO_SELECT) && (
         <ReviewSection>
-          <ReviewSection.Title title={REVIEW.MESSAGE.SUMMARY_INFO_SELECT.QUESTIONS[0]} />
+          <ReviewSection.Title title={REVIEW.MESSAGE.RATING_INFO_SELECT.QUESTIONS[0]} />
           <div>라디오 버튼 추가</div>
-          <ReviewSection.Title title={REVIEW.MESSAGE.SUMMARY_INFO_SELECT.QUESTIONS[1]} />
+          <ReviewSection.Title title={REVIEW.MESSAGE.RATING_INFO_SELECT.QUESTIONS[1]} />
           <div>라디오 버튼 추가</div>
-          <ReviewSection.Title title={REVIEW.MESSAGE.SUMMARY_INFO_SELECT.QUESTIONS[2]} />
+          <ReviewSection.Title title={REVIEW.MESSAGE.RATING_INFO_SELECT.QUESTIONS[2]} />
           <div>라디오 버튼 추가</div>
+          <SeatRating dispatch={dispatch} />
         </ReviewSection>
       )}
       {isRender(REVIEW.STEPS.VIEW_BLOCK_SELECT) && (

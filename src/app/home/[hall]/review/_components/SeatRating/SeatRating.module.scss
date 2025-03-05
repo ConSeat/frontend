@@ -1,0 +1,40 @@
+@import '@/styles/style';
+
+.ratingLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 302px;
+}
+
+.ratingWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 234px;
+}
+
+.ratingTitle {
+  font-size: 20px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 28px; /* 140% */
+  color: $sub-gray1;
+  text-align: center;
+  letter-spacing: -0.4px;
+}

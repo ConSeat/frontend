@@ -1,0 +1,60 @@
+@import '@/styles/style';
+
+.RadioArea {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+
+  width: 51px;
+  height: 76px;
+
+  .radioSplitter {
+    position: absolute;
+    top: 24px;
+    left: 51px;
+
+    width: 42px;
+    height: 3px;
+
+    background-color: $main-mint6;
+  }
+}
+
+.radioIcon {
+  cursor: pointer;
+
+  path {
+    fill: $main-mint6;
+  }
+}
+
+.radioText {
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: normal;
+  color: $sub-gray3;
+  text-align: center;
+  letter-spacing: -0.28px;
+  white-space: nowrap;
+}
+
+.radioInput {
+  display: none;
+
+  &:checked {
+    ~ .radioIcon {
+      path {
+        fill: $main-mint1;
+      }
+    }
+
+    ~ .radioText {
+      color: $main-mint1;
+    }
+  }
+}
