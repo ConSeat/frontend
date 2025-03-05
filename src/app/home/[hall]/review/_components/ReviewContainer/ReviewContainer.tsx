@@ -49,7 +49,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
     case REVIEW.ACTIONS.CONCERT_SELECT:
       return updateState(state, {
         concert: action.payload.concert,
-        currentStep: REVIEW.STEPS.CONCERT_SELECT,
+        currentStep: (REVIEW.STEPS.CONCERT_SELECT + 1) as Step,
       });
 
     case REVIEW.ACTIONS.SEAT_INFO_SELECT:
@@ -68,7 +68,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
       return updateState(state, {
         additionalInfo: toggleSetItem<AdditionalInfo>(state.additionalInfo, additionalInfo),
-        currentStep: REVIEW.STEPS.IMAGE_UPLOAD,
+        currentStep: (REVIEW.STEPS.ADDITIONAL_INFO_SELECT + 1) as Step,
       });
     }
 
@@ -78,7 +78,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
       return updateState(state, {
         images: [...state.images, images],
-        currentStep: REVIEW.STEPS.RATING_INFO_SELECT,
+        currentStep: REVIEW.STEPS.IMAGE_UPLOAD as Step,
       });
     }
 
@@ -116,14 +116,14 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
       return updateState(state, {
         viewBlockInfo: nextInfo,
-        currentStep: REVIEW.STEPS.REVIEW_INPUT,
+        currentStep: (REVIEW.STEPS.VIEW_BLOCK_SELECT + 1) as Step,
       });
     }
 
     case REVIEW.ACTIONS.REVIEW_INPUT:
       return updateState(state, {
         review: action.payload.review,
-        currentStep: REVIEW.STEPS.SUBMIT,
+        currentStep: (REVIEW.STEPS.REVIEW_INPUT + 1) as Step,
       });
 
     default:
