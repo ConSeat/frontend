@@ -65,12 +65,6 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
       )}
       {isRender(REVIEW.STEPS.RATING_INFO_SELECT) && (
         <ReviewSection>
-          <ReviewSection.Title title={REVIEW.MESSAGE.RATING_INFO_SELECT.QUESTIONS[0]} />
-          <div>라디오 버튼 추가</div>
-          <ReviewSection.Title title={REVIEW.MESSAGE.RATING_INFO_SELECT.QUESTIONS[1]} />
-          <div>라디오 버튼 추가</div>
-          <ReviewSection.Title title={REVIEW.MESSAGE.RATING_INFO_SELECT.QUESTIONS[2]} />
-          <div>라디오 버튼 추가</div>
           <SeatRating dispatch={dispatch} />
         </ReviewSection>
       )}

@@ -17,8 +17,6 @@
 .textarea {
   resize: none;
 
-  overflow: hidden auto;
-
   width: 100%;
   padding: 0;
   border: none;
@@ -32,8 +30,6 @@
   background-color: transparent;
   outline: none;
   outline-color: none;
-
-  @include scrollbar(4px);
 }
 
 .textarea::placeholder {
