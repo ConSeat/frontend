@@ -8,3 +8,4 @@ export { default as UpArrow } from '@/assets/icon/up-arrow.svg';
 export { default as DownArrow } from '@/assets/icon/down-arrow.svg';
 
 export { default as ChoiceCircle } from '@/assets/icon/btn-choiceCircle.svg';
+export { default as CloseCircle } from '@/assets/icon/close-circle.svg';
