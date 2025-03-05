@@ -1,6 +1,7 @@
 'use client';
 
 import AdditionalSeatInfo from '../AdditionalSeatInfo';
+import SeatImage from '../SeatImage';
 import SeatRating from '../SeatRating';
 import ViewBlockInfoBanner from '../ViewBlockInfo';
 import styles from './ReviewForm.module.scss';
@@ -51,7 +52,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
       )}
       {isRender(STEP.IMAGE_UPLOAD) && (
         <div className={styles.reviewBanner}>
-          <h1>시야 사진 등록</h1>
+          <SeatImage images={images} dispatch={dispatch} />
         </div>
       )}
       {isRender(STEP.RATING_INFO_SELECT) && (
