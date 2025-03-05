@@ -6,13 +6,9 @@ export type AdditionalInfo = (typeof additionalInfoArray)[number];
 export type ViewBlockInfo = (typeof viewBlockInfoArray)[number];
 
 export type Step = (typeof REVIEW.STEP)[keyof typeof REVIEW.STEP];
-// type ImageFile = File & {
-//   type: 'image/jpeg' | 'image/png' | 'image/gif' | 'image/webp';
-// };
 
-interface ImageData {
-  // file: ImageFile;
-  file: string;
+export interface ImageData {
+  file: File;
   previewUrl: string;
 }
 
