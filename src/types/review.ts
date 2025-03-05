@@ -10,9 +10,8 @@ export type Step = (typeof REVIEW.STEPS)[keyof typeof REVIEW.STEPS];
 //   type: 'image/jpeg' | 'image/png' | 'image/gif' | 'image/webp';
 // };
 
-interface ImageData {
-  // file: ImageFile;
-  file: string;
+export interface ImageData {
+  file: File;
   previewUrl: string;
 }
 
