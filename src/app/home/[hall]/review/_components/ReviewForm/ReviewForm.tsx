@@ -4,6 +4,7 @@ import AdditionalSeatInfo from '../AdditionalSeatInfo';
 import ConcertSelect from '../ConcertSelect/ConcertSelect';
 import ReviewInput from '../ReviewInput/ReviewInput';
 import ReviewSection from '../ReviewSection/ReviewSection';
+import SeatImage from '../SeatImage';
 import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
 import SeatRating from '../SeatRating';
 import ViewBlockInfo from '../ViewBlockInfo';
