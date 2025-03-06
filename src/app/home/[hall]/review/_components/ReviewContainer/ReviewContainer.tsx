@@ -82,6 +82,26 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       });
     }
 
+    case REVIEW.ACTIONS.IMAGE_REMOVE: {
+      const { removeImageIndex } = action.payload;
+      if (removeImageIndex === undefined) return state;
+
+      return updateState(state, {
+        images: state.images.filter((_, index) => removeImageIndex !== index),
+        currentStep: REVIEW.STEPS.RATING_INFO_SELECT,
+      });
+    }
+
+    case REVIEW.ACTIONS.IMAGE_REMOVE: {
+      const { removeImageIndex } = action.payload;
+      if (removeImageIndex === undefined) return state;
+
+      return updateState(state, {
+        images: state.images.filter((_, index) => removeImageIndex !== index),
+        currentStep: REVIEW.STEPS.RATING_INFO_SELECT,
+      });
+    }
+
     case REVIEW.ACTIONS.RATING_INFO_SELECT: {
       const { seatRating } = action.payload;
       if (seatRating === undefined) return state;

@@ -38,6 +38,7 @@ interface ActionPayload {
   seatInfo?: SeatInfo;
   additionalInfo?: AdditionalInfo;
   images?: ImageData;
+  removeImageIndex?: number;
   seatRating?: { index: number; value: number };
   viewBlockInfo?: ViewBlockInfo;
   review?: string;

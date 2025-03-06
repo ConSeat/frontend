@@ -83,14 +83,25 @@ const SeatImage = ({ images, dispatch }: SeatImageProps) => {
           </div>
           <div></div>
           <div className={styles.imageList}>
-            {images.map((img) => (
-              <div key={img.previewUrl} className={styles.imageItem}>
-                <img src={img.previewUrl} />
-                <button>
-                  <CloseCircle />
-                </button>
-              </div>
-            ))}
+            {images.map((img, index) => {
+              const handleRemoveButtonClick = () => {
+                dispatch({
+                  type: REVIEW.ACTIONS.IMAGE_REMOVE,
+                  payload: {
+                    removeImageIndex: index,
+                  },
+                });
+              };
+
+              return (
+                <div key={img.previewUrl} className={styles.imageItem}>
+                  <img src={img.previewUrl} />
+                  <button onClick={handleRemoveButtonClick}>
+                    <CloseCircle />
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </>
       )}
