@@ -24,7 +24,7 @@ const createInitReviewData = (hall: string): ReviewData => {
     },
     additionalInfo: new Set<AdditionalInfo>(),
     images: [],
-    seatRating: [0, 0, 0],
+    seatRating: [NONE_SELECT, NONE_SELECT, NONE_SELECT],
     viewBlockInfo: new Set<ViewBlockInfo>(),
     review: '',
     currentStep: 0,
@@ -78,7 +78,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
       return updateState(state, {
         images: [...state.images, images],
-        currentStep: REVIEW.STEPS.IMAGE_UPLOAD as Step,
+        currentStep: (REVIEW.STEPS.IMAGE_UPLOAD + 1) as Step,
       });
     }
 
@@ -88,17 +88,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
       return updateState(state, {
         images: state.images.filter((_, index) => removeImageIndex !== index),
-        currentStep: REVIEW.STEPS.RATING_INFO_SELECT,
-      });
-    }
-
-    case REVIEW.ACTIONS.IMAGE_REMOVE: {
-      const { removeImageIndex } = action.payload;
-      if (removeImageIndex === undefined) return state;
-
-      return updateState(state, {
-        images: state.images.filter((_, index) => removeImageIndex !== index),
-        currentStep: REVIEW.STEPS.RATING_INFO_SELECT,
+        currentStep: REVIEW.STEPS.IMAGE_UPLOAD,
       });
     }
 
