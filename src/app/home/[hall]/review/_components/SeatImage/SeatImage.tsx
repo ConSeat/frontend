@@ -40,12 +40,6 @@ const SeatImage = ({ images, dispatch }: SeatImageProps) => {
 
   return (
     <>
-      <div className={styles.textWrapper}>
-        <div className={styles.uploadTitle}>시야 사진을 등록해주세요</div>
-        <div className={styles.uploadDescription}>
-          *방해요소, 거리감이 잘 느껴지는 사진이면 좋아요
-        </div>
-      </div>
       <div>
         <input
           type="file"
