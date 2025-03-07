@@ -5,7 +5,7 @@ const HomeError = ({ error, reset }: { error: Error & { digest?: string }; reset
   return (
     <html>
       <body>
-        <h2>Something went wrong! in Hall</h2>
+        <h2>Something went wrong! in Stadium</h2>
         <button onClick={() => reset()}>Try again</button>
       </body>
     </html>

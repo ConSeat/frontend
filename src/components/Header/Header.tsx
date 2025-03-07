@@ -1,14 +1,14 @@
 import styles from './Header.module.scss';
-import { getDisplayName } from '@/utils/hallName';
+import { stadiumDisplayName } from '@/utils/stadium';
 
 interface HeaderProps {
-  hall: string;
+  stadiumId: number;
 }
 
-const Header = ({ hall }: HeaderProps) => {
+const Header = ({ stadiumId }: HeaderProps) => {
   return (
     <header className={styles.header}>
-      <h1>{getDisplayName(hall)}</h1>
+      <h1>{stadiumDisplayName(stadiumId)}</h1>
     </header>
   );
 };

@@ -1,14 +1,21 @@
 import Link from 'next/link';
-import { ALL_HALL_IDS } from '@/constants/hallName';
-import { getDisplayName } from '@/utils/hallName';
+import Splitter from '@/components/Splitter/Splitter';
+import { STADIUM_INFO } from '@/constants/stadium';
+import { stadiumDisplayName } from '@/utils/stadium';
 
 const HomePage = () => {
   return (
     <div>
       <ul>
-        {ALL_HALL_IDS.map((id) => (
-          <li key={id}>
-            <Link href={`/home/${id}`}>{getDisplayName(id)}</Link>
+        {STADIUM_INFO.active.map(({ stadiumId }) => (
+          <li key={stadiumId}>
+            <Link href={`/home/${stadiumId}`}>{stadiumDisplayName(stadiumId)}</Link>
+          </li>
+        ))}
+        <Splitter color="sub-white" />
+        {STADIUM_INFO.inactive.map(({ stadiumId }) => (
+          <li key={stadiumId}>
+            <Link href={`/home/${stadiumId}`}>{stadiumDisplayName(stadiumId)}</Link>
           </li>
         ))}
       </ul>

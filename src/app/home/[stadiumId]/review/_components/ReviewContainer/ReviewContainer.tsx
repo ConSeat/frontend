@@ -13,9 +13,9 @@ import type {
 } from '@/types/review';
 import { toggleSetItem } from '@/utils/toggleSetItem';
 
-const createInitReviewData = (hall: string): ReviewData => {
+const createInitReviewData = (stadiumId: number): ReviewData => {
   const initData: ReviewData = {
-    hall,
+    stadiumId,
     concert: '',
     seatInfo: {
       floor: '',
@@ -142,11 +142,11 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 };
 
 interface ReviewContainerProps {
-  hall: string;
+  stadiumId: number;
 }
 
-const ReviewContainer = ({ hall }: ReviewContainerProps) => {
-  const [state, dispatch] = useReducer(reviewReducer, createInitReviewData(hall));
+const ReviewContainer = ({ stadiumId }: ReviewContainerProps) => {
+  const [state, dispatch] = useReducer(reviewReducer, createInitReviewData(stadiumId));
 
   return <ReviewForm reviewData={state} dispatch={dispatch} />;
 };

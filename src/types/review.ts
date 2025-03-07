@@ -19,7 +19,7 @@ export interface SeatInfo {
 }
 
 export interface ReviewData {
-  hall: string;
+  stadiumId: number;
   concert: string;
   seatInfo: SeatInfo;
   additionalInfo: Set<AdditionalInfo>;
