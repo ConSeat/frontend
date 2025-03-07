@@ -1,0 +1,32 @@
+@import '@/styles/colors';
+
+.splitter {
+  width: 100%;
+  height: 1px;
+}
+
+@each $name,
+  $color
+    in (
+      main-mint1: $main-mint1,
+      main-mint2: $main-mint2,
+      main-mint3: $main-mint3,
+      main-mint4: $main-mint4,
+      main-mint5: $main-mint5,
+      main-mint6: $main-mint6,
+      sub-gray1: $sub-gray1,
+      sub-gray2: $sub-gray2,
+      sub-gray3: $sub-gray3,
+      sub-gray4: $sub-gray4,
+      sub-gray5: $sub-gray5,
+      sub-gray6: $sub-gray6,
+      sub-gray7: $sub-gray7,
+      sub-gray8: $sub-gray8,
+      sub-black: $sub-black,
+      sub-white: $sub-white
+    )
+{
+  .splitter-#{$name} {
+    background-color: $color;
+  }
+}

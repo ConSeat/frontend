@@ -1,13 +1,15 @@
-import colors from '@/styles/color';
+import styles from './splitter.module.scss';
 
 interface SplitterProps {
   height?: string;
   width?: string;
-  color?: keyof typeof colors;
+  color?: keyof typeof styles;
 }
 
-const Splitter = ({ height = '1px', width = '100%', color = 'subGray7' }: SplitterProps) => {
-  return <div style={{ height, width, backgroundColor: colors[color] }}></div>;
+const Splitter = ({ height = '1px', width = '100%', color = 'sub-gray7' }: SplitterProps) => {
+  const className = styles[`splitter-${color}`] || styles['splitter-sub-gray7'];
+
+  return <div className={`${styles.splitter} ${className}`} style={{ height, width }} />;
 };
 
 export default Splitter;
