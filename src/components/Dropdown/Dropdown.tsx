@@ -5,10 +5,10 @@ import classNames from 'classnames';
 import { ReactNode, forwardRef } from 'react';
 
 interface DropdownProps {
-  value: string;
-  onChange: (value: string) => void;
+  value?: string;
+  onChange?: (value: string) => void;
   className?: string;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const DropdownComponent = forwardRef<HTMLDivElement, DropdownProps>(function Dropdown(

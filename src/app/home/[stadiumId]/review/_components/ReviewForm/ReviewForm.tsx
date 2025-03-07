@@ -33,7 +33,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
             title={REVIEW.MESSAGE.CONCERT_SELECT.TITLE}
             subtitle={REVIEW.MESSAGE.CONCERT_SELECT.SUBTITLE}
           />
-          <ConcertSelect data={reviewData.concert} dispatch={dispatch} />
+          <ConcertSelect data={reviewData.concertId} dispatch={dispatch} />
         </ReviewSection>
       )}
       {isRender(REVIEW.STEPS.SEAT_INFO_SELECT) && (

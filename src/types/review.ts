@@ -20,7 +20,7 @@ export interface SeatInfo {
 
 export interface ReviewData {
   stadiumId: number;
-  concert: string;
+  concertId: number;
   seatInfo: SeatInfo;
   additionalInfo: Set<AdditionalInfo>;
   images: ImageData[];
@@ -31,7 +31,7 @@ export interface ReviewData {
 }
 
 interface ActionPayload {
-  concert?: string;
+  concertId?: number;
   seatInfo?: SeatInfo;
   additionalInfo?: AdditionalInfo;
   images?: ImageData;

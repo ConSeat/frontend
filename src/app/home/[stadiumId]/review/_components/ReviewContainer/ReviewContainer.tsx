@@ -16,7 +16,7 @@ import { toggleSetItem } from '@/utils/toggleSetItem';
 const createInitReviewData = (stadiumId: number): ReviewData => {
   const initData: ReviewData = {
     stadiumId,
-    concert: '',
+    concertId: NONE_SELECT,
     seatInfo: {
       floor: '',
       section: '',
@@ -48,7 +48,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
   switch (action.type) {
     case REVIEW.ACTIONS.CONCERT_SELECT:
       return updateState(state, {
-        concert: action.payload.concert,
+        concertId: action.payload.concertId,
         currentStep: (REVIEW.STEPS.REVIEW_INPUT + 1) as Step,
       });
 

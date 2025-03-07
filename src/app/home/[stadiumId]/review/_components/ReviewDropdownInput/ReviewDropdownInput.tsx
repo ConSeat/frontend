@@ -10,8 +10,8 @@ import { DownArrow, UpArrow } from '@/assets';
 
 interface ReviewDropdownInputProps {
   value: string;
-  onChange: (value: string) => void;
-  options: string[];
+  onChange: (value: { concertId: number; name: string }) => void;
+  options: { concertId: number; name: string }[];
   placeholder?: string;
 }
 
@@ -25,14 +25,14 @@ const ReviewDropdownInput = ({
   const [filteredOptions, setFilteredOptions] = useState(options);
   const { isDropdownOpen, handleOpenDropdown, handleCloseDropdown, dropdownRef } = useDropdown();
 
-  const filterOptions = (value: string) => {
+  const filterOptions = (input: string) => {
     setFilteredOptions(
-      options.filter((option) => option.toLowerCase().includes(value.toLowerCase())),
+      options.filter((option) => option.name.toLowerCase().includes(input.toLowerCase())),
     );
   };
 
   return (
-    <Dropdown value={value} onChange={onChange} ref={dropdownRef}>
+    <Dropdown ref={dropdownRef}>
       <Dropdown.Trigger
         as={
           <div
@@ -54,6 +54,11 @@ const ReviewDropdownInput = ({
                 filterOptions(value);
                 handleOpenDropdown();
               }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                }
+              }}
             />
             <span>{isDropdownOpen ? <UpArrow /> : <DownArrow />}</span>
           </div>
@@ -63,17 +68,17 @@ const ReviewDropdownInput = ({
         <Dropdown.Menu className={styles.reviewDropdownMenu}>
           {filteredOptions.length > 0 &&
             filteredOptions.map((option) => (
-              <Fragment key={option}>
+              <Fragment key={option.concertId}>
                 <Dropdown.Item
                   className={styles.reviewDropdownItem}
-                  isSelected={value === option}
+                  isSelected={value === option.name}
                   onClick={() => {
-                    setInputValue(option);
+                    setInputValue(option.name);
                     onChange(option);
                     handleCloseDropdown();
                   }}
                 >
-                  {option}
+                  {option.name}
                 </Dropdown.Item>
                 <Splitter color="subGray7" />
               </Fragment>

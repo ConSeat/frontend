@@ -1,11 +1,11 @@
 import ReviewContainer from './_components/ReviewContainer';
 
 const ReviewPage = async ({ params }) => {
-  const { stadium } = await params;
+  const { stadiumId } = await params;
 
   return (
     <div>
-      <ReviewContainer stadiumId={Number(stadium)} />
+      <ReviewContainer stadiumId={Number(stadiumId)} />
     </div>
   );
 };

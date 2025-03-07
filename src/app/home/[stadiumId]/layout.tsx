@@ -27,7 +27,7 @@ const StadiumLayout = async ({ children, params }: StadiumLayoutProps) => {
 
   if (!isActive) {
     return (
-      <div className={styles.StadiumLayout}>
+      <div className={styles.stadiumLayout}>
         <h2>이 페이지는 아직 열리지 않았습니다.</h2>
         <p>현재는 접근할 수 없습니다. 나중에 다시 확인해 주세요.</p>
       </div>
@@ -35,9 +35,9 @@ const StadiumLayout = async ({ children, params }: StadiumLayoutProps) => {
   }
 
   return (
-    <div className={styles.StadiumLayout}>
+    <div className={styles.stadiumLayout}>
       <Header stadiumId={stadiumId} />
-      <main className={styles.StadiumMain}>{children}</main>
+      <main className={styles.stadiumMain}>{children}</main>
     </div>
   );
 };
