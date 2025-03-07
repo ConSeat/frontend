@@ -2,26 +2,15 @@
 
 import ReviewForm from '../ReviewForm';
 import { useReducer } from 'react';
-import { FLOOR, NONE, NONE_SELECT, REVIEW } from '@/constants/review';
-import type {
-  AdditionalInfo,
-  ReviewAction,
-  ReviewData,
-  SeatInfo,
-  Step,
-  ViewBlockInfo,
-} from '@/types/review';
+import { NONE, NONE_SELECT, REVIEW } from '@/constants/review';
+import type { AdditionalInfo, ReviewAction, ReviewData, Step, ViewBlockInfo } from '@/types/review';
 import { toggleSetItem } from '@/utils/toggleSetItem';
 
 const createInitReviewData = (stadiumId: number): ReviewData => {
   const initData: ReviewData = {
     stadiumId,
     concertId: NONE_SELECT,
-    seatInfo: {
-      floor: '',
-      section: '',
-      column: '',
-    },
+    seatingId: NONE_SELECT,
     additionalInfo: new Set<AdditionalInfo>(),
     images: [],
     seatRating: [NONE_SELECT, NONE_SELECT, NONE_SELECT],
@@ -38,12 +27,6 @@ const updateState = (state: ReviewData, updates: Partial<ReviewData>) => ({
   ...updates,
 });
 
-const isSeatInfoComplete = (seatInfo: SeatInfo) => {
-  return seatInfo.floor === FLOOR
-    ? !!seatInfo.floor && !!seatInfo.section
-    : !!seatInfo.floor && !!seatInfo.section && !!seatInfo.column;
-};
-
 const reviewReducer = (state: ReviewData, action: ReviewAction) => {
   switch (action.type) {
     case REVIEW.ACTIONS.CONCERT_SELECT:
@@ -53,14 +36,10 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       });
 
     case REVIEW.ACTIONS.SEAT_INFO_SELECT:
-      const { seatInfo } = action.payload;
-      if (!seatInfo) return state;
-
-      const step = isSeatInfoComplete(seatInfo)
-        ? REVIEW.STEPS.SEAT_INFO_SELECT + 1
-        : REVIEW.STEPS.SEAT_INFO_SELECT;
-
-      return updateState(state, { seatInfo, currentStep: step as Step });
+      return updateState(state, {
+        seatingId: action.payload.seatingId,
+        currentStep: (REVIEW.STEPS.SEAT_INFO_SELECT + 1) as Step,
+      });
 
     case REVIEW.ACTIONS.ADDITIONAL_INFO_SELECT: {
       const { additionalInfo } = action.payload;
@@ -147,6 +126,7 @@ interface ReviewContainerProps {
 
 const ReviewContainer = ({ stadiumId }: ReviewContainerProps) => {
   const [state, dispatch] = useReducer(reviewReducer, createInitReviewData(stadiumId));
+  console.log(state);
 
   return <ReviewForm reviewData={state} dispatch={dispatch} />;
 };

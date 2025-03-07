@@ -1,52 +1,118 @@
 'use client';
 
 import ReviewDropdown from '../ReviewDropdown/ReviewDropdown';
-import { FLOOR, REVIEW } from '@/constants/review';
-import { ReviewDispatch, SeatInfo } from '@/types/review';
-
-type SeatInfoKey = keyof SeatInfo;
+import { useState } from 'react';
+import { NONE_SELECT, REVIEW } from '@/constants/review';
+import { ReviewDispatch } from '@/types/review';
 
 interface SeatInfoSelectProps {
-  data: SeatInfo;
+  data: number;
   dispatch: ReviewDispatch;
 }
 
+// TODO: FLOOR를 선택하면 seating 배열이 없음. 그땐 sections에 seatingId이 있는지 백엔드와 상의 후 변경 해야함.
+const seats = [
+  {
+    name: 'FLOOR',
+    sections: [
+      {
+        name: 'A구역',
+        seating: [
+          { seatingId: 1, name: '1열 ~ 5열' },
+          { seatingId: 2, name: '6열 ~ 11열' },
+        ],
+      },
+      {
+        name: 'B구역',
+        seating: [
+          { seatingId: 3, name: '1열 ~ 5열' },
+          { seatingId: 4, name: '6열 ~ 11열' },
+        ],
+      },
+    ],
+  },
+  {
+    name: '1층',
+    sections: [
+      {
+        name: '1구역',
+        seating: [
+          { seatingId: 5, name: '1열 ~ 5열' },
+          { seatingId: 6, name: '6열 ~ 11열' },
+        ],
+      },
+    ],
+  },
+  {
+    name: '2층',
+    sections: [
+      {
+        name: '24구역',
+        seating: [
+          { seatingId: 7, name: '1열 ~ 5열' },
+          { seatingId: 8, name: '6열 ~ 11열' },
+        ],
+      },
+    ],
+  },
+];
+
 const SeatInfoSelect = ({ data, dispatch }: SeatInfoSelectProps) => {
-  const handleSeatInfoSelect = (value: string, key: SeatInfoKey) => {
-    dispatch({
-      type: REVIEW.ACTIONS.SEAT_INFO_SELECT,
-      payload: { seatInfo: { ...data, [key]: value } },
-    });
+  const [seatInfo, setSeatInfo] = useState({
+    floor: '',
+    section: '',
+    seatingId: data,
+  });
+
+  const handleSeatInfoSelect = (updates: Partial<typeof seatInfo>) => {
+    const newSeatInfo = { ...seatInfo, ...updates };
+    setSeatInfo(newSeatInfo);
+
+    if (newSeatInfo.floor && newSeatInfo.section && newSeatInfo.seatingId !== NONE_SELECT) {
+      dispatch({
+        type: REVIEW.ACTIONS.SEAT_INFO_SELECT,
+        payload: { seatingId: newSeatInfo.seatingId },
+      });
+    }
   };
+
+  const availableSections = seats.find((floor) => floor.name === seatInfo.floor)?.sections || [];
+  const availableSeating =
+    availableSections.find((section) => section.name === seatInfo.section)?.seating || [];
 
   return (
     <>
       <ReviewDropdown
-        value={data.floor}
-        onChange={(value) => {
-          handleSeatInfoSelect(value, 'floor');
-        }}
-        options={['FLOOR', '1층', '2층']}
+        value={seatInfo.floor}
+        onChange={(floorName) =>
+          handleSeatInfoSelect({ floor: floorName, section: '', seatingId: NONE_SELECT })
+        }
+        options={seats.map((floor) => floor.name)}
         placeholder="층을 선택해주세요"
       />
-      {data.floor && (
+
+      {seatInfo.floor && (
         <ReviewDropdown
-          value={data.section}
-          onChange={(value) => {
-            handleSeatInfoSelect(value, 'section');
-          }}
-          options={['1구역', '2구역', '3구역', '4구역', '5구역', '6구역']}
+          value={seatInfo.section}
+          onChange={(sectionName) =>
+            handleSeatInfoSelect({ section: sectionName, seatingId: NONE_SELECT })
+          }
+          options={availableSections.map((section) => section.name)}
           placeholder="구역을 선택해주세요"
         />
       )}
-      {data.floor !== FLOOR && data.section && (
+
+      {seatInfo.section && (
         <ReviewDropdown
-          value={data.column as string}
-          onChange={(value) => {
-            handleSeatInfoSelect(value, 'column');
+          value={availableSeating.find((seat) => seat.seatingId === seatInfo.seatingId)?.name || ''}
+          onChange={(seatingName) => {
+            const seating = availableSeating.find((seat) => seat.name === seatingName);
+            if (seating) {
+              handleSeatInfoSelect({ seatingId: seating.seatingId });
+            }
           }}
-          options={['1열 ~ 6열', '6열 ~ 11열', '12열 ~ 15열', '16열 ~ 22열']}
-          placeholder="열을 선택해주세요"
+          options={availableSeating.map((seat) => seat.name)}
+          placeholder="좌석을 선택해주세요"
         />
       )}
     </>

@@ -12,16 +12,10 @@ export interface ImageData {
   previewUrl: string;
 }
 
-export interface SeatInfo {
-  floor: string;
-  section: string;
-  column?: string;
-}
-
 export interface ReviewData {
   stadiumId: number;
   concertId: number;
-  seatInfo: SeatInfo;
+  seatingId: number;
   additionalInfo: Set<AdditionalInfo>;
   images: ImageData[];
   seatRating: number[];
@@ -32,7 +26,7 @@ export interface ReviewData {
 
 interface ActionPayload {
   concertId?: number;
-  seatInfo?: SeatInfo;
+  seatingId?: number;
   additionalInfo?: AdditionalInfo;
   images?: ImageData;
   removeImageIndex?: number;
