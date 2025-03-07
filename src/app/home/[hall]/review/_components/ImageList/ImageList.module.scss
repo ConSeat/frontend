@@ -11,11 +11,11 @@
   position: relative;
   width: 92px;
   height: 92px;
-  border-radius: 5px;
 
   img {
     width: 100%;
     height: 100%;
+    border-radius: 5px;
     object-fit: cover;
   }
 
@@ -26,7 +26,7 @@
 
     width: 20px;
     height: 20px;
-    border-radius: 100%;
+    border-radius: 50%;
 
     opacity: 0.5;
     background-color: $sub-black;
