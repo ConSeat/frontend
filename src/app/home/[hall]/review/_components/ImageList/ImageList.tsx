@@ -10,16 +10,14 @@ interface ImageListProps {
 const ImageList = ({ images, onClick }: ImageListProps) => {
   return (
     <div className={styles.imageList}>
-      {images.map((img, index) => {
-        return (
-          <div key={img.previewUrl} className={styles.imageItem}>
-            <img src={img.previewUrl} />
-            <button onClick={() => onClick(index)}>
-              <CloseCircle />
-            </button>
-          </div>
-        );
-      })}
+      {images.map((img, index) => (
+        <div key={img.previewUrl} className={styles.imageItem}>
+          <img src={img.previewUrl} alt="" />
+          <button onClick={() => onClick(index)}>
+            <CloseCircle />
+          </button>
+        </div>
+      ))}
     </div>
   );
 };

@@ -9,11 +9,11 @@ import { REVIEW } from '@/constants/review';
 import type { ImageData, ReviewDispatch } from '@/types/review';
 
 interface SeatImageProps {
-  images: ImageData[];
+  data: ImageData[];
   dispatch: ReviewDispatch;
 }
 
-const SeatImage = ({ images, dispatch }: SeatImageProps) => {
+const SeatImage = ({ data, dispatch }: SeatImageProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -50,15 +50,15 @@ const SeatImage = ({ images, dispatch }: SeatImageProps) => {
     <>
       <ImageUpLoadArea
         fileInputRef={fileInputRef}
-        imageListLength={images.length}
+        imageListLength={data.length}
         onChange={handleFileChange}
         onClick={handleButtonClick}
       />
-      {images.length > 0 && (
+      {data.length > 0 && (
         <>
-          <Splitter width="100%" height="0.8px" color="subGray6" />
-          <UpLoadStatus imageListLength={images.length} />
-          <ImageList images={images} onClick={handleRemoveButtonClick} />
+          <Splitter color="subGray6" />
+          <UpLoadStatus imageListLength={data.length} />
+          <ImageList images={data} onClick={handleRemoveButtonClick} />
         </>
       )}
     </>

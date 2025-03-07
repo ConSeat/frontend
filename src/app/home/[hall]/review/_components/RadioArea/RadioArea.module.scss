@@ -1,6 +1,6 @@
 @import '@/styles/style';
 
-.RadioArea {
+.radioArea {
   position: relative;
 
   display: flex;
@@ -11,17 +11,6 @@
 
   width: 51px;
   height: 76px;
-
-  .radioSplitter {
-    position: absolute;
-    top: 24px;
-    left: 51px;
-
-    width: 42px;
-    height: 3px;
-
-    background-color: $main-mint6;
-  }
 }
 
 .radioIcon {
@@ -57,4 +46,15 @@
       color: $main-mint1;
     }
   }
+}
+
+.radioSplitter {
+  position: absolute;
+  top: 24px;
+  left: 51px;
+
+  width: 42px;
+  height: 3px;
+
+  background-color: $main-mint6;
 }

@@ -49,7 +49,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
     case REVIEW.ACTIONS.CONCERT_SELECT:
       return updateState(state, {
         concert: action.payload.concert,
-        currentStep: (REVIEW.STEPS.CONCERT_SELECT + 1) as Step,
+        currentStep: (REVIEW.STEPS.REVIEW_INPUT + 1) as Step,
       });
 
     case REVIEW.ACTIONS.SEAT_INFO_SELECT:

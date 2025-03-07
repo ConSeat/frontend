@@ -10,7 +10,7 @@ interface RadioAreaProps {
 
 const RadioArea = ({ name, value, isLastLabel, onChange }: RadioAreaProps) => {
   return (
-    <label className={styles.RadioArea}>
+    <label className={styles.radioArea}>
       <input
         type="radio"
         name={name}
