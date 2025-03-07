@@ -1,6 +1,7 @@
 export const NONE = '없음';
 export const FLOOR = 'FLOOR';
 export const NONE_SELECT = -1;
+export const MAX_IMAGE_UPLOAD_NUMBER = 4;
 
 export const ADDITIONAL_INFO = [
   '돌출',

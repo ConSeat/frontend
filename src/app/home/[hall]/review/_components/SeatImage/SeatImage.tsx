@@ -1,9 +1,10 @@
 'use client';
 
-import styles from './SeatImage.module.scss';
+import ImageList from '../ImageList';
+import ImageUpLoadArea from '../ImageUpLoadArea';
+import UpLoadStatus from '../UpLoadStatus/UpLoadStatus';
 import { ChangeEventHandler, useRef } from 'react';
 import Splitter from '@/components/Splitter/Splitter';
-import { CloseCircle } from '@/assets';
 import { REVIEW } from '@/constants/review';
 import type { ImageData, ReviewDispatch } from '@/types/review';
 
@@ -11,8 +12,6 @@ interface SeatImageProps {
   images: ImageData[];
   dispatch: ReviewDispatch;
 }
-
-const MAX_IMAGE_UPLOAD_NUMBER = 4;
 
 const SeatImage = ({ images, dispatch }: SeatImageProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -34,69 +33,32 @@ const SeatImage = ({ images, dispatch }: SeatImageProps) => {
     });
   };
 
+  const handleRemoveButtonClick = (index: number) => {
+    dispatch({
+      type: REVIEW.ACTIONS.IMAGE_REMOVE,
+      payload: {
+        removeImageIndex: index,
+      },
+    });
+  };
+
   const handleButtonClick = () => {
     fileInputRef.current?.click();
   };
 
   return (
     <>
-      <div>
-        <input
-          type="file"
-          accept="image/*"
-          style={{ display: 'none' }}
-          ref={fileInputRef}
-          onChange={handleFileChange}
-        />
-        <button
-          type="button"
-          onClick={handleButtonClick}
-          className={styles.uploadButton}
-          disabled={images.length >= MAX_IMAGE_UPLOAD_NUMBER}
-        >
-          <span className={styles.uploadButtonText}>사진 올리기</span>
-        </button>
-      </div>
+      <ImageUpLoadArea
+        fileInputRef={fileInputRef}
+        imageListLength={images.length}
+        onChange={handleFileChange}
+        onClick={handleButtonClick}
+      />
       {images.length > 0 && (
         <>
           <Splitter width="100%" height="0.8px" color="subGray6" />
-          <div>
-            <div className={styles.description}>{images.length}장 첨부</div>
-            <div className={styles.description}>
-              (
-              {images.length === MAX_IMAGE_UPLOAD_NUMBER ? (
-                '첨부 가능한 사진을 다 올렸어요'
-              ) : (
-                <>
-                  <span className={styles.last}>{MAX_IMAGE_UPLOAD_NUMBER - images.length}장 </span>
-                  더 올릴 수 있어요
-                </>
-              )}
-              )
-            </div>
-          </div>
-          <div></div>
-          <div className={styles.imageList}>
-            {images.map((img, index) => {
-              const handleRemoveButtonClick = () => {
-                dispatch({
-                  type: REVIEW.ACTIONS.IMAGE_REMOVE,
-                  payload: {
-                    removeImageIndex: index,
-                  },
-                });
-              };
-
-              return (
-                <div key={img.previewUrl} className={styles.imageItem}>
-                  <img src={img.previewUrl} />
-                  <button onClick={handleRemoveButtonClick}>
-                    <CloseCircle />
-                  </button>
-                </div>
-              );
-            })}
-          </div>
+          <UpLoadStatus imageListLength={images.length} />
+          <ImageList images={images} onClick={handleRemoveButtonClick} />
         </>
       )}
     </>
