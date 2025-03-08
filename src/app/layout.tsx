@@ -20,6 +20,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     <html lang="kr" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
         <div className={styles.layout}>{children}</div>
+        <div id="portal" style={{ position: 'fixed' }}></div>
       </body>
     </html>
   );
