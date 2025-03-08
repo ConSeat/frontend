@@ -12,13 +12,17 @@ export interface ImageData {
   previewUrl: string;
 }
 
+export type DistanceInfoKey = 'stageDistance' | 'thrustStageDistance' | 'screenDistance';
+
 export interface ReviewData {
   stadiumId: number;
   concertId: number;
   seatingId: number;
   additionalInfo: Set<AdditionalInfo>;
   images: ImageData[];
-  seatRating: number[];
+  stageDistance: number;
+  thrustStageDistance: number;
+  screenDistance: number;
   viewBlockInfo: Set<ViewBlockInfo>;
   review: string;
   currentStep: Step;
@@ -28,9 +32,14 @@ interface ActionPayload {
   concertId?: number;
   seatingId?: number;
   additionalInfo?: AdditionalInfo;
-  images?: ImageData;
+  image?: ImageData;
   removeImageIndex?: number;
-  seatRating?: { index: number; value: number };
+  distanceInfo?: {
+    key: DistanceInfoKey;
+    value: number;
+  };
+  thrustStageDistance?: number;
+  screenDistance?: number;
   viewBlockInfo?: ViewBlockInfo;
   review?: string;
 }

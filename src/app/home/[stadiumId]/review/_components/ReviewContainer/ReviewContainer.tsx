@@ -13,7 +13,9 @@ const createInitReviewData = (stadiumId: number): ReviewData => {
     seatingId: NONE_SELECT,
     additionalInfo: new Set<AdditionalInfo>(),
     images: [],
-    seatRating: [NONE_SELECT, NONE_SELECT, NONE_SELECT],
+    stageDistance: NONE_SELECT,
+    thrustStageDistance: NONE_SELECT,
+    screenDistance: NONE_SELECT,
     viewBlockInfo: new Set<ViewBlockInfo>(),
     review: '',
     currentStep: 0,
@@ -52,11 +54,11 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
     }
 
     case REVIEW.ACTIONS.IMAGE_UPLOAD: {
-      const { images } = action.payload;
-      if (!images) return state;
+      const { image } = action.payload;
+      if (!image) return state;
 
       return updateState(state, {
-        images: [...state.images, images],
+        images: [...state.images, image],
         currentStep: (REVIEW.STEPS.IMAGE_UPLOAD + 1) as Step,
       });
     }
@@ -71,23 +73,21 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       });
     }
 
-    case REVIEW.ACTIONS.RATING_INFO_SELECT: {
-      const { seatRating } = action.payload;
-      if (seatRating === undefined) return state;
+    case REVIEW.ACTIONS.DISTANCE_INFO_SELECT: {
+      if (!action.payload.distanceInfo) return state;
+      const { key, value } = action.payload.distanceInfo;
 
-      const { index, value } = seatRating;
+      const nextState = updateState(state, { [key]: value });
 
-      const nextRating = state.seatRating.slice();
-      nextRating[index] = value;
+      const step = [
+        nextState.stageDistance,
+        nextState.thrustStageDistance,
+        nextState.screenDistance,
+      ].every((elem) => elem !== NONE_SELECT)
+        ? REVIEW.STEPS.DISTANCE_INFO_SELECT + 1
+        : REVIEW.STEPS.DISTANCE_INFO_SELECT;
 
-      const step = nextRating.every((elem) => elem !== NONE_SELECT)
-        ? REVIEW.STEPS.RATING_INFO_SELECT + 1
-        : REVIEW.STEPS.RATING_INFO_SELECT;
-
-      return updateState(state, {
-        seatRating: nextRating,
-        currentStep: step as Step,
-      });
+      return updateState(nextState, { currentStep: step as Step });
     }
 
     case REVIEW.ACTIONS.VIEW_BLOCK_SELECT: {

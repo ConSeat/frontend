@@ -3,6 +3,31 @@ export const FLOOR = 'FLOOR';
 export const NONE_SELECT = -1;
 export const MAX_IMAGE_UPLOAD_NUMBER = 4;
 
+const DISTANCE_VALUE = {
+  CLOSE_DIST: '가까워요',
+  CLOSE_VIEW: '잘 보여요',
+  NORMAL: '보통이에요',
+  FAR: '안 보여요',
+};
+
+export const STAGE_DISTANCE_INFO = [
+  DISTANCE_VALUE.CLOSE_DIST,
+  DISTANCE_VALUE.NORMAL,
+  DISTANCE_VALUE.FAR,
+] as const;
+
+export const THRUST_STAGE_DISTANCE_INFO = [
+  DISTANCE_VALUE.CLOSE_DIST,
+  DISTANCE_VALUE.NORMAL,
+  DISTANCE_VALUE.FAR,
+] as const;
+
+export const SCREEN_DISTANCE_INFO = [
+  DISTANCE_VALUE.CLOSE_VIEW,
+  DISTANCE_VALUE.NORMAL,
+  DISTANCE_VALUE.FAR,
+] as const;
+
 export const ADDITIONAL_INFO = [
   '돌출',
   '돌돌출',
@@ -29,7 +54,7 @@ const REVIEW_ACTIONS = {
   ADDITIONAL_INFO_SELECT: 'ADDITIONAL_INFO_SELECT',
   IMAGE_UPLOAD: 'IMAGE_UPLOAD',
   IMAGE_REMOVE: 'IMAGE_REMOVE',
-  RATING_INFO_SELECT: 'RATING_INFO_SELECT',
+  DISTANCE_INFO_SELECT: 'DISTANCE_INFO_SELECT',
   VIEW_BLOCK_SELECT: 'VIEW_BLOCK_SELECT',
   REVIEW_INPUT: 'REVIEW_INPUT',
   SUBMIT: 'SUBMIT',
@@ -40,7 +65,7 @@ const REVIEW_STEPS = {
   SEAT_INFO_SELECT: 1,
   ADDITIONAL_INFO_SELECT: 2,
   IMAGE_UPLOAD: 3,
-  RATING_INFO_SELECT: 4,
+  DISTANCE_INFO_SELECT: 4,
   VIEW_BLOCK_SELECT: 5,
   REVIEW_INPUT: 6,
   SUBMIT: 7,
@@ -65,12 +90,14 @@ const REVIEW_MESSAGE = {
     TITLE: '시야 사진을 등록해주세요',
     SUBTITLE: '*방해요소, 거리감이 잘 느껴지는 사진이면 좋아요',
   },
-  RATING_INFO_SELECT: {
-    QUESTIONS: [
-      '본 무대와 거리는 어떤가요?',
-      '돌출 무대와 거리는 어떤가요?',
-      '전광판이 잘 보이나요?',
-    ],
+  STAGE_DISTANCE: {
+    TITLE: '본 무대와 거리는 어떤가요?',
+  },
+  THRUST_STAGE_DISTANCE: {
+    TITLE: '돌출 무대와 거리는 어떤가요?',
+  },
+  SCREEN_DISTANCE: {
+    TITLE: '전광판이 잘 보이나요?',
   },
   VIEW_BLOCK_SELECT: {
     TITLE: '시야 방해가 있었나요?',
@@ -81,7 +108,7 @@ const REVIEW_MESSAGE = {
     PLACEHOLDER:
       '추가적으로 좋았던 점, 아쉬운 점, 관람팁 등을자유롭게 작성해주세요. 구체적으로 작성할 수록 다른 사람들에게 도움이 돼요!',
   },
-};
+} as const;
 
 export const REVIEW = {
   ACTIONS: REVIEW_ACTIONS,

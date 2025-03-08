@@ -1,14 +1,14 @@
-import styles from './RadioArea.module.scss';
+import styles from './ReviewRadioButton.module.scss';
 import { ChoiceCircle } from '@/assets';
 
-interface RadioAreaProps {
+interface ReviewRadioButtonProps {
   name: string;
   value: string;
   onChange: () => void;
   isLastLabel: boolean;
 }
 
-const RadioArea = ({ name, value, isLastLabel, onChange }: RadioAreaProps) => {
+const ReviewRadioButton = ({ name, value, isLastLabel, onChange }: ReviewRadioButtonProps) => {
   return (
     <label className={styles.radioArea}>
       <input
@@ -25,4 +25,4 @@ const RadioArea = ({ name, value, isLastLabel, onChange }: RadioAreaProps) => {
   );
 };
 
-export default RadioArea;
+export default ReviewRadioButton;

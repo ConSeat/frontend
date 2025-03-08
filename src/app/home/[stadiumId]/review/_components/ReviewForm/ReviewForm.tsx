@@ -2,16 +2,21 @@
 
 import AdditionalSeatInfo from '../AdditionalSeatInfo';
 import ConcertSelect from '../ConcertSelect/ConcertSelect';
+import DistanceInfoSelect from '../DistanceInfoSelect/DistanceInfoSelect';
 import ReviewInput from '../ReviewInput/ReviewInput';
 import ReviewSection from '../ReviewSection/ReviewSection';
 import SeatImage from '../SeatImage';
 import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
-import SeatRating from '../SeatRating';
 import ViewBlockInfo from '../ViewBlockInfo';
 import styles from './ReviewForm.module.scss';
 import { Dispatch, useRef } from 'react';
 import Button from '@/components/Button/Button';
-import { REVIEW } from '@/constants/review';
+import {
+  REVIEW,
+  SCREEN_DISTANCE_INFO,
+  STAGE_DISTANCE_INFO,
+  THRUST_STAGE_DISTANCE_INFO,
+} from '@/constants/review';
 import type { ReviewAction, ReviewData } from '@/types/review';
 
 interface ReviewFormProps {
@@ -36,6 +41,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
           <ConcertSelect data={reviewData.concertId} dispatch={dispatch} />
         </ReviewSection>
       )}
+
       {isRender(REVIEW.STEPS.SEAT_INFO_SELECT) && (
         <ReviewSection>
           <div>좌석 배치도</div>
@@ -46,6 +52,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
           <SeatInfoSelect data={reviewData.seatingId} dispatch={dispatch} />
         </ReviewSection>
       )}
+
       {isRender(REVIEW.STEPS.ADDITIONAL_INFO_SELECT) && (
         <ReviewSection>
           <ReviewSection.Title
@@ -55,6 +62,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
           <AdditionalSeatInfo data={reviewData.additionalInfo} dispatch={dispatch} />
         </ReviewSection>
       )}
+
       {isRender(REVIEW.STEPS.IMAGE_UPLOAD) && (
         <ReviewSection>
           <ReviewSection.Title
@@ -64,11 +72,30 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
           <SeatImage data={reviewData.images} dispatch={dispatch} />
         </ReviewSection>
       )}
-      {isRender(REVIEW.STEPS.RATING_INFO_SELECT) && (
+
+      {isRender(REVIEW.STEPS.DISTANCE_INFO_SELECT) && (
         <ReviewSection>
-          <SeatRating dispatch={dispatch} />
+          <ReviewSection.Title title={REVIEW.MESSAGE.SCREEN_DISTANCE.TITLE} />
+          <DistanceInfoSelect
+            name="stageDistance"
+            options={STAGE_DISTANCE_INFO}
+            dispatch={dispatch}
+          />
+          <ReviewSection.Title title={REVIEW.MESSAGE.THRUST_STAGE_DISTANCE.TITLE} />
+          <DistanceInfoSelect
+            name="thrustStageDistance"
+            options={THRUST_STAGE_DISTANCE_INFO}
+            dispatch={dispatch}
+          />
+          <ReviewSection.Title title={REVIEW.MESSAGE.SCREEN_DISTANCE.TITLE} />
+          <DistanceInfoSelect
+            name="screenDistance"
+            options={SCREEN_DISTANCE_INFO}
+            dispatch={dispatch}
+          />
         </ReviewSection>
       )}
+
       {isRender(REVIEW.STEPS.VIEW_BLOCK_SELECT) && (
         <ReviewSection>
           <ReviewSection.Title
@@ -78,12 +105,14 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
           <ViewBlockInfo data={reviewData.viewBlockInfo} dispatch={dispatch} />
         </ReviewSection>
       )}
+
       {isRender(REVIEW.STEPS.REVIEW_INPUT) && (
         <ReviewSection>
           <ReviewSection.Title title={REVIEW.MESSAGE.REVIEW_INPUT.TITLE} />
           <ReviewInput data={reviewData.review} dispatch={dispatch} />
         </ReviewSection>
       )}
+
       {isRender(REVIEW.STEPS.SUBMIT) && <Button>작성완료</Button>}
     </form>
   );
