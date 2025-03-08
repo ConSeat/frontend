@@ -1,6 +1,6 @@
 'use client';
 
-import Badge from '../Badge';
+import ReviewCheckbox from '../ReviewCheckbox';
 import styles from './FeaturesInfo.module.scss';
 import { FEATURES_INFO, REVIEW } from '@/constants/review';
 import type { ReviewDispatch } from '@/types/review';
@@ -21,7 +21,7 @@ const FeaturesInfo = ({ data, dispatch }: FeaturesInfoProps) => {
   return (
     <div className={styles.featuresInfoSection}>
       {FEATURES_INFO.map((info) => (
-        <Badge
+        <ReviewCheckbox
           key={info.featureId}
           text={info.name}
           onClick={() => toggleFeaturesInfo(info.featureId)}

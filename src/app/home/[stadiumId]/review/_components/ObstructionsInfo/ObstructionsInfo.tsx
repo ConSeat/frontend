@@ -1,6 +1,6 @@
 'use client';
 
-import Badge from '../Badge';
+import ReviewCheckbox from '../ReviewCheckbox';
 import styles from './ObstructionsInfo.module.scss';
 import { OBSTRUCTIONS_INFO, REVIEW } from '@/constants/review';
 import type { ReviewDispatch } from '@/types/review';
@@ -21,7 +21,7 @@ const ObstructionsInfo = ({ data, dispatch }: ObstructionsInfoProps) => {
   return (
     <div className={styles.obstructionsInfoSection}>
       {OBSTRUCTIONS_INFO.map((info) => (
-        <Badge
+        <ReviewCheckbox
           key={info.obstructionId}
           text={info.name}
           onClick={() => toggleObstructionsInfo(info.obstructionId)}
