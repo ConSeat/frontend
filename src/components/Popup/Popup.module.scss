@@ -1,0 +1,94 @@
+@import '@/styles/style';
+
+.popupLayout {
+  position: fixed;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: inline-flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+
+  width: 286px;
+  padding: 24px 20px 16px;
+  border-radius: 10px;
+
+  background: $sub-gray2;
+}
+
+.popupTextBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  align-self: stretch;
+}
+
+.buttonBox {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.subtitle {
+  font-size: 18px;
+  font-weight: 700;
+  font-style: normal;
+  line-height: normal;
+  color: $sub_gray8;
+  letter-spacing: -0.36px;
+}
+
+.bodyText {
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 18px; /* 150% */
+  color: $sub_gray6;
+  letter-spacing: -0.24px;
+}
+
+@mixin button-text-base {
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 20px; /* 125% */
+  text-align: center;
+  letter-spacing: -0.32px;
+}
+
+@mixin button-base {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  width: 118px;
+  height: 40px;
+  padding: 8px 0;
+  border-radius: 100px;
+}
+
+.noButton {
+  @include button-base;
+  @include button-text-base;
+
+  border: 1px solid $sub_gray5;
+  color: $sub-gray7;
+  background: $sub_gray4;
+}
+
+.yesButton {
+  @include button-base;
+  @include button-text-base;
+
+  color: $sub-gray2;
+  background: $sub_gray7;
+}
