@@ -20,7 +20,7 @@ const SeatImage = ({ data, dispatch }: SeatImageProps) => {
     if (e.target.files === null) return;
 
     const file = e.target.files[0];
-    const newImages = {
+    const newImage = {
       file,
       previewUrl: URL.createObjectURL(file),
     };
@@ -28,7 +28,7 @@ const SeatImage = ({ data, dispatch }: SeatImageProps) => {
     dispatch({
       type: REVIEW.ACTIONS.IMAGE_UPLOAD,
       payload: {
-        images: newImages,
+        image: newImage,
       },
     });
   };
