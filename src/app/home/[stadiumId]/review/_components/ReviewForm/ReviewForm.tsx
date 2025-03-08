@@ -4,7 +4,7 @@ import ConcertSelect from '../ConcertSelect/ConcertSelect';
 import DistanceInfoSelect from '../DistanceInfoSelect/DistanceInfoSelect';
 import AdditionalSeatInfo from '../FeaturesInfo';
 import ViewBlockInfo from '../ObstructionsInfo';
-import ReviewInput from '../ReviewInput/ReviewInput';
+import ReviewContents from '../ReviewContents/ReviewContents';
 import ReviewSection from '../ReviewSection/ReviewSection';
 import SeatImage from '../SeatImage';
 import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
@@ -109,7 +109,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
       {isRender(REVIEW.STEPS.REVIEW_INPUT) && (
         <ReviewSection>
           <ReviewSection.Title title={REVIEW.MESSAGE.REVIEW_INPUT.TITLE} />
-          <ReviewInput data={reviewData.review} dispatch={dispatch} />
+          <ReviewContents data={reviewData.contents} dispatch={dispatch} />
         </ReviewSection>
       )}
 

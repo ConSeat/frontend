@@ -17,7 +17,7 @@ const createInitReviewData = (stadiumId: number): ReviewData => {
     thrustStageDistance: NONE_SELECT,
     screenDistance: NONE_SELECT,
     obstructions: [],
-    review: '',
+    contents: '',
     currentStep: 0,
   };
 
@@ -110,7 +110,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
     case REVIEW.ACTIONS.REVIEW_INPUT:
       return updateState(state, {
-        review: action.payload.review,
+        contents: action.payload.content,
         currentStep: (REVIEW.STEPS.REVIEW_INPUT + 1) as Step,
       });
 

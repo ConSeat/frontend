@@ -2,23 +2,23 @@ import Textarea from '@/components/Textarea/Textarea';
 import { REVIEW } from '@/constants/review';
 import type { ReviewDispatch } from '@/types/review';
 
-interface ReviewInputProps {
+interface ReviewContentsProps {
   data: string;
   dispatch: ReviewDispatch;
 }
 
-const ReviewInput = ({ data, dispatch }: ReviewInputProps) => {
-  const handleReviewInput = (value: string) => {
+const ReviewContents = ({ data, dispatch }: ReviewContentsProps) => {
+  const handleReviewContents = (content: string) => {
     dispatch({
       type: REVIEW.ACTIONS.REVIEW_INPUT,
-      payload: { review: value },
+      payload: { content },
     });
   };
 
   return (
     <Textarea
       value={data}
-      onChange={(e) => handleReviewInput(e.target.value)}
+      onChange={(e) => handleReviewContents(e.target.value)}
       maxLength={300}
       placeholder={REVIEW.MESSAGE.REVIEW_INPUT.PLACEHOLDER}
       rows={5}
@@ -26,4 +26,4 @@ const ReviewInput = ({ data, dispatch }: ReviewInputProps) => {
   );
 };
 
-export default ReviewInput;
+export default ReviewContents;

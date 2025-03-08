@@ -22,7 +22,7 @@ export interface ReviewData {
   thrustStageDistance: number;
   screenDistance: number;
   obstructions: number[];
-  review: string;
+  contents: string;
   currentStep: Step;
 }
 
@@ -39,7 +39,7 @@ interface ActionPayload {
   thrustStageDistance?: number;
   screenDistance?: number;
   obstruction?: number;
-  review?: string;
+  content?: string;
 }
 
 export interface ReviewAction {
