@@ -32,10 +32,7 @@ interface ActionPayload {
   feature?: number;
   image?: ImageData;
   removeImageIndex?: number;
-  distanceInfo?: {
-    key: DistanceInfoKey;
-    value: number;
-  };
+  stageDistance?: number;
   thrustStageDistance?: number;
   screenDistance?: number;
   obstruction?: number;

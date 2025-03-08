@@ -74,10 +74,12 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
     }
 
     case REVIEW.ACTIONS.DISTANCE_INFO_SELECT: {
-      if (!action.payload.distanceInfo) return state;
-      const { key, value } = action.payload.distanceInfo;
-
-      const nextState = updateState(state, { [key]: value });
+      const { stageDistance, thrustStageDistance, screenDistance } = action.payload;
+      const nextState = updateState(state, {
+        ...(stageDistance !== undefined && { stageDistance }),
+        ...(thrustStageDistance !== undefined && { thrustStageDistance }),
+        ...(screenDistance !== undefined && { screenDistance }),
+      });
 
       const step = [
         nextState.stageDistance,

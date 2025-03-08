@@ -13,7 +13,7 @@ const DistanceInfoSelect = ({ name, options, dispatch }: DistanceInfoSelectProps
   const handleChangeInput = (key: DistanceInfoKey, value: number) => {
     dispatch({
       type: REVIEW.ACTIONS.DISTANCE_INFO_SELECT,
-      payload: { distanceInfo: { key, value } },
+      payload: { [key]: value },
     });
   };
 
