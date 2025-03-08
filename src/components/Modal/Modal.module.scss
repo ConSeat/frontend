@@ -1,0 +1,14 @@
+.overLay {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 100%;
+  max-width: 640px;
+  height: 100vh;
+
+  background: rgb(0 0 0 / 70%);
+  backdrop-filter: blur(2.5px);
+}
