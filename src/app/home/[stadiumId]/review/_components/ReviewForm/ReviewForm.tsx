@@ -11,6 +11,7 @@ import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
 import styles from './ReviewForm.module.scss';
 import { Dispatch, useRef } from 'react';
 import Button from '@/components/Button/Button';
+import Spacing from '@/components/Spacing/Spacing';
 import {
   REVIEW,
   SCREEN_DISTANCE_INFO,
@@ -81,12 +82,14 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
             options={STAGE_DISTANCE_INFO}
             dispatch={dispatch}
           />
+          <Spacing size={12} />
           <ReviewSection.Title title={REVIEW.MESSAGE.THRUST_STAGE_DISTANCE.TITLE} />
           <DistanceInfoSelect
             name="thrustStageDistance"
             options={THRUST_STAGE_DISTANCE_INFO}
             dispatch={dispatch}
           />
+          <Spacing size={12} />
           <ReviewSection.Title title={REVIEW.MESSAGE.SCREEN_DISTANCE.TITLE} />
           <DistanceInfoSelect
             name="screenDistance"
