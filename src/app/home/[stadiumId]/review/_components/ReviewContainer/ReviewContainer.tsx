@@ -3,20 +3,20 @@
 import ReviewForm from '../ReviewForm';
 import { useReducer } from 'react';
 import { NONE, NONE_SELECT, REVIEW } from '@/constants/review';
-import type { AdditionalInfo, ReviewAction, ReviewData, Step, ViewBlockInfo } from '@/types/review';
-import { toggleSetItem } from '@/utils/toggleSetItem';
+import type { ReviewAction, ReviewData, Step } from '@/types/review';
+import { toggleItem } from '@/utils/toggleItem';
 
 const createInitReviewData = (stadiumId: number): ReviewData => {
   const initData: ReviewData = {
     stadiumId,
     concertId: NONE_SELECT,
     seatingId: NONE_SELECT,
-    additionalInfo: new Set<AdditionalInfo>(),
+    features: [],
     images: [],
     stageDistance: NONE_SELECT,
     thrustStageDistance: NONE_SELECT,
     screenDistance: NONE_SELECT,
-    viewBlockInfo: new Set<ViewBlockInfo>(),
+    obstructions: [],
     review: '',
     currentStep: 0,
   };
@@ -43,13 +43,13 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
         currentStep: (REVIEW.STEPS.SEAT_INFO_SELECT + 1) as Step,
       });
 
-    case REVIEW.ACTIONS.ADDITIONAL_INFO_SELECT: {
-      const { additionalInfo } = action.payload;
-      if (!additionalInfo) return state;
+    case REVIEW.ACTIONS.FEATURES_INFO_SELECT: {
+      const { feature } = action.payload;
+      if (!feature) return state;
 
       return updateState(state, {
-        additionalInfo: toggleSetItem<AdditionalInfo>(state.additionalInfo, additionalInfo),
-        currentStep: (REVIEW.STEPS.ADDITIONAL_INFO_SELECT + 1) as Step,
+        features: toggleItem(state.features, feature),
+        currentStep: (REVIEW.STEPS.FEATURES_INFO_SELECT + 1) as Step,
       });
     }
 
@@ -90,22 +90,21 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       return updateState(nextState, { currentStep: step as Step });
     }
 
-    case REVIEW.ACTIONS.VIEW_BLOCK_SELECT: {
-      const { viewBlockInfo } = action.payload;
-      if (!viewBlockInfo) return state;
+    case REVIEW.ACTIONS.OBSTRUCTIONS_SELECT: {
+      const { obstruction } = action.payload;
+      if (!obstruction) return state;
 
-      let nextInfo = new Set<ViewBlockInfo>();
+      let nextInfo: number[] = [];
 
-      if (viewBlockInfo === NONE) {
-        nextInfo = new Set([NONE]);
+      if (obstruction === NONE) {
+        nextInfo = state.obstructions.includes(NONE) ? [] : [NONE];
       } else {
-        state.viewBlockInfo.delete(NONE);
-        nextInfo = toggleSetItem<ViewBlockInfo>(state.viewBlockInfo, viewBlockInfo);
+        nextInfo = state.obstructions.filter((id) => id !== NONE);
+        nextInfo = toggleItem(nextInfo, obstruction);
       }
-
       return updateState(state, {
-        viewBlockInfo: nextInfo,
-        currentStep: (REVIEW.STEPS.VIEW_BLOCK_SELECT + 1) as Step,
+        obstructions: nextInfo,
+        currentStep: (REVIEW.STEPS.OBSTRUCTIONS_SELECT + 1) as Step,
       });
     }
 

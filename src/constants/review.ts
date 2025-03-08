@@ -1,4 +1,4 @@
-export const NONE = '없음';
+export const NONE = 5;
 export const FLOOR = 'FLOOR';
 export const NONE_SELECT = -1;
 export const MAX_IMAGE_UPLOAD_NUMBER = 4;
@@ -28,34 +28,34 @@ export const SCREEN_DISTANCE_INFO = [
   DISTANCE_VALUE.FAR,
 ] as const;
 
-export const ADDITIONAL_INFO = [
-  '돌출',
-  '돌돌출',
-  '돌출없음',
-  '토롯코',
-  '360',
-  '통로',
-  '의탠딩',
-  '스탠딩',
-  '시제석',
+export const FEATURES_INFO = [
+  { featureId: 1, name: '돌출' },
+  { featureId: 2, name: '돌돌출' },
+  { featureId: 3, name: '돌출없음' },
+  { featureId: 4, name: '토롯코' },
+  { featureId: 5, name: '360' },
+  { featureId: 6, name: '통로' },
+  { featureId: 7, name: '의탠딩' },
+  { featureId: 8, name: '스탠딩' },
+  { featureId: 9, name: '시제석' },
 ] as const;
 
-export const VIEW_BLOCK_INFO = [
-  '카메라에 가려요',
-  '펜스 방해가 있어요',
-  '단차가 있어요',
-  '스키퍼에 가려요',
-  NONE,
+export const OBSTRUCTIONS_INFO = [
+  { obstructionId: 1, name: '카메라에 가려요' },
+  { obstructionId: 2, name: '펜스 방해가 있어요' },
+  { obstructionId: 3, name: '단차가 있어요' },
+  { obstructionId: 4, name: '스키퍼에 가려요' },
+  { obstructionId: NONE, name: '없음' },
 ] as const;
 
 const REVIEW_ACTIONS = {
   CONCERT_SELECT: 'CONCERT_SELECT',
   SEAT_INFO_SELECT: 'SEAT_INFO_SELECT',
-  ADDITIONAL_INFO_SELECT: 'ADDITIONAL_INFO_SELECT',
+  FEATURES_INFO_SELECT: 'FEATURES_INFO_SELECT',
   IMAGE_UPLOAD: 'IMAGE_UPLOAD',
   IMAGE_REMOVE: 'IMAGE_REMOVE',
   DISTANCE_INFO_SELECT: 'DISTANCE_INFO_SELECT',
-  VIEW_BLOCK_SELECT: 'VIEW_BLOCK_SELECT',
+  OBSTRUCTIONS_SELECT: 'OBSTRUCTIONS_SELECT',
   REVIEW_INPUT: 'REVIEW_INPUT',
   SUBMIT: 'SUBMIT',
 } as const;
@@ -63,10 +63,10 @@ const REVIEW_ACTIONS = {
 const REVIEW_STEPS = {
   CONCERT_SELECT: 0,
   SEAT_INFO_SELECT: 1,
-  ADDITIONAL_INFO_SELECT: 2,
+  FEATURES_INFO_SELECT: 2,
   IMAGE_UPLOAD: 3,
   DISTANCE_INFO_SELECT: 4,
-  VIEW_BLOCK_SELECT: 5,
+  OBSTRUCTIONS_SELECT: 5,
   REVIEW_INPUT: 6,
   SUBMIT: 7,
 } as const;
@@ -82,7 +82,7 @@ const REVIEW_MESSAGE = {
     SUBTITLE:
       '*플로어는 공연별 구역명이 상이할 수 있습니다.\n좌석표를 확인하여 본무대/돌출 기준으로 구역을 선택해주세요',
   },
-  ADDITIONAL_INFO_SELECT: {
+  FEATURES_INFO_SELECT: {
     TITLE: '추가 좌석 정보를 선택해주세요',
     SUBTITLE: '*플로어의 경우 공연별 변동사항이 많이 발생하여,\n해당 정보가 꼭 필요해요',
   },
@@ -99,7 +99,7 @@ const REVIEW_MESSAGE = {
   SCREEN_DISTANCE: {
     TITLE: '전광판이 잘 보이나요?',
   },
-  VIEW_BLOCK_SELECT: {
+  OBSTRUCTIONS_SELECT: {
     TITLE: '시야 방해가 있었나요?',
     SUBTITLE: '해당되는 내용을 모두 선택해주세요',
   },

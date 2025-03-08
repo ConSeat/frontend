@@ -1,9 +1,7 @@
 import { Dispatch } from 'react';
-import { ADDITIONAL_INFO, REVIEW, VIEW_BLOCK_INFO } from '@/constants/review';
+import { REVIEW } from '@/constants/review';
 
 export type Review = (typeof REVIEW.ACTIONS)[keyof typeof REVIEW.ACTIONS];
-export type AdditionalInfo = (typeof ADDITIONAL_INFO)[number];
-export type ViewBlockInfo = (typeof VIEW_BLOCK_INFO)[number];
 
 export type Step = (typeof REVIEW.STEPS)[keyof typeof REVIEW.STEPS];
 
@@ -18,12 +16,12 @@ export interface ReviewData {
   stadiumId: number;
   concertId: number;
   seatingId: number;
-  additionalInfo: Set<AdditionalInfo>;
+  features: number[];
   images: ImageData[];
   stageDistance: number;
   thrustStageDistance: number;
   screenDistance: number;
-  viewBlockInfo: Set<ViewBlockInfo>;
+  obstructions: number[];
   review: string;
   currentStep: Step;
 }
@@ -31,7 +29,7 @@ export interface ReviewData {
 interface ActionPayload {
   concertId?: number;
   seatingId?: number;
-  additionalInfo?: AdditionalInfo;
+  feature?: number;
   image?: ImageData;
   removeImageIndex?: number;
   distanceInfo?: {
@@ -40,7 +38,7 @@ interface ActionPayload {
   };
   thrustStageDistance?: number;
   screenDistance?: number;
-  viewBlockInfo?: ViewBlockInfo;
+  obstruction?: number;
   review?: string;
 }
 

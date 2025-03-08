@@ -1,6 +1,6 @@
 @import '@/styles/style';
 
-.viewBlockInfoSection {
+.featuresInfoSection {
   display: flex;
   flex-wrap: wrap;
   gap: 12px 8px;
@@ -9,4 +9,7 @@
 
   width: 100%;
   padding: 20px 12px;
+  border-radius: 5px;
+
+  background: $sub-black;
 }

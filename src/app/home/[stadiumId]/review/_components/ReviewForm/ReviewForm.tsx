@@ -1,13 +1,13 @@
 'use client';
 
-import AdditionalSeatInfo from '../AdditionalSeatInfo';
 import ConcertSelect from '../ConcertSelect/ConcertSelect';
 import DistanceInfoSelect from '../DistanceInfoSelect/DistanceInfoSelect';
+import AdditionalSeatInfo from '../FeaturesInfo';
+import ViewBlockInfo from '../ObstructionsInfo';
 import ReviewInput from '../ReviewInput/ReviewInput';
 import ReviewSection from '../ReviewSection/ReviewSection';
 import SeatImage from '../SeatImage';
 import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
-import ViewBlockInfo from '../ViewBlockInfo';
 import styles from './ReviewForm.module.scss';
 import { Dispatch, useRef } from 'react';
 import Button from '@/components/Button/Button';
@@ -53,13 +53,13 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
         </ReviewSection>
       )}
 
-      {isRender(REVIEW.STEPS.ADDITIONAL_INFO_SELECT) && (
+      {isRender(REVIEW.STEPS.FEATURES_INFO_SELECT) && (
         <ReviewSection>
           <ReviewSection.Title
-            title={REVIEW.MESSAGE.ADDITIONAL_INFO_SELECT.TITLE}
-            subtitle={REVIEW.MESSAGE.ADDITIONAL_INFO_SELECT.SUBTITLE}
+            title={REVIEW.MESSAGE.FEATURES_INFO_SELECT.TITLE}
+            subtitle={REVIEW.MESSAGE.FEATURES_INFO_SELECT.SUBTITLE}
           />
-          <AdditionalSeatInfo data={reviewData.additionalInfo} dispatch={dispatch} />
+          <AdditionalSeatInfo data={reviewData.features} dispatch={dispatch} />
         </ReviewSection>
       )}
 
@@ -96,13 +96,13 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
         </ReviewSection>
       )}
 
-      {isRender(REVIEW.STEPS.VIEW_BLOCK_SELECT) && (
+      {isRender(REVIEW.STEPS.OBSTRUCTIONS_SELECT) && (
         <ReviewSection>
           <ReviewSection.Title
-            title={REVIEW.MESSAGE.VIEW_BLOCK_SELECT.TITLE}
-            subtitle={REVIEW.MESSAGE.VIEW_BLOCK_SELECT.SUBTITLE}
+            title={REVIEW.MESSAGE.OBSTRUCTIONS_SELECT.TITLE}
+            subtitle={REVIEW.MESSAGE.OBSTRUCTIONS_SELECT.SUBTITLE}
           />
-          <ViewBlockInfo data={reviewData.viewBlockInfo} dispatch={dispatch} />
+          <ViewBlockInfo data={reviewData.obstructions} dispatch={dispatch} />
         </ReviewSection>
       )}
 
