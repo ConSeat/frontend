@@ -1,0 +1,30 @@
+@import '@/styles/style';
+
+.stageContainer {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 10px;
+  align-items: flex-start;
+
+  width: 118px;
+  height: 90px;
+  padding: 9px 20px;
+  border: 1px solid $sub_gray6;
+  border-radius: 2px;
+
+  background: $sub_black;
+}
+
+.zoomInButton {
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+
+  flex-shrink: 0;
+
+  width: 20px;
+  height: 20px;
+}
