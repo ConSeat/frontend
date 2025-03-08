@@ -1,4 +1,5 @@
 import styles from './ImageList.module.scss';
+import React from 'react';
 import { CloseCircle } from '@/assets';
 import type { ImageData } from '@/types/review';
 
@@ -7,7 +8,7 @@ interface ImageListProps {
   onClick: (index: number) => void;
 }
 
-const ImageList = ({ images, onClick }: ImageListProps) => {
+const ImageList = React.memo(({ images, onClick }: ImageListProps) => {
   return (
     <div className={styles.imageList}>
       {images.map((img, index) => (
@@ -20,6 +21,8 @@ const ImageList = ({ images, onClick }: ImageListProps) => {
       ))}
     </div>
   );
-};
+});
+
+ImageList.displayName = 'ImageList';
 
 export default ImageList;

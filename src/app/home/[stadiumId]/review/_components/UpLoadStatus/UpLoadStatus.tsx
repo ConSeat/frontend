@@ -1,11 +1,12 @@
 import styles from './UpLoadStatus.module.scss';
+import React from 'react';
 import { MAX_IMAGE_UPLOAD_NUMBER } from '@/constants/review';
 
 interface UpLoadStatusProps {
   imageListLength: number;
 }
 
-const UpLoadStatus = ({ imageListLength }: UpLoadStatusProps) => {
+const UpLoadStatus = React.memo(({ imageListLength }: UpLoadStatusProps) => {
   return (
     <div>
       <div className={styles.description}>{imageListLength}장 첨부</div>
@@ -23,6 +24,8 @@ const UpLoadStatus = ({ imageListLength }: UpLoadStatusProps) => {
       </div>
     </div>
   );
-};
+});
+
+UpLoadStatus.displayName = 'UpLoadStatus';
 
 export default UpLoadStatus;

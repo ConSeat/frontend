@@ -1,6 +1,7 @@
 'use client';
 
 import ReviewDropdownInput from '../ReviewDropdownInput/ReviewDropdownInput';
+import React from 'react';
 import { REVIEW } from '@/constants/review';
 import { ReviewDispatch } from '@/types/review';
 
@@ -17,7 +18,7 @@ const concerts = [
   { concertId: 5, name: '텐(NCT) 2025 - 서울' },
 ];
 
-const ConcertSelect = ({ data, dispatch }: ConcertSelectProps) => {
+const ConcertSelect = React.memo(({ data, dispatch }: ConcertSelectProps) => {
   const selectedConcert = concerts.find((concert) => concert.concertId === data) || '';
 
   const handleConcertSelect = (concertId: number) => {
@@ -35,6 +36,8 @@ const ConcertSelect = ({ data, dispatch }: ConcertSelectProps) => {
       placeholder={REVIEW.MESSAGE.CONCERT_SELECT.PLACEHOLDER}
     />
   );
-};
+});
+
+ConcertSelect.displayName = 'ConcertSelect';
 
 export default ConcertSelect;

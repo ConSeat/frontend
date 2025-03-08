@@ -9,7 +9,7 @@ import ReviewSection from '../ReviewSection/ReviewSection';
 import SeatImage from '../SeatImage';
 import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
 import styles from './ReviewForm.module.scss';
-import { Dispatch, useRef } from 'react';
+import React, { Dispatch, useRef } from 'react';
 import Button from '@/components/Button/Button';
 import Spacing from '@/components/Spacing/Spacing';
 import {
@@ -25,7 +25,7 @@ interface ReviewFormProps {
   dispatch: Dispatch<ReviewAction>;
 }
 
-const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
+const ReviewForm = React.memo(({ reviewData, dispatch }: ReviewFormProps) => {
   const stepRef = useRef<number>(0);
   stepRef.current = Math.max(stepRef.current, reviewData.currentStep);
 
@@ -119,6 +119,8 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
       {isRender(REVIEW.STEPS.SUBMIT) && <Button>작성완료</Button>}
     </form>
   );
-};
+});
+
+ReviewForm.displayName = 'ReviewForm';
 
 export default ReviewForm;
