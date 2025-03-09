@@ -9,3 +9,5 @@ export { default as DownArrow } from '@/assets/icon/down-arrow.svg';
 
 export { default as ChoiceCircle } from '@/assets/icon/btn-choiceCircle.svg';
 export { default as CloseCircle } from '@/assets/icon/close-circle.svg';
+
+export { default as ZoomIn } from '@/assets/icon/btn-zoomIn.svg';

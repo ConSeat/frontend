@@ -1,7 +1,6 @@
 'use client';
 
 import styles from './Modal.module.scss';
-import React from 'react';
 import { createPortal } from 'react-dom';
 
 interface ModalProps {
