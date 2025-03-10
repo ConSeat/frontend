@@ -1,5 +1,6 @@
 import ReviewRadioButton from '../ReviewRadioButton';
 import styles from './DistanceInfoSelect.module.scss';
+import React from 'react';
 import { REVIEW } from '@/constants/review';
 import { type DistanceInfoKey, ReviewDispatch } from '@/types/review';
 
@@ -34,4 +35,4 @@ const DistanceInfoSelect = ({ name, options, dispatch }: DistanceInfoSelectProps
   );
 };
 
-export default DistanceInfoSelect;
+export default React.memo(DistanceInfoSelect);

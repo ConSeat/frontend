@@ -3,7 +3,7 @@
 import ImageList from '../ImageList';
 import ImageUpLoadArea from '../ImageUpLoadArea';
 import UpLoadStatus from '../UpLoadStatus/UpLoadStatus';
-import { ChangeEventHandler, useRef } from 'react';
+import React, { ChangeEventHandler, useRef } from 'react';
 import Splitter from '@/components/Splitter/Splitter';
 import { REVIEW } from '@/constants/review';
 import type { ImageData, ReviewDispatch } from '@/types/review';
@@ -65,4 +65,4 @@ const SeatImage = ({ data, dispatch }: SeatImageProps) => {
   );
 };
 
-export default SeatImage;
+export default React.memo(SeatImage);

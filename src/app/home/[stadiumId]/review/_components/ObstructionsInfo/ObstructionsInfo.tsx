@@ -2,6 +2,7 @@
 
 import ReviewCheckbox from '../ReviewCheckbox';
 import styles from './ObstructionsInfo.module.scss';
+import React from 'react';
 import { OBSTRUCTIONS_INFO, REVIEW } from '@/constants/review';
 import type { ReviewDispatch } from '@/types/review';
 
@@ -33,4 +34,4 @@ const ObstructionsInfo = ({ data, dispatch }: ObstructionsInfoProps) => {
   );
 };
 
-export default ObstructionsInfo;
+export default React.memo(ObstructionsInfo);

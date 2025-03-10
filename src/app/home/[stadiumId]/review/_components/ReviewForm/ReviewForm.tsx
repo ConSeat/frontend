@@ -2,8 +2,8 @@
 
 import ConcertSelect from '../ConcertSelect/ConcertSelect';
 import DistanceInfoSelect from '../DistanceInfoSelect/DistanceInfoSelect';
-import AdditionalSeatInfo from '../FeaturesInfo';
-import ViewBlockInfo from '../ObstructionsInfo';
+import FeaturesInfo from '../FeaturesInfo';
+import ObstructionsInfo from '../ObstructionsInfo';
 import ReviewContents from '../ReviewContents/ReviewContents';
 import ReviewSection from '../ReviewSection/ReviewSection';
 import SeatImage from '../SeatImage';
@@ -60,7 +60,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
             title={REVIEW.MESSAGE.FEATURES_INFO_SELECT.TITLE}
             subtitle={REVIEW.MESSAGE.FEATURES_INFO_SELECT.SUBTITLE}
           />
-          <AdditionalSeatInfo data={reviewData.features} dispatch={dispatch} />
+          <FeaturesInfo data={reviewData.features} dispatch={dispatch} />
         </ReviewSection>
       )}
 
@@ -105,7 +105,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
             title={REVIEW.MESSAGE.OBSTRUCTIONS_SELECT.TITLE}
             subtitle={REVIEW.MESSAGE.OBSTRUCTIONS_SELECT.SUBTITLE}
           />
-          <ViewBlockInfo data={reviewData.obstructions} dispatch={dispatch} />
+          <ObstructionsInfo data={reviewData.obstructions} dispatch={dispatch} />
         </ReviewSection>
       )}
 

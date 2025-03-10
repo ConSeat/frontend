@@ -1,7 +1,7 @@
 'use client';
 
 import ReviewDropdown from '../ReviewDropdown/ReviewDropdown';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { NONE_SELECT, REVIEW } from '@/constants/review';
 import { ReviewDispatch } from '@/types/review';
 
@@ -119,4 +119,4 @@ const SeatInfoSelect = ({ data, dispatch }: SeatInfoSelectProps) => {
   );
 };
 
-export default SeatInfoSelect;
+export default React.memo(SeatInfoSelect);

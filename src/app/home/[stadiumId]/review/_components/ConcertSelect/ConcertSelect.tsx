@@ -1,6 +1,7 @@
 'use client';
 
 import ReviewDropdownInput from '../ReviewDropdownInput/ReviewDropdownInput';
+import React from 'react';
 import { REVIEW } from '@/constants/review';
 import { ReviewDispatch } from '@/types/review';
 
@@ -37,4 +38,4 @@ const ConcertSelect = ({ data, dispatch }: ConcertSelectProps) => {
   );
 };
 
-export default ConcertSelect;
+export default React.memo(ConcertSelect);

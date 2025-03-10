@@ -1,5 +1,5 @@
 import styles from './ReviewSection.module.scss';
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 const ReviewSection = ({ children }: { children: ReactNode }) => {
   return <section className={styles.reviewSection}>{children}</section>;
@@ -14,6 +14,6 @@ const ReviewSectionTitle = ({ title, subtitle }: { title?: string; subtitle?: st
   );
 };
 
-ReviewSection.Title = ReviewSectionTitle;
+ReviewSection.Title = React.memo(ReviewSectionTitle);
 
 export default ReviewSection;

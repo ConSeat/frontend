@@ -127,7 +127,6 @@ interface ReviewContainerProps {
 
 const ReviewContainer = ({ stadiumId }: ReviewContainerProps) => {
   const [state, dispatch] = useReducer(reviewReducer, createInitReviewData(stadiumId));
-  console.log(state);
 
   return <ReviewForm reviewData={state} dispatch={dispatch} />;
 };

@@ -1,3 +1,4 @@
+import React from 'react';
 import Textarea from '@/components/Textarea/Textarea';
 import { REVIEW } from '@/constants/review';
 import type { ReviewDispatch } from '@/types/review';
@@ -26,4 +27,4 @@ const ReviewContents = ({ data, dispatch }: ReviewContentsProps) => {
   );
 };
 
-export default ReviewContents;
+export default React.memo(ReviewContents);

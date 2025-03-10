@@ -2,6 +2,7 @@
 
 import ReviewCheckbox from '../ReviewCheckbox';
 import styles from './FeaturesInfo.module.scss';
+import React from 'react';
 import { FEATURES_INFO, REVIEW } from '@/constants/review';
 import type { ReviewDispatch } from '@/types/review';
 
@@ -32,4 +33,4 @@ const FeaturesInfo = ({ data, dispatch }: FeaturesInfoProps) => {
   );
 };
 
-export default FeaturesInfo;
+export default React.memo(FeaturesInfo);
