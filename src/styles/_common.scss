@@ -24,3 +24,19 @@
     box-shadow: none;
   }
 }
+
+@mixin single-line-elliptical-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin multiline-elliptical-text($number-of-lines) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $number-of-lines;
+
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+}

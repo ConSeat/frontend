@@ -51,7 +51,7 @@ const ReviewDropdownInput = ({
                 filterOptions(newValue);
               }}
               onFocus={() => {
-                filterOptions(value);
+                filterOptions(inputValue);
                 handleOpenDropdown();
               }}
               onKeyDown={(e) => {
@@ -67,7 +67,7 @@ const ReviewDropdownInput = ({
       {isDropdownOpen && (
         <Dropdown.Menu className={styles.reviewDropdownMenu}>
           {filteredOptions.length > 0 &&
-            filteredOptions.map((option) => (
+            filteredOptions.map((option, index) => (
               <Fragment key={option.concertId}>
                 <Dropdown.Item
                   className={styles.reviewDropdownItem}
@@ -80,7 +80,7 @@ const ReviewDropdownInput = ({
                 >
                   {option.name}
                 </Dropdown.Item>
-                <Splitter color="subGray7" />
+                {index !== filteredOptions.length - 1 && <Splitter color="subGray7" />}
               </Fragment>
             ))}
         </Dropdown.Menu>

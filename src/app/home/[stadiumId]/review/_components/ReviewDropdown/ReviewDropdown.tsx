@@ -36,7 +36,7 @@ const ReviewDropdown = ({ value, onChange, options, placeholder }: ReviewDropdow
       />
       {isDropdownOpen && (
         <Dropdown.Menu className={styles.reviewDropdownMenu}>
-          {options.map((option) => (
+          {options.map((option, index) => (
             <Fragment key={option}>
               <Dropdown.Item
                 className={styles.reviewDropdownItem}
@@ -48,7 +48,7 @@ const ReviewDropdown = ({ value, onChange, options, placeholder }: ReviewDropdow
               >
                 {option}
               </Dropdown.Item>
-              <Splitter color="subGray7" />
+              {index !== options.length - 1 && <Splitter color="subGray7" />}
             </Fragment>
           ))}
         </Dropdown.Menu>
