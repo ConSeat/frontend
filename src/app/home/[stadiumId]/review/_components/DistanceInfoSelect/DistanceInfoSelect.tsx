@@ -1,6 +1,5 @@
 import ReviewRadioButton from '../ReviewRadioButton';
 import styles from './DistanceInfoSelect.module.scss';
-import React from 'react';
 import { REVIEW } from '@/constants/review';
 import { type DistanceInfoKey, ReviewDispatch } from '@/types/review';
 
@@ -10,7 +9,7 @@ interface DistanceInfoSelectProps {
   dispatch: ReviewDispatch;
 }
 
-const DistanceInfoSelect = React.memo(({ name, options, dispatch }: DistanceInfoSelectProps) => {
+const DistanceInfoSelect = ({ name, options, dispatch }: DistanceInfoSelectProps) => {
   const handleChangeInput = (key: DistanceInfoKey, value: number) => {
     dispatch({
       type: REVIEW.ACTIONS.DISTANCE_INFO_SELECT,
@@ -33,8 +32,6 @@ const DistanceInfoSelect = React.memo(({ name, options, dispatch }: DistanceInfo
       </div>
     </div>
   );
-});
-
-DistanceInfoSelect.displayName = 'DistanceInfoSelect';
+};
 
 export default DistanceInfoSelect;

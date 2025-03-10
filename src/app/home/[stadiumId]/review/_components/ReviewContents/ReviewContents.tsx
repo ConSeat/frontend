@@ -1,4 +1,3 @@
-import React from 'react';
 import Textarea from '@/components/Textarea/Textarea';
 import { REVIEW } from '@/constants/review';
 import type { ReviewDispatch } from '@/types/review';
@@ -8,7 +7,7 @@ interface ReviewContentsProps {
   dispatch: ReviewDispatch;
 }
 
-const ReviewContents = React.memo(({ data, dispatch }: ReviewContentsProps) => {
+const ReviewContents = ({ data, dispatch }: ReviewContentsProps) => {
   const handleReviewContents = (content: string) => {
     dispatch({
       type: REVIEW.ACTIONS.REVIEW_INPUT,
@@ -25,8 +24,6 @@ const ReviewContents = React.memo(({ data, dispatch }: ReviewContentsProps) => {
       rows={5}
     />
   );
-});
-
-ReviewContents.displayName = 'ReviewContents';
+};
 
 export default ReviewContents;

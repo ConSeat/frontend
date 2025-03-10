@@ -2,7 +2,6 @@
 
 import ReviewCheckbox from '../ReviewCheckbox';
 import styles from './ObstructionsInfo.module.scss';
-import React from 'react';
 import { OBSTRUCTIONS_INFO, REVIEW } from '@/constants/review';
 import type { ReviewDispatch } from '@/types/review';
 
@@ -11,7 +10,7 @@ interface ObstructionsInfoProps {
   dispatch: ReviewDispatch;
 }
 
-const ObstructionsInfo = React.memo(({ data, dispatch }: ObstructionsInfoProps) => {
+const ObstructionsInfo = ({ data, dispatch }: ObstructionsInfoProps) => {
   const toggleObstructionsInfo = (info: number) => {
     dispatch({
       type: REVIEW.ACTIONS.OBSTRUCTIONS_SELECT,
@@ -32,8 +31,6 @@ const ObstructionsInfo = React.memo(({ data, dispatch }: ObstructionsInfoProps) 
       ))}
     </div>
   );
-});
-
-ObstructionsInfo.displayName = 'ObstructionsInfo';
+};
 
 export default ObstructionsInfo;

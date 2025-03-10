@@ -2,7 +2,7 @@
 
 import styles from './ReviewDropdownInput.module.scss';
 import classNames from 'classnames';
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 import useDropdown from '@/hooks/useDropdown';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import Splitter from '@/components/Splitter/Splitter';
@@ -15,77 +15,78 @@ interface ReviewDropdownInputProps {
   placeholder?: string;
 }
 
-const ReviewDropdownInput = React.memo(
-  ({ value, onChange, options, placeholder }: ReviewDropdownInputProps) => {
-    const [inputValue, setInputValue] = useState(value);
-    const [filteredOptions, setFilteredOptions] = useState(options);
-    const { isDropdownOpen, handleOpenDropdown, handleCloseDropdown, dropdownRef } = useDropdown();
+const ReviewDropdownInput = ({
+  value,
+  onChange,
+  options,
+  placeholder,
+}: ReviewDropdownInputProps) => {
+  const [inputValue, setInputValue] = useState(value);
+  const [filteredOptions, setFilteredOptions] = useState(options);
+  const { isDropdownOpen, handleOpenDropdown, handleCloseDropdown, dropdownRef } = useDropdown();
 
-    const filterOptions = (input: string) => {
-      setFilteredOptions(
-        options.filter((option) => option.name.toLowerCase().includes(input.toLowerCase())),
-      );
-    };
-
-    return (
-      <Dropdown ref={dropdownRef}>
-        <Dropdown.Trigger
-          as={
-            <div
-              className={classNames(styles.reviewDropdownTrigger, {
-                [styles.isOpen]: isDropdownOpen,
-              })}
-            >
-              <input
-                className={styles.reviewDropdownInput}
-                type="text"
-                value={inputValue}
-                placeholder={placeholder}
-                onChange={(e) => {
-                  const newValue = e.target.value;
-                  setInputValue(newValue);
-                  filterOptions(newValue);
-                }}
-                onFocus={() => {
-                  filterOptions(value);
-                  handleOpenDropdown();
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                  }
-                }}
-              />
-              <span>{isDropdownOpen ? <UpArrow /> : <DownArrow />}</span>
-            </div>
-          }
-        />
-        {isDropdownOpen && (
-          <Dropdown.Menu className={styles.reviewDropdownMenu}>
-            {filteredOptions.length > 0 &&
-              filteredOptions.map((option) => (
-                <Fragment key={option.concertId}>
-                  <Dropdown.Item
-                    className={styles.reviewDropdownItem}
-                    isSelected={value === option.name}
-                    onClick={() => {
-                      setInputValue(option.name);
-                      onChange(option);
-                      handleCloseDropdown();
-                    }}
-                  >
-                    {option.name}
-                  </Dropdown.Item>
-                  <Splitter color="subGray7" />
-                </Fragment>
-              ))}
-          </Dropdown.Menu>
-        )}
-      </Dropdown>
+  const filterOptions = (input: string) => {
+    setFilteredOptions(
+      options.filter((option) => option.name.toLowerCase().includes(input.toLowerCase())),
     );
-  },
-);
+  };
 
-ReviewDropdownInput.displayName = 'ReviewDropdownInput';
+  return (
+    <Dropdown ref={dropdownRef}>
+      <Dropdown.Trigger
+        as={
+          <div
+            className={classNames(styles.reviewDropdownTrigger, {
+              [styles.isOpen]: isDropdownOpen,
+            })}
+          >
+            <input
+              className={styles.reviewDropdownInput}
+              type="text"
+              value={inputValue}
+              placeholder={placeholder}
+              onChange={(e) => {
+                const newValue = e.target.value;
+                setInputValue(newValue);
+                filterOptions(newValue);
+              }}
+              onFocus={() => {
+                filterOptions(value);
+                handleOpenDropdown();
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                }
+              }}
+            />
+            <span>{isDropdownOpen ? <UpArrow /> : <DownArrow />}</span>
+          </div>
+        }
+      />
+      {isDropdownOpen && (
+        <Dropdown.Menu className={styles.reviewDropdownMenu}>
+          {filteredOptions.length > 0 &&
+            filteredOptions.map((option) => (
+              <Fragment key={option.concertId}>
+                <Dropdown.Item
+                  className={styles.reviewDropdownItem}
+                  isSelected={value === option.name}
+                  onClick={() => {
+                    setInputValue(option.name);
+                    onChange(option);
+                    handleCloseDropdown();
+                  }}
+                >
+                  {option.name}
+                </Dropdown.Item>
+                <Splitter color="subGray7" />
+              </Fragment>
+            ))}
+        </Dropdown.Menu>
+      )}
+    </Dropdown>
+  );
+};
 
 export default ReviewDropdownInput;

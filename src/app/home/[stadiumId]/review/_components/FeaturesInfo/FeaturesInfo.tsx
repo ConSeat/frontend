@@ -2,7 +2,6 @@
 
 import ReviewCheckbox from '../ReviewCheckbox';
 import styles from './FeaturesInfo.module.scss';
-import React from 'react';
 import { FEATURES_INFO, REVIEW } from '@/constants/review';
 import type { ReviewDispatch } from '@/types/review';
 
@@ -11,7 +10,7 @@ interface FeaturesInfoProps {
   dispatch: ReviewDispatch;
 }
 
-const FeaturesInfo = React.memo(({ data, dispatch }: FeaturesInfoProps) => {
+const FeaturesInfo = ({ data, dispatch }: FeaturesInfoProps) => {
   const toggleFeaturesInfo = (info: number) => {
     dispatch({
       type: REVIEW.ACTIONS.FEATURES_INFO_SELECT,
@@ -31,8 +30,6 @@ const FeaturesInfo = React.memo(({ data, dispatch }: FeaturesInfoProps) => {
       ))}
     </div>
   );
-});
-
-FeaturesInfo.displayName = 'FeaturesInfo';
+};
 
 export default FeaturesInfo;

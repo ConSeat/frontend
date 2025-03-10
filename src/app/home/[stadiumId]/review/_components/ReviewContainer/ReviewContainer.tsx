@@ -1,7 +1,7 @@
 'use client';
 
 import ReviewForm from '../ReviewForm';
-import React, { useReducer } from 'react';
+import { useReducer } from 'react';
 import { NONE, NONE_SELECT, REVIEW } from '@/constants/review';
 import type { ReviewAction, ReviewData, Step } from '@/types/review';
 import { toggleItem } from '@/utils/toggleItem';
@@ -125,12 +125,11 @@ interface ReviewContainerProps {
   stadiumId: number;
 }
 
-const ReviewContainer = React.memo(({ stadiumId }: ReviewContainerProps) => {
+const ReviewContainer = ({ stadiumId }: ReviewContainerProps) => {
   const [state, dispatch] = useReducer(reviewReducer, createInitReviewData(stadiumId));
+  console.log(state);
 
   return <ReviewForm reviewData={state} dispatch={dispatch} />;
-});
-
-ReviewContainer.displayName = 'ReviewContainer';
+};
 
 export default ReviewContainer;

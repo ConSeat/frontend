@@ -1,7 +1,7 @@
 'use client';
 
 import ReviewDropdown from '../ReviewDropdown/ReviewDropdown';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { NONE_SELECT, REVIEW } from '@/constants/review';
 import { ReviewDispatch } from '@/types/review';
 
@@ -57,7 +57,7 @@ const seats = [
   },
 ];
 
-const SeatInfoSelect = React.memo(({ data, dispatch }: SeatInfoSelectProps) => {
+const SeatInfoSelect = ({ data, dispatch }: SeatInfoSelectProps) => {
   const [seatInfo, setSeatInfo] = useState({
     floor: '',
     section: '',
@@ -117,8 +117,6 @@ const SeatInfoSelect = React.memo(({ data, dispatch }: SeatInfoSelectProps) => {
       )}
     </>
   );
-});
-
-SeatInfoSelect.displayName = 'SeatInfoSelect';
+};
 
 export default SeatInfoSelect;
