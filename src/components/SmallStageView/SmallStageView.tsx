@@ -1,14 +1,14 @@
 import Button from '../Button/Button';
-import styles from './SmallStatgeView.module.scss';
+import styles from './SmallStageView.module.scss';
 import Image from 'next/image';
 import { ZoomIn } from '@/assets';
 
-interface SmallStatgeViewProps {
+interface SmallStageViewProps {
   hallName: string;
   onClick: () => void;
 }
 
-const SmallStatgeView = ({ hallName, onClick }: SmallStatgeViewProps) => {
+const SmallStageView = ({ hallName, onClick }: SmallStageViewProps) => {
   return (
     <div className={styles.stageContainer}>
       <Image src={`/seats/${hallName}.svg`} width={79} height={72.875} alt="" />
@@ -25,4 +25,4 @@ const SmallStatgeView = ({ hallName, onClick }: SmallStatgeViewProps) => {
   );
 };
 
-export default SmallStatgeView;
+export default SmallStageView;
