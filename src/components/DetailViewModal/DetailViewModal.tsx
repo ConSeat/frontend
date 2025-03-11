@@ -25,7 +25,7 @@ const DetailViewModal = ({ children }: DetailViewModalProps) => {
             <CloseCircle />
           </Button>
         </div>
-        <div className={styles.seatSection}>{children}</div>
+        <div className={styles.stadiumSection}>{children}</div>
         <Button className={styles.closeButtonLarge} onClick={handleClose}>
           닫기
         </Button>

@@ -7,19 +7,19 @@ import { useRouter } from 'next/navigation';
 import { ZoomIn } from '@/assets';
 
 interface SmallStageViewProps {
-  hallName: string;
+  stadiumId: number;
 }
 
-const SmallStageView = ({ hallName }: SmallStageViewProps) => {
+const SmallStageView = ({ stadiumId }: SmallStageViewProps) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/home/${hallName}/review/modal`);
+    router.push(`/home/${stadiumId}/review/modal`);
   };
 
   return (
     <div className={styles.stageContainer}>
-      <Image src={`/seats/${hallName}.svg`} width={79} height={73} alt="" />
+      <Image src={`/stadium/${stadiumId}.svg`} width={79} height={73} alt="" />
       <Button
         className={styles.zoomInButton}
         onClick={(e) => {
