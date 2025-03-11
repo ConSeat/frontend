@@ -7,12 +7,12 @@ import StageView from '@/components/StageView';
 
 const ReviewModal = () => {
   const pathname = usePathname();
-  const hall = pathname.split('/')[2];
+  const stadiumId = pathname.split('/')[2];
 
   return (
     <Modal overlayStyle="default">
       <DetailViewModal>
-        <StageView stageSVGSrc={`/seats/${hall}.svg`} />
+        <StageView stageSVGSrc={`/stadium/${stadiumId}.svg`} />
       </DetailViewModal>
     </Modal>
   );
