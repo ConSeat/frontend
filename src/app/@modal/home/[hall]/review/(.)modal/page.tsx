@@ -1,0 +1,21 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
+import DetailViewModal from '@/components/DetailViewModal';
+import Modal from '@/components/Modal';
+import StageView from '@/components/StageView';
+
+const ReviewModal = () => {
+  const pathname = usePathname();
+  const hall = pathname.split('/')[2];
+
+  return (
+    <Modal overlayStyle="default">
+      <DetailViewModal>
+        <StageView stageSVGSrc={`/seats/${hall}.svg`} />
+      </DetailViewModal>
+    </Modal>
+  );
+};
+
+export default ReviewModal;
