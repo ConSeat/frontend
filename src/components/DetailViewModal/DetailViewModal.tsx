@@ -1,42 +1,36 @@
 'use client';
 
+import Modal from '../Modal';
 import styles from './DetailViewModal.module.scss';
-import { createPortal } from 'react-dom';
+import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import { CloseCircle } from '@/assets';
 
 interface DetailViewModalProps {
-  isOpen: boolean;
   children: React.ReactNode;
-  onClose: () => void;
 }
 
-const DetailViewModal = ({ isOpen, children, onClose }: DetailViewModalProps) => {
-  if (!isOpen) return null;
+const DetailViewModal = ({ children }: DetailViewModalProps) => {
+  const router = useRouter();
+  const handleClose = () => {
+    router.back();
+  };
 
-  const portal = document.getElementById('portal');
-
-  if (portal === null) {
-    console.error(
-      'Portal element not found. Please ensure there is a <div id="portal"> in your layout.',
-    );
-    return null;
-  }
-
-  return createPortal(
-    <div className={styles.overLay}>
-      <div className={styles.header}>
-        <div className={styles.subtitle}>도면보기</div>
-        <Button className={styles.closeButtonSmall} onClick={onClose}>
-          <CloseCircle />
+  return (
+    <Modal overlayStyle="default">
+      <div className={styles.overlay}>
+        <div className={styles.header}>
+          <div className={styles.subtitle}>도면보기</div>
+          <Button className={styles.closeButtonSmall} onClick={handleClose}>
+            <CloseCircle />
+          </Button>
+        </div>
+        <div className={styles.seatSection}>{children}</div>
+        <Button className={styles.closeButtonLarge} onClick={handleClose}>
+          닫기
         </Button>
       </div>
-      <div className={styles.seatSection}>{children}</div>
-      <Button className={styles.closeButtonLarge} onClick={onClose}>
-        닫기
-      </Button>
-    </div>,
-    portal,
+    </Modal>
   );
 };
 

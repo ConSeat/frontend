@@ -1,32 +1,26 @@
 'use client';
 
 import styles from './Modal.module.scss';
-import { createPortal } from 'react-dom';
+import { useRouter } from 'next/navigation';
 
 interface ModalProps {
-  isOpen: boolean;
   children: React.ReactNode;
-  onClose: () => void;
+  overlayStyle: 'blur' | 'default';
 }
 
-const Modal = ({ isOpen, children, onClose }: ModalProps) => {
-  if (!isOpen) return null;
+const Modal = ({ children, overlayStyle }: ModalProps) => {
+  const router = useRouter();
 
-  const portal = document.getElementById('portal');
-
-  if (portal === null) {
-    console.error(
-      'Portal element not found. Please ensure there is a <div id="portal"> in your layout.',
-    );
-    return null;
-  }
-
-  return createPortal(
+  return (
     <>
-      <div className={styles.overLay} onClick={onClose} />
+      <div
+        className={styles[overlayStyle]}
+        onClick={() => {
+          router.back();
+        }}
+      />
       {children}
-    </>,
-    portal,
+    </>
   );
 };
 
