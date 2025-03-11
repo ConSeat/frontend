@@ -11,6 +11,7 @@ import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
 import styles from './ReviewForm.module.scss';
 import { Dispatch, useRef } from 'react';
 import Button from '@/components/Button/Button';
+import SmallStageView from '@/components/SmallStageView';
 import Spacing from '@/components/Spacing/Spacing';
 import {
   REVIEW,
@@ -45,7 +46,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
 
       {isRender(REVIEW.STEPS.SEAT_INFO_SELECT) && (
         <ReviewSection>
-          <div>좌석 배치도</div>
+          <SmallStageView stadiumId={reviewData.stadiumId} />
           <ReviewSection.Title
             title={REVIEW.MESSAGE.SEAT_INFO_SELECT.TITLE}
             subtitle={REVIEW.MESSAGE.SEAT_INFO_SELECT.SUBTITLE}
