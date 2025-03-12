@@ -3,8 +3,19 @@
 .reviewFormLayout {
   display: flex;
   flex-direction: column;
-  gap: 58px;
+  gap: 24px;
   align-items: flex-start;
 
   width: 100%;
+}
+
+.submitButtonText {
+  @include subtitle-1;
+}
+
+.reviewRule {
+  @include body-2;
+
+  margin-top: 34px;
+  color: $sub-gray5;
 }
