@@ -29,17 +29,13 @@
 }
 
 .reviewSectionTitle {
-  font-size: 20px;
-  font-weight: 600;
-  font-style: normal;
-  line-height: 28px;
+  @include subtitle-1;
+
   color: $sub-gray1;
 }
 
 .reviewSectionSubtitle {
-  font-size: 12px;
-  font-weight: 500;
-  font-style: normal;
-  line-height: 16px;
+  @include body-6;
+
   color: $sub-gray3;
 }

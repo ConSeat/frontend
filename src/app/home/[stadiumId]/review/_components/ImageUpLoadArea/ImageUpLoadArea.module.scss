@@ -21,11 +21,5 @@
 }
 
 .uploadButtonText {
-  font-size: 16px;
-  font-weight: 600;
-  font-style: normal;
-  line-height: normal;
-  color: $sub-gray8;
-  text-align: center;
-  letter-spacing: -0.32px;
+  @include body-1;
 }
