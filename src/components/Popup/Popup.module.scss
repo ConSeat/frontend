@@ -38,30 +38,21 @@
 }
 
 .popupTitle {
-  font-size: 18px;
-  font-weight: 700;
-  font-style: normal;
-  line-height: normal;
+  @include subtitle-3;
+
   color: $sub_gray8;
-  letter-spacing: -0.36px;
 }
 
 .popupSubtitle {
-  font-size: 12px;
-  font-weight: 500;
-  font-style: normal;
-  line-height: 18px; /* 150% */
+  @include body-6;
+
   color: $sub_gray6;
-  letter-spacing: -0.24px;
 }
 
 @mixin button-text-base {
-  font-size: 16px;
-  font-weight: 500;
-  font-style: normal;
-  line-height: 20px; /* 125% */
+  @include body-1;
+
   text-align: center;
-  letter-spacing: -0.32px;
 }
 
 @mixin button-base {

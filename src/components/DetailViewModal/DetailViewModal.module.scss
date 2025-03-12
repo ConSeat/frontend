@@ -34,13 +34,10 @@
   .subtitle {
     flex-grow: 1;
 
-    font-size: 20px;
-    font-weight: 600;
-    font-style: normal;
-    line-height: 28px;
+    @include subtitle-1;
+
     color: rgb(255 255 255 / 80%);
     text-align: center;
-    letter-spacing: -0.4px;
   }
 }
 
@@ -69,13 +66,10 @@
   border: $sub_gray6;
   border-radius: 100px;
 
-  font-size: 20px;
-  font-weight: 500;
-  font-style: normal;
-  line-height: 28px; /* 140% */
+  @include subtitle-2;
+
   color: $sub_gray5;
   text-align: center;
-  letter-spacing: -0.4px;
 
   background: $sub_gray8;
 }
