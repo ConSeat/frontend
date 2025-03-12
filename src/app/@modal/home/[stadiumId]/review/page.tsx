@@ -10,7 +10,7 @@ const ReviewModal = () => {
   const stadiumId = pathname.split('/')[2];
 
   return (
-    <Modal overlayStyle="default">
+    <Modal>
       <DetailViewModal>
         <StageView stageSVGSrc={`/stadium/${stadiumId}.svg`} />
       </DetailViewModal>
