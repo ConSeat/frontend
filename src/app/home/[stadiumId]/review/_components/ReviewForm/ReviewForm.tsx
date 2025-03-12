@@ -26,6 +26,12 @@ interface ReviewFormProps {
   dispatch: Dispatch<ReviewAction>;
 }
 
+const reviewRuleText = `[후기 규정]
+            
+※ 고객님의 개인 정보는 익명으로 처리되며, 개인정보보법에 기반하여 보호됩니다.
+
+※ 해당 후기는 업로드 이후에 수정/삭제가 불가합니다. 만약 직접 촬영한 사진이 아니라면, 관리자에 의해 업로드가 제한될 수 있습니다.`;
+
 const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
   const stepRef = useRef<number>(0);
   stepRef.current = Math.max(stepRef.current, reviewData.currentStep);
@@ -122,14 +128,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
           <Button>
             <span className={styles.submitButtonText}>작성완료</span>
           </Button>
-          <pre className={styles.reviewRule}>
-            [후기 규정]
-            <br />
-            ※ 고객님의 개인 정보는 익명으로 처리되며, 개인정보보법에 기반하여 보호됩니다.
-            <br />
-            <br />※ 해당 후기는 업로드 이후에 수정/삭제가 불가합니다. 만약 직접 촬영한 사진이
-            아니라면, 관리자에 의해 업로드가 제한될 수 있습니다.
-          </pre>
+          <pre className={styles.reviewRule}>{reviewRuleText}</pre>
         </>
       )}
     </form>
