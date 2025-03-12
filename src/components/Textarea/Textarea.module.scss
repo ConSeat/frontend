@@ -21,10 +21,8 @@
   padding: 0;
   border: none;
 
-  font-size: 16px;
-  font-weight: 400;
-  font-style: normal;
-  line-height: 20px;
+  @include body-2;
+
   color: $sub-gray3;
 
   background-color: transparent;
@@ -33,10 +31,8 @@
 }
 
 .textarea::placeholder {
-  font-size: 16px;
-  font-weight: 400;
-  font-style: normal;
-  line-height: 20px;
+  @include body-2;
+
   color: $sub-gray6;
 }
 
@@ -47,18 +43,14 @@
   width: 100%;
 
   .valueLength {
-    font-size: 16px;
-    font-weight: 400;
-    font-style: normal;
-    line-height: normal;
+    @include body-2;
+
     color: $sub-gray4;
   }
 
   .maxLength {
-    font-size: 16px;
-    font-weight: 400;
-    font-style: normal;
-    line-height: normal;
+    @include body-2;
+
     color: $sub-gray6;
   }
 }

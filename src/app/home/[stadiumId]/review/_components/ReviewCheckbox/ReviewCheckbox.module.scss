@@ -13,11 +13,7 @@
 }
 
 .reviewCheckboxText {
-  font-size: 16px;
-  font-weight: 500;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -0.32px;
+  @include body-1;
 }
 
 .hiddenCheckbox {
