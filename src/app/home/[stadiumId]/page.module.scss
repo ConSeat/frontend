@@ -1,10 +1,66 @@
+@import '@/styles/style';
+
 .stadiumLayout {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+
   min-height: 100vh;
+  padding-bottom: 32px;
 }
 
 .stadiumMain {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
-  padding: 0 24px 120px;
+  justify-content: space-between;
+
+  padding: 0 24px;
+}
+
+.stadiumTitle {
+  @include heading-1;
+
+  color: $sub-gray2;
+
+  span {
+    @include heading-1;
+
+    color: $main-mint1;
+  }
+}
+
+.stadiumContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.findViewContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: flex-start;
+  align-self: stretch;
+
+  height: 100%;
+}
+
+.findViewList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  align-self: stretch;
+}
+
+.buttonContainer {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+
+  button {
+    @include subtitle-2;
+  }
 }
