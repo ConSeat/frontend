@@ -1,0 +1,57 @@
+@import '@/styles/style';
+
+.stadiumItemLayout {
+  width: 100%;
+  height: 88px;
+  border-radius: 5px;
+
+  background-position: center;
+  background-size: cover;
+}
+
+.stadiumItem {
+  position: relative;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  align-self: stretch;
+
+  padding: 32px 32px 32px 24px;
+  border: 2px solid;
+  border-left-width: 5px;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    min-width: inherit;
+    height: 100%;
+
+    background:
+      linear-gradient(90deg, #272a2d 34.8%, rgb(0 0 0 / 0%) 80.76%),
+      linear-gradient(0deg, rgb(0 0 0 / 20%) 0%, rgb(0 0 0 / 20%) 100%);
+  }
+
+  &.open {
+    border-color: #38f4e7;
+    border-radius: 5px;
+    color: $main-mint1;
+  }
+
+  &.comingsoon {
+    border-color: #495057;
+    border-radius: 5px;
+    color: $sub-gray6;
+  }
+
+  .stadiumName {
+    @include subtitle-4;
+
+    z-index: 2;
+  }
+}
