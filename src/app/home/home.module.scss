@@ -1,0 +1,103 @@
+@import '@/styles/style';
+
+.homeLayout {
+  position: relative;
+  overflow: hidden;
+  padding: 0 24px 72px;
+}
+
+.homeHeader {
+  display: flex;
+  flex-shrink: 0;
+  gap: 16px;
+  align-items: center;
+  justify-content: flex-end;
+
+  width: 100%;
+  height: 56px;
+  margin-bottom: 49px;
+  padding: 12px 0;
+}
+
+.homeMain {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: flex-start;
+
+  width: 100%;
+}
+
+@mixin home-section-base {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  width: 100%;
+  min-width: 342px;
+}
+
+.highlightingText {
+  color: $main-mint1;
+}
+
+.stadiumList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  align-self: stretch;
+}
+
+.homeExplanation {
+  @include home-section-base;
+
+  .title {
+    @include heading-1;
+
+    color: $sub-white;
+
+    .highlightingText {
+      @include heading-1;
+    }
+  }
+
+  .review {
+    @include body-6;
+
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: flex-start;
+
+    color: $sub-gray3;
+  }
+}
+
+.openStadium {
+  @include home-section-base;
+
+  .subtitle {
+    @include subtitle-1;
+
+    color: $sub-gray3;
+  }
+}
+
+.comingSoonStadium {
+  @include home-section-base;
+
+  opacity: 0.6;
+
+  .subtitle {
+    @include subtitle-1;
+
+    color: $sub-gray3;
+  }
+}
+
+.svgO {
+  position: absolute;
+  top: -15vh;
+  left: 0;
+}
