@@ -1,0 +1,43 @@
+@import '@/styles/style';
+
+.findViewLayout {
+  cursor: pointer;
+
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  align-self: stretch;
+
+  width: 100%;
+  height: 60px;
+  padding: 20px;
+  border: 1px solid $sub-gray6;
+  border-radius: 5px;
+
+  background: $sub_gray8;
+
+  &.select {
+    border-color: $main_mint1;
+
+    g,
+    path {
+      fill: $main_mint1;
+    }
+  }
+
+  &.unSelect {
+    opacity: 0.5;
+  }
+}
+
+.findViewSubtitle {
+  @include subtitle-2;
+
+  color: $sub-gray3;
+
+  &.select {
+    @include subtitle-1;
+
+    color: $main_mint1;
+  }
+}
