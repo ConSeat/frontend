@@ -2,7 +2,6 @@
 
 import { usePathname } from 'next/navigation';
 import DetailViewModal from '@/components/DetailViewModal';
-import Modal from '@/components/Modal';
 import StageView from '@/components/StageView';
 
 const ReviewModal = () => {
@@ -10,11 +9,9 @@ const ReviewModal = () => {
   const stadiumId = pathname.split('/')[2];
 
   return (
-    <Modal>
-      <DetailViewModal>
-        <StageView stageSVGSrc={`/stadium/${stadiumId}.svg`} />
-      </DetailViewModal>
-    </Modal>
+    <DetailViewModal>
+      <StageView stageSVGSrc={`/stadium/${stadiumId}.svg`} />
+    </DetailViewModal>
   );
 };
 

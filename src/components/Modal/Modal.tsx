@@ -15,11 +15,11 @@ const ModalMain = ({ children }: ModalMainProps) => {
 };
 
 interface ModalOverlayProps {
-  className?: string;
   onClick: () => void;
+  className?: string;
 }
 
-const ModalOverlay = ({ className, onClick }: ModalOverlayProps) => {
+const ModalOverlay = ({ onClick, className }: ModalOverlayProps) => {
   return <div className={classNames(styles.modalOverlay, className)} onClick={onClick}></div>;
 };
 
@@ -38,12 +38,6 @@ interface ModalTitleProps {
   showCloseButton?: boolean;
 }
 
-/**
- * @todo Icon 컴포넌트 생성
- * @todo width mixin 생성
- * @todo z-index mixin 생성
- */
-
 const ModalTitle = ({ title, onClose, showCloseButton = true }: ModalTitleProps) => {
   return (
     <div className={styles.modalTitleContainer}>
@@ -59,15 +53,19 @@ const ModalTitle = ({ title, onClose, showCloseButton = true }: ModalTitleProps)
 };
 
 /**
- * Modal 컴포넌트에 Overlay와 Title을 합성하여 사용
+ * Modal 컴포넌트에 Overlay와 Content를 합성하여 사용
  *
  * @example
  * <Modal>
- *   <Modal.Overlay />
+ *   <Modal.Overlay onClose={() => {}} />
  *   <Modal.Content>
  *    <Modal.Title title="모달 제목" onClose={() => {}} />
  *   </Modal.Content>
  * </Modal>
+ *
+ * @todo Icon 컴포넌트 생성
+ * @todo width mixin 생성
+ * @todo z-index mixin 생성
  */
 
 const Modal = Object.assign(ModalMain, {
