@@ -2,7 +2,7 @@ export const STADIUM_INFO = {
   active: [
     {
       stadiumId: 1,
-      name: '올림픽 체조경기장',
+      name: 'KSPO DOME (올림픽 체조경기장)',
       image: '/images/kspo-dome.jpg',
     },
   ],
@@ -16,6 +16,11 @@ export const STADIUM_INFO = {
       stadiumId: 3,
       name: '고척 스카이돔',
       image: '/images/gocheok-dome.jpg',
+    },
+    {
+      stadiumId: 4,
+      name: 'SK 핸드볼 경기장',
+      image: '/images/sk-handball.jpg',
     },
   ],
 } as const;
