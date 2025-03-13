@@ -45,21 +45,6 @@
   align-self: stretch;
 }
 
-.homeExplanation {
-  @include home-section-base;
-
-  .review {
-    @include body-6;
-
-    display: flex;
-    gap: 4px;
-    align-items: center;
-    justify-content: flex-start;
-
-    color: $sub-gray3;
-  }
-}
-
 .openStadium {
   @include home-section-base;
 
