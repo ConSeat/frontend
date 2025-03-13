@@ -1,0 +1,13 @@
+@import '@/styles/style';
+
+.pageTitle {
+  @include heading-1;
+
+  color: $sub-gray2;
+
+  span {
+    @include heading-1;
+
+    color: $main-mint1;
+  }
+}
