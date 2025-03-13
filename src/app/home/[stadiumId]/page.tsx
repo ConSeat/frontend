@@ -6,7 +6,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Button from '@/components/Button/Button';
 import ColumnSelectList from '@/components/ColumnSelectList';
-import PageExplainText from '@/components/PageExplainText';
+import PageExplanation from '@/components/PageExplanation';
 import { Compare, Pencil, Seat } from '@/assets';
 
 const menuArray = [
@@ -48,10 +48,12 @@ const StadiumPage = () => {
     <>
       <div className={styles.stadiumContainer}>
         <div className={styles.selectItemContainer}>
-          <PageExplainText>
-            어떤 <span>시야</span>가<br />
-            궁금하신가요?
-          </PageExplainText>
+          <PageExplanation>
+            <PageExplanation.Title>
+              어떤 <span>시야</span>가<br />
+              궁금하신가요?
+            </PageExplanation.Title>
+          </PageExplanation>
           <ColumnSelectList>
             {menuArray.map(({ Icon, subtitle, type }) => {
               return (
