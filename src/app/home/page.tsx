@@ -1,6 +1,7 @@
 import StadiumItem from './_components/StadiumItem';
 import styles from './home.module.scss';
 import Link from 'next/link';
+import PageExplainText from '@/components/PageExplainText';
 import { DefaultProfile, IcChat, LargeO, QnA } from '@/assets';
 import { STADIUM_INFO } from '@/constants/stadium';
 
@@ -17,11 +18,11 @@ const HomePage = () => {
       </header>
       <main className={styles.homeMain}>
         <section className={styles.homeExplanation}>
-          <h2 className={styles.title}>
-            한눈에 비교하는 <span className={styles.highlightingText}>콘서트장 시야</span>
+          <PageExplainText>
+            한눈에 비교하는 <span>콘서트장 시야</span>
             <br />
             공연장을 선택해주세요
-          </h2>
+          </PageExplainText>
           <div className={styles.review}>
             <IcChat />
             후기 +{121}

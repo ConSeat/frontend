@@ -1,10 +1,12 @@
 'use client';
 
-import FindViewItem from './_components/FindViewItem';
 import styles from './page.module.scss';
+import classNames from 'classnames';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Button from '@/components/Button/Button';
+import ColumnSelectList from '@/components/ColumnSelectList';
+import PageExplainText from '@/components/PageExplainText';
 import { Compare, Pencil, Seat } from '@/assets';
 
 const menuArray = [
@@ -38,33 +40,39 @@ const StadiumPage = () => {
     router.push(`/home/${stadiumId}/${viewType}`);
   };
 
-  const handleClickFindViewItem = (type: string) => {
+  const handleClickSelectItem = (type: string) => {
     setViewType(type);
   };
 
   return (
     <>
       <div className={styles.stadiumContainer}>
-        <div className={styles.findViewContainer}>
-          <h2 className={styles.stadiumTitle}>
+        <div className={styles.selectItemContainer}>
+          <PageExplainText>
             어떤 <span>시야</span>가<br />
             궁금하신가요?
-          </h2>
-          <ul className={styles.findViewList}>
+          </PageExplainText>
+          <ColumnSelectList>
             {menuArray.map(({ Icon, subtitle, type }) => {
               return (
-                <FindViewItem
+                <ColumnSelectList.Item
                   key={type}
-                  onClick={() => handleClickFindViewItem(type)}
+                  onClick={() => handleClickSelectItem(type)}
                   isSelected={type === viewType}
                   isUnSelected={viewType !== null && type !== viewType}
-                  subtitle={subtitle}
                 >
                   {Icon}
-                </FindViewItem>
+                  <div
+                    className={classNames(styles.selectItemSubtitle, {
+                      [styles.select]: type === viewType,
+                    })}
+                  >
+                    {subtitle}
+                  </div>
+                </ColumnSelectList.Item>
               );
             })}
-          </ul>
+          </ColumnSelectList>
         </div>
       </div>
       <div className={styles.buttonContainer}>

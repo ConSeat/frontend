@@ -18,25 +18,13 @@
   padding: 0 24px;
 }
 
-.stadiumTitle {
-  @include heading-1;
-
-  color: $sub-gray2;
-
-  span {
-    @include heading-1;
-
-    color: $main-mint1;
-  }
-}
-
 .stadiumContainer {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.findViewContainer {
+.selectItemContainer {
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -44,14 +32,6 @@
   align-self: stretch;
 
   height: 100%;
-}
-
-.findViewList {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: flex-start;
-  align-self: stretch;
 }
 
 .buttonContainer {
@@ -62,5 +42,17 @@
 
   button {
     @include subtitle-2;
+  }
+}
+
+.selectItemSubtitle {
+  @include subtitle-2;
+
+  color: $sub-gray3;
+
+  &.select {
+    @include subtitle-1;
+
+    color: $main_mint1;
   }
 }

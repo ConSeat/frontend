@@ -37,10 +37,6 @@
   min-width: 342px;
 }
 
-.highlightingText {
-  color: $main-mint1;
-}
-
 .stadiumList {
   display: flex;
   flex-direction: column;
@@ -51,16 +47,6 @@
 
 .homeExplanation {
   @include home-section-base;
-
-  .title {
-    @include heading-1;
-
-    color: $sub-white;
-
-    .highlightingText {
-      @include heading-1;
-    }
-  }
 
   .review {
     @include body-6;
