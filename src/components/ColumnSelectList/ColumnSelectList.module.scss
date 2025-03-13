@@ -1,6 +1,14 @@
 @import '@/styles/style';
 
-.findViewLayout {
+.selectItemList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  align-self: stretch;
+}
+
+.selectItemLayout {
   cursor: pointer;
 
   display: flex;
@@ -27,17 +35,5 @@
 
   &.unSelect {
     opacity: 0.5;
-  }
-}
-
-.findViewSubtitle {
-  @include subtitle-2;
-
-  color: $sub-gray3;
-
-  &.select {
-    @include subtitle-1;
-
-    color: $main_mint1;
   }
 }
