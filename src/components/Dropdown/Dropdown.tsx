@@ -5,14 +5,12 @@ import classNames from 'classnames';
 import { ReactNode, forwardRef } from 'react';
 
 interface DropdownProps {
-  value?: string;
-  onChange?: (value: string) => void;
   className?: string;
   children?: ReactNode;
 }
 
-const DropdownComponent = forwardRef<HTMLDivElement, DropdownProps>(function Dropdown(
-  { value, onChange, className, children },
+const DropdownMain = forwardRef<HTMLDivElement, DropdownProps>(function Dropdown(
+  { className, children },
   ref,
 ) {
   return (
@@ -22,25 +20,31 @@ const DropdownComponent = forwardRef<HTMLDivElement, DropdownProps>(function Dro
   );
 });
 
-const Trigger = ({ as }: { as: ReactNode }) => {
+interface DropdownTriggerProps {
+  as: ReactNode;
+}
+
+const DropdownTrigger = ({ as }: DropdownTriggerProps) => {
   return as;
 };
 
-const Menu = ({ children, className }: { children: ReactNode; className?: string }) => {
+interface DropdownMenuProps {
+  children: ReactNode;
+  className?: string;
+}
+
+const DropdownMenu = ({ children, className }: DropdownMenuProps) => {
   return <ul className={classNames(styles.dropdownMenu, className)}>{children}</ul>;
 };
 
-const Modal = ({
-  isOpen,
-  controls,
-  children,
-  className,
-}: {
+interface DropdownModalProps {
   isOpen: boolean;
   controls?: ReactNode;
   children: ReactNode;
   className?: string;
-}) => {
+}
+
+const DropdownModal = ({ isOpen, controls, children, className }: DropdownModalProps) => {
   if (!isOpen) return null;
 
   return (
@@ -51,17 +55,14 @@ const Modal = ({
   );
 };
 
-const Item = ({
-  children,
-  isSelected,
-  onClick,
-  className,
-}: {
+interface DropdownItemProps {
   children: string;
   isSelected: boolean;
   onClick: () => void;
   className?: string;
-}) => {
+}
+
+const DropdownItem = ({ children, isSelected, onClick, className }: DropdownItemProps) => {
   return (
     <li
       className={classNames(styles.dropdownItem, className, { selected: isSelected })}
@@ -72,11 +73,11 @@ const Item = ({
   );
 };
 
-const Dropdown = Object.assign(DropdownComponent, {
-  Trigger,
-  Menu,
-  Modal,
-  Item,
+const Dropdown = Object.assign(DropdownMain, {
+  Trigger: DropdownTrigger,
+  Menu: DropdownMenu,
+  Modal: DropdownModal,
+  Item: DropdownItem,
 });
 
 export default Dropdown;

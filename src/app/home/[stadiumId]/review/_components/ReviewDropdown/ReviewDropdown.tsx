@@ -19,7 +19,7 @@ const ReviewDropdown = ({ value, onChange, options, placeholder }: ReviewDropdow
   const { isDropdownOpen, handleToggleDropdown, dropdownRef } = useDropdown();
 
   return (
-    <Dropdown value={value} onChange={onChange} ref={dropdownRef}>
+    <Dropdown ref={dropdownRef}>
       <Dropdown.Trigger
         as={
           <button
