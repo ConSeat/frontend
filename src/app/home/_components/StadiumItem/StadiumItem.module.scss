@@ -40,12 +40,14 @@
   &.open {
     border-color: #38f4e7;
     border-radius: 5px;
+    border-image: linear-gradient(to right, #38f4e7, transparent) 1;
     color: $main-mint1;
   }
 
   &.comingsoon {
-    border-color: #495057;
+    border-color: $sub-gray7;
     border-radius: 5px;
+    border-image: linear-gradient(to right, $sub-gray7, transparent) 1;
     color: $sub-gray6;
   }
 
