@@ -8,8 +8,8 @@
   left: 50%;
   transform: translateX(-50%);
 
-  width: 100%;
-  max-width: 640px;
+  @include layout-width;
+
   height: 100vh;
 
   background-color: rgb(0 0 0 / 70%);
@@ -45,8 +45,8 @@
   flex-direction: column;
   justify-content: space-between;
 
-  width: 100%;
-  max-width: 640px;
+  @include layout-width;
+
   height: 100vh;
   padding: 0 24px 32px;
 

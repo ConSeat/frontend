@@ -3,9 +3,8 @@
 .layout {
   overflow: hidden auto;
 
-  width: 100%;
-  min-width: 344px;
-  max-width: 640px;
+  @include layout-width;
+
   min-height: 100vh;
   margin: 0 auto;
 
