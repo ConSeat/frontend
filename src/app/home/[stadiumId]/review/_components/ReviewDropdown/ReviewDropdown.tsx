@@ -25,11 +25,17 @@ const ReviewDropdown = ({ value, onChange, options, placeholder }: ReviewDropdow
           <button
             type="button"
             onClick={handleToggleDropdown}
-            className={classNames(styles.reviewDropdownButton, {
+            className={classNames(styles.reviewDropdownTrigger, {
               [styles.isOpen]: isDropdownOpen,
             })}
           >
-            <span className={value ? '' : styles.placeholder}>{value || placeholder}</span>
+            <span
+              className={classNames(styles.reviewDropdownText, {
+                [styles.placeholder]: !value,
+              })}
+            >
+              {value || placeholder}
+            </span>
             {isDropdownOpen ? <UpArrow /> : <DownArrow />}
           </button>
         }

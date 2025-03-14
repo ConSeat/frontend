@@ -1,6 +1,6 @@
 @import '@/styles/style';
 
-.reviewDropdownButton {
+.reviewDropdownTrigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17,8 +17,12 @@
   &.isOpen {
     border-radius: 5px 5px 0 0;
   }
+}
 
-  .placeholder {
+.reviewDropdownText {
+  @include subtitle-4;
+
+  &.placeholder {
     color: rgba($sub-white, 0.5);
   }
 }
@@ -41,4 +45,6 @@
 .reviewDropdownItem {
   padding: 10px 12px;
   color: $sub-gray4;
+
+  @include body-2;
 }

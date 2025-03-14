@@ -1,6 +1,7 @@
 'use client';
 
 import ReviewDropdown from '../ReviewDropdown/ReviewDropdown';
+import styles from './SeatInfoSelect.module.scss';
 import React, { useState } from 'react';
 import { NONE_SELECT, REVIEW } from '@/constants/review';
 import { ReviewDispatch } from '@/types/review';
@@ -81,7 +82,7 @@ const SeatInfoSelect = ({ data, dispatch }: SeatInfoSelectProps) => {
     availableSections.find((section) => section.name === seatInfo.section)?.seating || [];
 
   return (
-    <>
+    <div className={styles.seatInfoSelectContainer}>
       <ReviewDropdown
         value={seatInfo.floor}
         onChange={(floorName) =>
@@ -115,7 +116,7 @@ const SeatInfoSelect = ({ data, dispatch }: SeatInfoSelectProps) => {
           placeholder="좌석을 선택해주세요"
         />
       )}
-    </>
+    </div>
   );
 };
 

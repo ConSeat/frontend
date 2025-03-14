@@ -21,6 +21,8 @@
   .placeholder {
     color: rgba($sub-white, 0.5);
   }
+
+  @include subtitle-4;
 }
 
 .reviewDropdownInput {
@@ -49,4 +51,6 @@
 .reviewDropdownItem {
   padding: 10px 12px;
   color: $sub-gray4;
+
+  @include body-2;
 }
