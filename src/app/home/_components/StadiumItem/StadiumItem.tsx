@@ -13,15 +13,12 @@ const StadiumItem = ({ stadiumName, isActive, backgroundImageSrc, href }: Stadiu
   return (
     <li
       style={{ backgroundImage: `url('${backgroundImageSrc}')` }}
-      className={styles.stadiumItemLayout}
+      className={classNames(styles.stadiumItemLayout, {
+        [styles.open]: isActive,
+        [styles.comingsoon]: !isActive,
+      })}
     >
-      <Link
-        href={href}
-        className={classNames(styles.stadiumItem, {
-          [styles.open]: isActive,
-          [styles.comingsoon]: !isActive,
-        })}
-      >
+      <Link href={href} className={styles.stadiumItem}>
         <div className={styles.stadiumName}>{stadiumName}</div>
       </Link>
     </li>
