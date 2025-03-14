@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './StageView.module.scss';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';

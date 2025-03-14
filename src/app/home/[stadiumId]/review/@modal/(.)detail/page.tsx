@@ -1,12 +1,8 @@
-'use client';
-
-import { usePathname } from 'next/navigation';
 import DetailViewModal from '@/components/DetailViewModal';
 import StageView from '@/components/StageView';
 
-const ReviewModal = () => {
-  const pathname = usePathname();
-  const stadiumId = pathname.split('/')[2];
+const DetailModal = ({ params }) => {
+  const { stadiumId } = params;
 
   return (
     <DetailViewModal>
@@ -15,4 +11,4 @@ const ReviewModal = () => {
   );
 };
 
-export default ReviewModal;
+export default DetailModal;

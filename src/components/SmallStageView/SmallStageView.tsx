@@ -14,7 +14,7 @@ const SmallStageView = ({ stadiumId }: SmallStageViewProps) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/home/${stadiumId}/review/modal`);
+    router.push(`/home/${stadiumId}/review/detail`);
   };
 
   return (
