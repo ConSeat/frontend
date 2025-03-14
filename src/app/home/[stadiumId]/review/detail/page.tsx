@@ -1,8 +1,8 @@
 import DetailViewModal from '@/components/DetailViewModal';
 import StageView from '@/components/StageView';
 
-const DetailPage = ({ params }) => {
-  const { stadiumId } = params;
+const DetailPage = async ({ params }) => {
+  const { stadiumId } = await params;
 
   return (
     <DetailViewModal>
