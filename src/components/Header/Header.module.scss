@@ -1,4 +1,17 @@
+@import '@/styles/style';
+
 .header {
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+
   width: 100%;
   height: 56px;
+  padding: 12px 24px;
+}
+
+.headerTitle {
+  @include subtitle-1;
 }

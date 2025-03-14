@@ -1,6 +1,7 @@
 import styles from './page.module.scss';
 import { ReactNode } from 'react';
 import Header from '@/components/Header/Header';
+import Splitter from '@/components/Splitter/Splitter';
 import { ALL_STADIUM_INFO, STADIUM_INFO } from '@/constants/stadium';
 
 interface StadiumId {
@@ -37,6 +38,7 @@ const StadiumLayout = async ({ children, params }: StadiumLayoutProps) => {
   return (
     <div className={styles.stadiumLayout}>
       <Header stadiumId={stadiumId} />
+      <Splitter color="sub-gray8" />
       <main className={styles.stadiumMain}>{children}</main>
     </div>
   );
