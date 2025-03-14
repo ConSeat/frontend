@@ -28,7 +28,7 @@
 }
 
 .reviewDropdownMenu {
-  z-index: 999;
+  z-index: z-index(dropdown);
 
   box-sizing: border-box;
   max-height: 162px;

@@ -62,10 +62,6 @@ const ModalTitle = ({ title, onClose, showCloseButton = true }: ModalTitleProps)
  *    <Modal.Title title="모달 제목" onClose={() => {}} />
  *   </Modal.Content>
  * </Modal>
- *
- * @todo Icon 컴포넌트 생성
- * @todo width mixin 생성
- * @todo z-index mixin 생성
  */
 
 const Modal = Object.assign(ModalMain, {

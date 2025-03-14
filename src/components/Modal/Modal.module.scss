@@ -3,7 +3,7 @@
 // ModalOverlay
 .modalOverlay {
   position: fixed;
-  z-index: 2;
+  z-index: z-index(modal-overlay);
   top: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -36,7 +36,7 @@
 // ModalContent
 .modalContent {
   position: fixed;
-  z-index: 300;
+  z-index: z-index(modal-content);
   top: 0;
   left: 50%;
   transform: translateX(-50%);
