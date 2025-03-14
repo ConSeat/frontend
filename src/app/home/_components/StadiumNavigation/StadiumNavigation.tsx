@@ -16,7 +16,7 @@ const StadiumNavigation = ({ navigationType }: StadiumNavigationProps) => {
   return (
     <nav
       className={classNames(styles.stadiumNav, {
-        [styles.inActive]: navigationType === 'inactive',
+        [styles.inactive]: navigationType === 'inactive',
       })}
     >
       <h3 className={styles.subtitle}>{navTitle[navigationType]}</h3>
