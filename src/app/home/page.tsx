@@ -1,63 +1,27 @@
-import StadiumItem from './_components/StadiumItem';
+import HomeNavigation from './_components/HomeNavigation';
+import StadiumNavigation from './_components/StadiumNavigation';
 import styles from './home.module.scss';
-import Link from 'next/link';
 import PageExplanation from '@/components/PageExplanation';
-import { DefaultProfile, IcChat, LargeO, QnA } from '@/assets';
-import { STADIUM_INFO } from '@/constants/stadium';
+import { IcChat, LargeO } from '@/assets';
 
 const HomePage = () => {
   return (
     <div className={styles.homeLayout}>
-      <header className={styles.homeHeader}>
-        <Link href="/mypage">
-          <DefaultProfile />
-        </Link>
-        <Link href="#">
-          <QnA />
-        </Link>
-      </header>
+      <HomeNavigation />
       <main className={styles.homeMain}>
-        <section className={styles.homeExplanation}>
-          <PageExplanation>
-            <PageExplanation.Title>
-              한눈에 비교하는 <span>콘서트장 시야</span>
-              <br />
-              공연장을 선택해주세요
-            </PageExplanation.Title>
-            <PageExplanation.Subtitle>
-              <IcChat />
-              후기 +{121}
-            </PageExplanation.Subtitle>
-          </PageExplanation>
-        </section>
-        <section className={styles.openStadium}>
-          <h3 className={styles.subtitle}>공연장</h3>
-          <ul className={styles.stadiumList}>
-            {STADIUM_INFO.active.map(({ stadiumId, image, name }) => (
-              <StadiumItem
-                key={stadiumId}
-                stadiumName={name}
-                isActive={true}
-                backgroundImageSrc={image}
-                href={`/home/${stadiumId}`}
-              />
-            ))}
-          </ul>
-        </section>
-        <section className={styles.comingSoonStadium}>
-          <h3 className={styles.subtitle}>오픈예정</h3>
-          <ul className={styles.stadiumList}>
-            {STADIUM_INFO.inactive.map(({ stadiumId, image, name }) => (
-              <StadiumItem
-                key={stadiumId}
-                stadiumName={name}
-                isActive={false}
-                backgroundImageSrc={image}
-                href="#"
-              />
-            ))}
-          </ul>
-        </section>
+        <PageExplanation>
+          <PageExplanation.Title>
+            한눈에 비교하는 <span>콘서트장 시야</span>
+            <br />
+            공연장을 선택해주세요
+          </PageExplanation.Title>
+          <PageExplanation.Subtitle>
+            <IcChat />
+            후기 +{121}
+          </PageExplanation.Subtitle>
+        </PageExplanation>
+        <StadiumNavigation navigationType="active" />
+        <StadiumNavigation navigationType="inactive" />
       </main>
       <LargeO className={styles.svgO} width={201} height={320} />
     </div>
