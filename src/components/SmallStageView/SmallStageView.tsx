@@ -3,7 +3,7 @@
 import Button from '../Button/Button';
 import styles from './SmallStageView.module.scss';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import useModal from '@/hooks/useModal';
 import { ZoomIn } from '@/assets';
 
 interface SmallStageViewProps {
@@ -11,11 +11,7 @@ interface SmallStageViewProps {
 }
 
 const SmallStageView = ({ stadiumId }: SmallStageViewProps) => {
-  const router = useRouter();
-
-  const handleClick = () => {
-    router.push(`/home/${stadiumId}/review/detail`);
-  };
+  const { handleOpenModal } = useModal();
 
   return (
     <div className={styles.stageContainer}>
@@ -24,7 +20,7 @@ const SmallStageView = ({ stadiumId }: SmallStageViewProps) => {
         className={styles.zoomInButton}
         onClick={(e) => {
           e.preventDefault();
-          handleClick();
+          handleOpenModal(`/home/${stadiumId}/review/detail`);
         }}
       >
         <ZoomIn />

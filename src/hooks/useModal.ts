@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const useModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
 
-  const handleOpenModal = () => setIsModalOpen(true);
+  const handleOpenModal = (path: string) => {
+    router.push(path);
+  };
 
-  const handleCloseModal = () => setIsModalOpen(false);
+  const handleCloseModal = () => {
+    router.back();
+  };
 
-  return { isModalOpen, handleOpenModal, handleCloseModal };
+  return { handleOpenModal, handleCloseModal };
 };
 
 export default useModal;

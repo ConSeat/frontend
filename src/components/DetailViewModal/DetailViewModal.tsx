@@ -2,7 +2,7 @@
 
 import Modal from '../Modal';
 import styles from './DetailViewModal.module.scss';
-import { useRouter } from 'next/navigation';
+import useModal from '@/hooks/useModal';
 import Button from '@/components/Button/Button';
 
 interface DetailViewModalProps {
@@ -10,17 +10,14 @@ interface DetailViewModalProps {
 }
 
 const DetailViewModal = ({ children }: DetailViewModalProps) => {
-  const router = useRouter();
-  const handleClose = () => {
-    router.back();
-  };
+  const { handleCloseModal } = useModal();
 
   return (
     <Modal>
       <Modal.Content>
-        <Modal.Title title="도면보기" onClose={handleClose} />
+        <Modal.Title title="도면보기" onClose={handleCloseModal} />
         <div className={styles.stadiumSection}>{children}</div>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={handleCloseModal}>
           닫기
         </Button>
       </Modal.Content>
