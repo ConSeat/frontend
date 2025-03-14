@@ -10,14 +10,14 @@ interface DetailViewModalProps {
 }
 
 const DetailViewModal = ({ children }: DetailViewModalProps) => {
-  const { handleCloseModal } = useModal();
+  const { closeModal } = useModal({ type: 'router' });
 
   return (
     <Modal>
       <Modal.Content>
-        <Modal.Title title="도면보기" onClose={handleCloseModal} />
+        <Modal.Title title="도면보기" onClose={closeModal} />
         <div className={styles.stadiumSection}>{children}</div>
-        <Button variant="secondary" onClick={handleCloseModal}>
+        <Button variant="secondary" onClick={closeModal}>
           닫기
         </Button>
       </Modal.Content>

@@ -11,7 +11,7 @@ interface SmallStageViewProps {
 }
 
 const SmallStageView = ({ stadiumId }: SmallStageViewProps) => {
-  const { handleOpenModal } = useModal();
+  const { openModal } = useModal({ type: 'router', modalPath: `/home/${stadiumId}/review/detail` });
 
   return (
     <div className={styles.stageContainer}>
@@ -20,7 +20,7 @@ const SmallStageView = ({ stadiumId }: SmallStageViewProps) => {
         className={styles.zoomInButton}
         onClick={(e) => {
           e.preventDefault();
-          handleOpenModal(`/home/${stadiumId}/review/detail`);
+          openModal();
         }}
       >
         <ZoomIn />
