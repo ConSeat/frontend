@@ -15,7 +15,7 @@ const DetailViewModal = ({ children }: DetailViewModalProps) => {
   return (
     <Modal>
       <Modal.Content>
-        <Modal.Title title="도면보기" onClose={closeModal} />
+        <Modal.Header title="도면보기" onClose={closeModal} />
         <div className={styles.stadiumSection}>{children}</div>
         <Button variant="secondary" onClick={closeModal}>
           닫기
