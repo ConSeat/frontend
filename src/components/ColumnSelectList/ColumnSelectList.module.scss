@@ -8,6 +8,18 @@
   align-self: stretch;
 }
 
+.selectItemTitle {
+  @include subtitle-2;
+
+  color: $sub-gray2;
+}
+
+.selectItemSubtitle {
+  @include subtitle-2;
+
+  color: $sub-gray3;
+}
+
 .selectItemLayout {
   cursor: pointer;
 
@@ -24,16 +36,22 @@
 
   background: $sub_gray8;
 
-  &.select {
+  &.selected {
     border-color: $main_mint1;
 
     g,
     path {
       fill: $main_mint1;
     }
+
+    .selectItemTitle {
+      @include subtitle-1;
+
+      color: $main_mint1;
+    }
   }
 
-  &.unSelect {
+  &.unselected {
     opacity: 0.5;
   }
 }

@@ -2,12 +2,14 @@ import HomeNavigation from './_components/HomeNavigation';
 import StadiumNavigation from './_components/StadiumNavigation';
 import styles from './home.module.scss';
 import PageExplanation from '@/components/PageExplanation';
+import Spacing from '@/components/Spacing/Spacing';
 import { IcChat, LargeO } from '@/assets';
 
 const HomePage = () => {
   return (
     <div className={styles.homeLayout}>
       <HomeNavigation />
+      <Spacing size={49} />
       <main className={styles.homeMain}>
         <PageExplanation>
           <PageExplanation.Title>

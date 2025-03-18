@@ -1,15 +1,8 @@
 @import '@/styles/style';
 
 .buttonContainer {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-
   display: flex;
   gap: 12px;
-
-  @include layout-width;
-
-  padding: 36px 24px 32px;
+  align-items: center;
+  width: 100%;
 }

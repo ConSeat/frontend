@@ -1,6 +1,7 @@
 import styles from './page.module.scss';
 import { ReactNode } from 'react';
 import Header from '@/components/Header/Header';
+import Spacing from '@/components/Spacing/Spacing';
 import Splitter from '@/components/Splitter/Splitter';
 import { ALL_STADIUM_INFO, STADIUM_INFO } from '@/constants/stadium';
 
@@ -39,6 +40,7 @@ const StadiumLayout = async ({ children, params }: StadiumLayoutProps) => {
     <div className={styles.stadiumLayout}>
       <Header stadiumId={stadiumId} />
       <Splitter color="sub-gray8" />
+      <Spacing size={49} />
       <main className={styles.stadiumMain}>{children}</main>
     </div>
   );
