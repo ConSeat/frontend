@@ -1,0 +1,22 @@
+@import '@/styles/style';
+
+.homeLayout {
+  position: relative;
+  overflow: hidden;
+  padding: 0 24px 72px;
+}
+
+.homeMain {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: flex-start;
+
+  width: 100%;
+}
+
+.svgO {
+  position: absolute;
+  top: -15vh;
+  left: 0;
+}

@@ -1,24 +1,29 @@
-import Link from 'next/link';
-import Splitter from '@/components/Splitter/Splitter';
-import { STADIUM_INFO } from '@/constants/stadium';
-import { stadiumDisplayName } from '@/utils/stadium';
+import HomeNavigation from './_components/HomeNavigation';
+import StadiumNavigation from './_components/StadiumNavigation';
+import styles from './home.module.scss';
+import PageExplanation from '@/components/PageExplanation';
+import { IcChat, LargeO } from '@/assets';
 
 const HomePage = () => {
   return (
-    <div>
-      <ul>
-        {STADIUM_INFO.active.map(({ stadiumId }) => (
-          <li key={stadiumId}>
-            <Link href={`/home/${stadiumId}`}>{stadiumDisplayName(stadiumId)}</Link>
-          </li>
-        ))}
-        <Splitter color="sub-white" />
-        {STADIUM_INFO.inactive.map(({ stadiumId }) => (
-          <li key={stadiumId}>
-            <Link href={`/home/${stadiumId}`}>{stadiumDisplayName(stadiumId)}</Link>
-          </li>
-        ))}
-      </ul>
+    <div className={styles.homeLayout}>
+      <HomeNavigation />
+      <main className={styles.homeMain}>
+        <PageExplanation>
+          <PageExplanation.Title>
+            한눈에 비교하는 <span>콘서트장 시야</span>
+            <br />
+            공연장을 선택해주세요
+          </PageExplanation.Title>
+          <PageExplanation.Subtitle>
+            <IcChat />
+            후기 +{121}
+          </PageExplanation.Subtitle>
+        </PageExplanation>
+        <StadiumNavigation navigationType="active" />
+        <StadiumNavigation navigationType="inactive" />
+      </main>
+      <LargeO className={styles.svgO} width={201} height={320} />
     </div>
   );
 };

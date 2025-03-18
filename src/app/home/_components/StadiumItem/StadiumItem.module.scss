@@ -1,0 +1,91 @@
+@import '@/styles/style';
+
+@mixin item-border {
+  pointer-events: none;
+  content: '';
+
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+  padding: 2px 2px 2px 5px;
+  border-radius: 5px;
+
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.stadiumItemLayout {
+  position: relative;
+
+  width: 100%;
+  height: 88px;
+  border-radius: 5px;
+
+  background-position: center;
+  background-size: cover;
+
+  &.open {
+    color: $main-mint1;
+
+    &::before {
+      @include item-border;
+
+      background: linear-gradient(to right, #00f7ff, #fff3);
+    }
+  }
+
+  &.comingsoon {
+    color: $sub-gray6;
+
+    &::before {
+      @include item-border;
+
+      background: linear-gradient(to right, #495057, #fff3);
+    }
+  }
+}
+
+.stadiumItem {
+  position: relative;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  align-self: stretch;
+
+  height: 100%;
+  padding: 32px 32px 32px 24px;
+  border-radius: 5px;
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    min-width: inherit;
+    height: 100%;
+    border-radius: 0 4px 4px 0;
+
+    background:
+      linear-gradient(90deg, #272a2d 34.8%, rgb(0 0 0 / 0%) 80.76%),
+      linear-gradient(0deg, rgb(0 0 0 / 20%) 0%, rgb(0 0 0 / 20%) 100%);
+  }
+
+  .stadiumName {
+    @include subtitle-4;
+
+    z-index: 2;
+  }
+}
