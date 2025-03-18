@@ -2,23 +2,21 @@
 
 import styles from './Dropdown.module.scss';
 import classNames from 'classnames';
-import { ReactNode, forwardRef } from 'react';
+import React, { ReactNode } from 'react';
 
 interface DropdownProps {
   className?: string;
   children?: ReactNode;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
-const DropdownMain = forwardRef<HTMLDivElement, DropdownProps>(function Dropdown(
-  { className, children },
-  ref,
-) {
+const DropdownMain = ({ className, children, ref }: DropdownProps) => {
   return (
     <div ref={ref} className={classNames(styles.dropdownContainer, className)}>
       {children}
     </div>
   );
-});
+};
 
 interface DropdownTriggerProps {
   as: ReactNode;
