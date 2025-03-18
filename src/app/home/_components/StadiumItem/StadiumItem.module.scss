@@ -30,20 +30,18 @@
   height: 88px;
   border-radius: 5px;
 
+  color: $main-mint1;
+
   background-position: center;
   background-size: cover;
 
-  &.open {
-    color: $main-mint1;
+  &::before {
+    @include item-border;
 
-    &::before {
-      @include item-border;
-
-      background: linear-gradient(to right, #00f7ff, #fff3);
-    }
+    background: linear-gradient(to right, #00f7ff, #fff3);
   }
 
-  &.comingsoon {
+  &.comingSoon {
     color: $sub-gray6;
 
     &::before {
@@ -82,10 +80,10 @@
       linear-gradient(90deg, #272a2d 34.8%, rgb(0 0 0 / 0%) 80.76%),
       linear-gradient(0deg, rgb(0 0 0 / 20%) 0%, rgb(0 0 0 / 20%) 100%);
   }
+}
 
-  .stadiumName {
-    @include subtitle-4;
+.stadiumName {
+  @include subtitle-4;
 
-    z-index: 2;
-  }
+  z-index: 2;
 }
