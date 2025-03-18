@@ -1,9 +1,9 @@
 import HomeNavigation from './_components/HomeNavigation';
 import StadiumNavigation from './_components/StadiumNavigation';
 import styles from './home.module.scss';
+import Icon from '@/components/Icon/Icon';
 import PageExplanation from '@/components/PageExplanation';
 import Spacing from '@/components/Spacing/Spacing';
-import { IcChat, LargeO } from '@/assets';
 
 const HomePage = () => {
   return (
@@ -18,14 +18,15 @@ const HomePage = () => {
             공연장을 선택해주세요
           </PageExplanation.Title>
           <PageExplanation.Subtitle>
-            <IcChat />
+            <Icon icon="IcChat" size={16} />
             후기 +{121}
           </PageExplanation.Subtitle>
         </PageExplanation>
         <StadiumNavigation navigationType="active" />
         <StadiumNavigation navigationType="inactive" />
       </main>
-      <LargeO className={styles.svgO} width={201} height={320} />
+      <Icon icon="HomeC" size={200} className={styles.svgC} />
+      <Icon icon="LargeO" size={200} className={styles.svgO} />
     </div>
   );
 };

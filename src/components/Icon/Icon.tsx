@@ -9,16 +9,21 @@ export interface IconProps {
   icon: IconType;
   size: number;
   color?: string;
+  className?: string;
   onClick?: () => void;
 }
 
-const Icon = ({ icon, size = 24, color, onClick }: IconProps) => {
+const Icon = ({ icon, size = 24, color, className, onClick }: IconProps) => {
   const SVGIcon = icons[icon];
   const shouldOverrideColor = color !== undefined;
 
   return (
     <button
-      className={classNames(styles.iconContainer, { [styles.overrideColor]: shouldOverrideColor })}
+      className={classNames(
+        styles.iconContainer,
+        { [styles.overrideColor]: shouldOverrideColor },
+        className,
+      )}
       style={{ width: size, height: size, color }}
       onClick={onClick}
       disabled={!onClick}

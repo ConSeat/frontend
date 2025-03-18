@@ -15,8 +15,10 @@
   width: 100%;
 }
 
+.svgC {
+  @include absolute($top: 30vh, $right: 0);
+}
+
 .svgO {
-  position: absolute;
-  top: -15vh;
-  left: 0;
+  @include absolute($top: -15vh, $left: 0);
 }

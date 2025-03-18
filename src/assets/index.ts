@@ -2,6 +2,7 @@ export { default as MainLogo } from '@/assets/logo/main-logo.svg';
 export { default as LargeC } from '@/assets/logo/large-C.svg';
 export { default as LargeO } from '@/assets/logo/large-O.svg';
 export { default as LargeT } from '@/assets/logo/large-T.svg';
+export { default as HomeC } from '@/assets/logo/home-C.svg';
 
 export { default as Google } from '@/assets/logo/google.svg';
 export { default as KakaoTalk } from '@/assets/logo/kakaotalk.svg';
