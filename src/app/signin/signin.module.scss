@@ -1,0 +1,108 @@
+@import '@/styles/style';
+
+.signinLayout {
+  position: relative;
+
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 100vh;
+  padding: 0 24px 56px;
+}
+
+.signinHeader {
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+
+  width: 100%;
+  height: 56px;
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+}
+
+@mixin login-btn-layout {
+  @include subtitle-4;
+
+  display: flex;
+  gap: 4px;
+  align-items: center;
+
+  width: 312px;
+  height: 45px;
+  padding: 4px 52px;
+  border-radius: 500px;
+}
+
+.googleButton {
+  @include login-btn-layout;
+
+  background: #fff;
+}
+
+.kakaoButton {
+  @include login-btn-layout;
+
+  background: #fde500;
+}
+
+.xButton {
+  @include login-btn-layout;
+
+  border: 1px solid $sub-gray7;
+  color: $sub-gray2;
+  background: $sub-black;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: center;
+
+  width: 100%;
+}
+
+.problemText {
+  @include body-1;
+
+  color: $sub-gray6;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  align-self: stretch;
+}
+
+@mixin absolute($top: auto, $right: auto, $bottom: auto, $left: auto) {
+  pointer-events: none;
+  position: absolute;
+  inset: $top $right $bottom $left;
+}
+
+.svgC {
+  @include absolute($right: -6vh);
+}
+
+.svgO {
+  @include absolute($top: 30vh, $left: 0);
+}
+
+.svgT {
+  @include absolute($right: 0, $bottom: -11vh);
+}
