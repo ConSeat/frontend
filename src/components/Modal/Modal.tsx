@@ -32,15 +32,15 @@ const ModalContent = ({ children, className }: ModalContentProps) => {
   return <div className={classNames(styles.modalContent, className)}>{children}</div>;
 };
 
-interface ModalTitleProps {
+interface ModalHeaderProps {
   title: string;
   onClose: () => void;
   showCloseButton?: boolean;
 }
 
-const ModalTitle = ({ title, onClose, showCloseButton = true }: ModalTitleProps) => {
+const ModalHeader = ({ title, onClose, showCloseButton = true }: ModalHeaderProps) => {
   return (
-    <div className={styles.modalTitleContainer}>
+    <div className={styles.modalHeaderContainer}>
       {showCloseButton && <Spacing direction="horizontal" size={36} />}
       <h1 className={styles.modalTitle}>{title}</h1>
       {showCloseButton && (
@@ -67,7 +67,7 @@ const ModalTitle = ({ title, onClose, showCloseButton = true }: ModalTitleProps)
 const Modal = Object.assign(ModalMain, {
   Overlay: ModalOverlay,
   Content: ModalContent,
-  Title: ModalTitle,
+  Header: ModalHeader,
 });
 
 export default Modal;
