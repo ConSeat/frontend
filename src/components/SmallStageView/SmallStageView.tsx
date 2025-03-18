@@ -1,10 +1,9 @@
 'use client';
 
-import Button from '../Button/Button';
+import ZoomInButton from '../ZoomInButton/ZoomInButton';
 import styles from './SmallStageView.module.scss';
 import Image from 'next/image';
 import useModal from '@/hooks/useModal';
-import { ZoomIn } from '@/assets';
 
 interface SmallStageViewProps {
   stadiumId: number;
@@ -16,15 +15,7 @@ const SmallStageView = ({ stadiumId }: SmallStageViewProps) => {
   return (
     <div className={styles.stageContainer}>
       <Image src={`/stadium/${stadiumId}.svg`} width={79} height={73} alt="" />
-      <Button
-        className={styles.zoomInButton}
-        onClick={(e) => {
-          e.preventDefault();
-          openModal();
-        }}
-      >
-        <ZoomIn />
-      </Button>
+      <ZoomInButton onClick={openModal} />
     </div>
   );
 };

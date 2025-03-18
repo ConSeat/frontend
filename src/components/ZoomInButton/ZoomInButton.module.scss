@@ -1,0 +1,15 @@
+@import '@/styles/style';
+
+.searchButton {
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+
+  flex-shrink: 0;
+
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+
+  background-color: $sub_gray7;
+}
