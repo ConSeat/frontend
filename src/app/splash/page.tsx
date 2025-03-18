@@ -3,7 +3,7 @@
 import styles from './page.module.scss';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
-import { LargeC, LargeO, LargeT, MainLogo } from '@/assets';
+import Icon from '@/components/Icon/Icon';
 
 const SplashPage = () => {
   const router = useRouter();
@@ -19,10 +19,10 @@ const SplashPage = () => {
 
   return (
     <div className={styles.splashLayout}>
-      <MainLogo className={styles.mainLogo} width={204} height={47} />
-      <LargeC className={styles.svgC} width={293} height={472} />
-      <LargeO className={styles.svgO} width={201} height={320} />
-      <LargeT className={styles.svgT} width={200} height={320} />
+      <Icon icon="MainLogo" size={204} className={styles.mainLogo} />
+      <Icon icon="LargeC" size={200} className={styles.svgC} />
+      <Icon icon="LargeO" size={200} className={styles.svgO} />
+      <Icon icon="LargeT" size={200} className={styles.svgT} />
     </div>
   );
 };
