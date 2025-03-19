@@ -18,7 +18,7 @@ const HomePage = () => {
             공연장을 선택해주세요
           </PageExplanation.Title>
           <PageExplanation.Subtitle>
-            <Icon icon="IcChat" size={16} />
+            <Icon icon="IcChat" />
             후기 +{121}
           </PageExplanation.Subtitle>
         </PageExplanation>

@@ -1,0 +1,19 @@
+@import '@/styles/style';
+
+.mainViewLayout {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.svgC {
+  @include absolute($right: 0);
+}
+
+.svgO {
+  @include absolute($top: 30vh);
+}
+
+.svgT {
+  @include absolute($right: 0, $bottom: 0);
+}

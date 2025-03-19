@@ -1,6 +1,8 @@
 @import '@/styles/style';
 
 .layout {
+  position: relative;
+
   overflow: hidden auto;
 
   @include layout-width;

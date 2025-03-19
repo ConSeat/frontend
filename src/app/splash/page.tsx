@@ -4,6 +4,7 @@ import styles from './page.module.scss';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import Icon from '@/components/Icon/Icon';
+import MainView from '@/components/MainView/MainView';
 
 const SplashPage = () => {
   const router = useRouter();
@@ -18,12 +19,10 @@ const SplashPage = () => {
   }, []);
 
   return (
-    <div className={styles.splashLayout}>
-      <Icon icon="MainLogo" size={204} className={styles.mainLogo} />
-      <Icon icon="LargeC" size={200} className={styles.svgC} />
-      <Icon icon="LargeO" size={200} className={styles.svgO} />
-      <Icon icon="LargeT" size={200} className={styles.svgT} />
-    </div>
+    <>
+      <MainView />
+      <Icon icon="MainLogo" className={styles.mainLogo} />
+    </>
   );
 };
 

@@ -1,25 +1,7 @@
 @import '@/styles/style';
 
-.splashLayout {
-  position: relative;
-  overflow: hidden;
-  height: 100vh;
-}
-
 .mainLogo {
   @include absolute($top: 50%, $left: 50%);
 
   transform: translate(-50%, -50%);
-}
-
-.svgC {
-  @include absolute($right: 0);
-}
-
-.svgO {
-  @include absolute($top: 30vh);
-}
-
-.svgT {
-  @include absolute($right: 0, $bottom: 0);
 }
