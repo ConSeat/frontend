@@ -1,6 +1,7 @@
 'use client';
 
 import styles from './signin.module.scss';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon/Icon';
@@ -15,24 +16,23 @@ const SigninPage = () => {
 
       <div className={styles.signinLayout}>
         <header className={styles.signinHeader}>
-          <Button className={styles.closeButton} onClick={() => router.back()}>
-            <Icon icon="LargeClose" />
-          </Button>
+          <Icon icon="LargeClose" onClick={() => router.back()} />
         </header>
+
         <Icon icon="MainLogo" />
 
         <div className={styles.loginContainer}>
           <div className={styles.buttonContainer}>
             <Button className={styles.googleButton}>
-              <Icon icon="Google" />
+              <Image src="/logo/google.svg" alt="구글 아이콘" width={24} height={24} />
               Google로 로그인하기
             </Button>
             <Button className={styles.kakaoButton}>
-              <Icon icon="KakaoTalk" />
+              <Image src="/logo/kakaotalk.svg" alt="카카오톡 아이콘" width={28} height={28} />
               카카오톡 로그인하기
             </Button>
             <Button className={styles.xButton}>
-              <Icon icon="X" />
+              <Image src="/logo/X.svg" alt="x 아이콘" width={20} height={20} />
               X로 로그인하기
             </Button>
           </div>

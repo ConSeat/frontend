@@ -24,20 +24,11 @@
   height: 56px;
 }
 
-.closeButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 36px;
-  height: 36px;
-}
-
 @mixin login-btn-layout {
   @include subtitle-4;
 
   display: flex;
-  gap: 4px;
+  gap: 14px;
   align-items: center;
 
   width: 312px;
