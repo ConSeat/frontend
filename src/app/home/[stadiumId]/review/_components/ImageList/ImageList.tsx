@@ -1,5 +1,6 @@
 import styles from './ImageList.module.scss';
-import { CloseCircle } from '@/assets';
+import Button from '@/components/Button/Button';
+import Icon from '@/components/Icon/Icon';
 import type { ImageData } from '@/types/review';
 
 interface ImageListProps {
@@ -13,9 +14,9 @@ const ImageList = ({ images, onClick }: ImageListProps) => {
       {images.map((img, index) => (
         <div key={img.previewUrl} className={styles.imageItem}>
           <img src={img.previewUrl} alt="" />
-          <button onClick={() => onClick(index)}>
-            <CloseCircle />
-          </button>
+          <Button onClick={() => onClick(index)} className={styles.closeButton}>
+            <Icon icon="Close" size={11} />
+          </Button>
         </div>
       ))}
     </div>

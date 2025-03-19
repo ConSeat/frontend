@@ -18,17 +18,21 @@
     border-radius: 5px;
     object-fit: cover;
   }
+}
 
-  button {
-    position: absolute;
-    top: 4px;
-    right: 4px;
+.closeButton {
+  position: absolute;
+  top: 4px;
+  right: 4px;
 
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    opacity: 0.5;
-    background-color: $sub-black;
-  }
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+
+  opacity: 0.5;
+  background-color: $sub-black;
 }

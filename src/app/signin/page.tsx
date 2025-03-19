@@ -16,7 +16,7 @@ const SigninPage = () => {
 
       <div className={styles.signinLayout}>
         <header className={styles.signinHeader}>
-          <Icon icon="LargeClose" onClick={() => router.back()} />
+          <Icon icon="Close" onClick={() => router.back()} />
         </header>
 
         <Icon icon="MainLogo" />
