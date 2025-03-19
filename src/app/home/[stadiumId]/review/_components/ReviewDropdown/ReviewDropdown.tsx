@@ -5,8 +5,8 @@ import classNames from 'classnames';
 import { Fragment } from 'react';
 import useDropdown from '@/hooks/useDropdown';
 import Dropdown from '@/components/Dropdown/Dropdown';
+import Icon from '@/components/Icon/Icon';
 import Splitter from '@/components/Splitter/Splitter';
-import { DownArrow, UpArrow } from '@/assets';
 
 interface ReviewDropdownProps {
   value: string;
@@ -36,7 +36,7 @@ const ReviewDropdown = ({ value, onChange, options, placeholder }: ReviewDropdow
             >
               {value || placeholder}
             </span>
-            {isDropdownOpen ? <UpArrow /> : <DownArrow />}
+            {isDropdownOpen ? <Icon icon="UpArrow" /> : <Icon icon="DownArrow" />}
           </button>
         }
       />
