@@ -25,8 +25,8 @@ const HomePage = () => {
         <StadiumNavigation navigationType="active" />
         <StadiumNavigation navigationType="inactive" />
       </main>
-      <Icon icon="HomeC" size={200} className={styles.svgC} />
-      <Icon icon="LargeO" size={200} className={styles.svgO} />
+      <Icon icon="HomeC" className={styles.svgC} />
+      <Icon icon="LargeO" className={styles.svgO} />
     </div>
   );
 };

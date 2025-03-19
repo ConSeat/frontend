@@ -1,16 +1,9 @@
 @import '@/styles/style';
 
 .mainViewLayout {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  @include fixed-centered-fullscreen;
 
   overflow: hidden;
-
-  @include layout-width;
-
-  height: 100vh;
 }
 
 .svgC {

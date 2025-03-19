@@ -3,3 +3,14 @@
   min-width: 344px;
   max-width: 640px;
 }
+
+@mixin fixed-centered-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  height: 100vh;
+
+  @include layout-width;
+}
