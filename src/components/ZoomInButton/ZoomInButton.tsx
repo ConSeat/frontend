@@ -10,7 +10,7 @@ interface ZoomInButtonProps {
 const ZoomInButton = ({ onClick }: ZoomInButtonProps) => {
   return (
     <Button className={styles.searchButton} type="button" onClick={onClick}>
-      <Icon icon="Search" className={styles.searchIcon} />
+      <Icon icon="Search" />
     </Button>
   );
 };
