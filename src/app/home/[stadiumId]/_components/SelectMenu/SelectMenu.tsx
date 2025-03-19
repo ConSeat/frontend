@@ -5,6 +5,7 @@ import styles from './SelectMenu.module.scss';
 import React from 'react';
 import { useState } from 'react';
 import ColumnSelectList from '@/components/ColumnSelectList';
+import Icon, { type IconType } from '@/components/Icon/Icon';
 import PageExplanation from '@/components/PageExplanation';
 import { FIND_VIEW_LIST } from '@/constants/findView';
 import type { ViewType } from '@/types/findView';
@@ -22,7 +23,7 @@ const SelectMenu = ({ stadiumId }: SelectMenuProps) => {
 
   return (
     <>
-      <section className={styles.selectMenuSection}>
+      <div className={styles.selectMenuContainer}>
         <PageExplanation>
           <PageExplanation.Title>
             어떤 <span>시야</span>가<br />
@@ -31,19 +32,19 @@ const SelectMenu = ({ stadiumId }: SelectMenuProps) => {
         </PageExplanation>
 
         <ColumnSelectList>
-          {FIND_VIEW_LIST.map(({ type, Icon, title }) => (
+          {FIND_VIEW_LIST.map(({ type, icon, title }) => (
             <ColumnSelectList.Item
               key={type}
               onClick={() => handleClickSelectItem(type as ViewType)}
               isSelected={type === viewType}
               isUnSelected={viewType && type !== viewType}
             >
-              {Icon}
+              <Icon icon={icon as IconType} />
               <ColumnSelectList.Title>{title}</ColumnSelectList.Title>
             </ColumnSelectList.Item>
           ))}
         </ColumnSelectList>
-      </section>
+      </div>
 
       <ButtonSection stadiumId={stadiumId} viewType={viewType} />
     </>
