@@ -1,10 +1,10 @@
 'use client';
 
+import Icon from '../Icon/Icon';
 import Spacing from '../Spacing/Spacing';
 import styles from './Modal.module.scss';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
-import { CloseCircle } from '@/assets';
 
 interface ModalMainProps {
   children: ReactNode;
@@ -43,11 +43,7 @@ const ModalHeader = ({ title, onClose, showCloseButton = true }: ModalHeaderProp
     <div className={styles.modalHeaderContainer}>
       {showCloseButton && <Spacing direction="horizontal" size={36} />}
       <h1 className={styles.modalTitle}>{title}</h1>
-      {showCloseButton && (
-        <button onClick={onClose}>
-          <CloseCircle />
-        </button>
-      )}
+      {showCloseButton && <Icon icon="Close" size={19} onClick={onClose} />}
     </div>
   );
 };

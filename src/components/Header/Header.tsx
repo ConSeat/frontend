@@ -1,9 +1,9 @@
 'use client';
 
+import Icon from '../Icon/Icon';
 import Spacing from '../Spacing/Spacing';
 import styles from './Header.module.scss';
 import { useRouter } from 'next/navigation';
-import { LeftArrow } from '@/assets';
 import { stadiumDisplayName } from '@/utils/stadium';
 
 interface HeaderProps {
@@ -19,9 +19,7 @@ const Header = ({ stadiumId }: HeaderProps) => {
 
   return (
     <header className={styles.header}>
-      <button onClick={handlePrevPage}>
-        <LeftArrow />
-      </button>
+      <Icon icon="LeftArrow" onClick={handlePrevPage} />
       <h1 className={styles.headerTitle}>{stadiumDisplayName(stadiumId)}</h1>
       <Spacing direction="horizontal" size={32} />
     </header>

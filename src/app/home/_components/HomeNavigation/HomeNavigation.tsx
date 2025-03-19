@@ -1,15 +1,15 @@
 import styles from './HomeNavigation.module.scss';
 import Link from 'next/link';
-import { DefaultProfile, QnA } from '@/assets';
+import Icon from '@/components/Icon/Icon';
 
 const HomeNavigation = () => {
   return (
     <nav className={styles.homeNav}>
       <Link href="/mypage">
-        <DefaultProfile />
+        <Icon icon="DefaultProfile" />
       </Link>
       <Link href="#">
-        <QnA />
+        <Icon icon="QnA" />
       </Link>
     </nav>
   );
