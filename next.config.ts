@@ -13,12 +13,23 @@ const nextConfig: NextConfig = {
         {
           loader: '@svgr/webpack',
           options: {
-            dimensions: false,
+            svgo: true,
+            svgoConfig: {
+              plugins: [
+                {
+                  name: 'preset-default',
+                  params: {
+                    overrides: {
+                      removeViewBox: false,
+                    },
+                  },
+                },
+              ],
+            },
           },
         },
       ],
     });
-
     return config;
   },
 };

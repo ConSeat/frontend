@@ -7,13 +7,13 @@ export type IconType = keyof typeof icons;
 
 export interface IconProps {
   icon: IconType;
-  size: number;
+  size?: number;
   color?: string;
   className?: string;
   onClick?: () => void;
 }
 
-const Icon = ({ icon, size = 24, color, className, onClick }: IconProps) => {
+const Icon = ({ icon, size, color, className, onClick }: IconProps) => {
   const SVGIcon = icons[icon];
   const shouldOverrideColor = color !== undefined;
 
@@ -24,11 +24,11 @@ const Icon = ({ icon, size = 24, color, className, onClick }: IconProps) => {
         { [styles.overrideColor]: shouldOverrideColor },
         className,
       )}
-      style={{ width: size, height: size, color }}
+      style={{ color }}
       onClick={onClick}
       disabled={!onClick}
     >
-      <SVGIcon />
+      <SVGIcon {...(size ? { width: size, height: size } : {})} />
     </button>
   );
 };
