@@ -1,9 +1,5 @@
 .iconContainer {
-  cursor: pointer;
-
-  &:disabled {
-    cursor: default;
-  }
+  cursor: default;
 
   &.overrideColor {
     svg [fill]:not([fill='none']) {

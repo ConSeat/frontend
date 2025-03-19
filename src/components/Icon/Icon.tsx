@@ -16,9 +16,13 @@ export interface IconProps {
 const Icon = ({ icon, size, color, className, onClick }: IconProps) => {
   const SVGIcon = icons[icon];
   const shouldOverrideColor = color !== undefined;
+  console.log(className);
 
   return (
-    <button
+    <span
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      aria-disabled={!onClick}
       className={classNames(
         styles.iconContainer,
         { [styles.overrideColor]: shouldOverrideColor },
@@ -26,10 +30,15 @@ const Icon = ({ icon, size, color, className, onClick }: IconProps) => {
       )}
       style={{ color }}
       onClick={onClick}
-      disabled={!onClick}
+      onKeyDown={(event) => {
+        if (onClick && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault();
+          onClick();
+        }
+      }}
     >
       <SVGIcon {...(size ? { width: size, height: size } : {})} />
-    </button>
+    </span>
   );
 };
 

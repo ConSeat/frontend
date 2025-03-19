@@ -1,5 +1,5 @@
 import styles from './ReviewRadioButton.module.scss';
-import { ChoiceCircle } from '@/assets';
+import Icon from '@/components/Icon/Icon';
 
 interface ReviewRadioButtonProps {
   name: string;
@@ -18,7 +18,7 @@ const ReviewRadioButton = ({ name, value, isLastLabel, onChange }: ReviewRadioBu
         className={styles.radioInput}
         onChange={onChange}
       />
-      <ChoiceCircle className={styles.radioIcon} />
+      <Icon icon="ChoiceCircle" className={styles.radioIcon} />
       <div className={styles.radioText}>{value}</div>
       {!isLastLabel && <div className={styles.radioSplitter} />}
     </label>
