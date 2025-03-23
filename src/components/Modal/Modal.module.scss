@@ -8,12 +8,14 @@
   left: 50%;
   transform: translateX(-50%);
 
-  @include layout-width;
+  overflow: hidden;
 
-  height: 100vh;
+  height: 100lvh;
 
   background-color: rgb(0 0 0 / 70%);
   backdrop-filter: blur(2.5px);
+
+  @include layout-width;
 }
 
 // ModalHeader
@@ -47,7 +49,7 @@
 
   @include layout-width;
 
-  height: 100vh;
+  height: 100dvh;
   padding: 0 24px 32px;
 
   background-color: $main-mint6;

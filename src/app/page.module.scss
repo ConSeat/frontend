@@ -3,12 +3,12 @@
 .layout {
   overflow: hidden auto;
 
-  @include layout-width;
-
-  min-height: 100vh;
+  min-height: 100lvh;
   margin: 0 auto;
 
   color: $sub-white;
 
   background-color: $main-mint6;
+
+  @include layout-width;
 }
