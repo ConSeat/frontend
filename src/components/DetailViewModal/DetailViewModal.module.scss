@@ -4,3 +4,19 @@
   width: 100%;
   height: 100%;
 }
+
+.overlay {
+  position: fixed;
+  z-index: z-index(modal-overlay);
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  overflow: hidden;
+
+  height: 100lvh;
+
+  background-color: $main-mint6;
+
+  @include layout-width;
+}
