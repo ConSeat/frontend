@@ -9,7 +9,7 @@ interface StageViewProps {
 }
 
 const MOBILE_DRAG = 1;
-const MOBILE_ZOOM = 1;
+const MOBILE_ZOOM = 2;
 
 const StageView = ({ stageSVGSrc }: StageViewProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
