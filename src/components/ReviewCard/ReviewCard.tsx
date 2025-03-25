@@ -1,0 +1,158 @@
+'use client';
+
+import Button from '../Button/Button';
+import Icon from '../Icon/Icon';
+import styles from './ReviewCard.module.scss';
+import classNames from 'classnames';
+import Image from 'next/image';
+import { FEATURES_INFO } from '@/constants/review';
+
+interface HeaderProps {
+  profileSrc: string;
+  userName: string;
+  uploadTime: string;
+  onClick: () => void;
+}
+
+const Header = ({ profileSrc, uploadTime, userName, onClick }: HeaderProps) => {
+  return (
+    <div className={styles.reviewCardHeader}>
+      <div className={styles.userInfo}>
+        <div className={styles.profile}>
+          <Image src={profileSrc} width={38} height={38} alt={'프로필'} />
+        </div>
+        <div className={styles.textInfo}>
+          <div className={styles.userName}>{userName}</div>
+          <div className={styles.uploadTime}>{uploadTime}</div>
+        </div>
+      </div>
+      <div className={styles.bookMark}>
+        <Button className={styles.bookMarkButton} onClick={onClick}>
+          <Icon icon="Bookmark" />
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+interface ImageItem {
+  imageSrc: string;
+}
+
+const ImageItem = ({ imageSrc }: ImageItem) => {
+  const IMAGE_SIZE = 120;
+
+  return (
+    <div className={styles.imageBox}>
+      <Image width={IMAGE_SIZE} height={IMAGE_SIZE} alt="콘서트 이미지" src={imageSrc} />
+    </div>
+  );
+};
+
+interface ImageListProps {
+  imageSrcArray: string[];
+}
+
+const ImageList = ({ imageSrcArray }: ImageListProps) => {
+  return (
+    <div key="src" className={styles.reviewImageList}>
+      {imageSrcArray.map((src, index) => {
+        return <ImageItem key={index + src} imageSrc={src} />;
+      })}
+    </div>
+  );
+};
+
+const KeywordItem = ({ keyword, isPrimary }: { keyword: string; isPrimary: boolean }) => {
+  return (
+    <div className={classNames(styles.keyword, { [styles.primary]: isPrimary })}>{keyword}</div>
+  );
+};
+
+interface KeywordList {
+  keywordArray: string[];
+}
+
+const KeywordList = ({ keywordArray }: KeywordList) => {
+  const isPrimary = (keyword: string) => {
+    return FEATURES_INFO.some(({ name }) => name === keyword);
+  };
+
+  return (
+    <div className={styles.reviewKeywordList}>
+      {keywordArray.map((keyword) => {
+        return <KeywordItem key={keyword} keyword={keyword} isPrimary={isPrimary(keyword)} />;
+      })}
+    </div>
+  );
+};
+
+interface FooterProps {
+  likeNum: number;
+  onClickLike: () => void;
+  onClickMore: () => void;
+}
+
+const Footer = ({ likeNum, onClickLike, onClickMore }: FooterProps) => {
+  return (
+    <div className={styles.reviewCardFooter}>
+      <div className={styles.likeBox}>
+        <Button className={styles.likeButton} onClick={onClickLike}>
+          <Icon icon="Like" />
+          <div className={styles.likeText}>{likeNum}</div>
+        </Button>
+      </div>
+      <div className={styles.more}>
+        <Button className={styles.moreButton} onClick={onClickMore}>
+          <Icon icon="MoreFunction" />
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+interface ReviewCardProps {
+  imageSrcArray: string[];
+  keywordArray: string[];
+  concertName: string;
+  reviewDescription: string;
+  profileSrc: string;
+  uploadTime: string;
+  userName: string;
+  likeNumber: number;
+  handleClickMore: () => void;
+  handleClickLike: () => void;
+  handleClickBookmark: () => void;
+}
+
+const ReviewCard = ({
+  imageSrcArray,
+  keywordArray,
+  concertName,
+  reviewDescription,
+  profileSrc,
+  uploadTime,
+  userName,
+  likeNumber,
+  handleClickMore,
+  handleClickLike,
+  handleClickBookmark,
+}: ReviewCardProps) => {
+  return (
+    <div className={styles.reviewCardLayout}>
+      <Header
+        onClick={handleClickBookmark}
+        profileSrc={profileSrc}
+        uploadTime={uploadTime}
+        userName={userName}
+      />
+      <ImageList imageSrcArray={imageSrcArray} />
+      <div className={styles.concertTitle}>{concertName}</div>
+      <div className={styles.description}>{reviewDescription}</div>
+      <KeywordList keywordArray={keywordArray} />
+      <Footer likeNum={likeNumber} onClickLike={handleClickLike} onClickMore={handleClickMore} />
+    </div>
+  );
+};
+
+export default ReviewCard;
