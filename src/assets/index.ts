@@ -4,6 +4,9 @@ export { default as DownArrow } from '@/assets/icons/common/down-arrow.svg';
 export { default as LeftArrow } from '@/assets/icons/common/left-arrow.svg';
 export { default as Search } from '@/assets/icons/common/search.svg';
 export { default as UpArrow } from '@/assets/icons/common/up-arrow.svg';
+export { default as Bookmark } from '@/assets/icons/common/bookmark.svg';
+export { default as Like } from '@/assets/icons/common/like.svg';
+export { default as MoreFunction } from '@/assets/icons/common/more-function.svg';
 
 /**************** icons - homePage ****************/
 export { default as IcChat } from '@/assets/icons/homepage/ic-chat.svg';
