@@ -7,6 +7,8 @@ export { default as UpArrow } from '@/assets/icons/common/up-arrow.svg';
 export { default as Bookmark } from '@/assets/icons/common/bookmark.svg';
 export { default as Like } from '@/assets/icons/common/like.svg';
 export { default as MoreFunction } from '@/assets/icons/common/more-function.svg';
+export { default as PrevArrow } from '@/assets/icons/common/prev-arrow.svg';
+export { default as NextArrow } from '@/assets/icons/common/next-arrow.svg';
 
 /**************** icons - homePage ****************/
 export { default as IcChat } from '@/assets/icons/homepage/ic-chat.svg';
