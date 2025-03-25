@@ -1,0 +1,32 @@
+@import '@/styles/style';
+
+.slideContainer {
+  position: relative;
+  overflow: hidden;
+  min-width: 390px;
+}
+
+.imageNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 0 12px;
+
+  .navButton {
+    display: inline-flex;
+    flex-shrink: 0;
+    gap: 10px;
+    align-items: center;
+
+    height: 36px;
+    padding: 6px;
+    border-radius: 18px;
+
+    background: rgb(0 0 0 / 50%);
+  }
+}
