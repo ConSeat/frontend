@@ -1,5 +1,7 @@
 import { TouchEventHandler, useRef } from 'react';
 
+const MINIMUM_SWIPE_PIXEL = 40;
+
 const useSwipe = (onSwipeLeft: () => void, onSwipeRight: () => void) => {
   const startXRef = useRef(0);
   const endXRef = useRef(0);
@@ -15,12 +17,12 @@ const useSwipe = (onSwipeLeft: () => void, onSwipeRight: () => void) => {
   const handleTouchEnd: TouchEventHandler = () => {
     const diffX = startXRef.current - endXRef.current;
 
-    if (Math.abs(diffX) > 50) {
-      if (diffX < 0) {
-        onSwipeRight();
-      } else {
-        onSwipeLeft();
-      }
+    if (Math.abs(diffX) < MINIMUM_SWIPE_PIXEL) return;
+
+    if (diffX < 0) {
+      onSwipeRight();
+    } else {
+      onSwipeLeft();
     }
   };
 
