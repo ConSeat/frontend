@@ -3,7 +3,25 @@
 import Button from '../Button/Button';
 import Icon from '../Icon/Icon';
 import styles from './ImageSlide.module.scss';
-import { TouchEventHandler, useRef } from 'react';
+import useSwipe from '@/hooks/useSwipe';
+
+interface NavigationButtonsProps {
+  onNext: () => void;
+  onPrev: () => void;
+}
+
+const NavigationButtons = ({ onPrev, onNext }: NavigationButtonsProps) => {
+  return (
+    <div className={styles.imageNav}>
+      <Button className={styles.navButton} onClick={onPrev}>
+        <Icon icon="PrevArrow" />
+      </Button>
+      <Button className={styles.navButton} onClick={onNext}>
+        <Icon icon="NextArrow" />
+      </Button>
+    </div>
+  );
+};
 
 interface ImageSlideProps {
   imageSrcArray: string[];
@@ -14,30 +32,8 @@ interface ImageSlideProps {
 }
 
 const ImageSlide = ({ currentIndex, imageSrcArray, height, onPrev, onNext }: ImageSlideProps) => {
-  const imageRef = useRef<HTMLDivElement>(null);
-  const startXRef = useRef<number>(0);
-  const endXRef = useRef<number>(0);
+  const { handleTouchEnd, handleTouchMove, handleTouchStart } = useSwipe(onNext, onPrev);
   const totalLength = imageSrcArray.length;
-
-  const handleTouchStart: TouchEventHandler<HTMLDivElement> = (event) => {
-    startXRef.current = event.touches[0].clientX;
-  };
-
-  const handleTouchMove: TouchEventHandler<HTMLDivElement> = (event) => {
-    endXRef.current = event.touches[0].clientX;
-  };
-
-  const handleTouchEnd: TouchEventHandler<HTMLDivElement> = () => {
-    const diffX = startXRef.current - endXRef.current;
-
-    if (Math.abs(diffX) > 0) {
-      if (diffX < 0) {
-        onPrev();
-      } else {
-        onNext();
-      }
-    }
-  };
 
   return (
     <div
@@ -45,7 +41,6 @@ const ImageSlide = ({ currentIndex, imageSrcArray, height, onPrev, onNext }: Ima
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      ref={imageRef}
     >
       <div
         style={{
@@ -67,14 +62,7 @@ const ImageSlide = ({ currentIndex, imageSrcArray, height, onPrev, onNext }: Ima
           );
         })}
       </div>
-      <div className={styles.imageNav}>
-        <Button className={styles.navButton} onClick={onPrev}>
-          <Icon icon="PrevArrow" />
-        </Button>
-        <Button className={styles.navButton} onClick={onNext}>
-          <Icon icon="NextArrow" />
-        </Button>
-      </div>
+      <NavigationButtons onPrev={onPrev} onNext={onNext} />
     </div>
   );
 };
