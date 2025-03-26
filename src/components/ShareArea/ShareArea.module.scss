@@ -1,0 +1,61 @@
+@import '@/styles/style';
+
+@mixin button-layout {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+  padding: 9px;
+  border-radius: 50px;
+}
+
+.shareAreaContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+
+  .shareAreaText {
+    @include subtitle-2;
+
+    color: $sub-gray2;
+  }
+
+  .buttonContainer {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    align-self: stretch;
+
+    padding: 0 8px;
+
+    .linkCopy {
+      @include button-layout;
+
+      background-color: #d9d9d9;
+    }
+
+    .kakao {
+      @include button-layout;
+
+      background-color: #fde500;
+    }
+
+    .twitter {
+      @include button-layout;
+
+      border: 1px solid $sub-gray8;
+      background-color: $sub-black;
+    }
+
+    .save {
+      @include button-layout;
+
+      border: 1px solid $sub-gray7;
+      background-color: $sub-gray8;
+    }
+  }
+}
