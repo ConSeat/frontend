@@ -1,4 +1,6 @@
 .iconContainer {
+  display: flex;
+
   &.overrideColor {
     svg [fill]:not([fill='none']) {
       fill: currentcolor;
