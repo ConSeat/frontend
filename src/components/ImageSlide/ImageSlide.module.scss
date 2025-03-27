@@ -5,27 +5,31 @@
   overflow: hidden;
 }
 
-.imageNav {
+@mixin nav-button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 
-  display: flex;
-  justify-content: space-between;
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 10px;
+  align-items: center;
 
-  width: 100%;
-  padding: 0 12px;
+  height: 36px;
+  padding: 6px;
+  border-radius: 18px;
 
-  .navButton {
-    display: inline-flex;
-    flex-shrink: 0;
-    gap: 10px;
-    align-items: center;
+  background: rgb(0 0 0 / 50%);
+}
 
-    height: 36px;
-    padding: 6px;
-    border-radius: 18px;
+.prev {
+  @include nav-button;
 
-    background: rgb(0 0 0 / 50%);
-  }
+  left: 20px;
+}
+
+.next {
+  @include nav-button;
+
+  right: 12px;
 }

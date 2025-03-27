@@ -12,14 +12,15 @@ interface NavigationButtonsProps {
 
 const NavigationButtons = ({ onPrev, onNext }: NavigationButtonsProps) => {
   return (
-    <div className={styles.imageNav}>
-      <Button className={styles.navButton} onClick={onPrev}>
+    <>
+      <Button className={styles.prev} onClick={onPrev}>
         <Icon icon="PrevArrow" />
       </Button>
-      <Button className={styles.navButton} onClick={onNext}>
+
+      <Button className={styles.next} onClick={onNext}>
         <Icon icon="NextArrow" />
       </Button>
-    </div>
+    </>
   );
 };
 
