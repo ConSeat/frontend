@@ -11,10 +11,13 @@ interface HeaderProps {
   profileSrc: string;
   userName: string;
   uploadTime: string;
+  isSaved: boolean;
   onClick: () => void;
 }
 
-const Header = ({ profileSrc, uploadTime, userName, onClick }: HeaderProps) => {
+const Header = ({ profileSrc, uploadTime, userName, isSaved, onClick }: HeaderProps) => {
+  const bookMarkColor = isSaved ? '#00FFE5' : undefined;
+
   return (
     <div className={styles.reviewCardHeader}>
       <div className={styles.userInfo}>
@@ -28,7 +31,7 @@ const Header = ({ profileSrc, uploadTime, userName, onClick }: HeaderProps) => {
       </div>
       <div className={styles.bookMark}>
         <Button className={styles.bookMarkButton} onClick={onClick}>
-          <Icon icon="Bookmark" />
+          <Icon icon="Bookmark" color={bookMarkColor} />
         </Button>
       </div>
     </div>
@@ -89,17 +92,22 @@ const KeywordList = ({ keywordArray }: KeywordList) => {
 
 interface FooterProps {
   likeNum: number;
+  isLiked: boolean;
   onClickLike: () => void;
   onClickMore: () => void;
 }
 
-const Footer = ({ likeNum, onClickLike, onClickMore }: FooterProps) => {
+const Footer = ({ likeNum, isLiked, onClickLike, onClickMore }: FooterProps) => {
+  const likeColor = isLiked ? '#00FFE5' : undefined;
+
   return (
     <div className={styles.reviewCardFooter}>
       <div className={styles.likeBox}>
         <Button className={styles.likeButton} onClick={onClickLike}>
-          <Icon icon="Like" />
-          <div className={styles.likeText}>{likeNum}</div>
+          <Icon icon="Like" color={likeColor} />
+          <div className={styles.likeText} style={{ color: likeColor }}>
+            {likeNum}
+          </div>
         </Button>
       </div>
       <div className={styles.more}>
@@ -120,6 +128,8 @@ interface ReviewCardProps {
   uploadTime: string;
   userName: string;
   likeNumber: number;
+  isSaved: boolean;
+  isLiked: boolean;
   handleClickMore: () => void;
   handleClickLike: () => void;
   handleClickBookmark: () => void;
@@ -134,6 +144,8 @@ const ReviewCard = ({
   uploadTime,
   userName,
   likeNumber,
+  isSaved,
+  isLiked,
   handleClickMore,
   handleClickLike,
   handleClickBookmark,
@@ -145,12 +157,18 @@ const ReviewCard = ({
         profileSrc={profileSrc}
         uploadTime={uploadTime}
         userName={userName}
+        isSaved={isSaved}
       />
       <ImageList imageSrcArray={imageSrcArray} />
       <div className={styles.concertTitle}>{concertName}</div>
       <div className={styles.description}>{reviewDescription}</div>
       <KeywordList keywordArray={keywordArray} />
-      <Footer likeNum={likeNumber} onClickLike={handleClickLike} onClickMore={handleClickMore} />
+      <Footer
+        likeNum={likeNumber}
+        isLiked={isLiked}
+        onClickLike={handleClickLike}
+        onClickMore={handleClickMore}
+      />
     </div>
   );
 };
