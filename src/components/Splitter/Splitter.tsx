@@ -1,4 +1,4 @@
-import styles from './splitter.module.scss';
+import styles from './Splitter.module.scss';
 
 interface SplitterProps {
   height?: string;

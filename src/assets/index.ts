@@ -12,9 +12,9 @@ export { default as NextArrow } from '@/assets/icons/common/next-arrow.svg';
 export { default as LinkCopy } from '@/assets/icons/common/link-copy.svg';
 
 /**************** icons - homePage ****************/
-export { default as IcChat } from '@/assets/icons/homepage/ic-chat.svg';
-export { default as DefaultProfile } from '@/assets/icons/homepage/default-profile.svg';
-export { default as QnA } from '@/assets/icons/homepage/qna.svg';
+export { default as IcChat } from '@/assets/icons/homePage/ic-chat.svg';
+export { default as DefaultProfile } from '@/assets/icons/homePage/default-profile.svg';
+export { default as QnA } from '@/assets/icons/homePage/qna.svg';
 
 /**************** icons - stadiumPage ****************/
 export { default as Compare } from '@/assets/icons/stadiumPage/compare.svg';
