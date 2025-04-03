@@ -58,7 +58,7 @@ interface ImageListProps {
 
 const ImageList = ({ imageSrcArray }: ImageListProps) => {
   return (
-    <div key="src" className={styles.reviewImageList}>
+    <div className={styles.reviewImageList}>
       {imageSrcArray.map((src, index) => {
         return <ImageItem key={index + src} imageSrc={src} />;
       })}
