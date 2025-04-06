@@ -1,0 +1,74 @@
+@import '@/styles/style';
+
+.userInfoContainer {
+  display: inline-flex;
+  gap: 13px;
+  align-items: center;
+
+  width: 100%;
+  height: 64px;
+  padding: 0 24px;
+}
+
+.profileContainer {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 64px;
+  height: 64px;
+  border: 2px solid $sub-gray5;
+  border-radius: 100%;
+
+  .imageContainer {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+  }
+
+  .editButton {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+
+    background-color: $sub-gray7;
+  }
+}
+
+.textProfile {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 3px;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  height: 100%;
+
+  .userName {
+    @include heading-1;
+
+    .nickName {
+      @include heading-1;
+
+      color: $main-mint1;
+    }
+  }
+
+  .email {
+    @include body-2;
+
+    color: $sub-gray2;
+  }
+}
