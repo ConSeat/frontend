@@ -1,5 +1,6 @@
 import styles from './UserInfo.module.scss';
 import Image from 'next/image';
+import Link from 'next/link';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon/Icon';
 
@@ -16,9 +17,11 @@ const UserInfo = ({ thumbnail, nickName, email }: UserInfo) => {
         <div className={styles.imageContainer}>
           <Image src={thumbnail} width={64} height={64} alt="프로필사진" />
         </div>
-        <Button className={styles.editButton}>
-          <Icon icon="Pencil" size={10} />
-        </Button>
+        <Link href={'/mypage/settings/account'}>
+          <Button className={styles.editButton}>
+            <Icon icon="Pencil" size={10} />
+          </Button>
+        </Link>
       </div>
       <div className={styles.textProfile}>
         <div className={styles.userName}>

@@ -1,6 +1,7 @@
 'use client';
 
 import styles from './Header.module.scss';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Icon from '@/components/Icon/Icon';
 
@@ -11,15 +12,13 @@ const Header = () => {
     router.back();
   };
 
-  const handleEditPage = () => {
-    router.push('/mypage/edit');
-  };
-
   return (
     <header className={styles.header}>
       <Icon icon="LeftArrow" onClick={handlePrevPage} />
       <h1 className={styles.title}>마이 페이지</h1>
-      <Icon icon="Gear" onClick={handleEditPage} />
+      <Link href="/mypage/settings/service">
+        <Icon icon="Gear" />
+      </Link>
     </header>
   );
 };
