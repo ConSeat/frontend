@@ -18,6 +18,7 @@ export { default as QnA } from '@/assets/icons/homePage/qna.svg';
 
 /**************** icons - myPage ****************/
 export { default as Gear } from '@/assets/icons/myPage/gear.svg';
+export { default as Camera } from '@/assets/icons/myPage/camera.svg';
 
 /**************** icons - stadiumPage ****************/
 export { default as Compare } from '@/assets/icons/stadiumPage/compare.svg';
