@@ -1,12 +1,7 @@
 import styles from './ProgressBar.module.scss';
 import React from 'react';
 
-interface ProgressBarProps {
-  steps: string[];
-  currentStep: string;
-}
-
-function ProgressBar({ steps, currentStep }: ProgressBarProps) {
+function ProgressBar({ steps, currentStep }) {
   const currentIndex = steps.indexOf(currentStep);
   const percent = ((currentIndex + 1) / steps.length) * 100;
 
