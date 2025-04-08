@@ -1,0 +1,51 @@
+@import '@/styles/style';
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  width: 100%;
+  padding: 45px 24px 0;
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  align-self: stretch;
+}
+
+.title {
+  @include body-3;
+
+  color: $sub-white;
+}
+
+.textBox {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: flex-start;
+  align-self: stretch;
+
+  .description {
+    @include body-5;
+
+    color: $sub-gray6;
+  }
+}
+
+.subTitle {
+  @include body-5;
+
+  color: $sub-gray5;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
