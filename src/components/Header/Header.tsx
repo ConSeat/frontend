@@ -14,7 +14,7 @@ const Header = ({ stadiumId }: HeaderProps) => {
   const router = useRouter();
 
   const handlePrevPage = () => {
-    router.push(`/home/${stadiumId}`);
+    router.back();
   };
 
   return (

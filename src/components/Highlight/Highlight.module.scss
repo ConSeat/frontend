@@ -1,0 +1,15 @@
+@import '@/styles/style';
+
+.highlight {
+  font: inherit;
+}
+
+.mint.text {
+  color: $main-mint1;
+}
+
+.mint.background {
+  padding: 0 8px;
+  color: $sub-black;
+  background-color: $main-mint1;
+}

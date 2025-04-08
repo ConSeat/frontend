@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import Button from '@/components/Button/Button';
 import ButtonContainer from '@/components/ButtonContainer/ButtonContainer';
+import Highlight from '@/components/Highlight/Highlight';
 import PageExplanation from '@/components/PageExplanation';
 import Spacing from '@/components/Spacing/Spacing';
 import StageView from '@/components/StageView';
@@ -18,7 +19,7 @@ const SingleSectionStep = ({ stadiumId, step, setStep, data, setData }) => {
             <PageExplanation.Title>
               시야를 확인할
               <br />
-              <span>구역</span>을 선택해주세요
+              <Highlight>구역</Highlight>을 선택해주세요
             </PageExplanation.Title>
             <PageExplanation.Subtitle>손가락으로 좌석표를 확대해보세요</PageExplanation.Subtitle>
           </PageExplanation>
@@ -40,7 +41,10 @@ const SingleSectionStep = ({ stadiumId, step, setStep, data, setData }) => {
             // TODO: 구역 선택 기능이 추가되면 주석 해제
             // variant={data.sectionId ? 'primary' : 'inactive'}
             // disabled={!data.sectionId}
-            onClick={() => setStep('Seating')}
+            onClick={() => {
+              setStep('Seating');
+              setData((prev) => ({ ...prev, sectionId: 1 }));
+            }}
           >
             다음
           </Button>

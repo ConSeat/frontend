@@ -5,6 +5,7 @@ import styles from './SelectMenu.module.scss';
 import React from 'react';
 import { useState } from 'react';
 import ColumnSelectList from '@/components/ColumnSelectList';
+import Highlight from '@/components/Highlight/Highlight';
 import Icon, { type IconType } from '@/components/Icon/Icon';
 import PageExplanation from '@/components/PageExplanation';
 import { FIND_VIEW_LIST } from '@/constants/findView';
@@ -26,7 +27,8 @@ const SelectMenu = ({ stadiumId }: SelectMenuProps) => {
       <div className={styles.selectMenuContainer}>
         <PageExplanation>
           <PageExplanation.Title>
-            어떤 <span>시야</span>가<br />
+            어떤 <Highlight>시야</Highlight>가
+            <br />
             궁금하신가요?
           </PageExplanation.Title>
         </PageExplanation>

@@ -10,7 +10,7 @@ const Title = ({ children }: { children: ReactNode }) => {
 };
 
 const Subtitle = ({ children }: { children: ReactNode }) => {
-  return <div className={styles.explanation}>{children}</div>;
+  return <div className={styles.pageSubtitle}>{children}</div>;
 };
 
 PageExplanation.Title = Title;

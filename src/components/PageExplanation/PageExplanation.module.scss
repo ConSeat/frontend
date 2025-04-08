@@ -7,27 +7,21 @@
 
   width: 100%;
   min-width: 342px;
+}
 
-  .pageTitle {
-    @include heading-1;
+.pageTitle {
+  @include heading-1;
 
-    color: $sub-gray2;
+  color: $sub-gray2;
+}
 
-    span {
-      @include heading-1;
+.pageSubtitle {
+  @include body-6;
 
-      color: $main-mint1;
-    }
-  }
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: flex-start;
 
-  .explanation {
-    @include body-6;
-
-    display: flex;
-    gap: 4px;
-    align-items: center;
-    justify-content: flex-start;
-
-    color: $sub-gray3;
-  }
+  color: $sub-gray3;
 }
