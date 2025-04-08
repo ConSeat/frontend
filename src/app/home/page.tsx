@@ -9,7 +9,9 @@ const HomePage = () => {
   return (
     <div className={styles.homeLayout}>
       <HomeNavigation />
+
       <Spacing size={49} />
+
       <main className={styles.homeMain}>
         <PageExplanation>
           <PageExplanation.Title>
@@ -22,9 +24,11 @@ const HomePage = () => {
             후기 +{121}
           </PageExplanation.Subtitle>
         </PageExplanation>
+
         <StadiumNavigation navigationType="active" />
         <StadiumNavigation navigationType="inactive" />
       </main>
+
       <Icon icon="HomeC" className={styles.svgC} />
       <Icon icon="LargeO" className={styles.svgO} />
     </div>
