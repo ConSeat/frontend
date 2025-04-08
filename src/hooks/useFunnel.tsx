@@ -37,16 +37,16 @@ const Funnel = <TStep extends string>({ children, currentStep }: FunnelProps<TSt
 Funnel.Step = Step;
 
 // useFunnel 훅
-function useFunnel<TStep extends string, TData extends Record<string, unknown>>(
-  initialStep: TStep,
-  initialData?: Partial<TData>,
-) {
-  const [step, setStep] = useState<TStep>(initialStep);
-  const [data, setData] = useState<Partial<TData>>(initialData ?? {});
+function useFunnel<T extends string, D extends object>(config: {
+  initialStep: T;
+  initialData?: Partial<D>;
+}) {
+  const [step, setStep] = useState<T>(config.initialStep);
+  const [data, setData] = useState<Partial<D>>(config.initialData ?? {});
 
   return {
     Funnel,
-    currentStep: step,
+    step,
     setStep,
     data,
     setData,
