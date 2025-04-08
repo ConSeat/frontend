@@ -54,7 +54,8 @@ const SingleSeatingStep = ({ stadiumId, step, setStep, data, setData }) => {
               key={seatingId}
               onClick={() => handleClickSelectItem(seatingId)}
               isSelected={data.seatingId === seatingId}
-              isUnSelected={count === 0}
+              isUnSelected={data.seatingId && data.seatingId !== seatingId}
+              disabled={count === 0}
             >
               <ColumnSelectList.Title>
                 {name} 후기 {count}개

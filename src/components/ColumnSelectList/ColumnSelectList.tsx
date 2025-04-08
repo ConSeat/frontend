@@ -11,18 +11,29 @@ interface ItemProps {
   onClick: () => void;
   isSelected: boolean;
   isUnSelected?: boolean;
+  disabled?: boolean;
 }
 
-const Item = ({ children, onClick, isSelected, isUnSelected = false }: ItemProps) => {
+const Item = ({
+  children,
+  onClick,
+  isSelected,
+  isUnSelected = false,
+  disabled = false,
+}: ItemProps) => {
   return (
-    <li
-      className={classNames(styles.selectItemLayout, {
-        [styles.selected]: isSelected,
-        [styles.unselected]: isUnSelected,
-      })}
-      onClick={onClick}
-    >
-      {children}
+    <li className={styles.selectItemWrapper}>
+      <button
+        type="button"
+        className={classNames(styles.selectItemLayout, {
+          [styles.selected]: isSelected,
+          [styles.unselected]: isUnSelected,
+        })}
+        onClick={onClick}
+        disabled={disabled}
+      >
+        {children}
+      </button>
     </li>
   );
 };

@@ -20,6 +20,10 @@
   color: $sub-gray3;
 }
 
+.selectItemWrapper {
+  width: 100%;
+}
+
 .selectItemLayout {
   cursor: pointer;
 
@@ -34,7 +38,7 @@
   border: 1px solid $sub-gray6;
   border-radius: 5px;
 
-  background: $sub_gray8;
+  background-color: $sub_gray8;
 
   &.selected {
     border-color: $main_mint1;
@@ -52,6 +56,11 @@
   }
 
   &.unselected {
+    opacity: 0.5;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
     opacity: 0.5;
   }
 }

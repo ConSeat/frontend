@@ -37,6 +37,7 @@ const SingleSectionStep = ({ stadiumId, step, setStep, data, setData }) => {
             이전
           </Button>
           <Button
+            // TODO: 구역 선택 기능이 추가되면 주석 해제
             // variant={data.sectionId ? 'primary' : 'inactive'}
             // disabled={!data.sectionId}
             onClick={() => setStep('Seating')}
