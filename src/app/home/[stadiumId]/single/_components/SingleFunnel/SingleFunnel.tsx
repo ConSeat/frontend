@@ -1,6 +1,8 @@
 'use client';
 
 import ProgressBar from '../../../_components/ProgressBar/ProgressBar';
+import { SINGLE_FUNNEL_STEPS } from '../../_constants/funnelSteps';
+import type { SingleFunnelData, Step } from '../../_types/funnel';
 import SingleResultStep from '../SingleResultStep/SingleResultStep';
 import SingleSeatingStep from '../SingleSeatingStep/SingleSeatingStep';
 import SingleSectionStep from '../SingleSectionStep/SingleSectionStep';
@@ -12,16 +14,9 @@ interface SingleFunnelProps {
   stadiumId: number;
 }
 
-type Step = 'Section' | 'Seating' | 'Result';
-
-interface SingleFunnelData {
-  sectionId: number;
-  seatingId: number;
-}
-
 const SingleFunnel = ({ stadiumId }: SingleFunnelProps) => {
   const { Funnel, step, setStep, data, setData } = useFunnel<Step, SingleFunnelData>({
-    initialStep: 'Section',
+    initialStep: SINGLE_FUNNEL_STEPS[0],
     initialData: {
       sectionId: 0,
       seatingId: 0,
@@ -30,7 +25,7 @@ const SingleFunnel = ({ stadiumId }: SingleFunnelProps) => {
 
   return (
     <>
-      <ProgressBar steps={['Section', 'Seating', 'Result']} currentStep={step} />
+      <ProgressBar steps={SINGLE_FUNNEL_STEPS} currentStep={step} />
 
       <Spacing size={45} />
 
@@ -56,7 +51,7 @@ const SingleFunnel = ({ stadiumId }: SingleFunnelProps) => {
         </Funnel.Step>
 
         <Funnel.Step name="Result">
-          <SingleResultStep stadiumId={stadiumId} />
+          <SingleResultStep stadiumId={stadiumId} data={data} />
         </Funnel.Step>
       </Funnel>
     </>
