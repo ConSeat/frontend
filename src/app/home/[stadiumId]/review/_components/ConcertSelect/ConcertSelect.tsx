@@ -33,7 +33,7 @@ const ConcertSelect = ({ data, dispatch }: ConcertSelectProps) => {
       value={selectedConcert as string}
       onChange={(value) => handleConcertSelect(value.concertId)}
       options={concerts}
-      placeholder={REVIEW.MESSAGE.CONCERT_SELECT.PLACEHOLDER}
+      placeholder="콘서트명을 검색해주세요"
     />
   );
 };

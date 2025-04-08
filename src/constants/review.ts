@@ -75,7 +75,6 @@ const REVIEW_MESSAGE = {
   CONCERT_SELECT: {
     TITLE: '내가 다녀온\n콘서트를 선택해주세요',
     SUBTITLE: '*영문 또는 한글로 가수명을 검색해 보세요.',
-    PLACEHOLDER: '층을 선택해주세요',
   },
   SEAT_INFO_SELECT: {
     TITLE: '좌석을 선택해주세요',
