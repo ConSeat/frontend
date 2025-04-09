@@ -1,6 +1,7 @@
 import { FIND_SEAT_LIST } from '../../_constants/seatExample';
+import type { SingleFunnelData, Step } from '../../_types/funnel';
 import styles from './SingleSeatingStep.module.scss';
-import React from 'react';
+import React, { type Dispatch, type SetStateAction } from 'react';
 import Button from '@/components/Button/Button';
 import ButtonContainer from '@/components/ButtonContainer/ButtonContainer';
 import ColumnSelectList from '@/components/ColumnSelectList';
@@ -8,7 +9,14 @@ import Highlight from '@/components/Highlight/Highlight';
 import PageExplanation from '@/components/PageExplanation';
 import Spacing from '@/components/Spacing/Spacing';
 
-const SingleSeatingStep = ({ stadiumId, step, setStep, data, setData }) => {
+interface SingleSeatingStepProps {
+  stadiumId: number;
+  setStep: (step: Step) => void;
+  data: Partial<SingleFunnelData>;
+  setData: Dispatch<SetStateAction<Partial<SingleFunnelData>>>;
+}
+
+const SingleSeatingStep = ({ setStep, data, setData }: SingleSeatingStepProps) => {
   const handleClickSelectItem = (seatingId: number) => {
     setData((prev) => ({ ...prev, seatingId }));
   };
@@ -33,11 +41,11 @@ const SingleSeatingStep = ({ stadiumId, step, setStep, data, setData }) => {
               key={seatingId}
               onClick={() => handleClickSelectItem(seatingId)}
               isSelected={data.seatingId === seatingId}
-              isUnSelected={data.seatingId && data.seatingId !== seatingId}
+              isUnSelected={!!data.seatingId && data.seatingId !== seatingId}
               disabled={count === 0}
             >
               <ColumnSelectList.Title>
-                {name} 후기 {count}개
+                {name} <span className={styles.review}>후기 {count}개</span>
               </ColumnSelectList.Title>
             </ColumnSelectList.Item>
           ))}
@@ -49,8 +57,8 @@ const SingleSeatingStep = ({ stadiumId, step, setStep, data, setData }) => {
           이전
         </Button>
         <Button
-          // variant={data.sectionId ? 'primary' : 'inactive'}
-          // disabled={!data.sectionId}
+          variant={data.seatingId ? 'primary' : 'inactive'}
+          disabled={!data.seatingId}
           onClick={() => setStep('Result')}
         >
           다음

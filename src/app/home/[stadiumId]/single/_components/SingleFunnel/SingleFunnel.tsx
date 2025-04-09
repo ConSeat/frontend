@@ -33,7 +33,6 @@ const SingleFunnel = ({ stadiumId }: SingleFunnelProps) => {
         <Funnel.Step name="Section">
           <SingleSectionStep
             stadiumId={stadiumId}
-            step={step}
             setStep={setStep}
             data={data}
             setData={setData}
@@ -43,7 +42,6 @@ const SingleFunnel = ({ stadiumId }: SingleFunnelProps) => {
         <Funnel.Step name="Seating">
           <SingleSeatingStep
             stadiumId={stadiumId}
-            step={step}
             setStep={setStep}
             data={data}
             setData={setData}

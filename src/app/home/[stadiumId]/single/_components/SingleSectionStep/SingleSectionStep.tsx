@@ -1,6 +1,7 @@
+import type { SingleFunnelData, Step } from '../../_types/funnel';
 import styles from './SingleSectionStep.module.scss';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { type Dispatch, type SetStateAction } from 'react';
 import Button from '@/components/Button/Button';
 import ButtonContainer from '@/components/ButtonContainer/ButtonContainer';
 import Highlight from '@/components/Highlight/Highlight';
@@ -8,7 +9,14 @@ import PageExplanation from '@/components/PageExplanation';
 import Spacing from '@/components/Spacing/Spacing';
 import StageView from '@/components/StageView';
 
-const SingleSectionStep = ({ stadiumId, step, setStep, data, setData }) => {
+interface SingleSectionStepProps {
+  stadiumId: number;
+  setStep: (step: Step) => void;
+  data: Partial<SingleFunnelData>;
+  setData: Dispatch<SetStateAction<Partial<SingleFunnelData>>>;
+}
+
+const SingleSectionStep = ({ stadiumId, setStep, setData }: SingleSectionStepProps) => {
   const router = useRouter();
 
   return (

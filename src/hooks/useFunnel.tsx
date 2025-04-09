@@ -9,7 +9,7 @@ interface StepProps {
 }
 
 const Step = ({ children }: StepProps) => {
-  return <>{children}</>;
+  return children;
 };
 
 // Step 타입 가드
