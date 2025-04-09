@@ -83,7 +83,7 @@ const ReviewCollection = ({
               <li
                 key={reviewId}
                 className={styles.reviewItem}
-                onClick={() => router.push(`/mypage/detail-review?reviewid=${reviewId}`)}
+                onClick={() => router.push(`/mypage/detail-review?review-id=${reviewId}`)}
               >
                 <div className={styles.reviewImage}>
                   <Image width={104} height={104} alt="" src={imageSrc} />

@@ -1,0 +1,20 @@
+@import '@/styles/style';
+
+.reviewContainer {
+  flex-grow: 1;
+  align-content: center;
+
+  .reviewDetail {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    place-content: center center;
+
+    width: 100%;
+    padding: 28px 20px 20px;
+    border: 1px solid $sub-gray6;
+    border-radius: 10px;
+
+    background-color: $sub-black;
+  }
+}
