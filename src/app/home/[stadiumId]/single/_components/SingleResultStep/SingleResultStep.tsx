@@ -6,6 +6,8 @@ import Button from '@/components/Button/Button';
 import ButtonContainer from '@/components/ButtonContainer/ButtonContainer';
 import Highlight from '@/components/Highlight/Highlight';
 import PageExplanation from '@/components/PageExplanation';
+import ShareArea from '@/components/ShareArea';
+import Spacing from '@/components/Spacing/Spacing';
 
 export const getSectionName = (sectionId: number) =>
   FIND_SECTION_LIST.find((s) => s.sectionId === sectionId)?.name;
@@ -19,18 +21,36 @@ const SingleResultStep = ({ stadiumId, data }) => {
   const sectionName = getSectionName(data.sectionId);
   const seatingName = getSeatingName(data.seatingId);
 
+  const handleCopyLink = () => {
+    const link = `${window.location.origin}/home/${stadiumId}/single/result?sectionId=${data.sectionId}&seatingId=${data.seatingId}`;
+    navigator.clipboard.writeText(link);
+    alert('링크가 복사되었습니다!');
+  };
+
   return (
     <div className={styles.singleResultStepLayout}>
-      <PageExplanation>
-        <PageExplanation.Title>
-          <Highlight variant="background">
-            {sectionName} {seatingName}
-          </Highlight>
-          은
-          <br />
-          본무대, 돌출, 전광판 모두 잘보여요
-        </PageExplanation.Title>
-      </PageExplanation>
+      <div>
+        <PageExplanation>
+          <PageExplanation.Title>
+            <Highlight variant="background">
+              {sectionName} {seatingName}
+            </Highlight>
+            은
+            <br />
+            본무대, 돌출, 전광판 모두 잘보여요
+          </PageExplanation.Title>
+        </PageExplanation>
+
+        <Spacing size={52} />
+
+        <ShareArea
+          onCopy={handleCopyLink}
+          onShareKakao={() => {}}
+          onShareTwitter={() => {}}
+          onSave={() => {}}
+          isLogin={true}
+        />
+      </div>
       <ButtonContainer>
         <Button onClick={() => router.push(`/home/${stadiumId}`)}>검색 완료</Button>
       </ButtonContainer>

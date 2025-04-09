@@ -13,9 +13,9 @@ const Step = ({ children }: StepProps) => {
 };
 
 // Step 타입 가드
-function isStepElement(element: ReactNode): element is ReactElement<StepProps, typeof Step> {
+const isStepElement = (element: ReactNode): element is ReactElement<StepProps, typeof Step> => {
   return isValidElement(element) && element.type === Step;
-}
+};
 
 // Funnel 컴포넌트
 interface FunnelProps<TStep extends string> {
@@ -37,10 +37,10 @@ const Funnel = <TStep extends string>({ children, currentStep }: FunnelProps<TSt
 Funnel.Step = Step;
 
 // useFunnel 훅
-function useFunnel<T extends string, D extends object>(config: {
+const useFunnel = <T extends string, D extends object>(config: {
   initialStep: T;
   initialData?: Partial<D>;
-}) {
+}) => {
   const [step, setStep] = useState<T>(config.initialStep);
   const [data, setData] = useState<Partial<D>>(config.initialData ?? {});
 
@@ -51,6 +51,6 @@ function useFunnel<T extends string, D extends object>(config: {
     data,
     setData,
   };
-}
+};
 
 export default useFunnel;

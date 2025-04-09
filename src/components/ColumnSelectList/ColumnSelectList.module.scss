@@ -15,6 +15,9 @@
 }
 
 .selectItemSubtitle {
+  display: flex;
+  align-items: center;
+
   @include subtitle-2;
 
   color: $sub-gray3;
