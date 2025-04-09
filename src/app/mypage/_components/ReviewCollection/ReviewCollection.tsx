@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { MY_PAGE_QUERY, REVIEW_TAP, VIEW_TAP } from '@/constants/myPage';
 
 interface MyPageReview {
-  id: number;
+  reviewId: number;
   imageSrc: string;
   title: string;
   seat: string;
@@ -78,9 +78,13 @@ const ReviewCollection = ({
           onChange={handleChangeFilter}
         />
         <ul className={styles.reviewList}>
-          {reviews.map(({ id, imageSrc, title, seat }) => {
+          {reviews.map(({ reviewId, imageSrc, title, seat }) => {
             return (
-              <li key={id} className={styles.reviewItem}>
+              <li
+                key={reviewId}
+                className={styles.reviewItem}
+                onClick={() => router.push(`/mypage/detail-review?reviewid=${reviewId}`)}
+              >
                 <div className={styles.reviewImage}>
                   <Image width={104} height={104} alt="" src={imageSrc} />
                 </div>
