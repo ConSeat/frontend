@@ -1,6 +1,12 @@
 .container {
+  touch-action: none; // 모바일 드래그와 스크롤 충돌 방지
+  user-select: none; // 텍스트 선택 방지
+
   overflow: hidden;
+
   height: 100%;
+
+  -webkit-user-drag: none; // Safari에서 이미지 끌기 방지
 }
 
 .imageWrapper {
