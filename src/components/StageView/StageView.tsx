@@ -3,6 +3,7 @@
 import styles from './StageView.module.scss';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
+import { clamp } from '@/utils/clamp';
 
 interface StageViewProps {
   stageSVGSrc: string;
@@ -14,7 +15,6 @@ const MOBILE_ZOOM = 2;
 const StageView = ({ stageSVGSrc }: StageViewProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-
   const dragState = useRef({
     isDragging: false,
     scale: 1,
@@ -25,11 +25,50 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
     touchDistance: 0,
   });
 
-  const updateTransform = () => {
-    if (wrapperRef.current === null) return;
+  // 드래그/확대된 상태에 따라 이미지가 이동할 수 있는 최대 범위를 계산
+  const getTranslateLimits = () => {
+    const container = containerRef.current;
+    const wrapper = wrapperRef.current;
+    const scale = dragState.current.scale;
 
-    const { translateX, translateY, scale } = dragState.current;
-    wrapperRef.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    if (!container || !wrapper) {
+      return { minX: 0, maxX: 0, minY: 0, maxY: 0 };
+    }
+
+    const offset = 30;
+
+    const wrapperWidth = wrapper.offsetWidth * scale;
+    const wrapperHeight = wrapper.offsetHeight * scale;
+    const containerRect = container.getBoundingClientRect();
+
+    const xCenterFix = (wrapperWidth - containerRect.width) / 2;
+    const yCenterFix = (wrapperHeight - containerRect.height) / 2;
+
+    const minX = -xCenterFix - offset;
+    const maxX = xCenterFix + offset;
+
+    const minY = -yCenterFix - offset;
+    const maxY = yCenterFix + offset;
+
+    return { minX, maxX, minY, maxY };
+  };
+
+  // 실제로 이동된 위치 + 확대 비율을 적용
+  // clamp로 이동이 화면 밖으로 나가지 않도록 제한함
+  const updateTransform = () => {
+    if (!wrapperRef.current || !containerRef.current) return;
+
+    const limits = getTranslateLimits();
+
+    let { translateX, translateY } = dragState.current;
+
+    translateX = clamp(translateX, limits.minX, limits.maxX);
+    translateY = clamp(translateY, limits.minY, limits.maxY);
+
+    dragState.current.translateX = translateX;
+    dragState.current.translateY = translateY;
+
+    wrapperRef.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(${dragState.current.scale})`;
   };
 
   const handleWheel = (e: WheelEvent) => {
