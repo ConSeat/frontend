@@ -5,7 +5,7 @@ const DetailPage = async ({ params }) => {
   const { stadiumId } = await params;
 
   return (
-    <DetailViewModal>
+    <DetailViewModal stadiumId={stadiumId}>
       <StageView stageSVGSrc={`/stadium/${stadiumId}.svg`} />
     </DetailViewModal>
   );
