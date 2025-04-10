@@ -1,12 +1,12 @@
+import Image from 'next/image';
 import DetailViewModal from '@/components/DetailViewModal';
-import StageView from '@/components/StageView';
 
 const DetailPage = async ({ params }) => {
   const { stadiumId } = await params;
 
   return (
     <DetailViewModal>
-      <StageView stageSVGSrc={`/stadium/${stadiumId}.svg`} />
+      <Image src={`/stadium/${stadiumId}/full.svg`} width={316} height={291} alt="" />
     </DetailViewModal>
   );
 };
