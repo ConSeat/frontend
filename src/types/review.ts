@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { REVIEW } from '@/constants/review';
+import { REVIEW } from '@/app/home/[stadiumId]/review/_constants/review';
 
 export type Review = (typeof REVIEW.ACTIONS)[keyof typeof REVIEW.ACTIONS];
 
