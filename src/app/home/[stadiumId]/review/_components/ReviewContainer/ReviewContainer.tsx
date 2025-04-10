@@ -1,8 +1,9 @@
 'use client';
 
+import { FEATURES_NONE, NONE_SELECT, OBSTRUCTIONS_NONE } from '../../_constants/info';
+import { REVIEW } from '../../_constants/review';
 import ReviewForm from '../ReviewForm';
 import { useReducer } from 'react';
-import { NONE, NONE_SELECT, REVIEW } from '@/constants/review';
 import type { ReviewAction, ReviewData, Step } from '@/types/review';
 import { toggleItem } from '@/utils/toggleItem';
 
@@ -47,8 +48,17 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
       const { feature } = action.payload;
       if (!feature) return state;
 
+      let nextInfo: number[] = [];
+
+      if (feature === FEATURES_NONE) {
+        nextInfo = state.features.includes(FEATURES_NONE) ? [] : [FEATURES_NONE];
+      } else {
+        nextInfo = state.features.filter((id) => id !== FEATURES_NONE);
+        nextInfo = toggleItem(nextInfo, feature);
+      }
+
       return updateState(state, {
-        features: toggleItem(state.features, feature),
+        features: nextInfo,
         currentStep: (REVIEW.STEPS.FEATURES_INFO_SELECT + 1) as Step,
       });
     }
@@ -98,10 +108,10 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
       let nextInfo: number[] = [];
 
-      if (obstruction === NONE) {
-        nextInfo = state.obstructions.includes(NONE) ? [] : [NONE];
+      if (obstruction === OBSTRUCTIONS_NONE) {
+        nextInfo = state.obstructions.includes(OBSTRUCTIONS_NONE) ? [] : [OBSTRUCTIONS_NONE];
       } else {
-        nextInfo = state.obstructions.filter((id) => id !== NONE);
+        nextInfo = state.obstructions.filter((id) => id !== OBSTRUCTIONS_NONE);
         nextInfo = toggleItem(nextInfo, obstruction);
       }
       return updateState(state, {

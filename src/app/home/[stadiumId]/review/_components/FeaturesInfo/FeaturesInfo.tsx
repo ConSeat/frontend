@@ -1,9 +1,10 @@
 'use client';
 
+import { FEATURES_INFO } from '../../_constants/info';
+import { REVIEW } from '../../_constants/review';
 import ReviewCheckbox from '../ReviewCheckbox';
 import styles from './FeaturesInfo.module.scss';
 import React from 'react';
-import { FEATURES_INFO, REVIEW } from '@/constants/review';
 import type { ReviewDispatch } from '@/types/review';
 
 interface FeaturesInfoProps {

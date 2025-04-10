@@ -1,9 +1,10 @@
 'use client';
 
+import { NONE_SELECT } from '../../_constants/info';
+import { REVIEW } from '../../_constants/review';
 import ReviewDropdown from '../ReviewDropdown/ReviewDropdown';
 import styles from './SeatInfoSelect.module.scss';
 import React, { useState } from 'react';
-import { NONE_SELECT, REVIEW } from '@/constants/review';
 import { ReviewDispatch } from '@/types/review';
 
 interface SeatInfoSelectProps {

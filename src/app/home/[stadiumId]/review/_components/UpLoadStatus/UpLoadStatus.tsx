@@ -1,5 +1,5 @@
+import { MAX_IMAGE_UPLOAD_NUMBER } from '../../_constants/info';
 import styles from './UpLoadStatus.module.scss';
-import { MAX_IMAGE_UPLOAD_NUMBER } from '@/constants/review';
 
 interface UpLoadStatusProps {
   imageListLength: number;
