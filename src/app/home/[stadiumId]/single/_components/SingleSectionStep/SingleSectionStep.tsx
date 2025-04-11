@@ -36,7 +36,7 @@ const SingleSectionStep = ({ stadiumId, setStep, setData }: SingleSectionStepPro
         <Spacing size={32} />
 
         <div className={styles.stageViewContainer}>
-          <StageView stageSVGSrc={`/stadium/${stadiumId}/full.svg`} />
+          <StageView stageSVGSrc={`/stadium/${stadiumId}.svg`} />
         </div>
       </div>
 

@@ -6,7 +6,7 @@ const DetailPage = async ({ params }) => {
 
   return (
     <DetailViewModal>
-      <Image src={`/stadium/${stadiumId}/full.svg`} width={316} height={291} alt="" />
+      <Image src={`/stadium/${stadiumId}.svg`} width={316} height={291} alt="" />
     </DetailViewModal>
   );
 };

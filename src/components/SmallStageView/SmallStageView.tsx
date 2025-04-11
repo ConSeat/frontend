@@ -14,7 +14,7 @@ const SmallStageView = ({ stadiumId }: SmallStageViewProps) => {
 
   return (
     <div className={styles.stageContainer}>
-      <Image src={`/stadium/${stadiumId}/full.svg`} width={79} height={73} alt="" />
+      <Image src={`/stadium/${stadiumId}.svg`} width={79} height={73} alt="" />
       <ZoomInButton onClick={openModal} />
     </div>
   );
