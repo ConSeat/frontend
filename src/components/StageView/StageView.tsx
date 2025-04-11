@@ -35,8 +35,6 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
       return { minX: 0, maxX: 0, minY: 0, maxY: 0 };
     }
 
-    const offset = 30;
-
     const wrapperWidth = wrapper.offsetWidth * scale;
     const wrapperHeight = wrapper.offsetHeight * scale;
     const containerRect = container.getBoundingClientRect();
@@ -44,11 +42,11 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
     const xCenterFix = (wrapperWidth - containerRect.width) / 2;
     const yCenterFix = (wrapperHeight - containerRect.height) / 2;
 
-    const minX = -xCenterFix - offset;
-    const maxX = xCenterFix + offset;
+    const minX = -xCenterFix;
+    const maxX = xCenterFix;
 
-    const minY = -yCenterFix - offset;
-    const maxY = yCenterFix + offset;
+    const minY = -yCenterFix;
+    const maxY = yCenterFix;
 
     return { minX, maxX, minY, maxY };
   };
@@ -74,7 +72,7 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
   const handleWheel = (e: WheelEvent) => {
     e.preventDefault();
     const delta = e.deltaY > 0 ? -0.1 : 0.1;
-    dragState.current.scale = Math.min(Math.max(0.5, dragState.current.scale + delta), 3);
+    dragState.current.scale = Math.min(Math.max(1, dragState.current.scale + delta), 3);
     updateTransform();
   };
 
