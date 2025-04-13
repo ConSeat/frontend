@@ -2,7 +2,7 @@
 
 import styles from './StageView.module.scss';
 import Image from 'next/image';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { clamp } from '@/utils/clamp';
 
 interface StageViewProps {
@@ -15,6 +15,7 @@ const MOBILE_ZOOM = 2;
 const StageView = ({ stageSVGSrc }: StageViewProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const minimapRef = useRef<HTMLDivElement>(null);
   const dragState = useRef({
     isDragging: false,
     scale: 1,
@@ -23,6 +24,13 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
     startX: 0,
     startY: 0,
     touchDistance: 0,
+  });
+  const [viewportBox, setViewportBox] = useState({
+    scale: 1,
+    width: 0,
+    height: 0,
+    left: 0,
+    top: 0,
   });
 
   // 드래그/확대된 상태에 따라 이미지가 이동할 수 있는 최대 범위를 계산
@@ -67,6 +75,44 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
     dragState.current.translateY = translateY;
 
     wrapperRef.current.style.transform = `translate(${translateX}px, ${translateY}px) scale(${dragState.current.scale})`;
+
+    updateViewportBox();
+  };
+
+  const updateViewportBox = () => {
+    const container = containerRef.current;
+    const wrapper = wrapperRef.current;
+    const minimap = minimapRef.current;
+    if (!container || !wrapper || !minimap) return;
+
+    const { scale, translateX, translateY } = dragState.current;
+
+    const containerWidth = container.offsetWidth;
+    const containerHeight = container.offsetHeight;
+    const imageWidth = wrapper.offsetWidth;
+    const imageHeight = wrapper.offsetHeight;
+
+    const minimapWidth = minimap.offsetWidth;
+    const minimapHeight = minimap.offsetHeight;
+
+    const visibleWidth = containerWidth / scale;
+    const visibleHeight = containerHeight / scale;
+
+    const offsetX = (imageWidth - visibleWidth) / 2 - translateX / scale;
+    const offsetY = (imageHeight - visibleHeight) / 2 - translateY / scale;
+
+    const scaleX = minimapWidth / imageWidth;
+    const scaleY = minimapHeight / imageHeight;
+
+    console.log(scaleX, scaleY);
+
+    setViewportBox({
+      scale,
+      width: visibleWidth * scaleX,
+      height: visibleHeight * scaleY,
+      left: offsetX * scaleX,
+      top: offsetY * scaleY,
+    });
   };
 
   const handleWheel = (e: WheelEvent) => {
@@ -166,17 +212,52 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
   }, []);
 
   return (
-    <div className={styles.container} ref={containerRef}>
-      <div className={styles.imageWrapper} ref={wrapperRef}>
-        <Image
-          src={stageSVGSrc}
-          alt="무대 이미지"
-          width={316}
-          height={292}
-          style={{ display: 'block', pointerEvents: 'none' }}
-        />
+    <>
+      <div
+        className={styles.minimap}
+        ref={minimapRef}
+        style={{
+          width: '30vw',
+          aspectRatio: `${316} / ${292}`,
+          maxWidth: '160px',
+          visibility: viewportBox.scale === 1 ? 'hidden' : 'visible',
+        }}
+      >
+        <div className={styles.minimapWrapper}>
+          <Image
+            src={stageSVGSrc}
+            alt="MiniMap"
+            fill
+            style={{
+              objectFit: 'contain',
+              paddingTop: '5%',
+              paddingBottom: '5%',
+            }}
+          />
+          <div
+            className={styles.viewportBox}
+            style={{
+              width: `${viewportBox.width}px`,
+              height: `${viewportBox.height}px`,
+              left: `${viewportBox.left}px`,
+              top: `${viewportBox.top}px`,
+            }}
+          />
+        </div>
       </div>
-    </div>
+
+      <div className={styles.container} ref={containerRef}>
+        <div className={styles.imageWrapper} ref={wrapperRef}>
+          <Image
+            src={stageSVGSrc}
+            alt="무대 이미지"
+            width={316}
+            height={292}
+            style={{ display: 'block', pointerEvents: 'none' }}
+          />
+        </div>
+      </div>
+    </>
   );
 };
 
