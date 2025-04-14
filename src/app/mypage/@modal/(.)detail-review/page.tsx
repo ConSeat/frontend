@@ -1,5 +1,6 @@
 'use client';
 
+import ReviewStatus from '../../_components/ReviewStatus';
 import styles from './detailReview.module.scss';
 import { useSearchParams } from 'next/navigation';
 import useModal from '@/hooks/useModal';
@@ -9,8 +10,8 @@ import ReviewCard from '@/components/ReviewCard';
 
 const ReviewDetailModal = () => {
   const { closeModal } = useModal({ type: 'router' });
-  const param = useSearchParams();
-  console.log(param.get('review-id'));
+  const searchParams = useSearchParams();
+  const reviewStatus = searchParams.get('status');
 
   return (
     <Modal>
@@ -34,12 +35,18 @@ const ReviewDetailModal = () => {
               uploadTime={'2주전'}
               userName={'호빵맨'}
               likeNumber={0}
-              isSaved={true}
+              isSaved={false}
               isLiked={false}
               handleClickMore={() => {}}
               handleClickLike={() => {}}
               handleClickBookmark={() => {}}
             />
+            {reviewStatus && (
+              <ReviewStatus
+                status={reviewStatus}
+                description={'후기에 욕설 및 비방 내용이 포함되어있습니다.'}
+              />
+            )}
             <Button variant="secondary" onClick={closeModal}>
               닫기
             </Button>
