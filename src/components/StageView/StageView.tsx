@@ -51,10 +51,21 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
     };
   }, []);
 
+  const findBtnGroup = (el: Element | null): SVGElement | null => {
+    while (el && el !== document.body) {
+      if (el instanceof SVGElement && el.id.startsWith('btn')) {
+        return el;
+      }
+      el = el.parentElement;
+    }
+    return null;
+  };
+
   const handleSVGClick = (e: React.MouseEvent<SVGSVGElement>) => {
-    const target = e.target as HTMLElement;
-    const group = target.closest('g');
-    if (group?.id.startsWith('btn')) {
+    const target = e.target as Element;
+    const group = findBtnGroup(target);
+
+    if (group) {
       console.log('Clicked ID:', group.id);
     }
   };
