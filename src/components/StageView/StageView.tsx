@@ -3,6 +3,7 @@
 import styles from './StageView.module.scss';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import { Stadium001 } from '@/assets';
 import { clamp } from '@/utils/clamp';
 
 interface StageViewProps {
@@ -190,6 +191,16 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
     dragState.current.touchDistance = 0;
   };
 
+  // 클릭 이벤트 (SVG 요소 클릭 시)
+  const handleSVGClick = (e: React.MouseEvent<SVGSVGElement>) => {
+    const target = e.target as HTMLElement;
+    const group = target.closest('g');
+
+    if (group && group.id.startsWith('btn')) {
+      console.log('Clicked ID:', group.id);
+    }
+  };
+
   useEffect(() => {
     if (containerRef.current === null) return;
     const container = containerRef.current;
@@ -250,13 +261,7 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
 
       <div className={styles.container} ref={containerRef}>
         <div className={styles.imageWrapper} ref={wrapperRef}>
-          <Image
-            src={stageSVGSrc}
-            alt="무대 이미지"
-            width={316}
-            height={292}
-            style={{ display: 'block', pointerEvents: 'none' }}
-          />
+          <Stadium001 alt="무대 이미지" width={316} height={292} onClick={handleSVGClick} />
         </div>
       </div>
     </>
