@@ -3,6 +3,7 @@
 .mainViewLayout {
   @include fixed-centered-fullscreen;
 
+  z-index: z-index(main-view);
   overflow: hidden;
 }
 
