@@ -44,7 +44,7 @@ export const OBSTRUCTIONS_INFO = [
   { obstructionId: 1, name: '카메라에 가려요' },
   { obstructionId: 2, name: '펜스 방해가 있어요' },
   { obstructionId: 3, name: '단차가 있어요' },
-  { obstructionId: 4, name: '스키퍼에 가려요' },
+  { obstructionId: 4, name: '스피커에 가려요' },
   { obstructionId: NONE, name: '없음' },
 ] as const;
 
@@ -105,7 +105,7 @@ const REVIEW_MESSAGE = {
   REVIEW_INPUT: {
     TITLE: '자유롭게 후기를 남겨주세요!',
     PLACEHOLDER:
-      '추가적으로 좋았던 점, 아쉬운 점, 관람팁 등을자유롭게 작성해주세요. 구체적으로 작성할 수록 다른 사람들에게 도움이 돼요!',
+      '추가적으로 좋았던 점, 아쉬운 점, 관람팁 등을 자유롭게 작성해주세요. 구체적으로 작성할 수록 다른 사람들에게 도움이 돼요!',
   },
 } as const;
 
