@@ -2,26 +2,33 @@
 
 import styles from './signin.module.scss';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import useRouterModal from '@/hooks/useRouterModal';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon/Icon';
 import MainView from '@/components/MainView/MainView';
+import Modal from '@/components/Modal';
+import Spacing from '@/components/Spacing/Spacing';
 
 const SigninPage = () => {
-  const router = useRouter();
+  const { closeModal } = useRouterModal({
+    modalPath: `/signin`,
+    fallbackPath: `/home`,
+  });
 
   return (
-    <>
-      <MainView />
+    <Modal>
+      <Modal.Content className={styles.signinLayout}>
+        <MainView />
 
-      <div className={styles.signinLayout}>
-        <header className={styles.signinHeader}>
-          <Icon icon="Close" onClick={() => router.back()} />
-        </header>
+        <Modal.Header title="" onClose={() => closeModal()} />
+
+        <Spacing size={184} />
 
         <Icon icon="MainLogo" />
 
-        <div className={styles.loginContainer}>
+        <Spacing size={241} />
+
+        <div className={styles.signinContainer}>
           <div className={styles.buttonContainer}>
             <Button className={styles.googleButton}>
               <Image src="/logo/google.svg" alt="구글 아이콘" width={24} height={24} />
@@ -38,8 +45,8 @@ const SigninPage = () => {
           </div>
           <div className={styles.problemText}>로그인에 문제가 있나요?</div>
         </div>
-      </div>
-    </>
+      </Modal.Content>
+    </Modal>
   );
 };
 

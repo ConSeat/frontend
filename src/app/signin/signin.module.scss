@@ -13,15 +13,24 @@
   padding: 0 24px 56px;
 }
 
-.signinHeader {
+.signinContainer {
   display: flex;
-  flex-shrink: 0;
-  gap: 10px;
+  flex-direction: column;
+  gap: 28px;
   align-items: center;
-  justify-content: flex-end;
 
   width: 100%;
-  height: 56px;
+  padding: 0 39px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  align-self: stretch;
+
+  width: 100%;
 }
 
 @mixin login-btn-layout {
@@ -30,17 +39,17 @@
   display: flex;
   gap: 14px;
   align-items: center;
+  justify-content: center;
 
-  width: 312px;
+  width: 100%;
   height: 45px;
-  padding: 4px 52px;
   border-radius: 500px;
 }
 
 .googleButton {
   @include login-btn-layout;
 
-  background: #fff;
+  background-color: #fff;
 }
 
 .kakaoButton {
@@ -57,25 +66,8 @@
   background: $sub-black;
 }
 
-.loginContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  align-items: center;
-
-  width: 100%;
-}
-
 .problemText {
   @include body-1;
 
   color: $sub-gray6;
-}
-
-.buttonContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: center;
-  align-self: stretch;
 }
