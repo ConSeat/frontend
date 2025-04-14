@@ -2,7 +2,8 @@
 
 import MiniMap from '../MiniMap/MiniMap';
 import styles from './StageView.module.scss';
-import { useEffect, useRef } from 'react';
+import classNames from 'classnames';
+import { useEffect, useRef, useState } from 'react';
 import { useStageTransform } from '@/hooks/useStageTransform';
 import { Stadium001 } from '@/assets';
 
@@ -14,6 +15,8 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const minimapRef = useRef<HTMLDivElement>(null);
+
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const {
     viewportBox,
@@ -62,12 +65,22 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
   };
 
   const handleSVGClick = (e: React.MouseEvent<SVGSVGElement>) => {
+    const svg = e.currentTarget;
     const target = e.target as Element;
     const group = findBtnGroup(target);
 
-    if (group) {
-      console.log('Clicked ID:', group.id);
-    }
+    if (!group) return;
+
+    // 모든 선택 해제
+    const allGroups = svg.querySelectorAll('g[id^="btn"]');
+    allGroups.forEach((g) => {
+      g.classList.remove(styles.selected);
+    });
+
+    // 선택한 g태그에 selected 클래스 추가
+    group.classList.add(styles.selected);
+
+    setSelectedId(group.id);
   };
 
   return (
@@ -81,7 +94,13 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
 
       <div className={styles.container} ref={containerRef}>
         <div className={styles.imageWrapper} ref={wrapperRef}>
-          <Stadium001 alt="무대 이미지" width={316} height={292} onClick={handleSVGClick} />
+          <Stadium001
+            alt="무대 이미지"
+            width={316}
+            height={292}
+            onClick={handleSVGClick}
+            className={classNames({ [styles.gHasSelection]: !!selectedId })}
+          />
         </div>
       </div>
     </>
