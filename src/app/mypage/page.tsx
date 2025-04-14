@@ -5,7 +5,13 @@ import UserInfo from './_components/UserInfo';
 
 const options = ['옵션1', '옵션2', '옵션3'];
 const reviews = [
-  { reviewId: 1, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
+  {
+    reviewId: 1,
+    imageSrc: '/images/kspo-dome.jpg',
+    title: 'KSPO COME',
+    seat: '1구역 5~8열',
+    status: '반려',
+  },
   { reviewId: 2, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
   { reviewId: 3, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
   { reviewId: 4, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
@@ -32,7 +38,7 @@ const MyPage = () => {
           email="j7papa@naver.com"
         />
         <ReviewCollection
-          viewNumber={5}
+          viewNumber={0}
           reviewNumber={4}
           filterOptions={options}
           reviews={reviews}
