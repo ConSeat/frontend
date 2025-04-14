@@ -32,8 +32,6 @@
   top: 12px;
   left: 12px;
 
-  width: calc(316px * 0.3);
-  height: calc(292px * 0.3);
   border: 1px solid $sub-gray6;
   border-radius: 2px;
 
@@ -51,5 +49,5 @@
   pointer-events: none;
   position: absolute;
   box-sizing: border-box;
-  border: 2px solid red;
+  border: 1px solid red;
 }

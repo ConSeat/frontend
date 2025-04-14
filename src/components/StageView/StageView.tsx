@@ -32,6 +32,7 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
     left: 0,
     top: 0,
   });
+  const [containerAspectRatio, setContainerAspectRatio] = useState<number>(640 / 390);
 
   // 드래그/확대된 상태에 따라 이미지가 이동할 수 있는 최대 범위를 계산
   const getTranslateLimits = () => {
@@ -89,6 +90,11 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
 
     const containerWidth = container.offsetWidth;
     const containerHeight = container.offsetHeight;
+
+    if (containerHeight !== 0) {
+      setContainerAspectRatio(containerWidth / containerHeight);
+    }
+
     const imageWidth = wrapper.offsetWidth;
     const imageHeight = wrapper.offsetHeight;
 
@@ -103,8 +109,6 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
 
     const scaleX = minimapWidth / imageWidth;
     const scaleY = minimapHeight / imageHeight;
-
-    console.log(scaleX, scaleY);
 
     setViewportBox({
       scale,
@@ -217,9 +221,8 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
         className={styles.minimap}
         ref={minimapRef}
         style={{
-          width: '30vw',
-          aspectRatio: `${316} / ${292}`,
-          maxWidth: '160px',
+          width: '25%',
+          aspectRatio: containerAspectRatio.toFixed(5),
           visibility: viewportBox.scale === 1 ? 'hidden' : 'visible',
         }}
       >
@@ -230,8 +233,7 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
             fill
             style={{
               objectFit: 'contain',
-              paddingTop: '5%',
-              paddingBottom: '5%',
+              padding: '7%',
             }}
           />
           <div
