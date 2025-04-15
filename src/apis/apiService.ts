@@ -9,38 +9,61 @@ interface ApiProps {
   errorMessage?: string;
 }
 
+interface ApiResponse<T> {
+  data: T;
+  headers: Headers;
+}
+
 interface RequestProps extends ApiProps {
   method: Method;
 }
 
+const parseResponse = async (response: Response) => {
+  const text = await response.text();
+  return text ? JSON.parse(text) : null;
+};
+
 const createRequestInit = (
   method: Method,
   headers: Record<string, string>,
-  body: object | null,
-  accessToken: string,
-): RequestInit => ({
-  method,
-  headers: {
+  body: object | FormData | null,
+  accessToken?: string,
+): RequestInit => {
+  const isFormData = body instanceof FormData;
+
+  const resolvedHeaders: Record<string, string> = {
     ...headers,
-    Authorization: accessToken ? `Bearer ${accessToken}` : '',
-    'Content-Type': 'application/json',
-  },
-  body: body ? JSON.stringify(body) : null,
-});
+    ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+    ...(!isFormData ? { 'Content-Type': 'application/json' } : {}),
+  };
+
+  const requestInit: RequestInit = {
+    method,
+    headers: resolvedHeaders,
+    credentials: 'include',
+  };
+
+  if (body) {
+    requestInit.body = isFormData ? body : JSON.stringify(body);
+  }
+
+  return requestInit;
+};
 
 const fetchWithToken = async <T = unknown>(
   endpoint: string,
   requestInit: RequestInit,
   errorMessage: string,
-): Promise<T> => {
+): Promise<ApiResponse<T>> => {
   const response = await fetch(PUBLIC_ENV.baseUrl + endpoint, requestInit);
-  // const message = response.headers.get('message'); TODO: message 변수명 맞추기
+  const message = response.headers.get('message');
+  const data = await parseResponse(response);
 
   if (!response.ok) {
-    throw new Error(errorMessage || MESSAGES.ERROR.DEFAULT);
+    throw new Error(errorMessage || message || MESSAGES.ERROR.DEFAULT);
   }
 
-  return response.json() as Promise<T>;
+  return { data: data ?? response, headers: response.headers };
 };
 
 export const apiService = (getAccessToken: () => Promise<string>) => {
@@ -50,7 +73,7 @@ export const apiService = (getAccessToken: () => Promise<string>) => {
     headers = {},
     body = null,
     errorMessage = '',
-  }: RequestProps): Promise<T> => {
+  }: RequestProps): Promise<ApiResponse<T>> => {
     const token = await getAccessToken();
     const requestInit = createRequestInit(method, headers, body, token);
     return await fetchWithToken<T>(endpoint, requestInit, errorMessage);
