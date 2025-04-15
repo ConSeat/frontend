@@ -1,4 +1,3 @@
-import { FIND_SEAT_LIST, FIND_SECTION_LIST } from '../../_constants/seatExample';
 import styles from './SingleResultStep.module.scss';
 import { useRouter } from 'next/navigation';
 import React from 'react';
@@ -9,17 +8,8 @@ import PageExplanation from '@/components/PageExplanation';
 import ShareArea from '@/components/ShareArea';
 import Spacing from '@/components/Spacing/Spacing';
 
-export const getSectionName = (sectionId: number) =>
-  FIND_SECTION_LIST.find((s) => s.sectionId === sectionId)?.name;
-
-export const getSeatingName = (seatingId: number) =>
-  FIND_SEAT_LIST.find((s) => s.seatingId === seatingId)?.name;
-
 const SingleResultStep = ({ stadiumId, data }) => {
   const router = useRouter();
-
-  const sectionName = getSectionName(data.sectionId);
-  const seatingName = getSeatingName(data.seatingId);
 
   const handleCopyLink = () => {
     const link = `${window.location.origin}/home/${stadiumId}/single/result?sectionId=${data.sectionId}&seatingId=${data.seatingId}`;
@@ -33,7 +23,7 @@ const SingleResultStep = ({ stadiumId, data }) => {
         <PageExplanation>
           <PageExplanation.Title>
             <Highlight variant="background">
-              {sectionName} {seatingName}
+              {data.sectionId}, {data.seatingId}
             </Highlight>
             은
             <br />

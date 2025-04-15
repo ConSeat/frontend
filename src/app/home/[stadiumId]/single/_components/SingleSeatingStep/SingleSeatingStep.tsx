@@ -26,7 +26,7 @@ const SingleSeatingStep = ({ setStep, data, setData }: SingleSeatingStepProps) =
       <div className={styles.singleSeatingStepMainContainer}>
         <PageExplanation>
           <PageExplanation.Title>
-            2층 24구역의
+            {data.sectionId}
             <br />
             <Highlight>열 정보</Highlight>를 선택해주세요
           </PageExplanation.Title>

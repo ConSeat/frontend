@@ -1,23 +1,25 @@
 import type { SingleFunnelData, Step } from '../../_types/funnel';
 import styles from './SingleSectionStep.module.scss';
 import { useRouter } from 'next/navigation';
-import React, { type Dispatch, type SetStateAction } from 'react';
+import { useState } from 'react';
 import Button from '@/components/Button/Button';
 import ButtonContainer from '@/components/ButtonContainer/ButtonContainer';
 import Highlight from '@/components/Highlight/Highlight';
 import PageExplanation from '@/components/PageExplanation';
 import Spacing from '@/components/Spacing/Spacing';
 import StageView from '@/components/StageView';
+import { parseBtnId } from '@/utils/parseBtnId';
 
 interface SingleSectionStepProps {
   stadiumId: number;
   setStep: (step: Step) => void;
   data: Partial<SingleFunnelData>;
-  setData: Dispatch<SetStateAction<Partial<SingleFunnelData>>>;
+  setData: React.Dispatch<React.SetStateAction<Partial<SingleFunnelData>>>;
 }
 
-const SingleSectionStep = ({ stadiumId, setStep, setData }: SingleSectionStepProps) => {
+const SingleSectionStep = ({ stadiumId, setStep, data, setData }: SingleSectionStepProps) => {
   const router = useRouter();
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   return (
     <>
@@ -36,7 +38,15 @@ const SingleSectionStep = ({ stadiumId, setStep, setData }: SingleSectionStepPro
         <Spacing size={32} />
 
         <div className={styles.stageViewContainer}>
-          <StageView stageSVGSrc={`/stadium/${stadiumId}.svg`} />
+          <StageView
+            stageSVGSrc={`/stadium/${stadiumId}.svg`}
+            selectedId={selectedId}
+            onSelectSection={(id) => {
+              setSelectedId(id);
+              const { sectionId } = parseBtnId(id);
+              setData((prev) => ({ ...prev, sectionId }));
+            }}
+          />
         </div>
       </div>
 
@@ -46,12 +56,18 @@ const SingleSectionStep = ({ stadiumId, setStep, setData }: SingleSectionStepPro
             이전
           </Button>
           <Button
-            // TODO: 구역 선택 기능이 추가되면 주석 해제
-            // variant={data.sectionId ? 'primary' : 'inactive'}
-            // disabled={!data.sectionId}
+            variant={data.sectionId ? 'primary' : 'inactive'}
+            disabled={!data.sectionId}
             onClick={() => {
-              setStep('Seating');
-              setData((prev) => ({ ...prev, sectionId: 1 }));
+              if (!selectedId) return;
+
+              const { floorInfo } = parseBtnId(selectedId);
+
+              if (floorInfo.includes('floor')) {
+                setStep('Result');
+              } else {
+                setStep('Seating');
+              }
             }}
           >
             다음

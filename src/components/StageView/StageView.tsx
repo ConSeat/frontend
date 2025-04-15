@@ -3,20 +3,20 @@
 import MiniMap from '../MiniMap/MiniMap';
 import styles from './StageView.module.scss';
 import classNames from 'classnames';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useStageTransform } from '@/hooks/useStageTransform';
 import { Stadium001 } from '@/assets';
 
 interface StageViewProps {
   stageSVGSrc: string;
+  selectedId: string | null;
+  onSelectSection: (sectionId: string) => void;
 }
 
-const StageView = ({ stageSVGSrc }: StageViewProps) => {
+const StageView = ({ stageSVGSrc, selectedId, onSelectSection }: StageViewProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const minimapRef = useRef<HTMLDivElement>(null);
-
-  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const {
     viewportBox,
@@ -54,20 +54,10 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
     };
   }, []);
 
-  const findBtnGroup = (el: Element | null): SVGElement | null => {
-    while (el && el !== document.body) {
-      if (el instanceof SVGElement && el.id.startsWith('btn')) {
-        return el;
-      }
-      el = el.parentElement;
-    }
-    return null;
-  };
-
   const handleSVGClick = (e: React.MouseEvent<SVGSVGElement>) => {
     const svg = e.currentTarget;
     const target = e.target as Element;
-    const group = findBtnGroup(target);
+    const group = target.closest('g[id^="btn"]') as SVGGElement | null;
 
     if (!group) return;
 
@@ -80,7 +70,7 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
     // 선택한 g태그에 selected 클래스 추가
     group.classList.add(styles.selected);
 
-    setSelectedId(group.id);
+    onSelectSection?.(group.id);
   };
 
   return (
@@ -91,7 +81,6 @@ const StageView = ({ stageSVGSrc }: StageViewProps) => {
         containerAspectRatio={containerAspectRatio}
         viewportBox={viewportBox}
       />
-
       <div className={styles.container} ref={containerRef}>
         <div className={styles.imageWrapper} ref={wrapperRef}>
           <Stadium001
