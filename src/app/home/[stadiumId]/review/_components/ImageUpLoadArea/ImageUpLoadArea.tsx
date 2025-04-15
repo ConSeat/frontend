@@ -1,6 +1,6 @@
+import { MAX_IMAGE_UPLOAD_NUMBER } from '../../_constants/info';
 import styles from './ImageUpLoadArea.module.scss';
 import type { ChangeEventHandler, RefObject } from 'react';
-import { MAX_IMAGE_UPLOAD_NUMBER } from '@/constants/review';
 
 interface ImageUpLoadAreaProps {
   fileInputRef: RefObject<HTMLInputElement | null>;

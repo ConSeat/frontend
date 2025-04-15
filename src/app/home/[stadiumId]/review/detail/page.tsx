@@ -5,7 +5,7 @@ const DetailPage = async ({ params }) => {
   const { stadiumId } = await params;
 
   return (
-    <DetailViewModal>
+    <DetailViewModal stadiumId={stadiumId}>
       <Image src={`/stadium/${stadiumId}.svg`} width={316} height={291} alt="" />
     </DetailViewModal>
   );

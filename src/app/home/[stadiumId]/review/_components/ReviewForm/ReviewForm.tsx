@@ -1,5 +1,11 @@
 'use client';
 
+import {
+  SCREEN_DISTANCE_INFO,
+  STAGE_DISTANCE_INFO,
+  THRUST_STAGE_DISTANCE_INFO,
+} from '../../_constants/info';
+import { REVIEW } from '../../_constants/review';
 import ConcertSelect from '../ConcertSelect/ConcertSelect';
 import DistanceInfoSelect from '../DistanceInfoSelect/DistanceInfoSelect';
 import FeaturesInfo from '../FeaturesInfo';
@@ -13,12 +19,6 @@ import { Dispatch, useRef } from 'react';
 import Button from '@/components/Button/Button';
 import SmallStageView from '@/components/SmallStageView';
 import Spacing from '@/components/Spacing/Spacing';
-import {
-  REVIEW,
-  SCREEN_DISTANCE_INFO,
-  STAGE_DISTANCE_INFO,
-  THRUST_STAGE_DISTANCE_INFO,
-} from '@/constants/review';
 import type { ReviewAction, ReviewData } from '@/types/review';
 
 interface ReviewFormProps {

@@ -1,0 +1,101 @@
+@import '@/styles/style';
+
+.editSection {
+  width: 100%;
+  height: 100%;
+  padding: 0 24px;
+
+  .editForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  button {
+    @include subtitle-1;
+
+    color: $sub-black;
+  }
+
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+
+    width: 100%;
+  }
+
+  .nickName {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-self: stretch;
+
+    width: 100%;
+
+    .text {
+      @include body-2;
+
+      color: $sub-gray3;
+    }
+
+    input {
+      @include subtitle-4;
+
+      align-self: stretch;
+
+      height: 48px;
+      padding: 20px 16px;
+      border-radius: 5px;
+
+      color: $sub-gray3;
+
+      background-color: $sub-gray8;
+    }
+
+    .textNumber {
+      @include body-5;
+
+      color: $sub-gray3;
+      text-align: right;
+    }
+  }
+}
+
+.profileContainer {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 80px;
+  height: 80px;
+  border: 2px solid $sub-gray5;
+  border-radius: 100%;
+
+  .imageContainer {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+  }
+
+  .editButton {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+
+    background-color: $sub-gray7;
+  }
+}

@@ -2,15 +2,19 @@
 
 import Modal from '../Modal';
 import styles from './DetailViewModal.module.scss';
-import useModal from '@/hooks/useModal';
+import useRouterModal from '@/hooks/useRouterModal';
 import Button from '@/components/Button/Button';
 
 interface DetailViewModalProps {
+  stadiumId: number;
   children: React.ReactNode;
 }
 
-const DetailViewModal = ({ children }: DetailViewModalProps) => {
-  const { closeModal } = useModal({ type: 'router' });
+const DetailViewModal = ({ stadiumId, children }: DetailViewModalProps) => {
+  const { closeModal } = useRouterModal({
+    modalPath: `/home/${stadiumId}/review/detail`,
+    fallbackPath: `/home/${stadiumId}/review`,
+  });
 
   return (
     <Modal>

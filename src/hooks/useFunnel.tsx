@@ -31,7 +31,7 @@ const Funnel = <TStep extends string>({ children, currentStep }: FunnelProps<TSt
       isStepElement(child) && child.props.name === currentStep,
   );
 
-  return <>{targetStep}</>;
+  return targetStep;
 };
 
 Funnel.Step = Step;

@@ -1,9 +1,10 @@
 'use client';
 
+import { OBSTRUCTIONS_INFO } from '../../_constants/info';
+import { REVIEW } from '../../_constants/review';
 import ReviewCheckbox from '../ReviewCheckbox';
 import styles from './ObstructionsInfo.module.scss';
 import React from 'react';
-import { OBSTRUCTIONS_INFO, REVIEW } from '@/constants/review';
 import type { ReviewDispatch } from '@/types/review';
 
 interface ObstructionsInfoProps {

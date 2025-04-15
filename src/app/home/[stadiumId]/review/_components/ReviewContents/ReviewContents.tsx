@@ -1,6 +1,6 @@
+import { REVIEW } from '../../_constants/review';
 import React from 'react';
 import Textarea from '@/components/Textarea/Textarea';
-import { REVIEW } from '@/constants/review';
 import type { ReviewDispatch } from '@/types/review';
 
 interface ReviewContentsProps {

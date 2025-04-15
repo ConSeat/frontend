@@ -1,8 +1,8 @@
 'use client';
 
+import { REVIEW } from '../../_constants/review';
 import ReviewDropdownInput from '../ReviewDropdownInput/ReviewDropdownInput';
 import React from 'react';
-import { REVIEW } from '@/constants/review';
 import { ReviewDispatch } from '@/types/review';
 
 interface ConcertSelectProps {

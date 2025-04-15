@@ -41,14 +41,15 @@
 
   z-index: z-index(modal-content);
 
+  overflow: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  @include layout-width;
 
   height: 100dvh;
   padding: 0 24px 32px;
 
   background-color: $main-mint6;
+
+  @include layout-width;
 }
