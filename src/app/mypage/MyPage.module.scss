@@ -1,0 +1,24 @@
+.layout {
+  position: relative;
+  min-height: 100dvh;
+
+  .alphaIcon {
+    pointer-events: none;
+    position: absolute;
+    top: -85px;
+  }
+}
+
+.pageLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 84px;
+  min-height: 100dvh;
+
+  .userInfoArea {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 40px;
+  }
+}

@@ -1,0 +1,164 @@
+@import '@/styles/style';
+
+.collectionContainer {
+  flex-grow: 1;
+
+  width: 100%;
+  padding-bottom: 12px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+
+  background-color: $sub-gray8;
+
+  .reviewTap {
+    display: flex;
+
+    width: 100%;
+    height: 59px;
+    padding: 24px 24px 0;
+    border-bottom: 1px solid $sub-gray7;
+
+    .tap {
+      @include body-1;
+
+      cursor: pointer;
+
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+
+      width: 50%;
+
+      color: $sub-gray6;
+
+      &.active {
+        color: $sub-white;
+
+        &::before {
+          content: '';
+
+          position: absolute;
+          bottom: 0;
+
+          width: 100%;
+          height: 4px;
+
+          background: $sub-gray4;
+        }
+      }
+    }
+  }
+}
+
+.reviewContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  width: 100%;
+  padding: 28px 24px 0;
+}
+
+.reviewList {
+  display: flex;
+  flex-flow: wrap;
+  gap: 24px 12px;
+  align-items: flex-start;
+
+  width: 100%;
+
+  .reviewItem {
+    cursor: pointer;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+
+    width: 104px;
+
+    .reviewImage {
+      overflow: hidden;
+
+      width: 100px;
+      height: 120px;
+      border: 1px solid $sub-gray6;
+      border-radius: 3.15px;
+    }
+
+    .reviewText {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      align-self: stretch;
+
+      padding: 0 4px;
+
+      .title {
+        @include body-6;
+
+        color: $sub-gray4;
+      }
+
+      .seat {
+        @include body-6;
+
+        color: $sub-gray5;
+      }
+    }
+
+    .statusTag {
+      position: absolute;
+      top: 8px;
+      right: 6px;
+
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+
+      padding: 1px 8px;
+      border-radius: 50px;
+
+      font-size: 10px;
+      font-weight: 400;
+      font-style: normal;
+      line-height: 20px; /* 200% */
+      color: $sub-white;
+      text-align: center;
+      letter-spacing: -0.2px;
+
+      background: rgb(27 28 30 / 70%);
+      backdrop-filter: blur(2px);
+    }
+  }
+}
+
+.noneContentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 212px;
+
+  .subtitle {
+    @include subtitle-1;
+
+    color: $sub-gray6;
+  }
+
+  .homeLink {
+    @include body-2;
+
+    color: $sub-gray6;
+    text-decoration: underline;
+  }
+}

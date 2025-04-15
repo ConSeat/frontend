@@ -1,0 +1,10 @@
+@import '@/styles/style';
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+
+  height: 100svh;
+  padding-bottom: 45px;
+}

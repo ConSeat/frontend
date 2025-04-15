@@ -1,0 +1,30 @@
+@import '@/styles/style';
+
+.statusContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  justify-content: center;
+
+  margin-bottom: 44px;
+
+  .reviewStatus {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+
+    .statusText {
+      @include body-4;
+
+      color: $main-mint1;
+    }
+  }
+
+  .description {
+    @include body-6;
+
+    padding-left: 6px;
+    color: $sub-gray4;
+  }
+}
