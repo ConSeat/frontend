@@ -2,25 +2,28 @@
 
 import styles from './SigninModal.module.scss';
 import Image from 'next/image';
-import useRouterModal from '@/hooks/useRouterModal';
+import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon/Icon';
 import MainView from '@/components/MainView/MainView';
 import Modal from '@/components/Modal';
+import { API_ENDPOINTS } from '@/apis/endpoints';
 import { PUBLIC_ENV } from '@/config/env';
+import type { SocialType } from '@/types/auth';
 
 const SigninModal = () => {
-  const { closeModal } = useRouterModal({
-    modalPath: `/signin`,
-    fallbackPath: `/home`,
-  });
+  const router = useRouter();
+
+  const getLoginUrl = (socialType: SocialType) => {
+    return `${PUBLIC_ENV.baseUrl}${API_ENDPOINTS.SOCIAL_LOGIN(socialType)}`;
+  };
 
   return (
     <Modal>
       <Modal.Content className={styles.signinLayout}>
         <MainView />
 
-        <Modal.Header title="" onClose={() => closeModal()} />
+        <Modal.Header title="" onClose={() => router.back()} />
 
         <Icon icon="MainLogo" />
 
@@ -29,7 +32,7 @@ const SigninModal = () => {
             <Button
               className={styles.googleButton}
               onClick={() => {
-                window.open(`${PUBLIC_ENV.baseUrl}/auth/login/google`, '_self');
+                window.open(getLoginUrl('google'), '_self');
               }}
             >
               <Image src="/logo/google.svg" alt="구글 아이콘" width={24} height={24} />
@@ -38,7 +41,7 @@ const SigninModal = () => {
             <Button
               className={styles.kakaoButton}
               onClick={() => {
-                window.open(`${PUBLIC_ENV.baseUrl}/auth/login/kakao`, '_self');
+                window.open(getLoginUrl('kakao'), '_self');
               }}
             >
               <Image src="/logo/kakaotalk.svg" alt="카카오톡 아이콘" width={28} height={28} />
@@ -48,7 +51,7 @@ const SigninModal = () => {
               className={styles.xButton}
               // TODO: x 로그인 API 연동 후 주석 해제 (서버 구현 안 됨)
               // onClick={() => {
-              //   window.open(`${PUBLIC_ENV.baseUrl}/auth/login/twitter`, '_self');
+              //   window.open(getLoginUrl('twitter'), '_self');
               // }}
             >
               <Image src="/logo/X.svg" alt="x 아이콘" width={20} height={20} />
