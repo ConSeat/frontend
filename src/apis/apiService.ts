@@ -1,18 +1,19 @@
+import { PUBLIC_ENV } from './../config/env';
 import MESSAGES from '@/constants/message';
 import { Method } from '@/types/apiService';
 
-export interface ApiProps {
+interface ApiProps {
   endpoint: string;
   headers?: Record<string, string>;
   body?: object | null;
   errorMessage?: string;
 }
 
-export interface RequestProps extends ApiProps {
+interface RequestProps extends ApiProps {
   method: Method;
 }
 
-export const createRequestInit = (
+const createRequestInit = (
   method: Method,
   headers: Record<string, string>,
   body: object | null,
@@ -27,12 +28,12 @@ export const createRequestInit = (
   body: body ? JSON.stringify(body) : null,
 });
 
-export const fetchWithToken = async <T = unknown>(
+const fetchWithToken = async <T = unknown>(
   endpoint: string,
   requestInit: RequestInit,
   errorMessage: string,
 ): Promise<T> => {
-  const response = await fetch(endpoint, requestInit); // TODO: endpoint base url 추가
+  const response = await fetch(PUBLIC_ENV.baseUrl + endpoint, requestInit);
   // const message = response.headers.get('message'); TODO: message 변수명 맞추기
 
   if (!response.ok) {
