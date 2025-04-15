@@ -1,7 +1,6 @@
 import styles from './page.module.scss';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { Suspense } from 'react';
 import '@/styles/global.scss';
 
 const pretendard = localFont({
@@ -20,9 +19,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="kr" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
-        <Suspense fallback={<div>로딩 중...</div>}>
-          <div className={styles.layout}>{children}</div>
-        </Suspense>
+        <div className={styles.layout}>{children}</div>
       </body>
     </html>
   );
