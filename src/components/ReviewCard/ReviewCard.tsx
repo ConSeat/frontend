@@ -5,7 +5,6 @@ import Icon from '../Icon/Icon';
 import styles from './ReviewCard.module.scss';
 import classNames from 'classnames';
 import Image from 'next/image';
-import { FEATURES_INFO } from '@/constants/review';
 
 interface HeaderProps {
   profileSrc: string;
@@ -74,19 +73,16 @@ const KeywordItem = ({ keyword, isPrimary }: { keyword: string; isPrimary: boole
 
 interface KeywordList {
   keywordArray: string[];
+  isPrimary: boolean;
 }
 
-const KeywordList = ({ keywordArray }: KeywordList) => {
-  const isPrimary = (keyword: string) => {
-    return FEATURES_INFO.some(({ name }) => name === keyword);
-  };
-
+const KeywordList = ({ keywordArray, isPrimary }: KeywordList) => {
   return (
-    <div className={styles.reviewKeywordList}>
+    <>
       {keywordArray.map((keyword) => {
-        return <KeywordItem key={keyword} keyword={keyword} isPrimary={isPrimary(keyword)} />;
+        return <KeywordItem key={keyword} keyword={keyword} isPrimary={isPrimary} />;
       })}
-    </div>
+    </>
   );
 };
 
@@ -121,7 +117,8 @@ const Footer = ({ likeNum, isLiked, onClickLike, onClickMore }: FooterProps) => 
 
 interface ReviewCardProps {
   imageSrcArray: string[];
-  keywordArray: string[];
+  features: string[];
+  obstructions: string[];
   concertName: string;
   reviewDescription: string;
   profileSrc: string;
@@ -137,7 +134,8 @@ interface ReviewCardProps {
 
 const ReviewCard = ({
   imageSrcArray,
-  keywordArray,
+  features,
+  obstructions,
   concertName,
   reviewDescription,
   profileSrc,
@@ -162,7 +160,10 @@ const ReviewCard = ({
       <ImageList imageSrcArray={imageSrcArray} />
       <div className={styles.concertTitle}>{concertName}</div>
       <div className={styles.description}>{reviewDescription}</div>
-      <KeywordList keywordArray={keywordArray} />
+      <div className={styles.reviewKeywordList}>
+        <KeywordList keywordArray={features} isPrimary={true} />
+        <KeywordList keywordArray={obstructions} isPrimary={false} />
+      </div>
       <Footer
         likeNum={likeNumber}
         isLiked={isLiked}
