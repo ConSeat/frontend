@@ -1,3 +1,5 @@
+@import '@/styles/style';
+
 .singleSectionStepLayout {
   display: flex;
   flex-direction: column;
@@ -9,8 +11,13 @@
 }
 
 .stageViewContainer {
+  position: relative;
+
   width: 100%;
-  height: 392px;
+  height: 390px;
+  border: 1px solid $sub-gray8;
+
+  background-color: $sub-black;
 }
 
 .buttonContainer {

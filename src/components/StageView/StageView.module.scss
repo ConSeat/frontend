@@ -1,14 +1,45 @@
+@import '@/styles/style';
+
 .container {
+  touch-action: none; // 모바일 드래그와 스크롤 충돌 방지
+  user-select: none; // 텍스트 선택 방지
+
   overflow: hidden;
+
   height: 100%;
+
+  -webkit-user-drag: none; // Safari에서 이미지 끌기 방지
 }
 
 .imageWrapper {
   cursor: grab;
 
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
+  box-sizing: border-box;
+  width: 100%;
   height: 100%;
+  padding: 10px;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  svg g[id^='btn'] {
+    cursor: pointer;
+  }
+
+  svg g[id^='btn'].selected > path {
+    opacity: 1;
+    filter: brightness(1.5) drop-shadow(10px 10px 20px rgb(0 0 0 / 70%));
+  }
+
+  svg.gHasSelection g[id^='btn']:not(.selected) > path {
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+  }
 }

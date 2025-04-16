@@ -35,3 +35,6 @@ export { default as LargeC } from '@/assets/logos/large-C.svg';
 export { default as LargeO } from '@/assets/logos/large-O.svg';
 export { default as LargeT } from '@/assets/logos/large-T.svg';
 export { default as HomeC } from '@/assets/logos/home-C.svg';
+
+/**************** images(TODO: 삭제 예정) ****************/
+export { default as Stadium001 } from '@/assets/images/1.svg';
