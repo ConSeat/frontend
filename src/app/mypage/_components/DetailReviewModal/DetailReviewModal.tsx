@@ -1,22 +1,26 @@
 'use client';
 
-import ReviewStatus from '../_components/ReviewStatus';
+import ReviewStatus from '../../_components/ReviewStatus';
 import styles from './detailReview.module.scss';
-import { usePathname, useSearchParams } from 'next/navigation';
-import useRouterModal from '@/hooks/useRouterModal';
 import Button from '@/components/Button/Button';
 import Modal from '@/components/Modal';
 import ReviewCard from '@/components/ReviewCard';
-import { VIEW_TAP } from '@/constants/myPage';
 
-const ReviewDetailModal = () => {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { closeModal } = useRouterModal({
-    modalPath: pathname,
-    fallbackPath: `/mypage?tab=${VIEW_TAP}`,
-  });
-  const reviewStatus = searchParams.get('status');
+interface DetailReviewModalProps {
+  isModalOpen: boolean;
+  reviewId: number;
+  reviewStatus?: string;
+  closeModal: () => void;
+}
+
+const DetailReviewModal = ({
+  isModalOpen,
+  reviewId,
+  reviewStatus,
+  closeModal,
+}: DetailReviewModalProps) => {
+  if (!isModalOpen) return null;
+  console.log(reviewId);
 
   return (
     <Modal>
@@ -63,4 +67,4 @@ const ReviewDetailModal = () => {
   );
 };
 
-export default ReviewDetailModal;
+export default DetailReviewModal;
