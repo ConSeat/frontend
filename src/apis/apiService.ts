@@ -10,7 +10,12 @@ interface ApiProps {
 }
 
 interface ApiResponse<T> {
-  data: T;
+  data: {
+    header: {
+      message: string;
+    };
+    body: T;
+  };
   headers: Headers;
 }
 
