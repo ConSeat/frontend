@@ -4,7 +4,7 @@ import MiniMap from '../MiniMap/MiniMap';
 import styles from './StageView.module.scss';
 import classNames from 'classnames';
 import { useEffect, useRef } from 'react';
-import { useStageTransform } from '@/hooks/useStageTransform';
+import { useStageTransform } from '@/hooks/common/useStageTransform';
 import { Stadium001 } from '@/assets';
 
 interface StageViewProps {

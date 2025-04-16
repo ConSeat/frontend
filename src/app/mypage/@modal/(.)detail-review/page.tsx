@@ -3,7 +3,7 @@
 import ReviewStatus from '../../_components/ReviewStatus';
 import styles from './detailReview.module.scss';
 import { usePathname, useSearchParams } from 'next/navigation';
-import useRouterModal from '@/hooks/useRouterModal';
+import useRouterModal from '@/hooks/common/useRouterModal';
 import Button from '@/components/Button/Button';
 import Modal from '@/components/Modal';
 import ReviewCard from '@/components/ReviewCard';

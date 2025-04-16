@@ -3,7 +3,7 @@
 import styles from './ReviewDropdownInput.module.scss';
 import classNames from 'classnames';
 import { Fragment, useState } from 'react';
-import useDropdown from '@/hooks/useDropdown';
+import useDropdown from '@/hooks/common/useDropdown';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import Icon from '@/components/Icon/Icon';
 import Splitter from '@/components/Splitter/Splitter';

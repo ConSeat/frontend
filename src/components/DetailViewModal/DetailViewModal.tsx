@@ -2,7 +2,7 @@
 
 import Modal from '../Modal';
 import styles from './DetailViewModal.module.scss';
-import useRouterModal from '@/hooks/useRouterModal';
+import useRouterModal from '@/hooks/common/useRouterModal';
 import Button from '@/components/Button/Button';
 
 interface DetailViewModalProps {
