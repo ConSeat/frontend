@@ -1,4 +1,5 @@
 import { PUBLIC_ENV } from './../config/env';
+import { getAccessToken } from './getAccessToken';
 import MESSAGES from '@/constants/message';
 import { Method } from '@/types/apiService';
 
@@ -71,33 +72,22 @@ const fetchWithToken = async <T = unknown>(
   return { data: data ?? response, headers: response.headers };
 };
 
-export const apiService = (getAccessToken: () => Promise<string>) => {
-  const request = async <T = unknown>({
-    method,
-    endpoint,
-    headers = {},
-    body = null,
-    errorMessage = '',
-  }: RequestProps): Promise<ApiResponse<T>> => {
-    const token = await getAccessToken();
-    const requestInit = createRequestInit(method, headers, body, token);
-    return await fetchWithToken<T>(endpoint, requestInit, errorMessage);
-  };
+const request = async <T = unknown>({
+  method,
+  endpoint,
+  headers = {},
+  body = null,
+  errorMessage = '',
+}: RequestProps): Promise<ApiResponse<T>> => {
+  const token = await getAccessToken();
+  const requestInit = await createRequestInit(method, headers, body, token);
+  return await fetchWithToken<T>(endpoint, requestInit, errorMessage);
+};
 
-  return {
-    get: ({ endpoint, headers = {}, errorMessage = '' }: ApiProps) =>
-      request({ method: 'GET', endpoint, headers, errorMessage }),
-
-    post: ({ endpoint, headers = {}, body = {}, errorMessage = '' }: ApiProps) =>
-      request({ method: 'POST', endpoint, headers, body, errorMessage }),
-
-    put: ({ endpoint, headers = {}, body = {}, errorMessage = '' }: ApiProps) =>
-      request({ method: 'PUT', endpoint, headers, body, errorMessage }),
-
-    patch: ({ endpoint, headers = {}, body = {}, errorMessage = '' }: ApiProps) =>
-      request({ method: 'PATCH', endpoint, headers, body, errorMessage }),
-
-    delete: ({ endpoint, headers = {}, errorMessage = '' }: ApiProps) =>
-      request({ method: 'DELETE', endpoint, headers, errorMessage }),
-  };
+export const apiService = {
+  get: (args: ApiProps) => request({ ...args, method: 'GET' }),
+  post: (args: ApiProps) => request({ ...args, method: 'POST' }),
+  put: (args: ApiProps) => request({ ...args, method: 'PUT' }),
+  patch: (args: ApiProps) => request({ ...args, method: 'PATCH' }),
+  delete: (args: ApiProps) => request({ ...args, method: 'DELETE' }),
 };

@@ -1,11 +1,11 @@
 'use client';
 
-import clientApi from './clientApi';
+import { apiService } from './apiService';
 import { API_ENDPOINTS } from './endpoints';
 import MESSAGES from '@/constants/message';
 
 export const postLogin = async () => {
-  const { headers } = await clientApi.post({
+  const { headers } = await apiService.post({
     endpoint: API_ENDPOINTS.LOGIN,
     errorMessage: MESSAGES.ERROR.POST_LOGIN,
   });
