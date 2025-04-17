@@ -1,0 +1,22 @@
+@import '@/styles/style';
+
+.toastLayout {
+  position: fixed;
+  z-index: 99;
+  bottom: 128px;
+
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  align-items: center;
+
+  max-width: 343px;
+  height: 52px;
+  padding: 4px 16px;
+  border: 1px solid rgb(73 80 87 / 50%);
+  border-radius: 5px;
+
+  background: rgb(0 0 0 / 80%);
+  backdrop-filter: blur(2.5px);
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 50%);
+}
