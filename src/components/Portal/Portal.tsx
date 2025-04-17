@@ -5,12 +5,15 @@ import ReactDOM from 'react-dom';
 
 interface PortalProps {
   children: ReactNode;
+  isOpen: boolean;
 }
 
-const Portal = ({ children }: PortalProps) => {
+const Portal = ({ children, isOpen }: PortalProps) => {
   const portal = typeof window !== 'undefined' && document.querySelector('#portal');
 
-  return portal && children ? ReactDOM.createPortal(children, portal) : null;
+  if (!isOpen || !portal || !children) return null;
+
+  return ReactDOM.createPortal(children, portal);
 };
 
 export default Portal;

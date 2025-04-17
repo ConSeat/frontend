@@ -7,20 +7,13 @@ import Modal from '@/components/Modal';
 import ReviewCard from '@/components/ReviewCard';
 
 interface DetailReviewModalProps {
-  isModalOpen: boolean;
   reviewId: number;
   reviewStatus?: string;
   closeModal: () => void;
 }
 
-const DetailReviewModal = ({
-  isModalOpen,
-  reviewId,
-  reviewStatus,
-  closeModal,
-}: DetailReviewModalProps) => {
-  if (!isModalOpen) return null;
-  console.log(reviewId);
+const DetailReviewModal = ({ reviewId, reviewStatus, closeModal }: DetailReviewModalProps) => {
+  // reviewId를 활용해 상세 리뷰 정보를 받아옵니다.
 
   return (
     <Modal>

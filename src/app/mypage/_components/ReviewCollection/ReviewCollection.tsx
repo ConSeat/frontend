@@ -156,9 +156,8 @@ const ReviewCollection = ({
           <ReviewList reviews={reviews} onClick={handelClickReviewItem} />
         )}
       </div>
-      <Portal>
+      <Portal isOpen={isModalOpen}>
         <DetailReviewModal
-          isModalOpen={isModalOpen}
           reviewId={reviewId}
           reviewStatus={reviewStatus}
           closeModal={closeModal}
