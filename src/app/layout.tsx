@@ -24,6 +24,7 @@ const RootLayout = ({
       <body className={pretendard.className}>
         <div className={styles.layout}>{children}</div>
         {modal}
+        <div id="portal"></div>
       </body>
     </html>
   );
