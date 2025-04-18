@@ -1,7 +1,7 @@
-import { PUBLIC_ENV } from './../config/env';
-import { getAccessToken } from './getAccessToken';
+import { PUBLIC_ENV } from '@/config/env';
 import MESSAGES from '@/constants/message';
-import { Method } from '@/types/apiService';
+
+type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 interface ApiProps {
   endpoint: string;
@@ -12,9 +12,7 @@ interface ApiProps {
 
 interface ApiResponse<T> {
   data: {
-    header: {
-      message: string;
-    };
+    header: { message: string };
     body: T;
   };
   headers: Headers;
@@ -72,22 +70,24 @@ const fetchWithToken = async <T = unknown>(
   return { data: data ?? response, headers: response.headers };
 };
 
-const request = async <T = unknown>({
-  method,
-  endpoint,
-  headers = {},
-  body = null,
-  errorMessage = '',
-}: RequestProps): Promise<ApiResponse<T>> => {
-  const token = await getAccessToken();
-  const requestInit = await createRequestInit(method, headers, body, token);
-  return await fetchWithToken<T>(endpoint, requestInit, errorMessage);
-};
+export const apiService = (getAccessToken: () => Promise<string>) => {
+  const request = async <T = unknown>({
+    method,
+    endpoint,
+    headers = {},
+    body = null,
+    errorMessage = '',
+  }: RequestProps): Promise<ApiResponse<T>> => {
+    const token = await getAccessToken();
+    const requestInit = createRequestInit(method, headers, body, token);
+    return await fetchWithToken<T>(endpoint, requestInit, errorMessage);
+  };
 
-export const apiService = {
-  get: (args: ApiProps) => request({ ...args, method: 'GET' }),
-  post: (args: ApiProps) => request({ ...args, method: 'POST' }),
-  put: (args: ApiProps) => request({ ...args, method: 'PUT' }),
-  patch: (args: ApiProps) => request({ ...args, method: 'PATCH' }),
-  delete: (args: ApiProps) => request({ ...args, method: 'DELETE' }),
+  return {
+    get: <T = unknown>(args: ApiProps) => request<T>({ ...args, method: 'GET' }),
+    post: <T = unknown>(args: ApiProps) => request<T>({ ...args, method: 'POST' }),
+    put: <T = unknown>(args: ApiProps) => request<T>({ ...args, method: 'PUT' }),
+    patch: <T = unknown>(args: ApiProps) => request<T>({ ...args, method: 'PATCH' }),
+    delete: <T = unknown>(args: ApiProps) => request<T>({ ...args, method: 'DELETE' }),
+  };
 };
