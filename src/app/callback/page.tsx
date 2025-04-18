@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import MainBackground from '@/components/Background/MainBackground';
 import { postLogin } from '@/apis/auth.api';
 
 const OAuthCallbackPage = () => {
@@ -25,7 +24,6 @@ const OAuthCallbackPage = () => {
 
   return (
     <div>
-      <MainBackground />
       <p>로그인 처리 중...</p>
     </div>
   );
