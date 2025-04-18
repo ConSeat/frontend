@@ -2,6 +2,7 @@ import styles from './page.module.scss';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import KakaoScript from '@/components/KakaoScript';
+import { ToastProvider } from '@/Context/ToastProvider';
 import { PopupProvider } from '@/providers/PopupProvider';
 import QueryProvider from '@/providers/QueryProvider';
 import '@/styles/global.scss';
@@ -23,12 +24,14 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     <html lang="ko" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
         <QueryProvider>
-          <PopupProvider>
-            <div className={styles.layout}>
-              {children}
-              <div id="portal"></div>
-            </div>
-          </PopupProvider>
+          <ToastProvider>
+            <PopupProvider>
+              <div className={styles.layout}>
+                {children}
+                <div id="portal"></div>
+              </div>
+            </PopupProvider>
+          </ToastProvider>
         </QueryProvider>
       </body>
       <KakaoScript />

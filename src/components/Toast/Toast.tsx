@@ -2,12 +2,15 @@
 
 import styles from './Toast.module.scss';
 
+export type ToastType = 'default' | 'warning' | 'error';
+
 interface ToastProps {
-  type?: 'default' | 'warning' | 'error';
+  type?: ToastType;
   text: string;
+  onClose: () => void;
 }
 
-const Toast = ({ type = 'default', text }: ToastProps) => {
+const Toast = ({ type = 'default', text, onClose }: ToastProps) => {
   const emoji = {
     default: '🔗',
     warning: '⚠️',
@@ -15,7 +18,7 @@ const Toast = ({ type = 'default', text }: ToastProps) => {
   };
 
   return (
-    <div className={styles.toastLayout}>
+    <div className={styles.toastLayout} onAnimationEnd={onClose}>
       <div className={styles.text}>{`${emoji[type]} ${text}`}</div>
     </div>
   );
