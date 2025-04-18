@@ -1,6 +1,7 @@
 import styles from './page.module.scss';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { ToastProvider } from '@/Context/ToastProvider';
 import '@/styles/global.scss';
 
 const pretendard = localFont({
@@ -22,7 +23,9 @@ const RootLayout = ({
   return (
     <html lang="kr" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
-        <div className={styles.layout}>{children}</div>
+        <ToastProvider>
+          <div className={styles.layout}>{children}</div>
+        </ToastProvider>
         {modal}
         <div id="portal"></div>
       </body>
