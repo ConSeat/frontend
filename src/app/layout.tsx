@@ -1,10 +1,8 @@
 import styles from './page.module.scss';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { cookies } from 'next/headers';
 import QueryProvider from '@/providers/QueryProvider';
 import '@/styles/global.scss';
-import { setServerToken } from '@/utils/tokenCache';
 
 const pretendard = localFont({
   src: '../assets/fonts/PretendardVariable.woff2',
@@ -24,10 +22,6 @@ interface RootLayoutProps {
 }
 
 const RootLayout = async ({ children, modal }: Readonly<RootLayoutProps>) => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get('accessToken')?.value || '';
-  setServerToken(token);
-
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
