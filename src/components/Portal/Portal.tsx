@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 interface PortalProps {
@@ -9,9 +9,17 @@ interface PortalProps {
 }
 
 const Portal = ({ children, isOpen }: PortalProps) => {
-  const portal = typeof window !== 'undefined' && document.querySelector('#portal');
+  const [mounted, setMounted] = useState(false);
 
-  if (!isOpen || !portal || !children) return null;
+  useEffect(() => {
+    setMounted(true); // 클라이언트에서 마운트 완료
+    return () => setMounted(false); // cleanup
+  }, []);
+
+  if (!mounted || !isOpen || !children) return null;
+
+  const portal = document.querySelector('#portal');
+  if (!portal) return null;
 
   return ReactDOM.createPortal(children, portal);
 };
