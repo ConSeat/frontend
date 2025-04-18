@@ -7,9 +7,9 @@ import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon/Icon';
 import MainView from '@/components/MainView/MainView';
 import Modal from '@/components/Modal';
-import { API_ENDPOINTS } from '@/apis/endpoints';
+import type { SocialType } from '@/apis/auth/auth.api';
+import { API_ENDPOINTS } from '@/apis/common/endpoints';
 import { PUBLIC_ENV } from '@/config/env';
-import type { SocialType } from '@/types/auth';
 
 const SigninModal = () => {
   const router = useRouter();
