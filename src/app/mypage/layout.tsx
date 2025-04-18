@@ -1,6 +1,6 @@
 import styles from './MyPage.module.scss';
 import type { ReactNode } from 'react';
-import Icon from '@/components/Icon/Icon';
+import ThirdBackground from '@/components/Background/ThirdBackground';
 
 interface MyPageLayoutProps {
   children: ReactNode;
@@ -9,8 +9,8 @@ interface MyPageLayoutProps {
 const layout = ({ children }: MyPageLayoutProps) => {
   return (
     <div className={styles.layout}>
+      <ThirdBackground />
       {children}
-      <Icon icon="LargeO" className={styles.alphaIcon} />
     </div>
   );
 };

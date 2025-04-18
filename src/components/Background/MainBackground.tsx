@@ -1,6 +1,5 @@
 import Icon from '../Icon/Icon';
 import styles from './Background.module.scss';
-import React from 'react';
 
 const MainBackground = () => {
   return (
