@@ -3,8 +3,8 @@
 import styles from './page.module.scss';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
+import MainBackground from '@/components/Background/MainBackground';
 import Icon from '@/components/Icon/Icon';
-import MainView from '@/components/MainView/MainView';
 
 const SplashPage = () => {
   const router = useRouter();
@@ -20,7 +20,7 @@ const SplashPage = () => {
 
   return (
     <>
-      <MainView />
+      <MainBackground />
       <Icon icon="MainLogo" className={styles.mainLogo} />
     </>
   );

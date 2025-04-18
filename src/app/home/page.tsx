@@ -1,6 +1,7 @@
 import HomeNavigation from './_components/HomeNavigation';
 import StadiumNavigation from './_components/StadiumNavigation';
 import styles from './home.module.scss';
+import SecondBackground from '@/components/Background/SecondBackground';
 import Highlight from '@/components/Highlight/Highlight';
 import Icon from '@/components/Icon/Icon';
 import PageExplanation from '@/components/PageExplanation';
@@ -9,6 +10,8 @@ import Spacing from '@/components/Spacing/Spacing';
 const HomePage = () => {
   return (
     <div className={styles.homeLayout}>
+      <SecondBackground />
+
       <HomeNavigation />
 
       <Spacing size={49} />
@@ -29,9 +32,6 @@ const HomePage = () => {
         <StadiumNavigation navigationType="active" />
         <StadiumNavigation navigationType="inactive" />
       </main>
-
-      <Icon icon="HomeC" className={styles.svgC} />
-      <Icon icon="LargeO" className={styles.svgO} />
     </div>
   );
 };
