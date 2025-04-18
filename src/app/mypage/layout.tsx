@@ -9,11 +9,13 @@ interface MyPageLayoutProps {
 
 const layout = ({ children, modal }: MyPageLayoutProps) => {
   return (
-    <div className={styles.layout}>
-      {children}
+    <>
+      <div className={styles.layout}>
+        {children}
+        <Icon icon="LargeO" className={styles.alphaIcon} />
+      </div>
       {modal}
-      <Icon icon="LargeO" className={styles.alphaIcon} />
-    </div>
+    </>
   );
 };
 

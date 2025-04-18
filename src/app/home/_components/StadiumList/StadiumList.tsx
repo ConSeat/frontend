@@ -1,22 +1,24 @@
 import StadiumItem from '../StadiumItem';
 import styles from './StadiumList.module.scss';
+import type { StadiumInfo } from '@/apis/stadium/stadium.api';
 import { STADIUM_INFO } from '@/constants/stadium';
 
 interface StadiumListProps {
   stadiumType: keyof typeof STADIUM_INFO;
+  data?: StadiumInfo[];
 }
 
-const StadiumList = ({ stadiumType }: StadiumListProps) => {
+const StadiumList = ({ stadiumType, data }: StadiumListProps) => {
   const isActive = stadiumType === 'active';
 
   return (
     <ul className={styles.stadiumList}>
-      {STADIUM_INFO[stadiumType].map(({ stadiumId, image, name }) => (
+      {data?.map(({ stadiumId, stadiumName, stadiumImage }) => (
         <StadiumItem
           key={stadiumId}
-          stadiumName={name}
+          stadiumName={stadiumName}
           isActive={isActive}
-          backgroundImageSrc={image}
+          backgroundImageSrc={stadiumImage}
           href={`/home/${stadiumId}`}
         />
       ))}
