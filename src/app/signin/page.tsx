@@ -1,7 +1,7 @@
-import SigninModal from './_components/SigninModal/SigninModal';
+import SigninContent from './_components/SigninContent/SigninContent';
 
 const SigninPage = () => {
-  return <SigninModal />;
+  return <SigninContent />;
 };
 
 export default SigninPage;
