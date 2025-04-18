@@ -1,12 +1,11 @@
-'use client';
-
 import { API_ENDPOINTS } from '../common/endpoints';
+import api from '../common/universalApi';
 import MESSAGES from '@/constants/message';
 
 export type SocialType = 'google' | 'kakao' | 'twitter';
 
 export const postLogin = async () => {
-  const { headers } = await publicApi.post({
+  const { headers } = await api.post({
     endpoint: API_ENDPOINTS.LOGIN,
     errorMessage: MESSAGES.ERROR.POST_LOGIN,
   });
