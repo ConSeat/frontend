@@ -1,7 +1,7 @@
 @import '@/styles/style';
 
 .signinLayout {
-  position: relative;
+  @include fixed-centered-fullscreen;
 
   overflow: hidden;
   display: flex;

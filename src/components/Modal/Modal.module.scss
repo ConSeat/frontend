@@ -15,8 +15,6 @@
 
   background-color: rgb(0 0 0 / 70%);
   backdrop-filter: blur(2.5px);
-
-  @include layout-width;
 }
 
 // ModalHeader
@@ -50,6 +48,4 @@
   padding: 0 24px 32px;
 
   background-color: $main-mint6;
-
-  @include layout-width;
 }

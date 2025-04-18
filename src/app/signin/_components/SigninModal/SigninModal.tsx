@@ -3,9 +3,9 @@
 import styles from './SigninModal.module.scss';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import MainBackground from '@/components/Background/MainBackground';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon/Icon';
-import MainView from '@/components/MainView/MainView';
 import Modal from '@/components/Modal';
 import { API_ENDPOINTS } from '@/apis/endpoints';
 import { PUBLIC_ENV } from '@/config/env';
@@ -21,7 +21,7 @@ const SigninModal = () => {
   return (
     <Modal>
       <Modal.Content className={styles.signinLayout}>
-        <MainView />
+        <MainBackground />
 
         <Modal.Header title="" onClose={() => router.back()} />
 
