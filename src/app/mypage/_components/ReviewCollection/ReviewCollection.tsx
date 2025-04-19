@@ -1,5 +1,6 @@
 'use client';
 
+import DetailReviewModal from '../DetailReviewModal';
 import FilterDropdown from '../FilterDropdown';
 import styles from './ReviewCollection.module.scss';
 import classNames from 'classnames';
@@ -7,6 +8,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+import useStateModal from '@/hooks/useStateModal';
+import Portal from '@/components/Portal/Portal';
 import { MY_PAGE_QUERY, REVIEW_TAP, VIEW_TAP } from '@/constants/myPage';
 
 interface MyPageReview {
@@ -80,9 +83,14 @@ const ReviewCollection = ({
   reviews,
 }: ReviewCollectionProps) => {
   const [filterValue, setFilterValue] = useState('');
+  const [reviewId, setReviewId] = useState(0);
+  const [reviewStatus, setReviewStatus] = useState(undefined);
+  const { isModalOpen, openModal, closeModal } = useStateModal();
+
   const router = useRouter();
 
   const searchParams = useSearchParams();
+
   const tapType = searchParams.get(MY_PAGE_QUERY);
 
   const isNoneContent = () => {
@@ -110,9 +118,9 @@ const ReviewCollection = ({
   };
 
   const handelClickReviewItem = (reviewId, status) => {
-    router.push(
-      `/mypage/detail-review?review-id=${reviewId}${status === undefined ? '' : '&status=' + status}`,
-    );
+    setReviewId(reviewId);
+    setReviewStatus(status);
+    openModal();
   };
 
   return (
@@ -148,6 +156,13 @@ const ReviewCollection = ({
           <ReviewList reviews={reviews} onClick={handelClickReviewItem} />
         )}
       </div>
+      <Portal isOpen={isModalOpen}>
+        <DetailReviewModal
+          reviewId={reviewId}
+          reviewStatus={reviewStatus}
+          closeModal={closeModal}
+        />
+      </Portal>
     </div>
   );
 };

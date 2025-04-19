@@ -28,6 +28,7 @@ const RootLayout = async ({ children, modal }: Readonly<RootLayoutProps>) => {
         <QueryProvider>
           <div className={styles.layout}>{children}</div>
           {modal}
+          <div id="portal"></div>
         </QueryProvider>
       </body>
     </html>

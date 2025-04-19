@@ -116,16 +116,16 @@ const Footer = ({ likeNum, isLiked, onClickLike, onClickMore }: FooterProps) => 
 };
 
 interface ReviewCardProps {
-  imageSrcArray: string[];
+  images: string[];
   features: string[];
   obstructions: string[];
   concertName: string;
-  reviewDescription: string;
-  profileSrc: string;
-  uploadTime: string;
-  userName: string;
+  contents: string;
+  writerSrc: string;
+  createdAt: string;
+  writerNickname: string;
   likeNumber: number;
-  isSaved: boolean;
+  isBookmarked: boolean;
   isLiked: boolean;
   handleClickMore: () => void;
   handleClickLike: () => void;
@@ -133,16 +133,16 @@ interface ReviewCardProps {
 }
 
 const ReviewCard = ({
-  imageSrcArray,
+  images,
   features,
   obstructions,
+  writerNickname,
+  writerSrc,
   concertName,
-  reviewDescription,
-  profileSrc,
-  uploadTime,
-  userName,
+  contents,
+  createdAt,
   likeNumber,
-  isSaved,
+  isBookmarked,
   isLiked,
   handleClickMore,
   handleClickLike,
@@ -152,14 +152,14 @@ const ReviewCard = ({
     <div className={styles.reviewCardLayout}>
       <Header
         onClick={handleClickBookmark}
-        profileSrc={profileSrc}
-        uploadTime={uploadTime}
-        userName={userName}
-        isSaved={isSaved}
+        profileSrc={writerSrc}
+        uploadTime={createdAt}
+        userName={writerNickname}
+        isSaved={isBookmarked}
       />
-      <ImageList imageSrcArray={imageSrcArray} />
+      <ImageList imageSrcArray={images} />
       <div className={styles.concertTitle}>{concertName}</div>
-      <div className={styles.description}>{reviewDescription}</div>
+      <div className={styles.description}>{contents}</div>
       <div className={styles.reviewKeywordList}>
         <KeywordList keywordArray={features} isPrimary={true} />
         <KeywordList keywordArray={obstructions} isPrimary={false} />
