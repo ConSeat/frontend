@@ -12,7 +12,7 @@ interface DetailReviewModalProps {
   closeModal: () => void;
 }
 
-const DetailReviewModal = ({ reviewId, reviewStatus, closeModal }: DetailReviewModalProps) => {
+const DetailReviewModal = ({ reviewStatus, closeModal }: DetailReviewModalProps) => {
   // reviewId를 활용해 상세 리뷰 정보를 받아옵니다.
 
   return (
