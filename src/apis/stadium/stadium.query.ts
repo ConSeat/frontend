@@ -21,11 +21,11 @@ export const stadiumQueries = {
     queryFn: () => getStadiumSeats(stadiumId),
   }),
   features: {
-    queryKey: stadiumKeys.features,
+    queryKey: stadiumKeys.features(),
     queryFn: getStadiumFeatures,
   },
   obstructions: {
-    queryKey: stadiumKeys.obstructions,
+    queryKey: stadiumKeys.obstructions(),
     queryFn: getStadiumObstructions,
   },
 };
