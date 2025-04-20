@@ -39,7 +39,7 @@ const SingleSectionStep = ({ stadiumId, setStep, data, setData }: SingleSectionS
 
         <div className={styles.stageViewContainer}>
           <StageView
-            stageSVGSrc={`/stadium/${stadiumId}.svg`}
+            stadiumId={stadiumId}
             selectedId={selectedId}
             onSelectSection={(id) => {
               setSelectedId(id);

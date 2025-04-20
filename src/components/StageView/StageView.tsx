@@ -3,20 +3,25 @@
 import MiniMap from '../MiniMap/MiniMap';
 import styles from './StageView.module.scss';
 import classNames from 'classnames';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useStageTransform } from '@/hooks/common/useStageTransform';
-import { Stadium001 } from '@/assets';
+import { getStadiumAssetUrl } from '@/utils/getAssetUrl';
+
+const svgCache: Record<number, string> = {};
+const svgRequestCache: Record<number, Promise<string>> = {};
 
 interface StageViewProps {
-  stageSVGSrc: string;
+  stadiumId: number;
   selectedId: string | null;
   onSelectSection: (sectionId: string) => void;
 }
 
-const StageView = ({ stageSVGSrc, selectedId, onSelectSection }: StageViewProps) => {
+const StageView = ({ stadiumId, selectedId, onSelectSection }: StageViewProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const minimapRef = useRef<HTMLDivElement>(null);
+  const [innerHTML, setInnerHTML] = useState<string | undefined>(svgCache[stadiumId]);
+  const svgUrl = getStadiumAssetUrl(stadiumId);
 
   const {
     viewportBox,
@@ -54,7 +59,39 @@ const StageView = ({ stageSVGSrc, selectedId, onSelectSection }: StageViewProps)
     };
   }, []);
 
-  const handleSVGClick = (e: React.MouseEvent<SVGSVGElement>) => {
+  useEffect(() => {
+    // 캐시에 있으면 바로 사용
+    if (svgCache[stadiumId]) {
+      setInnerHTML(svgCache[stadiumId]);
+      return;
+    }
+
+    // 요청 캐시가 없으면 fetch 시작
+    let ignore = false;
+    const fetchSvg = async () => {
+      if (!svgRequestCache[stadiumId]) {
+        svgRequestCache[stadiumId] = fetchStageSvg(stadiumId);
+      }
+
+      try {
+        const data = await svgRequestCache[stadiumId];
+        if (!ignore) {
+          svgCache[stadiumId] = data;
+          setInnerHTML(svgCache[stadiumId]);
+        }
+      } catch (err) {
+        console.error('Error fetching SVG:', stadiumId, svgUrl, err);
+      }
+    };
+
+    fetchSvg();
+
+    return () => {
+      ignore = true;
+    };
+  }, [innerHTML, stadiumId]);
+
+  const handleSVGClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const svg = e.currentTarget;
     const target = e.target as Element;
     const group = target.closest('g[id^="btn"]') as SVGGElement | null;
@@ -76,24 +113,28 @@ const StageView = ({ stageSVGSrc, selectedId, onSelectSection }: StageViewProps)
   return (
     <>
       <MiniMap
-        stageSVGSrc={stageSVGSrc}
+        stageSVGSrc={svgUrl}
         minimapRef={minimapRef}
         containerAspectRatio={containerAspectRatio}
         viewportBox={viewportBox}
       />
       <div className={styles.container} ref={containerRef}>
-        <div className={styles.imageWrapper} ref={wrapperRef}>
-          <Stadium001
-            alt="무대 이미지"
-            width={316}
-            height={292}
-            onClick={handleSVGClick}
-            className={classNames({ [styles.gHasSelection]: !!selectedId })}
-          />
-        </div>
+        <div
+          ref={wrapperRef}
+          className={classNames(styles.imageWrapper, {
+            [styles.gHasSelection]: !!selectedId,
+          })}
+          onClick={handleSVGClick}
+          dangerouslySetInnerHTML={innerHTML ? { __html: innerHTML } : undefined}
+        />
       </div>
     </>
   );
 };
 
 export default StageView;
+
+async function fetchStageSvg(id: number) {
+  const response = await fetch(getStadiumAssetUrl(id));
+  return response.text();
+}
