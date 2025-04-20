@@ -40,7 +40,6 @@ const SingleSectionStep = ({ stadiumId, setStep, data, setData }: SingleSectionS
         <div className={styles.stageViewContainer}>
           <StageView
             stadiumId={stadiumId}
-            selectedId={selectedId}
             onSelectSection={(id) => {
               setSelectedId(id);
               const { sectionId } = parseBtnId(id);

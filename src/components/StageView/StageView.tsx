@@ -2,8 +2,7 @@
 
 import MiniMap from '../MiniMap/MiniMap';
 import styles from './StageView.module.scss';
-import classNames from 'classnames';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useStageTransform } from '@/hooks/common/useStageTransform';
 import { getStadiumAssetUrl } from '@/utils/getAssetUrl';
 
@@ -12,11 +11,10 @@ const svgRequestCache: Record<number, Promise<string>> = {};
 
 interface StageViewProps {
   stadiumId: number;
-  selectedId: string | null;
   onSelectSection: (sectionId: string) => void;
 }
 
-const StageView = ({ stadiumId, selectedId, onSelectSection }: StageViewProps) => {
+const StageView = ({ stadiumId, onSelectSection }: StageViewProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const minimapRef = useRef<HTMLDivElement>(null);
@@ -44,7 +42,6 @@ const StageView = ({ stadiumId, selectedId, onSelectSection }: StageViewProps) =
     container.addEventListener('touchstart', handleTouchStart);
     container.addEventListener('touchmove', handleTouchMove);
     container.addEventListener('touchend', handleTouchEnd);
-
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
 
@@ -89,25 +86,24 @@ const StageView = ({ stadiumId, selectedId, onSelectSection }: StageViewProps) =
     return () => {
       ignore = true;
     };
-  }, [innerHTML, stadiumId]);
+  }, [stadiumId]);
 
   const handleSVGClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const svg = e.currentTarget;
     const target = e.target as Element;
-    const group = target.closest('g[id^="btn"]') as SVGGElement | null;
-
+    const group = target.closest('g[id^="btn"]');
     if (!group) return;
 
-    // 모든 선택 해제
-    const allGroups = svg.querySelectorAll('g[id^="btn"]');
-    allGroups.forEach((g) => {
-      g.classList.remove(styles.selected);
-    });
+    const svg = wrapperRef.current?.querySelector('svg');
+    if (!svg) return;
 
-    // 선택한 g태그에 selected 클래스 추가
-    group.classList.add(styles.selected);
+    // 모두 해제
+    svg.querySelectorAll('g[id^="btn"]').forEach((g) => g.classList.remove(styles.selected));
 
-    onSelectSection?.(group.id);
+    // 클릭된 것만 selected 추가
+    svg.classList.add(styles.gHasSelection);
+    svg.querySelector(`g[id="${group.id}"]`)!.classList.add(styles.selected);
+
+    onSelectSection(group.id);
   };
 
   return (
@@ -121,11 +117,12 @@ const StageView = ({ stadiumId, selectedId, onSelectSection }: StageViewProps) =
       <div className={styles.container} ref={containerRef}>
         <div
           ref={wrapperRef}
-          className={classNames(styles.imageWrapper, {
-            [styles.gHasSelection]: !!selectedId,
-          })}
+          className={styles.imageWrapper}
           onClick={handleSVGClick}
-          dangerouslySetInnerHTML={innerHTML ? { __html: innerHTML } : undefined}
+          dangerouslySetInnerHTML={useMemo(
+            () => (innerHTML ? { __html: innerHTML } : undefined),
+            [innerHTML],
+          )}
         />
       </div>
     </>
