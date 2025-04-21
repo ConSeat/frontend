@@ -3,10 +3,11 @@
 .layout {
   position: relative;
 
-  overflow: hidden auto;
+  overflow: hidden;
+  flex-grow: 1;
   align-content: center;
 
-  min-height: 100dvh;
+  height: 100%;
   margin: 0 auto;
 
   line-height: 15;
