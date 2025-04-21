@@ -3,29 +3,28 @@ export const FLOOR = 'FLOOR';
 export const NONE_SELECT = -1;
 export const MAX_IMAGE_UPLOAD_NUMBER = 4;
 
-const DISTANCE_VALUE = {
-  CLOSE_DIST: '가까워요',
-  CLOSE_VIEW: '잘 보여요',
-  NORMAL: '보통이에요',
-  FAR: '안 보여요',
+export const DISTANCE_VALUE = {
+  CLOSE: 'CLOSE',
+  AVERAGE: 'AVERAGE',
+  FAR: 'FAR',
 };
 
 export const STAGE_DISTANCE_INFO = [
-  DISTANCE_VALUE.CLOSE_DIST,
-  DISTANCE_VALUE.NORMAL,
-  DISTANCE_VALUE.FAR,
+  { value: DISTANCE_VALUE.CLOSE, name: '가까워요' },
+  { value: DISTANCE_VALUE.AVERAGE, name: '보통이에요' },
+  { value: DISTANCE_VALUE.FAR, name: '안 보여요' },
 ] as const;
 
 export const THRUST_STAGE_DISTANCE_INFO = [
-  DISTANCE_VALUE.CLOSE_DIST,
-  DISTANCE_VALUE.NORMAL,
-  DISTANCE_VALUE.FAR,
+  { value: DISTANCE_VALUE.CLOSE, name: '가까워요' },
+  { value: DISTANCE_VALUE.AVERAGE, name: '보통이에요' },
+  { value: DISTANCE_VALUE.FAR, name: '안 보여요' },
 ] as const;
 
 export const SCREEN_DISTANCE_INFO = [
-  DISTANCE_VALUE.CLOSE_VIEW,
-  DISTANCE_VALUE.NORMAL,
-  DISTANCE_VALUE.FAR,
+  { value: DISTANCE_VALUE.CLOSE, name: '잘 보여요' },
+  { value: DISTANCE_VALUE.AVERAGE, name: '보통이에요' },
+  { value: DISTANCE_VALUE.FAR, name: '안 보여요' },
 ] as const;
 
 export const OBSTRUCTIONS_INFO = [

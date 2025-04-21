@@ -14,9 +14,9 @@ const createInitReviewData = (stadiumId: number): ReviewData => {
     seatingId: NONE_SELECT,
     features: [],
     images: [],
-    stageDistance: NONE_SELECT,
-    thrustStageDistance: NONE_SELECT,
-    screenDistance: NONE_SELECT,
+    stageDistance: '',
+    thrustStageDistance: '',
+    screenDistance: '',
     obstructions: [],
     contents: '',
     currentStep: 0,
@@ -95,7 +95,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
         nextState.stageDistance,
         nextState.thrustStageDistance,
         nextState.screenDistance,
-      ].every((elem) => elem !== NONE_SELECT)
+      ].every((value) => value !== '')
         ? REVIEW.STEPS.DISTANCE_INFO_SELECT + 1
         : REVIEW.STEPS.DISTANCE_INFO_SELECT;
 
