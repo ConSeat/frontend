@@ -29,6 +29,16 @@ export interface ReviewData {
   currentStep: Step;
 }
 
+export interface ReviewSubmitRequestBody {
+  features: number[];
+  images: string[];
+  stageDistance: string;
+  thrustStageDistance: string;
+  screenDistance: string;
+  obstructions: number[];
+  contents: string;
+}
+
 interface ActionPayload {
   concertId?: number;
   seatingId?: number;

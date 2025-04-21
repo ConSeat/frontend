@@ -17,6 +17,7 @@ import SeatImage from '../SeatImage';
 import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
 import styles from './ReviewForm.module.scss';
 import { Dispatch, useRef } from 'react';
+import useMutateReview from '@/hooks/mutations/useMutateReview';
 import Button from '@/components/Button/Button';
 import SmallStageView from '@/components/SmallStageView';
 import Spacing from '@/components/Spacing/Spacing';
@@ -28,6 +29,8 @@ interface ReviewFormProps {
 }
 
 const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
+  const { postReviewMutation, postReviewImagesMutation } = useMutateReview();
+
   const stepRef = useRef<number>(0);
   stepRef.current = Math.max(stepRef.current, reviewData.currentStep);
 
@@ -47,6 +50,29 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
 
   const assignRef = (key: string) => (el: HTMLDivElement | null) => {
     sectionRefs.current[key] = el;
+  };
+
+  const handleSubmitReview = async () => {
+    const { data: uploadImage } = await postReviewImagesMutation.mutateAsync(reviewData.images);
+    const uploadImageUrls = uploadImage.originalImage;
+
+    const sanitize = (arr: number[]) => (arr.includes(-1) ? [] : arr);
+
+    const body = {
+      features: sanitize(reviewData.features),
+      images: uploadImageUrls,
+      stageDistance: reviewData.stageDistance,
+      thrustStageDistance: reviewData.thrustStageDistance,
+      screenDistance: reviewData.screenDistance,
+      obstructions: sanitize(reviewData.obstructions),
+      contents: reviewData.contents,
+    };
+
+    postReviewMutation.mutate({
+      concertId: reviewData.concertId,
+      seatingId: reviewData.seatingId,
+      body,
+    });
   };
 
   const handleSubmitButton = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -75,8 +101,8 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
       return;
     }
 
-    // ✅ 유효한 경우 제출 실행
-    // submitReview();
+    // 유효한 경우 제출 실행
+    handleSubmitReview();
   };
 
   return (

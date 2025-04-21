@@ -6,7 +6,7 @@ const ERROR_MESSAGES: Record<string, string> = {
   POST_LOGIN: '로그인에 실패했습니다. 다시 시도해주세요.',
 
   // review
-  POST_REVIEW: '리뷰 등록에 실패했습니다. 다시 시도해주세요.',
+  POST_REVIEWS_WITH_PARAMS: '리뷰 등록에 실패했습니다. 다시 시도해주세요.',
   POST_REVIEW_IMAGES: '리뷰 이미지 등록에 실패했습니다. 다시 시도해주세요.',
 
   // stadium
