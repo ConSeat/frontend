@@ -1,6 +1,6 @@
 'use client';
 
-import { NONE_SELECT } from '../../_constants/info';
+import { FLOOR, NONE_SELECT } from '../../_constants/info';
 import { REVIEW } from '../../_constants/review';
 import ReviewDropdown from '../ReviewDropdown/ReviewDropdown';
 import styles from './SeatInfoSelect.module.scss';
@@ -55,7 +55,7 @@ const SeatInfoSelect = ({ stadiumId, data, dispatch }: SeatInfoSelectProps) => {
         <ReviewDropdown
           value={seatInfo.section}
           onChange={(sectionName) => {
-            if (seatInfo.floor === 'FLOOR') {
+            if (seatInfo.floor === FLOOR) {
               const section = availableSections.find((s) => s.name === sectionName);
               const seatingId = section?.seats?.[0]?.seatingId ?? NONE_SELECT;
               handleSeatInfoSelect({ section: sectionName, seatingId });
@@ -68,7 +68,7 @@ const SeatInfoSelect = ({ stadiumId, data, dispatch }: SeatInfoSelectProps) => {
         />
       )}
 
-      {seatInfo.floor !== 'FLOOR' && seatInfo.section && (
+      {seatInfo.floor !== FLOOR && seatInfo.section && (
         <ReviewDropdown
           value={availableSeating.find((seat) => seat.seatingId === seatInfo.seatingId)?.name || ''}
           onChange={(seatingName) => {
