@@ -5,6 +5,10 @@ export const API_ENDPOINTS = {
   SOCIAL_LOGIN: (socialType: SocialType) => `/auth/login/${socialType}`,
   LOGIN: '/auth/login',
 
+  // review
+  REVIEWS: '/reviews',
+  REVIEW_IMAGES: '/reviews/images',
+
   // stadium
   STADIUMS: '/stadiums',
   STADIUM_CONCERTS: (stadiumId: number, query?: string) =>
