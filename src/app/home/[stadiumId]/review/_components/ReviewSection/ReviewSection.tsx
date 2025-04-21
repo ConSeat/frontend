@@ -1,8 +1,18 @@
 import styles from './ReviewSection.module.scss';
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
-const ReviewSection = ({ children }: { children: ReactNode }) => {
-  return <section className={styles.reviewSection}>{children}</section>;
+const ReviewSection = ({
+  children,
+  ref,
+}: {
+  children: ReactNode;
+  ref?: React.Ref<HTMLDivElement> | null;
+}) => {
+  return (
+    <section className={styles.reviewSection} ref={ref}>
+      {children}
+    </section>
+  );
 };
 
 const ReviewSectionTitle = ({ title, subtitle }: { title?: string; subtitle?: string }) => {
