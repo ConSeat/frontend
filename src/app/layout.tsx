@@ -1,6 +1,7 @@
 import styles from './page.module.scss';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import QueryProvider from '@/providers/QueryProvider';
 import '@/styles/global.scss';
 
 const pretendard = localFont({
@@ -17,10 +18,12 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <html lang="kr" className={`${pretendard.variable}`}>
+    <html lang="ko" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
-        <div className={styles.layout}>{children}</div>
-        <div id="portal"></div>
+        <QueryProvider>
+          <div className={styles.layout}>{children}</div>
+          <div id="portal"></div>
+        </QueryProvider>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
-import { PUBLIC_ENV } from './../config/env';
+import { PUBLIC_ENV } from '@/config/env';
 import MESSAGES from '@/constants/message';
-import { Method } from '@/types/apiService';
+
+type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 interface ApiProps {
   endpoint: string;
@@ -10,7 +11,10 @@ interface ApiProps {
 }
 
 interface ApiResponse<T> {
-  data: T;
+  data: {
+    header: { message: string };
+    body: T;
+  };
   headers: Headers;
 }
 
@@ -80,19 +84,10 @@ export const apiService = (getAccessToken: () => Promise<string>) => {
   };
 
   return {
-    get: ({ endpoint, headers = {}, errorMessage = '' }: ApiProps) =>
-      request({ method: 'GET', endpoint, headers, errorMessage }),
-
-    post: ({ endpoint, headers = {}, body = {}, errorMessage = '' }: ApiProps) =>
-      request({ method: 'POST', endpoint, headers, body, errorMessage }),
-
-    put: ({ endpoint, headers = {}, body = {}, errorMessage = '' }: ApiProps) =>
-      request({ method: 'PUT', endpoint, headers, body, errorMessage }),
-
-    patch: ({ endpoint, headers = {}, body = {}, errorMessage = '' }: ApiProps) =>
-      request({ method: 'PATCH', endpoint, headers, body, errorMessage }),
-
-    delete: ({ endpoint, headers = {}, errorMessage = '' }: ApiProps) =>
-      request({ method: 'DELETE', endpoint, headers, errorMessage }),
+    get: <T = unknown>(args: ApiProps) => request<T>({ ...args, method: 'GET' }),
+    post: <T = unknown>(args: ApiProps) => request<T>({ ...args, method: 'POST' }),
+    put: <T = unknown>(args: ApiProps) => request<T>({ ...args, method: 'PUT' }),
+    patch: <T = unknown>(args: ApiProps) => request<T>({ ...args, method: 'PATCH' }),
+    delete: <T = unknown>(args: ApiProps) => request<T>({ ...args, method: 'DELETE' }),
   };
 };
