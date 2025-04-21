@@ -32,6 +32,10 @@ const ConcertSelect = ({ stadiumId, dispatch }: ConcertSelectProps) => {
   const handleInputChange = (value: string) => {
     setInputValue(value);
     setSelectedId(NONE_SELECT);
+    dispatch({
+      type: REVIEW.ACTIONS.CONCERT_SELECT,
+      payload: { concertId: NONE_SELECT },
+    });
   };
 
   const handleSelect = (concert: StadiumConcertInfo) => {
