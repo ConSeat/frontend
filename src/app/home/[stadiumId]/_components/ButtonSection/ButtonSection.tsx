@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import { useAuth } from '@/hooks/common/useAuth';
 import Button from '@/components/Button/Button';
 import ButtonContainer from '@/components/ButtonContainer/ButtonContainer';
 import type { ViewType } from '@/types/findView';
@@ -13,6 +14,7 @@ interface ButtonSectionProps {
 
 const ButtonSection = ({ stadiumId, viewType }: ButtonSectionProps) => {
   const router = useRouter();
+  const { checkAndExecute } = useAuth();
 
   const handleClickPrevButton = () => {
     router.push('/home');
@@ -20,6 +22,11 @@ const ButtonSection = ({ stadiumId, viewType }: ButtonSectionProps) => {
 
   const handleClickNextButton = () => {
     router.push(`/home/${stadiumId}/${viewType}`);
+  };
+
+  const handleClickReview = () => {
+    const popupText = '후기 작성을 위해 로그인 해주세요';
+    checkAndExecute(handleClickNextButton, popupText);
   };
 
   return (
@@ -30,7 +37,7 @@ const ButtonSection = ({ stadiumId, viewType }: ButtonSectionProps) => {
       <Button
         variant={viewType ? 'primary' : 'inactive'}
         disabled={!viewType}
-        onClick={handleClickNextButton}
+        onClick={viewType === 'review' ? handleClickReview : handleClickNextButton}
       >
         다음
       </Button>

@@ -1,6 +1,7 @@
 import styles from './page.module.scss';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { PopupProvider } from '@/providers/PopupProvider';
 import QueryProvider from '@/providers/QueryProvider';
 import '@/styles/global.scss';
 
@@ -26,10 +27,12 @@ const RootLayout = async ({ children, modal }: Readonly<RootLayoutProps>) => {
     <html lang="ko" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
         <QueryProvider>
-          <div className={styles.layout}>{children}</div>
-          {modal}
-          <div id="portal"></div>
+          <PopupProvider>
+            <div className={styles.layout}>{children}</div>
+            {modal}
+          </PopupProvider>
         </QueryProvider>
+        <div id="portal"></div>
       </body>
     </html>
   );
