@@ -3,7 +3,11 @@
 import loading from '../../../public/lottie/loading.json';
 import MainBackground from '../Background/MainBackground';
 import styles from './PageLoading.module.scss';
-import Lottie from 'react-lottie-player';
+import dynamic from 'next/dynamic';
+
+const Lottie = dynamic(() => import('react-lottie-player'), {
+  ssr: false,
+});
 
 const PageLoading = () => {
   return (
