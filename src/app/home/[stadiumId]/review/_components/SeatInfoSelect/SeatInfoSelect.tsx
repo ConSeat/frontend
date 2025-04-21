@@ -32,7 +32,7 @@ const SeatInfoSelect = ({ stadiumId, data, dispatch }: SeatInfoSelectProps) => {
     const newSeatInfo = { ...seatInfo, ...updates };
     setSeatInfo(newSeatInfo);
 
-    if (newSeatInfo.floor && newSeatInfo.section && newSeatInfo.seatingId !== NONE_SELECT) {
+    if (newSeatInfo.seatingId !== seatInfo.seatingId) {
       dispatch({
         type: REVIEW.ACTIONS.SEAT_INFO_SELECT,
         payload: { seatingId: newSeatInfo.seatingId },
