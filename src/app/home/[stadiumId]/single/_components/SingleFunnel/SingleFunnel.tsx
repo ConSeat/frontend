@@ -7,7 +7,7 @@ import SingleResultStep from '../SingleResultStep/SingleResultStep';
 import SingleSeatingStep from '../SingleSeatingStep/SingleSeatingStep';
 import SingleSectionStep from '../SingleSectionStep/SingleSectionStep';
 import React from 'react';
-import useFunnel from '@/hooks/useFunnel';
+import useFunnel from '@/hooks/common/useFunnel';
 import Spacing from '@/components/Spacing/Spacing';
 
 interface SingleFunnelProps {

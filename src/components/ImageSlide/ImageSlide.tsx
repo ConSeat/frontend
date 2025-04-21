@@ -3,7 +3,7 @@
 import Button from '../Button/Button';
 import Icon from '../Icon/Icon';
 import styles from './ImageSlide.module.scss';
-import useSwipe from '@/hooks/useSwipe';
+import useSwipe from '@/hooks/common/useSwipe';
 
 interface NavigationButtonsProps {
   onNext: () => void;

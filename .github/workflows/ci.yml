@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Node.js 설치 (18.x)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+
+      - name: 의존성 설치
+        run: npm install
+
+      - name: Next.js 빌드
+        run: npm run build

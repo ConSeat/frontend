@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import useStateModal from '@/hooks/useStateModal';
+import useStateModal from '@/hooks/common/useStateModal';
 import Portal from '@/components/Portal/Portal';
 import { MY_PAGE_QUERY, REVIEW_TAP, VIEW_TAP } from '@/constants/myPage';
 

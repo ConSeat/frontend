@@ -3,7 +3,7 @@
 import ZoomInButton from '../ZoomInButton/ZoomInButton';
 import styles from './SmallStageView.module.scss';
 import Image from 'next/image';
-import useRouterModal from '@/hooks/useRouterModal';
+import useRouterModal from '@/hooks/common/useRouterModal';
 
 interface SmallStageViewProps {
   stadiumId: number;

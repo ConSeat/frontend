@@ -1,13 +1,15 @@
 import StadiumList from '../StadiumList';
 import styles from './StadiumNavigation.module.scss';
 import classNames from 'classnames';
+import type { StadiumInfo } from '@/apis/stadium/stadium.api';
 import { STADIUM_INFO } from '@/constants/stadium';
 
 interface StadiumNavigationProps {
   navigationType: keyof typeof STADIUM_INFO;
+  data?: StadiumInfo[];
 }
 
-const StadiumNavigation = ({ navigationType }: StadiumNavigationProps) => {
+const StadiumNavigation = ({ navigationType, data }: StadiumNavigationProps) => {
   const navTitle = {
     active: '공연장',
     inactive: '오픈예정',
@@ -20,7 +22,7 @@ const StadiumNavigation = ({ navigationType }: StadiumNavigationProps) => {
       })}
     >
       <h3 className={styles.subtitle}>{navTitle[navigationType]}</h3>
-      <StadiumList stadiumType={navigationType} />
+      <StadiumList stadiumType={navigationType} data={data} />
     </nav>
   );
 };
