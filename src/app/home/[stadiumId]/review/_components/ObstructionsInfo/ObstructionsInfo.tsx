@@ -1,10 +1,10 @@
 'use client';
 
-import { OBSTRUCTIONS_INFO } from '../../_constants/info';
 import { REVIEW } from '../../_constants/review';
 import ReviewCheckbox from '../ReviewCheckbox';
 import styles from './ObstructionsInfo.module.scss';
 import React from 'react';
+import { useFetchStadiumObstructions } from '@/hooks/queries/useFetchStadium';
 import type { ReviewDispatch } from '@/types/review';
 
 interface ObstructionsInfoProps {
@@ -13,6 +13,12 @@ interface ObstructionsInfoProps {
 }
 
 const ObstructionsInfo = ({ data, dispatch }: ObstructionsInfoProps) => {
+  const { data: obstructions } = useFetchStadiumObstructions();
+  const fetchedObstructions = [
+    ...(obstructions?.data.obstructions ?? []),
+    { obstructionId: -1, name: '없음' },
+  ];
+
   const toggleObstructionsInfo = (info: number) => {
     dispatch({
       type: REVIEW.ACTIONS.OBSTRUCTIONS_SELECT,
@@ -22,7 +28,7 @@ const ObstructionsInfo = ({ data, dispatch }: ObstructionsInfoProps) => {
 
   return (
     <div className={styles.obstructionsInfoSection}>
-      {OBSTRUCTIONS_INFO.map((info) => (
+      {fetchedObstructions.map((info) => (
         <ReviewCheckbox
           key={info.obstructionId}
           text={info.name}

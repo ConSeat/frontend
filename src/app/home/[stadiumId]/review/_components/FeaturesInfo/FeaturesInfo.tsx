@@ -14,14 +14,14 @@ interface FeaturesInfoProps {
 
 const FeaturesInfo = ({ data, dispatch }: FeaturesInfoProps) => {
   const { data: features } = useFetchStadiumFeatures();
+  const fetchedFeatures = [...(features?.data.features ?? []), { featureId: -1, name: '없음' }];
+
   const toggleFeaturesInfo = (featureId: number) => {
     dispatch({
       type: REVIEW.ACTIONS.FEATURES_INFO_SELECT,
       payload: { feature: featureId },
     });
   };
-
-  const fetchedFeatures = [...(features?.data.features ?? []), { featureId: -1, name: '없음' }];
 
   return (
     <div className={styles.featuresInfoSection}>

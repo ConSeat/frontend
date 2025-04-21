@@ -1,6 +1,6 @@
 'use client';
 
-import { NONE_SELECT, OBSTRUCTIONS_NONE } from '../../_constants/info';
+import { NONE_SELECT } from '../../_constants/info';
 import { REVIEW } from '../../_constants/review';
 import ReviewForm from '../ReviewForm';
 import { useReducer } from 'react';
@@ -108,10 +108,10 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
       let nextInfo: number[] = [];
 
-      if (obstruction === OBSTRUCTIONS_NONE) {
-        nextInfo = state.obstructions.includes(OBSTRUCTIONS_NONE) ? [] : [OBSTRUCTIONS_NONE];
+      if (obstruction === NONE_SELECT) {
+        nextInfo = state.obstructions.includes(NONE_SELECT) ? [] : [NONE_SELECT];
       } else {
-        nextInfo = state.obstructions.filter((id) => id !== OBSTRUCTIONS_NONE);
+        nextInfo = state.obstructions.filter((id) => id !== NONE_SELECT);
         nextInfo = toggleItem(nextInfo, obstruction);
       }
       return updateState(state, {
