@@ -1,6 +1,6 @@
 'use client';
 
-import { FEATURES_NONE, NONE_SELECT, OBSTRUCTIONS_NONE } from '../../_constants/info';
+import { NONE_SELECT, OBSTRUCTIONS_NONE } from '../../_constants/info';
 import { REVIEW } from '../../_constants/review';
 import ReviewForm from '../ReviewForm';
 import { useReducer } from 'react';
@@ -50,10 +50,10 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
       let nextInfo: number[] = [];
 
-      if (feature === FEATURES_NONE) {
-        nextInfo = state.features.includes(FEATURES_NONE) ? [] : [FEATURES_NONE];
+      if (feature === NONE_SELECT) {
+        nextInfo = state.features.includes(NONE_SELECT) ? [] : [NONE_SELECT];
       } else {
-        nextInfo = state.features.filter((id) => id !== FEATURES_NONE);
+        nextInfo = state.features.filter((id) => id !== NONE_SELECT);
         nextInfo = toggleItem(nextInfo, feature);
       }
 

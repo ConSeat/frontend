@@ -1,4 +1,3 @@
-export const FEATURES_NONE = 10;
 export const OBSTRUCTIONS_NONE = 5;
 export const FLOOR = 'FLOOR';
 export const NONE_SELECT = -1;
@@ -27,19 +26,6 @@ export const SCREEN_DISTANCE_INFO = [
   DISTANCE_VALUE.CLOSE_VIEW,
   DISTANCE_VALUE.NORMAL,
   DISTANCE_VALUE.FAR,
-] as const;
-
-export const FEATURES_INFO = [
-  { featureId: 1, name: '돌출' },
-  { featureId: 2, name: '돌돌출' },
-  { featureId: 3, name: '돌출없음' },
-  { featureId: 4, name: '토롯코' },
-  { featureId: 5, name: '360' },
-  { featureId: 6, name: '통로' },
-  { featureId: 7, name: '의탠딩' },
-  { featureId: 8, name: '스탠딩' },
-  { featureId: 9, name: '시제석' },
-  { featureId: FEATURES_NONE, name: '없음' },
 ] as const;
 
 export const OBSTRUCTIONS_INFO = [
