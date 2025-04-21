@@ -6,9 +6,9 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon/Icon';
 import Spacing from '@/components/Spacing/Spacing';
-import { API_ENDPOINTS } from '@/apis/endpoints';
+import type { SocialType } from '@/apis/auth/auth.api';
+import { API_ENDPOINTS } from '@/apis/common/endpoints';
 import { PUBLIC_ENV } from '@/config/env';
-import type { SocialType } from '@/types/auth';
 
 const SigninContent = () => {
   const router = useRouter();
