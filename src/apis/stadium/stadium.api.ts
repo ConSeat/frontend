@@ -58,12 +58,7 @@ export interface Floor {
 }
 
 export interface StadiumSeatingResponse {
-  header: {
-    message: string;
-  };
-  body: {
-    floors: Floor[];
-  };
+  floors: Floor[];
 }
 
 export const getStadiumSeats = async (stadiumId: number) => {
