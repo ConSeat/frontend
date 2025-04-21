@@ -22,8 +22,6 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     <html lang="ko" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
         <QueryProvider>
-          <div className={styles.layout}>{children}</div>
-          <div id="portal"></div>
           <PopupProvider>
             <div className={styles.layout}>{children}</div>
           </PopupProvider>
