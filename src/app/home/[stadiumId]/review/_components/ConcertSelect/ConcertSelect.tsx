@@ -1,41 +1,58 @@
 'use client';
 
+import { NONE_SELECT } from '../../_constants/info';
 import { REVIEW } from '../../_constants/review';
 import ReviewDropdownInput from '../ReviewDropdownInput/ReviewDropdownInput';
-import React from 'react';
+import { useEffect, useState } from 'react';
+import useDebounce from '@/hooks/common/useDebounce';
+import { useFetchStadiumConcerts } from '@/hooks/queries/useFetchStadium';
+import type { StadiumConcertInfo } from '@/apis/stadium/stadium.api';
 import { ReviewDispatch } from '@/types/review';
 
 interface ConcertSelectProps {
-  data: number;
+  stadiumId: number;
   dispatch: ReviewDispatch;
 }
 
-const concerts = [
-  { concertId: 1, name: '2024 NCT CONCERT' },
-  { concertId: 2, name: 'NCT WISH 2025 - 서울' },
-  { concertId: 3, name: '2025 SVT 9TH FAN MEETING <SEVENTEEN in CARAT LAND>' },
-  { concertId: 4, name: '2023 MONSTA X 7TH OFFICIAL FANCLUB MONBEBE FAN－CONCERT <MX FRIENDS>' },
-  { concertId: 5, name: '텐(NCT) 2025 - 서울' },
-];
+const ConcertSelect = ({ stadiumId, dispatch }: ConcertSelectProps) => {
+  const [inputValue, setInputValue] = useState<string>('');
+  const [selectedId, setSelectedId] = useState<number>(NONE_SELECT);
+  const [cachedConcerts, setCachedConcerts] = useState<StadiumConcertInfo[]>([]);
 
-const ConcertSelect = ({ data, dispatch }: ConcertSelectProps) => {
-  const selectedConcert = concerts.find((concert) => concert.concertId === data) || '';
+  const debouncedQuery = useDebounce(inputValue, 300);
+  const { data: stadiumConcerts } = useFetchStadiumConcerts(stadiumId, debouncedQuery);
+  const fetchedConcerts = stadiumConcerts?.data.concerts ?? [];
 
-  const handleConcertSelect = (concertId: number) => {
+  useEffect(() => {
+    if (fetchedConcerts.length > 0) {
+      setCachedConcerts(fetchedConcerts);
+    }
+  }, [fetchedConcerts]);
+
+  const handleInputChange = (value: string) => {
+    setInputValue(value);
+    setSelectedId(NONE_SELECT);
+  };
+
+  const handleSelect = (concert: StadiumConcertInfo) => {
+    setInputValue(concert.concertName);
+    setSelectedId(concert.concertId);
     dispatch({
       type: REVIEW.ACTIONS.CONCERT_SELECT,
-      payload: { concertId },
+      payload: { concertId: concert.concertId },
     });
   };
 
   return (
     <ReviewDropdownInput
-      value={selectedConcert as string}
-      onChange={(value) => handleConcertSelect(value.concertId)}
-      options={concerts}
+      value={inputValue}
+      onChange={handleSelect}
+      onInputChange={handleInputChange}
+      options={cachedConcerts}
+      selectedId={selectedId}
       placeholder="콘서트명을 검색해주세요"
     />
   );
 };
 
-export default React.memo(ConcertSelect);
+export default ConcertSelect;

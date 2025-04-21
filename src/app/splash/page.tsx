@@ -4,7 +4,6 @@ import styles from './page.module.scss';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import Icon from '@/components/Icon/Icon';
-import MainView from '@/components/MainView/MainView';
 
 const SplashPage = () => {
   const router = useRouter();
@@ -18,12 +17,7 @@ const SplashPage = () => {
     return () => clearTimeout(timeout);
   }, []);
 
-  return (
-    <>
-      <MainView />
-      <Icon icon="MainLogo" className={styles.mainLogo} />
-    </>
-  );
+  return <Icon icon="MainLogo" className={styles.mainLogo} />;
 };
 
 export default SplashPage;

@@ -2,21 +2,24 @@
 
 import MiniMap from '../MiniMap/MiniMap';
 import styles from './StageView.module.scss';
-import classNames from 'classnames';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useStageTransform } from '@/hooks/common/useStageTransform';
-import { Stadium001 } from '@/assets';
+import { getStadiumAssetUrl } from '@/utils/getAssetUrl';
+
+const svgCache: Record<number, string> = {};
+const svgRequestCache: Record<number, Promise<string>> = {};
 
 interface StageViewProps {
-  stageSVGSrc: string;
-  selectedId: string | null;
+  stadiumId: number;
   onSelectSection: (sectionId: string) => void;
 }
 
-const StageView = ({ stageSVGSrc, selectedId, onSelectSection }: StageViewProps) => {
+const StageView = ({ stadiumId, onSelectSection }: StageViewProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const minimapRef = useRef<HTMLDivElement>(null);
+  const [innerHTML, setInnerHTML] = useState<string | undefined>(svgCache[stadiumId]);
+  const svgUrl = getStadiumAssetUrl(stadiumId);
 
   const {
     viewportBox,
@@ -39,7 +42,6 @@ const StageView = ({ stageSVGSrc, selectedId, onSelectSection }: StageViewProps)
     container.addEventListener('touchstart', handleTouchStart);
     container.addEventListener('touchmove', handleTouchMove);
     container.addEventListener('touchend', handleTouchEnd);
-
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
 
@@ -54,46 +56,82 @@ const StageView = ({ stageSVGSrc, selectedId, onSelectSection }: StageViewProps)
     };
   }, []);
 
-  const handleSVGClick = (e: React.MouseEvent<SVGSVGElement>) => {
-    const svg = e.currentTarget;
-    const target = e.target as Element;
-    const group = target.closest('g[id^="btn"]') as SVGGElement | null;
+  useEffect(() => {
+    // 캐시에 있으면 바로 사용
+    if (svgCache[stadiumId]) {
+      setInnerHTML(svgCache[stadiumId]);
+      return;
+    }
 
+    // 요청 캐시가 없으면 fetch 시작
+    let ignore = false;
+    const fetchSvg = async () => {
+      if (!svgRequestCache[stadiumId]) {
+        svgRequestCache[stadiumId] = fetchStageSvg(stadiumId);
+      }
+
+      try {
+        const data = await svgRequestCache[stadiumId];
+        if (!ignore) {
+          svgCache[stadiumId] = data;
+          setInnerHTML(svgCache[stadiumId]);
+        }
+      } catch (err) {
+        console.error('Error fetching SVG:', stadiumId, svgUrl, err);
+      }
+    };
+
+    fetchSvg();
+
+    return () => {
+      ignore = true;
+    };
+  }, [stadiumId]);
+
+  const handleSVGClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as Element;
+    const group = target.closest('g[id^="btn"]');
     if (!group) return;
 
-    // 모든 선택 해제
-    const allGroups = svg.querySelectorAll('g[id^="btn"]');
-    allGroups.forEach((g) => {
-      g.classList.remove(styles.selected);
-    });
+    const svg = wrapperRef.current?.querySelector('svg');
+    if (!svg) return;
 
-    // 선택한 g태그에 selected 클래스 추가
-    group.classList.add(styles.selected);
+    // 모두 해제
+    svg.querySelectorAll('g[id^="btn"]').forEach((g) => g.classList.remove(styles.selected));
 
-    onSelectSection?.(group.id);
+    // 클릭된 것만 selected 추가
+    svg.classList.add(styles.gHasSelection);
+    svg.querySelector(`g[id="${group.id}"]`)!.classList.add(styles.selected);
+
+    onSelectSection(group.id);
   };
 
   return (
     <>
       <MiniMap
-        stageSVGSrc={stageSVGSrc}
+        stageSVGSrc={svgUrl}
         minimapRef={minimapRef}
         containerAspectRatio={containerAspectRatio}
         viewportBox={viewportBox}
       />
       <div className={styles.container} ref={containerRef}>
-        <div className={styles.imageWrapper} ref={wrapperRef}>
-          <Stadium001
-            alt="무대 이미지"
-            width={316}
-            height={292}
-            onClick={handleSVGClick}
-            className={classNames({ [styles.gHasSelection]: !!selectedId })}
-          />
-        </div>
+        <div
+          ref={wrapperRef}
+          className={styles.imageWrapper}
+          onClick={handleSVGClick}
+          dangerouslySetInnerHTML={useMemo(
+            () => (innerHTML ? { __html: innerHTML } : undefined),
+            [innerHTML],
+          )}
+        />
       </div>
     </>
   );
 };
 
 export default StageView;
+
+async function fetchStageSvg(id: number) {
+  const response = await fetch(getStadiumAssetUrl(id));
+  return response.text();
+}

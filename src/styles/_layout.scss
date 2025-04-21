@@ -7,10 +7,8 @@
 @mixin fixed-centered-fullscreen {
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-
   height: 100vh;
+  margin: 0 auto;
 
   @include layout-width;
 }

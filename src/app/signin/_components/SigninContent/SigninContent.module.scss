@@ -1,7 +1,7 @@
 @import '@/styles/style';
 
 .signinLayout {
-  position: relative;
+  @include fixed-centered-fullscreen;
 
   overflow: hidden;
   display: flex;
@@ -11,6 +11,17 @@
 
   height: 100svh;
   padding: 0 24px 56px;
+}
+
+.closeButton {
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  height: 56px;
 }
 
 .signinContainer {

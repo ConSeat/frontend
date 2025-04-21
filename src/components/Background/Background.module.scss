@@ -1,19 +1,29 @@
 @import '@/styles/style';
 
-.mainViewLayout {
+.wrapper {
   @include fixed-centered-fullscreen;
 
+  pointer-events: none;
+  inset: 0;
   overflow: hidden;
 }
 
-.svgC {
+.mainC {
   @include absolute($right: 0);
 }
 
-.svgO {
+.mainO {
   @include absolute($top: 30vh);
 }
 
-.svgT {
+.mainT {
   @include absolute($right: 0, $bottom: 0);
+}
+
+.secondC {
+  @include absolute($top: 30vh, $right: 0);
+}
+
+.secondO {
+  @include absolute($top: -6vh, $left: -1vh);
 }

@@ -13,15 +13,3 @@
   gap: 40px;
   align-items: flex-start;
 }
-
-.svgC {
-  z-index: 0;
-
-  @include absolute($top: 30vh, $right: 0);
-}
-
-.svgO {
-  z-index: 0;
-
-  @include absolute($top: -15vh, $left: 0);
-}

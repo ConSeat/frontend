@@ -1,8 +1,19 @@
 import { useRef, useState } from 'react';
 import { clamp } from '@/utils/clamp';
 
-const MOBILE_DRAG = 1;
-const MOBILE_ZOOM = 2;
+const TOUCH_TYPE = {
+  DRAG: 1,
+  ZOOM: 2,
+} as const;
+
+const ZOOM_LIMIT = {
+  MIN: 1,
+  MAX: 3,
+};
+
+const DEFAULT_ASPECT_RATIO = 640 / 390;
+
+const WHEEL_ZOOM_STEP = 0.1;
 
 export const useStageTransform = ({
   wrapperRef,
@@ -30,7 +41,7 @@ export const useStageTransform = ({
     left: 0,
     top: 0,
   });
-  const [containerAspectRatio, setContainerAspectRatio] = useState(640 / 390);
+  const [containerAspectRatio, setContainerAspectRatio] = useState(DEFAULT_ASPECT_RATIO);
 
   // 드래그/확대된 상태에 따라 이미지가 이동할 수 있는 최대 범위를 계산
   const getTranslateLimits = () => {
@@ -119,8 +130,11 @@ export const useStageTransform = ({
 
   const handleWheel = (e: WheelEvent) => {
     e.preventDefault();
-    const delta = e.deltaY > 0 ? -0.1 : 0.1;
-    dragState.current.scale = Math.min(Math.max(1, dragState.current.scale + delta), 3);
+    const delta = e.deltaY > 0 ? -WHEEL_ZOOM_STEP : WHEEL_ZOOM_STEP;
+    dragState.current.scale = Math.min(
+      Math.max(ZOOM_LIMIT.MIN, dragState.current.scale + delta),
+      ZOOM_LIMIT.MAX,
+    );
     updateTransform();
   };
 
@@ -145,12 +159,12 @@ export const useStageTransform = ({
   const handleTouchStart = (e: TouchEvent) => {
     if (dragState.current === null) return;
 
-    if (e.touches.length === MOBILE_DRAG) {
+    if (e.touches.length === TOUCH_TYPE.DRAG) {
       // 단일 터치: 드래그
       dragState.current.isDragging = true;
       dragState.current.startX = e.touches[0].clientX - dragState.current.translateX;
       dragState.current.startY = e.touches[0].clientY - dragState.current.translateY;
-    } else if (e.touches.length === MOBILE_ZOOM) {
+    } else if (e.touches.length === TOUCH_TYPE.ZOOM) {
       // 두 손가락: 핀치 줌
       const dx = e.touches[0].clientX - e.touches[1].clientX;
       const dy = e.touches[0].clientY - e.touches[1].clientY;
@@ -161,13 +175,13 @@ export const useStageTransform = ({
 
   const handleTouchMove = (e: TouchEvent) => {
     e.preventDefault();
-    if (e.touches.length === MOBILE_DRAG && dragState.current.isDragging) {
+    if (e.touches.length === TOUCH_TYPE.DRAG && dragState.current.isDragging) {
       // 단일 터치 드래그
       dragState.current.translateX = e.touches[0].clientX - dragState.current.startX;
       dragState.current.translateY = e.touches[0].clientY - dragState.current.startY;
 
       updateTransform();
-    } else if (e.touches.length === MOBILE_ZOOM && dragState.current.touchDistance !== null) {
+    } else if (e.touches.length === TOUCH_TYPE.ZOOM && dragState.current.touchDistance !== null) {
       // 핀치 줌
       const dx = e.touches[0].clientX - e.touches[1].clientX;
       const dy = e.touches[0].clientY - e.touches[1].clientY;
@@ -175,7 +189,10 @@ export const useStageTransform = ({
       const newDistance = Math.sqrt(dx * dx + dy * dy);
       const scaleChange = newDistance / dragState.current.touchDistance;
 
-      dragState.current.scale = Math.min(Math.max(0.5, dragState.current.scale * scaleChange), 3);
+      dragState.current.scale = Math.min(
+        Math.max(ZOOM_LIMIT.MIN, dragState.current.scale * scaleChange),
+        ZOOM_LIMIT.MAX,
+      );
       dragState.current.touchDistance = newDistance;
 
       updateTransform();

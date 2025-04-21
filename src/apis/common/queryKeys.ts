@@ -17,8 +17,9 @@ export const reviewKeys = {
 
 export const stadiumKeys = {
   all: ['stadiums'] as const,
+  concerts: (stadiumId: number, query?: string) =>
+    [...stadiumKeys.all, stadiumId, 'concerts', query ?? ''] as const,
+  seats: (stadiumId: number) => [...stadiumKeys.all, stadiumId] as const,
   features: () => [...stadiumKeys.all, 'features'] as const,
   obstructions: () => [...stadiumKeys.all, 'obstructions'] as const,
-  detail: (stadiumId: number) => [...stadiumKeys.all, stadiumId] as const,
-  concerts: (stadiumId: number) => [...stadiumKeys.detail(stadiumId), 'concerts'] as const,
 };

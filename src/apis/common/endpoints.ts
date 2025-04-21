@@ -7,4 +7,9 @@ export const API_ENDPOINTS = {
 
   // stadium
   STADIUMS: '/stadiums',
+  STADIUM_CONCERTS: (stadiumId: number, query?: string) =>
+    `/stadiums/${stadiumId}/concerts${query ? `?query=${encodeURIComponent(query)}` : ''}`,
+  STADIUM_SEATS: (stadiumId: number) => `/stadiums/${stadiumId}`,
+  STADIUM_FEATURES: '/stadiums/features',
+  STADIUM_OBSTRUCTIONS: '/stadiums/obstructions',
 };

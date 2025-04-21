@@ -7,6 +7,10 @@ const ERROR_MESSAGES: Record<string, string> = {
 
   // stadium
   GET_STADIUMS: '공연장 정보를 가져오지 못했습니다. 다시 시도해주세요.',
+  GET_STADIUM_CONCERTS: '콘서트 정보를 가져오지 못했습니다. 다시 시도해주세요.',
+  GET_STADIUM_SEATS: '공연장 좌석 정보를 가져오지 못했습니다. 다시 시도해주세요.',
+  GET_STADIUM_FEATURES: '공연장  특징 정보를 가져오지 못했습니다. 다시 시도해주세요.',
+  GET_STADIUM_OBSTRUCTIONS: '공연장 방해 요소 정보를 가져오지 못했습니다. 다시 시도해주세요.',
 };
 
 const MESSAGES = {
