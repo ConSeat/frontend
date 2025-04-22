@@ -7,7 +7,7 @@ import useDropdown from '@/hooks/common/useDropdown';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import Icon from '@/components/Icon/Icon';
 import Splitter from '@/components/Splitter/Splitter';
-import type { StadiumConcertInfo } from '@/apis/stadium/stadium.api';
+import type { StadiumConcertInfo } from '@/types/stadium';
 
 interface ReviewDropdownInputProps {
   value: string;

@@ -6,8 +6,8 @@ import ReviewDropdownInput from '../ReviewDropdownInput/ReviewDropdownInput';
 import { useEffect, useState } from 'react';
 import useDebounce from '@/hooks/common/useDebounce';
 import { useFetchStadiumConcerts } from '@/hooks/queries/useFetchStadium';
-import type { StadiumConcertInfo } from '@/apis/stadium/stadium.api';
 import { ReviewDispatch } from '@/types/review';
+import type { StadiumConcertInfo } from '@/types/stadium';
 
 interface ConcertSelectProps {
   stadiumId: number;
