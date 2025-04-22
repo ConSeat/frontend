@@ -13,18 +13,25 @@ interface PopupContext {
 interface PopupData {
   title: string;
   subtitle: string;
+  confirmText?: string;
+  cancelText?: string;
   onConfirm: () => void;
+  onCancel?: () => void;
 }
 
+const initPopupData = {
+  title: '',
+  subtitle: '',
+  confirmText: '네',
+  cancelText: '아니요',
+  onConfirm: () => {},
+  onCancel: undefined,
+};
 const PopupContext = createContext<PopupContext | undefined>(undefined);
 
 export const PopupProvider = ({ children }: { children: ReactNode }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [popupData, setPopupData] = useState<PopupData>({
-    title: '',
-    subtitle: '',
-    onConfirm: () => {},
-  });
+  const [popupData, setPopupData] = useState<PopupData>(initPopupData);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -37,8 +44,12 @@ export const PopupProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const hidePopup = () => {
+    if (popupData.onCancel) {
+      popupData.onCancel();
+    }
+
     setIsModalOpen(false);
-    setPopupData({ title: '', subtitle: '', onConfirm: () => {} });
+    setPopupData(initPopupData);
   };
 
   return (
@@ -51,11 +62,13 @@ export const PopupProvider = ({ children }: { children: ReactNode }) => {
             <Popup>
               <Popup.Title title={popupData.title} subtitle={popupData.subtitle} />
               <Popup.ButtonArea
+                confirmText={popupData.confirmText ? popupData.confirmText : '네'}
+                cancelText={popupData.cancelText ? popupData.cancelText : '아니요'}
                 onConfirm={() => {
                   popupData.onConfirm();
                   hidePopup();
                 }}
-                onClose={hidePopup}
+                onCancel={hidePopup}
               />
             </Popup>
           </Modal>
