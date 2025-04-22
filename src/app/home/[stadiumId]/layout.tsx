@@ -1,5 +1,6 @@
 import ClientHeaderWrapper from './_components/ClientHeaderWrapper/ClientHeaderWrapper';
 import styles from './page.module.scss';
+import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
 import { PUBLIC_ENV } from '@/config/env';
 import type { StadiumInfo } from '@/types/stadium';
@@ -40,12 +41,7 @@ const StadiumLayout = async ({ children, params }: StadiumLayoutProps) => {
   const activeStadium = json.body?.active?.find((s: StadiumInfo) => s.stadiumId === stadiumId);
 
   if (!activeStadium) {
-    return (
-      <div className={styles.stadiumLayout}>
-        <h2>이 페이지는 아직 열리지 않았습니다.</h2>
-        <p>현재는 접근할 수 없습니다. 나중에 다시 확인해 주세요.</p>
-      </div>
-    );
+    notFound();
   }
 
   return (
