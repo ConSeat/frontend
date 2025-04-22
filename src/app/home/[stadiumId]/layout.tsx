@@ -1,7 +1,8 @@
 import ClientHeaderWrapper from './_components/ClientHeaderWrapper/ClientHeaderWrapper';
 import styles from './page.module.scss';
 import { ReactNode } from 'react';
-import { ALL_STADIUM_INFO, STADIUM_INFO } from '@/constants/stadium';
+import { PUBLIC_ENV } from '@/config/env';
+import type { StadiumInfo } from '@/types/stadium';
 
 interface StadiumId {
   stadiumId: number;
@@ -9,23 +10,36 @@ interface StadiumId {
 
 interface StadiumLayoutProps {
   children: ReactNode;
-  params: Promise<StadiumId>;
+  params: StadiumId;
 }
 
 export async function generateStaticParams() {
-  return ALL_STADIUM_INFO.map(({ stadiumId }) => ({
-    stadiumId: String(stadiumId),
+  const res = await fetch(`${PUBLIC_ENV.baseUrl}/stadiums`);
+
+  const data = await res.json();
+
+  const allStadiums = [...(data.active ?? []), ...(data.inactive ?? [])];
+
+  return allStadiums.map((stadium: { stadiumId: number }) => ({
+    stadiumId: stadium.stadiumId,
   }));
 }
 
 export const dynamicParams = false;
 
 const StadiumLayout = async ({ children, params }: StadiumLayoutProps) => {
-  const stadiumId = Number((await params).stadiumId);
+  const stadiumId = Number(params.stadiumId);
 
-  const isActive = STADIUM_INFO.active.some((stadium) => stadium.stadiumId === stadiumId);
+  const res = await fetch(`${PUBLIC_ENV.baseUrl}/stadiums`);
 
-  if (!isActive) {
+  if (!res.ok) {
+    throw new Error('Failed to fetch stadium data');
+  }
+
+  const json = await res.json();
+  const activeStadium = json.body?.active?.find((s: StadiumInfo) => s.stadiumId === stadiumId);
+
+  if (!activeStadium) {
     return (
       <div className={styles.stadiumLayout}>
         <h2>이 페이지는 아직 열리지 않았습니다.</h2>
@@ -36,7 +50,7 @@ const StadiumLayout = async ({ children, params }: StadiumLayoutProps) => {
 
   return (
     <div className={styles.stadiumLayout}>
-      <ClientHeaderWrapper stadiumId={stadiumId} />
+      <ClientHeaderWrapper stadium={activeStadium} />
       {children}
     </div>
   );

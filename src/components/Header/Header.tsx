@@ -4,13 +4,13 @@ import Icon from '../Icon/Icon';
 import Spacing from '../Spacing/Spacing';
 import styles from './Header.module.scss';
 import { useRouter } from 'next/navigation';
-import { stadiumDisplayName } from '@/utils/stadium';
+import type { StadiumInfo } from '@/types/stadium';
 
 interface HeaderProps {
-  stadiumId: number;
+  stadium: StadiumInfo;
 }
 
-const Header = ({ stadiumId }: HeaderProps) => {
+const Header = ({ stadium }: HeaderProps) => {
   const router = useRouter();
 
   const handlePrevPage = () => {
@@ -20,7 +20,7 @@ const Header = ({ stadiumId }: HeaderProps) => {
   return (
     <header className={styles.header}>
       <Icon icon="LeftArrow" onClick={handlePrevPage} />
-      <h1 className={styles.headerTitle}>{stadiumDisplayName(stadiumId)}</h1>
+      <h1 className={styles.headerTitle}>{stadium.stadiumName}</h1>
       <Spacing direction="horizontal" size={32} />
     </header>
   );

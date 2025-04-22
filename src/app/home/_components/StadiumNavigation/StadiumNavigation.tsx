@@ -1,11 +1,10 @@
 import StadiumList from '../StadiumList';
 import styles from './StadiumNavigation.module.scss';
 import classNames from 'classnames';
-import { STADIUM_INFO } from '@/constants/stadium';
-import type { StadiumInfo } from '@/types/stadium';
+import type { StadiumInfo, StadiumType } from '@/types/stadium';
 
 interface StadiumNavigationProps {
-  navigationType: keyof typeof STADIUM_INFO;
+  navigationType: StadiumType;
   data?: StadiumInfo[];
 }
 
