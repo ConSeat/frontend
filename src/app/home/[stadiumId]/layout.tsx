@@ -2,6 +2,7 @@ import ClientHeaderWrapper from './_components/ClientHeaderWrapper/ClientHeaderW
 import styles from './page.module.scss';
 import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
+import { getStadiumList } from '@/apis/stadium/stadium.api';
 import { PUBLIC_ENV } from '@/config/env';
 import type { StadiumInfo } from '@/types/stadium';
 
@@ -11,7 +12,7 @@ interface StadiumId {
 
 interface StadiumLayoutProps {
   children: ReactNode;
-  params: StadiumId;
+  params: Promise<StadiumId>;
 }
 
 export async function generateStaticParams() {
@@ -29,16 +30,11 @@ export async function generateStaticParams() {
 export const dynamicParams = false;
 
 const StadiumLayout = async ({ children, params }: StadiumLayoutProps) => {
-  const stadiumId = Number(params.stadiumId);
+  const { stadiumId } = await params;
 
-  const res = await fetch(`${PUBLIC_ENV.baseUrl}/stadiums`);
+  const { data } = await getStadiumList();
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch stadium data');
-  }
-
-  const json = await res.json();
-  const activeStadium = json.body?.active?.find((s: StadiumInfo) => s.stadiumId === stadiumId);
+  const activeStadium = data.active?.find((s: StadiumInfo) => s.stadiumId === Number(stadiumId));
 
   if (!activeStadium) {
     notFound();
