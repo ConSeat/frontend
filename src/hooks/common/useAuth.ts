@@ -21,6 +21,7 @@ export const useAuth = () => {
       await requireLogin(action);
     } catch (error) {
       if (error instanceof Error && error.message === 'LoginRequired') {
+        sessionStorage.setItem('returnUrl', window.location.href);
         showPopup({
           title: '로그인 필요',
           subtitle: popupText,
