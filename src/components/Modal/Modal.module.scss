@@ -38,6 +38,8 @@
   @include fixed-centered-fullscreen;
 
   z-index: z-index(modal-content);
+  left: 50%;
+  transform: translateX(-50%);
 
   overflow: auto;
   display: flex;
