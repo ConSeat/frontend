@@ -1,6 +1,6 @@
 import { getAccessToken } from './getAccessToken';
 
-const isLoggedIn = async (): Promise<boolean> => {
+export const isLoggedIn = async (): Promise<boolean> => {
   const accessToken = await getAccessToken();
   if (!accessToken) return false;
 
