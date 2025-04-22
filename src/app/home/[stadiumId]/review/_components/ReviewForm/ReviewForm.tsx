@@ -16,11 +16,13 @@ import ReviewSection from '../ReviewSection/ReviewSection';
 import SeatImage from '../SeatImage';
 import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
 import styles from './ReviewForm.module.scss';
+import { useRouter } from 'next/navigation';
 import { Dispatch, useRef } from 'react';
 import useMutateReview from '@/hooks/mutations/useMutateReview';
 import Button from '@/components/Button/Button';
 import SmallStageView from '@/components/SmallStageView';
 import Spacing from '@/components/Spacing/Spacing';
+import { usePopup } from '@/providers/PopupProvider';
 import type { ReviewAction, ReviewData } from '@/types/review';
 
 interface ReviewFormProps {
@@ -30,6 +32,8 @@ interface ReviewFormProps {
 
 const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
   const { postReviewMutation, postReviewImagesMutation } = useMutateReview();
+  const { showPopup } = usePopup();
+  const router = useRouter();
 
   const stepRef = useRef<number>(0);
   stepRef.current = Math.max(stepRef.current, reviewData.currentStep);
@@ -68,11 +72,16 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
       contents: reviewData.contents,
     };
 
-    postReviewMutation.mutate({
-      concertId: reviewData.concertId,
-      seatingId: reviewData.seatingId,
-      body,
-    });
+    postReviewMutation.mutate(
+      {
+        concertId: reviewData.concertId,
+        seatingId: reviewData.seatingId,
+        body,
+      },
+      {
+        onSuccess: () => router.push(`/home/${reviewData.stadiumId}/review/complete`),
+      },
+    );
   };
 
   const handleSubmitButton = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -101,8 +110,13 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
       return;
     }
 
-    // 유효한 경우 제출 실행
-    handleSubmitReview();
+    // 유효한 경우 팝업 띄우기
+    showPopup({
+      title: '후기를 등록하시겠습니까?',
+      subtitle:
+        '등록된 후기는 수정/삭제가 불가합니다. 민감한 정보가 들어간 후기는 관리자에 의해 삭제 처리될 수 있습니다.',
+      onConfirm: handleSubmitReview,
+    });
   };
 
   return (
