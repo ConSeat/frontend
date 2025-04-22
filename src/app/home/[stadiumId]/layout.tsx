@@ -6,35 +6,28 @@ import { getStadiumList } from '@/apis/stadium/stadium.api';
 import { PUBLIC_ENV } from '@/config/env';
 import type { StadiumInfo } from '@/types/stadium';
 
-interface StadiumId {
-  stadiumId: number;
-}
-
 interface StadiumLayoutProps {
   children: ReactNode;
-  params: Promise<StadiumId>;
+  params: { stadiumId: string };
 }
 
 export async function generateStaticParams() {
   const res = await fetch(`${PUBLIC_ENV.baseUrl}/stadiums`);
-
   const data = await res.json();
-
   const allStadiums = [...(data.active ?? []), ...(data.inactive ?? [])];
 
   return allStadiums.map((stadium: { stadiumId: number }) => ({
-    stadiumId: stadium.stadiumId,
+    stadiumId: String(stadium.stadiumId),
   }));
 }
 
 export const dynamicParams = false;
 
 const StadiumLayout = async ({ children, params }: StadiumLayoutProps) => {
-  const { stadiumId } = await params;
-
+  const stadiumId = Number(params.stadiumId);
   const { data } = await getStadiumList();
 
-  const activeStadium = data.active?.find((s: StadiumInfo) => s.stadiumId === Number(stadiumId));
+  const activeStadium = data.active?.find((s: StadiumInfo) => s.stadiumId === stadiumId);
 
   if (!activeStadium) {
     notFound();
