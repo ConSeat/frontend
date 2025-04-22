@@ -1,0 +1,32 @@
+@import '@/styles/style';
+
+.layout {
+  position: relative;
+
+  overflow: hidden;
+  flex-grow: 1;
+  align-content: center;
+
+  height: 100%;
+  margin: 0 auto;
+
+  line-height: 15;
+  color: $sub-white;
+
+  background-color: $main-mint6;
+
+  @include layout-width;
+
+  .spinner {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+  }
+
+  .text {
+    @include body-2;
+
+    color: $sub-gray4;
+    text-align: center;
+  }
+}

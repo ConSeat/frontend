@@ -16,19 +16,23 @@ const PopupTitle = ({ title, subtitle }: { title?: string; subtitle?: string }) 
 };
 
 const PopupButtonArea = ({
-  onClose,
+  confirmText,
+  cancelText,
+  onCancel,
   onConfirm,
 }: {
-  onClose: () => void;
+  confirmText: string;
+  cancelText: string;
+  onCancel: () => void;
   onConfirm: () => void;
 }) => {
   return (
     <div className={styles.buttonBox}>
-      <Button className={styles.noButton} onClick={onClose}>
-        아니요
+      <Button className={styles.noButton} onClick={onCancel}>
+        {cancelText}
       </Button>
       <Button className={styles.yesButton} onClick={onConfirm}>
-        네
+        {confirmText}
       </Button>
     </div>
   );
