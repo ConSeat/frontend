@@ -23,10 +23,12 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       <body className={pretendard.className}>
         <QueryProvider>
           <PopupProvider>
-            <div className={styles.layout}>{children}</div>
+            <div className={styles.layout}>
+              {children}
+              <div id="portal"></div>
+            </div>
           </PopupProvider>
         </QueryProvider>
-        <div id="portal"></div>
       </body>
     </html>
   );
