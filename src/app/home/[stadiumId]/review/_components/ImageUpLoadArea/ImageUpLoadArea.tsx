@@ -19,6 +19,7 @@ const ImageUpLoadArea = ({
     <div>
       <input
         type="file"
+        multiple
         accept="image/*"
         style={{ display: 'none' }}
         ref={fileInputRef}

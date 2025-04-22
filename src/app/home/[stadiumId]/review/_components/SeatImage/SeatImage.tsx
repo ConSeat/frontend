@@ -1,5 +1,6 @@
 'use client';
 
+import { MAX_IMAGE_UPLOAD_NUMBER } from '../../_constants/info';
 import { REVIEW } from '../../_constants/review';
 import ImageList from '../ImageList';
 import ImageUpLoadArea from '../ImageUpLoadArea';
@@ -19,18 +20,30 @@ const SeatImage = ({ data, dispatch }: SeatImageProps) => {
   const handleFileChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.files === null) return;
 
-    const file = e.target.files[0];
-    const newImage = {
-      file,
-      previewUrl: URL.createObjectURL(file),
-    };
+    const selectedFiles = Array.from(e.target.files);
+    const remainingSlots = MAX_IMAGE_UPLOAD_NUMBER - data.length;
 
-    dispatch({
-      type: REVIEW.ACTIONS.IMAGE_UPLOAD,
-      payload: {
-        image: newImage,
-      },
+    if (selectedFiles.length > remainingSlots) {
+      alert(`최대 ${MAX_IMAGE_UPLOAD_NUMBER}장까지 업로드할 수 있어요.`); // TODO: toast로 변경
+    }
+
+    const filesToUpload = selectedFiles.slice(0, remainingSlots);
+
+    filesToUpload.forEach((file) => {
+      const newImage = {
+        file,
+        previewUrl: URL.createObjectURL(file),
+      };
+
+      dispatch({
+        type: REVIEW.ACTIONS.IMAGE_UPLOAD,
+        payload: { image: newImage },
+      });
     });
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   const handleRemoveButtonClick = (index: number) => {
