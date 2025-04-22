@@ -23,5 +23,10 @@ jobs:
       - name: 의존성 설치
         run: npm install
 
+      - name: 환경변수 주입
+        run: |
+          echo "NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_ASSETS_URL=${{ secrets.NEXT_PUBLIC_ASSETS_URL }}" >> $GITHUB_ENV
+
       - name: Next.js 빌드
         run: npm run build
