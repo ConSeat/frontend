@@ -13,6 +13,7 @@ export const reviewKeys = {
   detail: (reviewId: number) => [...reviewKeys.all, reviewId] as const,
   concertSeating: (concertId: number, seatingId: number) =>
     [...reviewKeys.all, 'concert', concertId, 'seating', seatingId] as const,
+  seating: (seatingId: number) => [...reviewKeys.all, 'seating', seatingId] as const,
 };
 
 export const stadiumKeys = {
