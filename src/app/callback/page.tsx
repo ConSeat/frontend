@@ -13,7 +13,7 @@ const OAuthCallbackPage = () => {
       onSuccess: () => router.replace('/home'), // TODO: home 말고 이전 화면으로 돌아가게 해야함
       onError: () => router.replace('/signin'),
     });
-  }, [postLoginMutation, router]);
+  }, []);
 
   return (
     <div>

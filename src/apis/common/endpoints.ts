@@ -5,6 +5,12 @@ export const API_ENDPOINTS = {
   SOCIAL_LOGIN: (socialType: SocialType) => `/auth/login/${socialType}`,
   LOGIN: '/auth/login',
 
+  // review
+  REVIEWS: '/reviews',
+  REVIEW_IMAGES: '/reviews/images',
+  REVIEWS_WITH_PARAMS: (concertId: number, seatingId: number) =>
+    `/reviews/concerts/${concertId}/seating/${seatingId}`,
+
   // stadium
   STADIUMS: '/stadiums',
   STADIUM_CONCERTS: (stadiumId: number, query?: string) =>

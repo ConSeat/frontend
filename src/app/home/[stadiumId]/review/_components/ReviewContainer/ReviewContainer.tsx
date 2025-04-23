@@ -1,6 +1,6 @@
 'use client';
 
-import { FEATURES_NONE, NONE_SELECT, OBSTRUCTIONS_NONE } from '../../_constants/info';
+import { NONE_SELECT } from '../../_constants/info';
 import { REVIEW } from '../../_constants/review';
 import ReviewForm from '../ReviewForm';
 import { useReducer } from 'react';
@@ -14,9 +14,9 @@ const createInitReviewData = (stadiumId: number): ReviewData => {
     seatingId: NONE_SELECT,
     features: [],
     images: [],
-    stageDistance: NONE_SELECT,
-    thrustStageDistance: NONE_SELECT,
-    screenDistance: NONE_SELECT,
+    stageDistance: '',
+    thrustStageDistance: '',
+    screenDistance: '',
     obstructions: [],
     contents: '',
     currentStep: 0,
@@ -50,10 +50,10 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
       let nextInfo: number[] = [];
 
-      if (feature === FEATURES_NONE) {
-        nextInfo = state.features.includes(FEATURES_NONE) ? [] : [FEATURES_NONE];
+      if (feature === NONE_SELECT) {
+        nextInfo = state.features.includes(NONE_SELECT) ? [] : [NONE_SELECT];
       } else {
-        nextInfo = state.features.filter((id) => id !== FEATURES_NONE);
+        nextInfo = state.features.filter((id) => id !== NONE_SELECT);
         nextInfo = toggleItem(nextInfo, feature);
       }
 
@@ -95,7 +95,7 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
         nextState.stageDistance,
         nextState.thrustStageDistance,
         nextState.screenDistance,
-      ].every((elem) => elem !== NONE_SELECT)
+      ].every((value) => value !== '')
         ? REVIEW.STEPS.DISTANCE_INFO_SELECT + 1
         : REVIEW.STEPS.DISTANCE_INFO_SELECT;
 
@@ -108,10 +108,10 @@ const reviewReducer = (state: ReviewData, action: ReviewAction) => {
 
       let nextInfo: number[] = [];
 
-      if (obstruction === OBSTRUCTIONS_NONE) {
-        nextInfo = state.obstructions.includes(OBSTRUCTIONS_NONE) ? [] : [OBSTRUCTIONS_NONE];
+      if (obstruction === NONE_SELECT) {
+        nextInfo = state.obstructions.includes(NONE_SELECT) ? [] : [NONE_SELECT];
       } else {
-        nextInfo = state.obstructions.filter((id) => id !== OBSTRUCTIONS_NONE);
+        nextInfo = state.obstructions.filter((id) => id !== NONE_SELECT);
         nextInfo = toggleItem(nextInfo, obstruction);
       }
       return updateState(state, {

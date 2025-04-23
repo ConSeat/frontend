@@ -27,6 +27,7 @@ const initPopupData = {
   onConfirm: () => {},
   onCancel: undefined,
 };
+
 const PopupContext = createContext<PopupContext | undefined>(undefined);
 
 export const PopupProvider = ({ children }: { children: ReactNode }) => {
@@ -44,10 +45,6 @@ export const PopupProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const hidePopup = () => {
-    if (popupData.onCancel) {
-      popupData.onCancel();
-    }
-
     setIsModalOpen(false);
     setPopupData(initPopupData);
   };
@@ -68,7 +65,10 @@ export const PopupProvider = ({ children }: { children: ReactNode }) => {
                   popupData.onConfirm();
                   hidePopup();
                 }}
-                onCancel={hidePopup}
+                onCancel={() => {
+                  popupData.onCancel?.();
+                  hidePopup();
+                }}
               />
             </Popup>
           </Modal>

@@ -1,6 +1,6 @@
+import ClientHeaderWrapper from './_components/ClientHeaderWrapper/ClientHeaderWrapper';
 import styles from './page.module.scss';
 import { ReactNode } from 'react';
-import Header from '@/components/Header/Header';
 import { ALL_STADIUM_INFO, STADIUM_INFO } from '@/constants/stadium';
 
 interface StadiumId {
@@ -36,7 +36,7 @@ const StadiumLayout = async ({ children, params }: StadiumLayoutProps) => {
 
   return (
     <div className={styles.stadiumLayout}>
-      <Header stadiumId={stadiumId} />
+      <ClientHeaderWrapper stadiumId={stadiumId} />
       {children}
     </div>
   );

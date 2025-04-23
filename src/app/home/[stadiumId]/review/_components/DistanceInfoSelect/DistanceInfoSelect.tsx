@@ -2,16 +2,16 @@ import { REVIEW } from '../../_constants/review';
 import ReviewRadioButton from '../ReviewRadioButton';
 import styles from './DistanceInfoSelect.module.scss';
 import React from 'react';
-import { type DistanceInfoKey, ReviewDispatch } from '@/types/review';
+import { type DistanceInfoKey, type DistanceValue, ReviewDispatch } from '@/types/review';
 
 interface DistanceInfoSelectProps {
   name: DistanceInfoKey;
-  options: readonly string[];
+  options: readonly { value: DistanceValue; name: string }[];
   dispatch: ReviewDispatch;
 }
 
 const DistanceInfoSelect = ({ name, options, dispatch }: DistanceInfoSelectProps) => {
-  const handleChangeInput = (key: DistanceInfoKey, value: number) => {
+  const handleChangeInput = (key: DistanceInfoKey, value: DistanceValue) => {
     dispatch({
       type: REVIEW.ACTIONS.DISTANCE_INFO_SELECT,
       payload: { [key]: value },
@@ -21,13 +21,13 @@ const DistanceInfoSelect = ({ name, options, dispatch }: DistanceInfoSelectProps
   return (
     <div className={styles.distanceLayout}>
       <div className={styles.radioGroup}>
-        {options.map((option, valueIdx) => (
+        {options.map((option, index) => (
           <ReviewRadioButton
-            key={valueIdx}
+            key={option.value}
             name={name}
-            value={option}
-            onChange={() => handleChangeInput(name, valueIdx)}
-            isLastLabel={valueIdx === options.length - 1}
+            value={option.name}
+            onChange={() => handleChangeInput(name, option.value)}
+            isLastLabel={index === options.length - 1}
           />
         ))}
       </div>

@@ -34,9 +34,6 @@ const HomeClient = () => {
         <StadiumNavigation navigationType="active" data={data?.data.active} />
         <StadiumNavigation navigationType="inactive" data={data?.data.inactive} />
       </main>
-
-      <Icon icon="HomeC" className={styles.svgC} />
-      <Icon icon="LargeO" className={styles.svgO} />
     </div>
   );
 };

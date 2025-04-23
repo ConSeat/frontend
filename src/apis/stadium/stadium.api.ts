@@ -1,14 +1,15 @@
 import { API_ENDPOINTS } from '../common/endpoints';
 import api from '../common/universalApi';
 import MESSAGES from '@/constants/message';
+import type {
+  Floor,
+  StadiumConcertInfo,
+  StadiumFeatureInfo,
+  StadiumInfo,
+  StadiumObstructionInfo,
+} from '@/types/stadium';
 
 // 콘서트장 목록 조회
-export interface StadiumInfo {
-  stadiumId: number;
-  stadiumName: string;
-  stadiumImage: string;
-}
-
 export interface StadiumListResponse {
   totalReviewCount: number;
   active: StadiumInfo[];
@@ -24,11 +25,6 @@ export const getStadiumList = async () => {
 };
 
 // 콘서트 목록 조회
-export interface StadiumConcertInfo {
-  concertId: number;
-  concertName: string;
-}
-
 export interface StadiumConcertsResponse {
   concerts: StadiumConcertInfo[];
 }
@@ -42,28 +38,8 @@ export const getStadiumConcerts = async (stadiumId: number, query?: string) => {
 };
 
 // 콘서트장 좌석 조회
-export interface Seat {
-  seatingId: number;
-  name: string;
-}
-
-export interface Section {
-  name: string;
-  seats: Seat[];
-}
-
-export interface Floor {
-  name: string;
-  sections: Section[];
-}
-
 export interface StadiumSeatingResponse {
-  header: {
-    message: string;
-  };
-  body: {
-    floors: Floor[];
-  };
+  floors: Floor[];
 }
 
 export const getStadiumSeats = async (stadiumId: number) => {
@@ -75,11 +51,6 @@ export const getStadiumSeats = async (stadiumId: number) => {
 };
 
 // 콘서트장 특징 조회
-export interface StadiumFeatureInfo {
-  featureId: number;
-  name: string;
-}
-
 export interface StadiumFeaturesResponse {
   features: StadiumFeatureInfo[];
 }
@@ -93,11 +64,6 @@ export const getStadiumFeatures = async () => {
 };
 
 // 콘서트장 방해요소 조회
-export interface StadiumObstructionInfo {
-  obstructionId: number;
-  name: string;
-}
-
 export interface StadiumObstructionsResponse {
   obstructions: StadiumObstructionInfo[];
 }

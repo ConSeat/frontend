@@ -1,8 +1,8 @@
 import StadiumList from '../StadiumList';
 import styles from './StadiumNavigation.module.scss';
 import classNames from 'classnames';
-import type { StadiumInfo } from '@/apis/stadium/stadium.api';
 import { STADIUM_INFO } from '@/constants/stadium';
+import type { StadiumInfo } from '@/types/stadium';
 
 interface StadiumNavigationProps {
   navigationType: keyof typeof STADIUM_INFO;

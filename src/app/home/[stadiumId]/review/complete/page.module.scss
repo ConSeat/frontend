@@ -1,0 +1,34 @@
+@import '@/styles/style';
+
+.completeContainer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.completeWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  margin: auto;
+}
+
+.completeText {
+  @include subtitle-1;
+
+  color: $sub-gray2;
+}
+
+.completeLink {
+  @include body-2;
+
+  color: $sub-gray4;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

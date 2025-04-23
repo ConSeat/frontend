@@ -6,8 +6,8 @@ import ReviewDropdownInput from '../ReviewDropdownInput/ReviewDropdownInput';
 import { useEffect, useState } from 'react';
 import useDebounce from '@/hooks/common/useDebounce';
 import { useFetchStadiumConcerts } from '@/hooks/queries/useFetchStadium';
-import type { StadiumConcertInfo } from '@/apis/stadium/stadium.api';
 import { ReviewDispatch } from '@/types/review';
+import type { StadiumConcertInfo } from '@/types/stadium';
 
 interface ConcertSelectProps {
   stadiumId: number;
@@ -32,6 +32,10 @@ const ConcertSelect = ({ stadiumId, dispatch }: ConcertSelectProps) => {
   const handleInputChange = (value: string) => {
     setInputValue(value);
     setSelectedId(NONE_SELECT);
+    dispatch({
+      type: REVIEW.ACTIONS.CONCERT_SELECT,
+      payload: { concertId: NONE_SELECT },
+    });
   };
 
   const handleSelect = (concert: StadiumConcertInfo) => {
