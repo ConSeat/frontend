@@ -33,7 +33,7 @@ const DetailReviewModal = ({ reviewStatus, closeModal }: DetailReviewModalProps)
               writerSrc={'/logo/google.svg'}
               createdAt={'2주전'}
               writerNickname={'호빵맨'}
-              likeNumber={0}
+              likesCount={0}
               isBookmarked={false}
               isLiked={false}
               handleClickMore={() => {}}

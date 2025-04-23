@@ -18,8 +18,6 @@ const SingleResult = ({ stadiumId }) => {
 
   if (!data) return null;
 
-  console.log(data);
-
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
     alert('링크가 복사되었습니다!');

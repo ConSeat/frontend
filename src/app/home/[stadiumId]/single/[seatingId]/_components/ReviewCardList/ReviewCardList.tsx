@@ -24,7 +24,7 @@ const ReviewCardList = ({ reviews }: ReviewCardListProps) => {
             images,
             isBookmarked,
             isLiked,
-            likeNumber,
+            likesCount,
             obstructions,
             writerNickname,
             writerSrc,
@@ -32,7 +32,7 @@ const ReviewCardList = ({ reviews }: ReviewCardListProps) => {
             return (
               <ReviewCard
                 key={reviewId}
-                images={images}
+                images={['/images/jamsil-arena.jpg']}
                 features={features}
                 obstructions={obstructions}
                 concertName={concertName}
@@ -40,7 +40,7 @@ const ReviewCardList = ({ reviews }: ReviewCardListProps) => {
                 writerSrc={writerSrc}
                 createdAt={createdAt}
                 writerNickname={writerNickname}
-                likeNumber={likeNumber}
+                likesCount={likesCount}
                 isBookmarked={isBookmarked}
                 isLiked={isLiked}
                 handleClickMore={() => {}}

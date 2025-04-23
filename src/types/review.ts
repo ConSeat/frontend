@@ -69,7 +69,7 @@ export interface SeatingReview {
   writerSrc: string;
   createdAt: string;
   writerNickname: string;
-  likeNumber: number;
+  likesCount: number;
   isBookmarked: boolean;
   isLiked: boolean;
 }
