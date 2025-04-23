@@ -28,7 +28,11 @@ const SingleResult = ({ stadiumId }) => {
 
   return (
     <div className={styles.singleResultStepLayout}>
-      <div>
+      <div
+        style={{
+          padding: '0 24px',
+        }}
+      >
         <PageExplanation>
           <PageExplanation.Title>
             <Highlight variant="background">
@@ -39,16 +43,21 @@ const SingleResult = ({ stadiumId }) => {
             본무대, 돌출, 전광판 모두 잘보여요
           </PageExplanation.Title>
         </PageExplanation>
+      </div>
 
-        <Spacing size={24} />
-        <ImageSlide
-          imageSrcArray={['/images/jamsil-arena.jpg', '/images/jamsil-arena.jpg']}
-          currentIndex={imageIndex}
-          height={240}
-          onNext={handleClickNext}
-          onPrev={handleClickPrev}
-        />
-
+      <Spacing size={24} />
+      <ImageSlide
+        imageSrcArray={['/images/jamsil-arena.jpg', '/images/jamsil-arena.jpg']}
+        currentIndex={imageIndex}
+        height={240}
+        onNext={handleClickNext}
+        onPrev={handleClickPrev}
+      />
+      <div
+        style={{
+          padding: '0 24px',
+        }}
+      >
         <Spacing size={52} />
         <ReviewCardList reviews={data.reviews} />
         <Spacing size={52} />
@@ -59,11 +68,12 @@ const SingleResult = ({ stadiumId }) => {
           onSave={() => {}}
           isLogin={true}
         />
+
+        <Spacing size={52} />
+        <ButtonContainer>
+          <Button onClick={() => router.push(`/home/${stadiumId}`)}>검색 완료</Button>
+        </ButtonContainer>
       </div>
-      <Spacing size={52} />
-      <ButtonContainer>
-        <Button onClick={() => router.push(`/home/${stadiumId}`)}>검색 완료</Button>
-      </ButtonContainer>
     </div>
   );
 };
