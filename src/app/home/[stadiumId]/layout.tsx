@@ -8,7 +8,7 @@ import type { StadiumInfo } from '@/types/stadium';
 
 interface StadiumLayoutProps {
   children: ReactNode;
-  params: { stadiumId: string };
+  params: Promise<{ stadiumId: string }>;
 }
 
 export async function generateStaticParams() {
@@ -24,7 +24,7 @@ export async function generateStaticParams() {
 export const dynamicParams = false;
 
 const StadiumLayout = async ({ children, params }: StadiumLayoutProps) => {
-  const stadiumId = Number(params.stadiumId);
+  const stadiumId = Number((await params).stadiumId);
   const { data } = await getStadiumList();
 
   const activeStadium = data.active?.find((s: StadiumInfo) => s.stadiumId === stadiumId);
