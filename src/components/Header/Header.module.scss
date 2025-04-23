@@ -2,16 +2,25 @@
 
 .header {
   display: flex;
-  flex-shrink: 0;
-  gap: 10px;
   align-items: center;
   justify-content: space-between;
 
-  width: 100%;
   height: 56px;
   padding: 12px 24px;
 }
 
-.headerTitle {
+.left,
+.right {
+  display: flex;
+  align-items: center;
+  min-width: 32px;
+}
+
+.title {
   @include subtitle-1;
+
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
 }

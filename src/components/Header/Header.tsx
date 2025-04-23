@@ -1,27 +1,19 @@
 'use client';
 
-import Icon from '../Icon/Icon';
-import Spacing from '../Spacing/Spacing';
 import styles from './Header.module.scss';
-import { useRouter } from 'next/navigation';
-import type { StadiumInfo } from '@/types/stadium';
 
 interface HeaderProps {
-  stadium: StadiumInfo;
+  left?: React.ReactNode;
+  title?: string;
+  right?: React.ReactNode;
 }
 
-const Header = ({ stadium }: HeaderProps) => {
-  const router = useRouter();
-
-  const handlePrevPage = () => {
-    router.back();
-  };
-
+const Header = ({ title, left, right }: HeaderProps) => {
   return (
     <header className={styles.header}>
-      <Icon icon="LeftArrow" onClick={handlePrevPage} />
-      <h1 className={styles.headerTitle}>{stadium.stadiumName}</h1>
-      <Spacing direction="horizontal" size={32} />
+      <div className={styles.left}>{left}</div>
+      <h1 className={styles.title}>{title}</h1>
+      <div className={styles.right}>{right}</div>
     </header>
   );
 };
