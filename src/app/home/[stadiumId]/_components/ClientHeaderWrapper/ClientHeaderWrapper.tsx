@@ -9,11 +9,16 @@ interface Props {
   stadium: StadiumInfo;
 }
 
+const hiddenPathPatterns = [
+  /^\/home\/[^/]+\/single\/[^/]+\/detail$/, // 상세 후기
+  /^\/home\/[^/]+\/review\/complete$/, // 리뷰 작성 완료
+];
+
 const ClientHeaderWrapper = ({ stadium }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const isHeaderHidden = pathname.includes('/review/complete');
+  const isHeaderHidden = hiddenPathPatterns.some((regex) => regex.test(pathname));
 
   if (isHeaderHidden) return null;
 
