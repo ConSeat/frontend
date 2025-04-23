@@ -39,6 +39,7 @@ const SingleResult = ({ stadiumId }) => {
 
         <Spacing size={52} />
         <ReviewCardList reviews={data.reviews} />
+        <Spacing size={52} />
         <ShareArea
           onCopy={handleCopyLink}
           onShareKakao={() => {}}
@@ -47,6 +48,7 @@ const SingleResult = ({ stadiumId }) => {
           isLogin={true}
         />
       </div>
+      <Spacing size={52} />
       <ButtonContainer>
         <Button onClick={() => router.push(`/home/${stadiumId}`)}>검색 완료</Button>
       </ButtonContainer>

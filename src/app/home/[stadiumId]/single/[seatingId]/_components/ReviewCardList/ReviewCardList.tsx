@@ -1,4 +1,5 @@
-import React from 'react';
+import styles from './ReviewCardList.module.scss';
+import Button from '@/components/Button/Button';
 import ReviewCard from '@/components/ReviewCard';
 import { SeatingReview } from '@/types/review';
 
@@ -8,10 +9,13 @@ interface ReviewCardListProps {
 
 const ReviewCardList = ({ reviews }: ReviewCardListProps) => {
   return (
-    <div>
-      <div>
-        <div>상세후기 {reviews.length}</div>
-        <div>더보기 {'>'}</div>
+    <div className={styles.reviewsContainer}>
+      <div className={styles.reviewsHeader}>
+        <div className={styles.titleContainer}>
+          <div className={styles.title}>상세후기</div>
+          <div className={styles.reviewNumber}>{reviews.length}</div>
+        </div>
+        <Button className={styles.moreButton}>더보기 {'>'}</Button>
       </div>
       <div>
         {reviews.map(
