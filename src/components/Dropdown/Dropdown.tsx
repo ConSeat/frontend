@@ -2,7 +2,7 @@
 
 import styles from './Dropdown.module.scss';
 import classNames from 'classnames';
-import React, { type HTMLAttributes, ReactNode } from 'react';
+import React, { type HTMLAttributes, ReactNode, type Ref } from 'react';
 
 interface DropdownProps {
   className?: string;
@@ -39,15 +39,16 @@ interface DropdownModalProps extends HTMLAttributes<HTMLDivElement> {
   isOpen: boolean;
   controls?: ReactNode;
   children: ReactNode;
+  ref?: Ref<HTMLDivElement>;
 }
 
-const DropdownModal = ({ isOpen, controls, children, ...props }: DropdownModalProps) => {
+const DropdownModal = ({ isOpen, controls, children, ref, ...props }: DropdownModalProps) => {
   if (!isOpen) return null;
 
   return (
     <div className={styles.overlayWrapper}>
       <div className={styles.overlay} />
-      <div className={styles.modalContent} {...props}>
+      <div ref={ref} className={styles.modalContent} {...props}>
         {children}
         {controls && <>{controls}</>}
       </div>
