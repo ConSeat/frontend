@@ -4,6 +4,7 @@ import ReviewCardList from '../ReviewCardList';
 import ReviewThumbnail from '../ReviewThumnail';
 import SearchEndButton from '../SearchEndButton';
 import styles from './SingleResult.module.scss';
+import { notFound } from 'next/navigation';
 import React from 'react';
 import { useFetchSeating } from '@/hooks/queries/useFetchSeatingReview';
 import Highlight from '@/components/Highlight/Highlight';
@@ -14,7 +15,9 @@ import Spacing from '@/components/Spacing/Spacing';
 const SingleResult = ({ stadiumId, seatingId }) => {
   const { data } = useFetchSeating(seatingId);
 
-  if (!data) return null;
+  if (!data) {
+    notFound();
+  }
 
   return (
     <div className={styles.singleResultStepLayout}>
