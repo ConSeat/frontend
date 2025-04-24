@@ -5,7 +5,7 @@ import { SeatingReview } from '@/types/review';
 
 interface SeatingReviews {
   reviews: SeatingReview[];
-  floorName: string | null;
+  floorName: string;
   sectionName: string;
   seatingName: string | null;
   distanceMessage: string;
