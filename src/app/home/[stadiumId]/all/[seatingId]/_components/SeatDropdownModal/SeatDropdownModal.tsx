@@ -51,13 +51,6 @@ const SeatDropdownModal = ({
       section: '',
       seatingId: initSeatingId,
     });
-
-    dispatch({
-      type: 'SEATING',
-      payload: {
-        seatingId: initSeatingId,
-      },
-    });
   };
 
   const handleConfirmButton = () => {
