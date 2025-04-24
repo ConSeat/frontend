@@ -36,7 +36,7 @@ const ReviewCardList = ({ reviews }: ReviewCardListProps) => {
             return (
               <ReviewCard
                 key={reviewId}
-                images={['/images/jamsil-arena.jpg']}
+                images={images}
                 features={features}
                 obstructions={obstructions}
                 concertName={concertName}
