@@ -7,10 +7,16 @@ import Dropdown from '@/components/Dropdown/Dropdown';
 import Icon from '@/components/Icon/Icon';
 import Splitter from '@/components/Splitter/Splitter';
 
+interface DropdownOption {
+  label: string;
+  value: string;
+  disabled?: boolean;
+}
+
 interface SeatDropdownProps {
   value: string;
   onChange: (value: string) => void;
-  options: string[];
+  options: DropdownOption[];
   placeholder: string;
   disabled?: boolean;
 }
@@ -39,16 +45,20 @@ const SeatDropdown = ({ value, onChange, options, placeholder, disabled }: SeatD
       {isDropdownOpen && (
         <Dropdown.Menu className={styles.seatDropdownMenu}>
           {options.map((option, index) => (
-            <div key={option} className={styles.seatDropdownItemWrapper}>
+            <div key={option.value} className={styles.seatDropdownItemWrapper}>
               <Dropdown.Item
-                className={styles.seatDropdownItem}
-                isSelected={value === option}
+                className={classNames(styles.seatDropdownItem, {
+                  [styles.disabled]: option.disabled,
+                })}
+                isSelected={value === option.value}
                 onClick={() => {
-                  onChange(option);
-                  handleToggleDropdown();
+                  if (!option.disabled) {
+                    onChange(option.value);
+                    handleToggleDropdown();
+                  }
                 }}
               >
-                {option}
+                {option.label}
               </Dropdown.Item>
               {index !== options.length - 1 && <Splitter color="sub-gray6" />}
             </div>

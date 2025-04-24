@@ -62,4 +62,9 @@
   color: $sub-gray2;
 
   @include body-2;
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.2;
+  }
 }

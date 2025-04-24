@@ -6,35 +6,42 @@ import SeatDropdown from '../SeatDropdown/SeatDropdown';
 import styles from './SeatDropdownModal.module.scss';
 import { useState } from 'react';
 import { useFetchSeating } from '@/hooks/queries/useFetchSeatingReview';
-import { useFetchStadiumSeats } from '@/hooks/queries/useFetchStadium';
+import {
+  useFetchStadiumSectionSeating,
+  useFetchStadiumSections,
+} from '@/hooks/queries/useFetchStadium';
 import { FLOOR, NONE_SELECT } from '@/app/home/[stadiumId]/review/_constants/info';
+import type { SeatWithReviewCount } from '@/types/stadium';
 
 interface SeatDropdownModalProps {
-  seatingIdData: number;
+  seatingIdState: number;
   dispatch: React.Dispatch<FilterAction>;
   stadiumId: number;
   initSeatingId: number;
 }
 
 const SeatDropdownModal = ({
-  seatingIdData,
+  seatingIdState,
   dispatch,
   stadiumId,
   initSeatingId,
 }: SeatDropdownModalProps) => {
   const [seatInfo, setSeatInfo] = useState({
     floor: '',
-    section: '',
-    seatingId: seatingIdData,
+    sectionId: NONE_SELECT,
+    seatingId: seatingIdState,
   });
-  const { data: seats } = useFetchStadiumSeats(stadiumId);
-  const { data: fetchedInfo } = useFetchSeating(seatingIdData);
+  const { data: sectionData } = useFetchStadiumSections(stadiumId);
+  const { data: sectionSeatingData } = useFetchStadiumSectionSeating(
+    seatInfo.sectionId,
+    seatInfo.sectionId !== NONE_SELECT,
+  );
+  const { data: fetchedInfo } = useFetchSeating(seatingIdState);
 
-  const fetchedSeats = seats?.data.floors || [];
+  const fetchedSeats = sectionData?.data.floors || [];
   const availableSections =
     fetchedSeats.find((floor) => floor.name === seatInfo.floor)?.sections || [];
-  const availableSeating =
-    availableSections.find((section) => section.name === seatInfo.section)?.seats || [];
+  const availableSeating = sectionSeatingData?.data.seating || [];
 
   const label = fetchedInfo
     ? `${fetchedInfo.floorName} / ${fetchedInfo.sectionName}${fetchedInfo.seatingName ? ' / ' + fetchedInfo.seatingName : ''}`
@@ -48,7 +55,7 @@ const SeatDropdownModal = ({
   const handleResetButton = () => {
     setSeatInfo({
       floor: '',
-      section: '',
+      sectionId: NONE_SELECT,
       seatingId: initSeatingId,
     });
   };
@@ -65,7 +72,7 @@ const SeatDropdownModal = ({
   return (
     <DetailDropdownModal
       label={label}
-      isSelected={!!seatingIdData}
+      isSelected={!!seatingIdState}
       title="좌석선택"
       subTitle="후기가 0개인 열은 선택할 수 없어요😭"
       onReset={handleResetButton}
@@ -75,39 +82,68 @@ const SeatDropdownModal = ({
         <SeatDropdown
           value={seatInfo.floor}
           onChange={(floorName) =>
-            handleSeatInfoSelect({ floor: floorName, section: '', seatingId: NONE_SELECT })
+            handleSeatInfoSelect({
+              floor: floorName,
+              sectionId: NONE_SELECT,
+              seatingId: NONE_SELECT,
+            })
           }
-          options={fetchedSeats.map((floor) => floor.name)}
+          options={fetchedSeats.map((floor) => ({
+            label: floor.name,
+            value: floor.name,
+          }))}
           placeholder="층"
         />
 
         <SeatDropdown
-          value={seatInfo.section}
+          value={
+            availableSections.find((section) => section.sectionId === seatInfo.sectionId)?.name ||
+            ''
+          }
           onChange={(sectionName) => {
             if (seatInfo.floor === FLOOR) {
               const section = availableSections.find((s) => s.name === sectionName);
-              const seatingId = section?.seats?.[0]?.seatingId ?? NONE_SELECT;
-              handleSeatInfoSelect({ section: sectionName, seatingId });
+              handleSeatInfoSelect({
+                sectionId: section?.sectionId,
+                seatingId: section?.sectionId,
+              });
             } else {
-              handleSeatInfoSelect({ section: sectionName, seatingId: NONE_SELECT });
+              const section = availableSections.find((s) => s.name === sectionName);
+              handleSeatInfoSelect({
+                sectionId: section?.sectionId,
+                seatingId: NONE_SELECT,
+              });
             }
           }}
-          options={availableSections.map((section) => section.name)}
+          options={availableSections.map((section) => ({
+            label: section.name,
+            value: section.name,
+          }))}
           placeholder="구역"
           disabled={!seatInfo.floor}
         />
 
         <SeatDropdown
-          value={availableSeating.find((seat) => seat.seatingId === seatInfo.seatingId)?.name || ''}
+          value={
+            availableSeating.find(
+              (seat: SeatWithReviewCount) => seat.seatingId === seatInfo.seatingId,
+            )?.name || ''
+          }
           onChange={(seatingName) => {
-            const seating = availableSeating.find((seat) => seat.name === seatingName);
+            const seating = availableSeating.find(
+              (seat: SeatWithReviewCount) => seat.name === seatingName,
+            );
             if (seating) {
               handleSeatInfoSelect({ seatingId: seating.seatingId });
             }
           }}
-          options={availableSeating.map((seat) => seat.name)}
+          options={availableSeating.map((seat) => ({
+            label: seat.name,
+            value: seat.name,
+            disabled: seat.reviewCount === 0,
+          }))}
           placeholder="열"
-          disabled={seatInfo.floor == FLOOR || !seatInfo.section}
+          disabled={seatInfo.floor === FLOOR || seatInfo.sectionId === NONE_SELECT}
         />
       </div>
     </DetailDropdownModal>

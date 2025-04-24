@@ -28,7 +28,7 @@ const AllReviewContent = ({
     <div>
       <div className={styles.searchFilterContainer}>
         <SeatDropdownModal
-          seatingIdData={filterData.seatingId}
+          seatingIdState={filterData.seatingId}
           dispatch={dispatch}
           stadiumId={stadiumId}
           initSeatingId={seatingId}

@@ -30,4 +30,7 @@ export const stadiumKeys = {
   seats: (stadiumId: number) => [...stadiumKeys.all, stadiumId] as const,
   features: () => [...stadiumKeys.all, 'features'] as const,
   obstructions: () => [...stadiumKeys.all, 'obstructions'] as const,
+  sections: (stadiumId: number) => [...stadiumKeys.all, stadiumId, 'sections'] as const,
+  sectionSeating: (sectionId: number) =>
+    [...stadiumKeys.all, 'sections', sectionId, 'seating'] as const,
 };

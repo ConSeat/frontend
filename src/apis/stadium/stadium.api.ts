@@ -3,6 +3,7 @@ import api from '../common/universalApi';
 import MESSAGES from '@/constants/message';
 import type {
   Floor,
+  SeatWithReviewCount,
   StadiumConcertInfo,
   StadiumFeatureInfo,
   StadiumInfo,
@@ -72,6 +73,33 @@ export const getStadiumObstructions = async () => {
   const { data } = await api.get<StadiumObstructionsResponse>({
     endpoint: API_ENDPOINTS.STADIUM_OBSTRUCTIONS,
     errorMessage: MESSAGES.ERROR.GET_STADIUM_OBSTRUCTIONS,
+  });
+  return { data: data.body };
+};
+
+// 구역 리스트 조회
+export interface StadiumSectionsResponse {
+  floors: Floor[];
+}
+
+export const getStadiumSections = async (stadiumId: number) => {
+  const { data } = await api.get<StadiumSectionsResponse>({
+    endpoint: `/stadiums/${stadiumId}/sections`,
+    errorMessage: MESSAGES.ERROR.GET_STADIUM_SECTIONS,
+  });
+  return { data: data.body };
+};
+
+// 좌석(열) 리스트 조회
+export interface SectionSeatingsResponse {
+  seating: SeatWithReviewCount[];
+  sectionInfo: string;
+}
+
+export const getSectionSeatings = async (sectionId: number) => {
+  const { data } = await api.get<SectionSeatingsResponse>({
+    endpoint: `/stadiums/sections/${sectionId}/seating`,
+    errorMessage: MESSAGES.ERROR.GET_SECTION_SEATINGS,
   });
   return { data: data.body };
 };
