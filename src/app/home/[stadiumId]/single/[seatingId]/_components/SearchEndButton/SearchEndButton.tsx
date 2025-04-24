@@ -20,10 +20,10 @@ const SearchEndButton = ({ stadiumId }: SearchEndButtonProps) => {
 
   return (
     <div className={styles.btnContainer}>
-      <Button variant="secondary" onClick={handleSearchEnd}>
-        검색 종료
+      <Button variant="secondary" onClick={handleSearchRe}>
+        다시 검색하기
       </Button>
-      <Button onClick={handleSearchRe}>다시 검색하기</Button>
+      <Button onClick={handleSearchEnd}>검색 종료</Button>
     </div>
   );
 };
