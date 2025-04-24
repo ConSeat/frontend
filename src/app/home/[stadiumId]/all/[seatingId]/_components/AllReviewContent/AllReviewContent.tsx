@@ -1,4 +1,5 @@
 import type { FilterAction, FilterState } from '../AllReviewContainer/AllReviewContainer';
+import FeatureDropdownModal from '../FeatureDropdownModal/FeatureDropdownModal';
 import SeatDropdownModal from '../SeatDropdownModal/SeatDropdownModal';
 import styles from './AllReviewContent.module.scss';
 import { type Dispatch } from 'react';
@@ -19,6 +20,8 @@ const AllReviewContent = ({
 }: AllReviewContentProps) => {
   const { data: filteredList } = useFetchAllReviewList(filterData.seatingId, filterData);
 
+  console.log(filteredList);
+
   return (
     <div>
       <div className={styles.searchFilterContainer}>
@@ -28,6 +31,7 @@ const AllReviewContent = ({
           stadiumId={stadiumId}
           initSeatingId={seatingId}
         />
+        <FeatureDropdownModal features={filterData.features} dispatch={dispatch} />
       </div>
     </div>
   );

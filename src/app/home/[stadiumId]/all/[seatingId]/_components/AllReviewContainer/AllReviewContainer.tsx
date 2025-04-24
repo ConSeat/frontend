@@ -3,7 +3,6 @@
 import AllReviewContent from '../AllReviewContent/AllReviewContent';
 import React, { useReducer } from 'react';
 import type { ListSort } from '@/types/review';
-import { toggleItem } from '@/utils/toggleItem';
 
 export interface FilterState {
   stadiumId: number;
@@ -16,8 +15,8 @@ export interface FilterState {
 
 export type FilterAction =
   | { type: 'SEATING'; payload: { seatingId: number } }
-  | { type: 'FEATURES'; payload: { feature: number } }
-  | { type: 'OBSTRUCTIONS'; payload: { obstruction: number } }
+  | { type: 'FEATURES'; payload: { features: number[] } }
+  | { type: 'OBSTRUCTIONS'; payload: { obstructions: number[] } }
   | { type: 'LAST_REVIEW_ID'; payload: { lastReviewId: number } }
   | { type: 'SORT'; payload: { sort: ListSort } };
 
@@ -59,12 +58,12 @@ const filterReducer = (state: FilterState, action: FilterAction): FilterState =>
 
     case 'FEATURES':
       return updateState(state, {
-        features: toggleItem(state.features, action.payload.feature),
+        features: action.payload.features,
       });
 
     case 'OBSTRUCTIONS':
       return updateState(state, {
-        obstructions: toggleItem(state.obstructions, action.payload.obstruction),
+        obstructions: action.payload.obstructions,
       });
 
     case 'LAST_REVIEW_ID':
