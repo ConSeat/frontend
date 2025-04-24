@@ -1,0 +1,11 @@
+@import '@/styles/style';
+
+.modalContentContainer {
+  display: flex;
+  flex-grow: 1;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  width: 100%;
+}

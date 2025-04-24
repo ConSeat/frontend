@@ -1,6 +1,6 @@
 'use client';
 
-import ReviewDetailContent from '../ReviewDetailContent/ReviewDetailContent';
+import ReviewDetailContent from '../AllReviewContent/AllReviewContent';
 import React, { useReducer } from 'react';
 import { toggleItem } from '@/utils/toggleItem';
 
@@ -33,7 +33,7 @@ const createInitFilterData = (stadiumId: number, seatingId: number) => {
   return initData;
 };
 
-export interface ReviewDetailContainerProps {
+export interface AllReviewContainerProps {
   stadiumId: number;
   seatingId: number;
 }
@@ -77,7 +77,7 @@ const filterReducer = (state: FilterState, action: FilterAction): FilterState =>
   }
 };
 
-const ReviewDetailContainer = ({ stadiumId, seatingId }: ReviewDetailContainerProps) => {
+const AllReviewContainer = ({ stadiumId, seatingId }: AllReviewContainerProps) => {
   const [state, dispatch] = useReducer(filterReducer, createInitFilterData(stadiumId, seatingId));
 
   return (
@@ -90,4 +90,4 @@ const ReviewDetailContainer = ({ stadiumId, seatingId }: ReviewDetailContainerPr
   );
 };
 
-export default ReviewDetailContainer;
+export default AllReviewContainer;

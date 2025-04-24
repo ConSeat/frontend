@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './SeatDropdownModal.module.scss';
+import styles from './SeatDropdown.module.scss';
 import classNames from 'classnames';
 import useDropdown from '@/hooks/common/useDropdown';
 import Dropdown from '@/components/Dropdown/Dropdown';

@@ -1,5 +1,5 @@
-import ReviewDetailContainer from './_components/ReviewDetailContainer/ReviewDetailContainer';
-import ReviewDetailHeader from './_components/ReviewDetailHeader/ReviewDetailHeader';
+import ReviewDetailContainer from './_components/AllReviewContainer/AllReviewContainer';
+import AllReviewHeader from './_components/AllReviewHeader/AllReviewHeader';
 import React from 'react';
 import Splitter from '@/components/Splitter/Splitter';
 
@@ -8,7 +8,7 @@ const SingleDetailPage = async ({ params }) => {
 
   return (
     <div>
-      <ReviewDetailHeader />
+      <AllReviewHeader />
       <Splitter color="sub-gray8" />
       <ReviewDetailContainer stadiumId={stadiumId} seatingId={seatingId} />
     </div>

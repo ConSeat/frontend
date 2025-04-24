@@ -1,17 +1,5 @@
 @import '@/styles/style';
 
-// SeatDropdownModal
-.modalContentContainer {
-  display: flex;
-  flex-grow: 1;
-  gap: 10px;
-  align-items: flex-start;
-  justify-content: space-between;
-
-  width: 100%;
-}
-
-// SeatDropdown
 .seatDropdownTrigger {
   display: flex;
   align-items: center;

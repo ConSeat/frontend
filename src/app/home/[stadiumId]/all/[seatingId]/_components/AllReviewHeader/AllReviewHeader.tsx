@@ -5,7 +5,7 @@ import React from 'react';
 import Header from '@/components/Header/Header';
 import Icon from '@/components/Icon/Icon';
 
-const ReviewDetailHeader = () => {
+const AllReviewHeader = () => {
   const router = useRouter();
 
   return (
@@ -16,4 +16,4 @@ const ReviewDetailHeader = () => {
   );
 };
 
-export default ReviewDetailHeader;
+export default AllReviewHeader;

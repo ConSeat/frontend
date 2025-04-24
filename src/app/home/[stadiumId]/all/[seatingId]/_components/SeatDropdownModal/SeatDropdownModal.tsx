@@ -1,11 +1,11 @@
 'use client';
 
-import DetailDropdownModal from '../DetailDropdownModal/DetailDropdownModal';
-import type { FilterAction } from '../ReviewDetailContainer/ReviewDetailContainer';
-import SeatDropdown from './SeatDropdown';
+import DetailDropdownModal from '../AllDropdownModal/AllDropdownModal';
+import type { FilterAction } from '../AllReviewContainer/AllReviewContainer';
+import SeatDropdown from '../SeatDropdown/SeatDropdown';
 import styles from './SeatDropdownModal.module.scss';
-import { useSeatingInfo } from './useSeatingInfo';
 import { useState } from 'react';
+import { useFetchSeating } from '@/hooks/queries/useFetchSeatingReview';
 import { useFetchStadiumSeats } from '@/hooks/queries/useFetchStadium';
 import { FLOOR, NONE_SELECT } from '@/app/home/[stadiumId]/review/_constants/info';
 
@@ -28,7 +28,7 @@ const SeatDropdownModal = ({
     seatingId: seatingIdData,
   });
   const { data: seats } = useFetchStadiumSeats(stadiumId);
-  const { data: fetchedInfo } = useSeatingInfo(seatingIdData);
+  const { data: fetchedInfo } = useFetchSeating(seatingIdData);
 
   const fetchedSeats = seats?.data.floors || [];
   const availableSections =

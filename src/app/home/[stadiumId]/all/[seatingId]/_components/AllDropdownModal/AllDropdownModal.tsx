@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './DetailDropdownModal.module.scss';
+import styles from './AllDropdownModal.module.scss';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import useDropdown from '@/hooks/common/useDropdown';
@@ -18,7 +18,7 @@ interface DropdownModalProps {
   onConfirm: () => void;
 }
 
-const DetailDropdownModal = ({
+const AllDropdownModal = ({
   label,
   isSelected,
   title,
@@ -83,4 +83,4 @@ const DetailDropdownModal = ({
   );
 };
 
-export default DetailDropdownModal;
+export default AllDropdownModal;

@@ -1,21 +1,21 @@
-import type { FilterAction, FilterState } from '../ReviewDetailContainer/ReviewDetailContainer';
+import type { FilterAction, FilterState } from '../AllReviewContainer/AllReviewContainer';
 import SeatDropdownModal from '../SeatDropdownModal/SeatDropdownModal';
 import { type Dispatch, useEffect } from 'react';
 import { PUBLIC_ENV } from '@/config/env';
 
-interface ReviewDetailContentProps {
+interface AllReviewContentProps {
   filterData: FilterState;
   dispatch: Dispatch<FilterAction>;
   stadiumId: number;
   seatingId: number;
 }
 
-const ReviewDetailContent = ({
+const AllReviewContent = ({
   filterData,
   dispatch,
   stadiumId,
   seatingId,
-}: ReviewDetailContentProps) => {
+}: AllReviewContentProps) => {
   useEffect(() => {
     // 필터링 결과
     const fetchReviewList = async () => {
@@ -41,4 +41,4 @@ const ReviewDetailContent = ({
   );
 };
 
-export default ReviewDetailContent;
+export default AllReviewContent;
