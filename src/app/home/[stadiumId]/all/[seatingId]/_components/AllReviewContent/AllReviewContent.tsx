@@ -1,7 +1,8 @@
 import type { FilterAction, FilterState } from '../AllReviewContainer/AllReviewContainer';
 import SeatDropdownModal from '../SeatDropdownModal/SeatDropdownModal';
-import { type Dispatch, useEffect } from 'react';
-import { PUBLIC_ENV } from '@/config/env';
+import styles from './AllReviewContent.module.scss';
+import { type Dispatch } from 'react';
+import { useFetchAllReviewList } from '@/hooks/queries/useFetchSeatingReview';
 
 interface AllReviewContentProps {
   filterData: FilterState;
@@ -16,27 +17,18 @@ const AllReviewContent = ({
   stadiumId,
   seatingId,
 }: AllReviewContentProps) => {
-  useEffect(() => {
-    // 필터링 결과
-    const fetchReviewList = async () => {
-      const data = await fetch(
-        PUBLIC_ENV.baseUrl + `/reviews/seating/${filterData.seatingId}/list`,
-      );
-      const res = await data.json();
-      console.log('fetchReviewList', res.body.reviews);
-    };
-
-    fetchReviewList();
-  }, []);
+  const { data: filteredList } = useFetchAllReviewList(filterData.seatingId, filterData);
 
   return (
     <div>
-      <SeatDropdownModal
-        seatingIdData={filterData.seatingId}
-        dispatch={dispatch}
-        stadiumId={stadiumId}
-        initSeatingId={seatingId}
-      />
+      <div className={styles.searchFilterContainer}>
+        <SeatDropdownModal
+          seatingIdData={filterData.seatingId}
+          dispatch={dispatch}
+          stadiumId={stadiumId}
+          initSeatingId={seatingId}
+        />
+      </div>
     </div>
   );
 };

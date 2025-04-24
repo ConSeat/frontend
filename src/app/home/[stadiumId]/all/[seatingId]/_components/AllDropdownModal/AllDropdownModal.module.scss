@@ -5,10 +5,12 @@
   gap: 12px;
   align-items: center;
 
+  width: fit-content;
   padding: 8px;
   border-radius: 5px;
 
   color: $sub-gray2;
+  white-space: nowrap;
 
   background-color: $sub-gray8;
 

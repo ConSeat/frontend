@@ -1,0 +1,10 @@
+.searchFilterContainer {
+  overflow: auto hidden;
+  display: flex;
+  gap: 13px;
+  padding: 24px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
