@@ -14,8 +14,8 @@ import PageExplanation from '@/components/PageExplanation';
 import ShareArea from '@/components/ShareArea';
 import Spacing from '@/components/Spacing/Spacing';
 
-const SingleResult = ({ stadiumId }) => {
-  const { data } = useFetchSeating(stadiumId);
+const SingleResult = ({ stadiumId, seatingId }) => {
+  const { data } = useFetchSeating(seatingId);
   const router = useRouter();
 
   const { imageIndex, handleClickNext, handleClickPrev } = useImageSlide(2);
@@ -36,7 +36,7 @@ const SingleResult = ({ stadiumId }) => {
         <PageExplanation>
           <PageExplanation.Title>
             <Highlight variant="background">
-              {data.floorName || data.sectionName} {data.sectionName || data.seatingName}
+              {`${data.floorName} ${data.sectionName} ${data.seatingName ? data.seatingName : ''}`}
             </Highlight>
             은
             <br />

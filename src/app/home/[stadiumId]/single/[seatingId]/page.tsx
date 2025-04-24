@@ -23,7 +23,7 @@ const ResultPage = async ({ params }) => {
 
       <Spacing size={45} />
       <HydrationBoundary state={dehydratedState}>
-        <SingleResult stadiumId={stadiumId} />
+        <SingleResult stadiumId={stadiumId} seatingId={seatingId} />
       </HydrationBoundary>
     </>
   );
