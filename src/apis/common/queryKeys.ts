@@ -1,3 +1,6 @@
+import type { ReviewListQueryParams } from '@/types/review';
+import { serializeReviewListParams } from '@/utils/queryParams';
+
 export const memberKeys = {
   all: ['members'] as const,
   me: () => [...memberKeys.all, 'me'] as const,
@@ -14,6 +17,10 @@ export const reviewKeys = {
   concertSeating: (concertId: number, seatingId: number) =>
     [...reviewKeys.all, 'concert', concertId, 'seating', seatingId] as const,
   seating: (seatingId: number) => [...reviewKeys.all, 'seating', seatingId] as const,
+  allReviewList: (seatingId: number, params: ReviewListQueryParams) => {
+    const serializedParams = serializeReviewListParams(params);
+    return [...reviewKeys.all, 'seating', seatingId, serializedParams] as const;
+  },
 };
 
 export const stadiumKeys = {

@@ -2,6 +2,7 @@
 
 import AllReviewContent from '../AllReviewContent/AllReviewContent';
 import React, { useReducer } from 'react';
+import type { ListSort } from '@/types/review';
 import { toggleItem } from '@/utils/toggleItem';
 
 export interface FilterState {
@@ -10,7 +11,7 @@ export interface FilterState {
   features: number[];
   obstructions: number[];
   lastReviewId: number;
-  sort: string;
+  sort: ListSort;
 }
 
 export type FilterAction =
@@ -18,7 +19,7 @@ export type FilterAction =
   | { type: 'FEATURES'; payload: { feature: number } }
   | { type: 'OBSTRUCTIONS'; payload: { obstruction: number } }
   | { type: 'LAST_REVIEW_ID'; payload: { lastReviewId: number } }
-  | { type: 'SORT'; payload: { sort: string } };
+  | { type: 'SORT'; payload: { sort: ListSort } };
 
 const createInitFilterData = (stadiumId: number, seatingId: number) => {
   const initData = {
@@ -26,8 +27,8 @@ const createInitFilterData = (stadiumId: number, seatingId: number) => {
     seatingId,
     features: [],
     obstructions: [],
-    lastReviewId: 0,
-    sort: '',
+    lastReviewId: -1,
+    sort: '' as ListSort,
   };
 
   return initData;

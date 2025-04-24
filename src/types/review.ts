@@ -73,3 +73,12 @@ export interface SeatingReview {
   isBookmarked: boolean;
   isLiked: boolean;
 }
+
+export type ListSort = '' | 'modifiedAt';
+
+export type ReviewListQueryParams = {
+  features?: number[];
+  obstructions?: number[];
+  lastReviewId?: number;
+  sort?: ListSort;
+};
