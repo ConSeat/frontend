@@ -1,5 +1,6 @@
 'use client';
 
+import Portal from '../Portal';
 import styles from './Dropdown.module.scss';
 import classNames from 'classnames';
 import React, { type HTMLAttributes, ReactNode, type Ref } from 'react';
@@ -43,16 +44,16 @@ interface DropdownModalProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const DropdownModal = ({ isOpen, controls, children, ref, ...props }: DropdownModalProps) => {
-  if (!isOpen) return null;
-
   return (
-    <div className={styles.overlayWrapper}>
-      <div className={styles.overlay} />
-      <div ref={ref} className={styles.modalContent} {...props}>
-        {children}
-        {controls && <>{controls}</>}
+    <Portal isOpen={isOpen}>
+      <div className={styles.overlayWrapper}>
+        <div className={styles.overlay} />
+        <div ref={ref} className={styles.modalContent} {...props}>
+          {children}
+          {controls && <>{controls}</>}
+        </div>
       </div>
-    </div>
+    </Portal>
   );
 };
 

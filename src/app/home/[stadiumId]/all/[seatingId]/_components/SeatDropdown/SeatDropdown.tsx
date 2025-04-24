@@ -19,7 +19,7 @@ const SeatDropdown = ({ value, onChange, options, placeholder, disabled }: SeatD
   const { isDropdownOpen, handleToggleDropdown, dropdownRef } = useDropdown();
 
   return (
-    <Dropdown ref={dropdownRef}>
+    <Dropdown ref={dropdownRef} className={styles.dropdownContainer}>
       <Dropdown.Trigger
         as={
           <button
