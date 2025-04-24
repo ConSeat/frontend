@@ -58,3 +58,18 @@ export interface ReviewAction {
 }
 
 export type ReviewDispatch = Dispatch<ReviewAction>;
+
+export interface SeatingReview {
+  reviewId: number;
+  images: string[];
+  features: string[];
+  obstructions: string[];
+  concertName: string;
+  contents: string;
+  writerSrc: string;
+  createdAt: string;
+  writerNickname: string;
+  likesCount: number;
+  isBookmarked: boolean;
+  isLiked: boolean;
+}

@@ -3,7 +3,6 @@
 import ProgressBar from '../../../_components/ProgressBar/ProgressBar';
 import { SINGLE_FUNNEL_STEPS } from '../../_constants/funnelSteps';
 import type { SingleFunnelData, Step } from '../../_types/funnel';
-import SingleResultStep from '../SingleResultStep/SingleResultStep';
 import SingleSeatingStep from '../SingleSeatingStep/SingleSeatingStep';
 import SingleSectionStep from '../SingleSectionStep/SingleSectionStep';
 import React from 'react';
@@ -46,10 +45,6 @@ const SingleFunnel = ({ stadiumId }: SingleFunnelProps) => {
             data={data}
             setData={setData}
           />
-        </Funnel.Step>
-
-        <Funnel.Step name="Result">
-          <SingleResultStep stadiumId={stadiumId} data={data} />
         </Funnel.Step>
       </Funnel>
     </>

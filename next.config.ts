@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'src', 'styles')],
   },
+  images: {
+    domains: ['conseat.s3.ap-northeast-2.amazonaws.com'],
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,

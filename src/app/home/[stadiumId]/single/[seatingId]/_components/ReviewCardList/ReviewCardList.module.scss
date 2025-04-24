@@ -1,0 +1,39 @@
+@import '@/styles/style';
+
+.reviewsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+
+  .reviewsHeader {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    justify-content: space-between;
+
+    .titleContainer {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+
+      .title {
+        @include subtitle-1;
+
+        color: $sub-gray1;
+      }
+
+      .reviewNumber {
+        @include body-2;
+
+        color: $sub-gray2;
+      }
+    }
+
+    .moreButton {
+      @include body-4;
+
+      color: $sub-gray4;
+    }
+  }
+}
