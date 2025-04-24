@@ -5,6 +5,7 @@ import SeatDropdownModal from '../SeatDropdownModal/SeatDropdownModal';
 import styles from './AllReviewContent.module.scss';
 import { type Dispatch } from 'react';
 import { useFetchAllReviewList } from '@/hooks/queries/useFetchSeatingReview';
+import Splitter from '@/components/Splitter/Splitter';
 
 interface AllReviewContentProps {
   filterData: FilterState;
@@ -34,6 +35,17 @@ const AllReviewContent = ({
         />
         <FeatureDropdownModal features={filterData.features} dispatch={dispatch} />
         <ObstructionDropdownModal obstructions={filterData.obstructions} dispatch={dispatch} />
+      </div>
+
+      <Splitter height="12px" color="sub-gray8" style={{ opacity: '0.3' }} />
+
+      <div className={styles.searchResultContainer}>
+        <div className={styles.searchResultHeader}>
+          <span className={styles.searchResultCount}>검색결과 8개</span>
+          <button className={styles.searchResultSort}>최신순 ⌄</button>
+        </div>
+
+        <div className={styles.reviewCard}>결과 리스트</div>
       </div>
     </div>
   );
