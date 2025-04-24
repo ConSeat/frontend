@@ -1,6 +1,6 @@
 'use client';
 
-import ReviewDetailContent from '../AllReviewContent/AllReviewContent';
+import AllReviewContent from '../AllReviewContent/AllReviewContent';
 import React, { useReducer } from 'react';
 import { toggleItem } from '@/utils/toggleItem';
 
@@ -81,7 +81,7 @@ const AllReviewContainer = ({ stadiumId, seatingId }: AllReviewContainerProps) =
   const [state, dispatch] = useReducer(filterReducer, createInitFilterData(stadiumId, seatingId));
 
   return (
-    <ReviewDetailContent
+    <AllReviewContent
       filterData={state}
       dispatch={dispatch}
       stadiumId={stadiumId}

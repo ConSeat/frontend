@@ -21,8 +21,8 @@ export { default as Gear } from '@/assets/icons/myPage/gear.svg';
 export { default as Camera } from '@/assets/icons/myPage/camera.svg';
 export { default as Exclamation } from '@/assets/icons/myPage/exclamation.svg';
 
-/**************** icons - reviewDetailPage ****************/
-export { default as Reset } from '@/assets/icons/reviewDetailPage/reset.svg';
+/**************** icons - AllReviewPage ****************/
+export { default as Reset } from '@/assets/icons/AllReviewPage/reset.svg';
 
 /**************** icons - stadiumPage ****************/
 export { default as Compare } from '@/assets/icons/stadiumPage/compare.svg';
