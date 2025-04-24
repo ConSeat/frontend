@@ -1,5 +1,6 @@
 import type { FilterAction, FilterState } from '../AllReviewContainer/AllReviewContainer';
 import FeatureDropdownModal from '../FeatureDropdownModal/FeatureDropdownModal';
+import ObstructionDropdownModal from '../ObstructionDropdownModal/ObstructionDropdownModal';
 import SeatDropdownModal from '../SeatDropdownModal/SeatDropdownModal';
 import styles from './AllReviewContent.module.scss';
 import { type Dispatch } from 'react';
@@ -32,6 +33,7 @@ const AllReviewContent = ({
           initSeatingId={seatingId}
         />
         <FeatureDropdownModal features={filterData.features} dispatch={dispatch} />
+        <ObstructionDropdownModal obstructions={filterData.obstructions} dispatch={dispatch} />
       </div>
     </div>
   );

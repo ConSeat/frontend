@@ -15,7 +15,6 @@ interface FeatureDropdownModalProps {
 const FeatureDropdownModal = ({ features, dispatch }: FeatureDropdownModalProps) => {
   const [tempFeatures, setTempFeatures] = useState<number[]>(features);
   const { data: featuresData } = useFetchStadiumFeatures();
-  console.log(tempFeatures);
 
   const handleResetButton = () => {
     setTempFeatures([]);
