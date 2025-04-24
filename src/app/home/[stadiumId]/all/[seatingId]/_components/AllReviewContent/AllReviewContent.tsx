@@ -7,7 +7,6 @@ import styles from './AllReviewContent.module.scss';
 import { type Dispatch } from 'react';
 import { useFetchAllReviewList } from '@/hooks/queries/useFetchSeatingReview';
 import Splitter from '@/components/Splitter/Splitter';
-import type { ListSort } from '@/types/review';
 
 interface AllReviewContentProps {
   filterData: FilterState;
@@ -15,11 +14,6 @@ interface AllReviewContentProps {
   stadiumId: number;
   seatingId: number;
 }
-
-export const SortData: { name: string; value: ListSort }[] = [
-  { name: '추천순', value: '' },
-  { name: '최신순', value: 'modifiedAt' },
-];
 
 const AllReviewContent = ({
   filterData,
