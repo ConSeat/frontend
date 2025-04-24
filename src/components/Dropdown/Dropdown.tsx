@@ -40,15 +40,19 @@ interface DropdownModalProps {
   controls?: ReactNode;
   children: ReactNode;
   className?: string;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
-const DropdownModal = ({ isOpen, controls, children, className }: DropdownModalProps) => {
+const DropdownModal = ({ isOpen, controls, children, className, ref }: DropdownModalProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className={classNames(styles.dropdownModal, className)}>
-      {controls && <>{controls}</>}
-      <ul className={styles.dropdownList}>{children}</ul>
+    <div className={styles.overlayWrapper}>
+      <div className={styles.overlay} />
+      <div ref={ref} className={classNames(styles.modalContent, className)}>
+        {children}
+        {controls && <>{controls}</>}
+      </div>
     </div>
   );
 };

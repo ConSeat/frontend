@@ -53,7 +53,7 @@ const ModalHeader = ({ title, onClose, showCloseButton = true }: ModalHeaderProp
  *
  * @example
  * <Modal>
- *   <Modal.Overlay onClose={() => {}} />
+ *   <Modal.Overlay onClick={() => {}} />
  *   <Modal.Content>
  *    <Modal.Header title="모달 제목" onClose={() => {}} />
  *   </Modal.Content>
