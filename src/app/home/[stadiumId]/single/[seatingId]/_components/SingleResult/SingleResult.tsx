@@ -2,12 +2,10 @@
 
 import ReviewCardList from '../ReviewCardList';
 import ReviewThumbnail from '../ReviewThumnail';
+import SearchEndButton from '../SearchEndButton';
 import styles from './SingleResult.module.scss';
-import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useFetchSeating } from '@/hooks/queries/useFetchSeatingReview';
-import Button from '@/components/Button/Button';
-import ButtonContainer from '@/components/ButtonContainer/ButtonContainer';
 import Highlight from '@/components/Highlight/Highlight';
 import PageExplanation from '@/components/PageExplanation';
 import ShareArea from '@/components/ShareArea';
@@ -15,7 +13,6 @@ import Spacing from '@/components/Spacing/Spacing';
 
 const SingleResult = ({ stadiumId, seatingId }) => {
   const { data } = useFetchSeating(seatingId);
-  const router = useRouter();
 
   if (!data) return null;
 
@@ -63,9 +60,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
         />
 
         <Spacing size={52} />
-        <ButtonContainer>
-          <Button onClick={() => router.push(`/home/${stadiumId}`)}>검색 완료</Button>
-        </ButtonContainer>
+        <SearchEndButton stadiumId={stadiumId} />
       </div>
     </div>
   );
