@@ -16,11 +16,6 @@ const SingleResult = ({ stadiumId, seatingId }) => {
 
   if (!data) return null;
 
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    alert('링크가 복사되었습니다!');
-  };
-
   return (
     <div className={styles.singleResultStepLayout}>
       <div
@@ -35,7 +30,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
             </Highlight>
             은
             <br />
-            본무대, 돌출, 전광판 모두 잘보여요
+            {data.distanceMessage}
           </PageExplanation.Title>
         </PageExplanation>
       </div>
@@ -51,13 +46,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
         <Spacing size={52} />
         <ReviewCardList reviews={data.reviews} />
         <Spacing size={52} />
-        <ShareArea
-          onCopy={handleCopyLink}
-          onShareKakao={() => {}}
-          onShareTwitter={() => {}}
-          onSave={() => {}}
-          isLogin={true}
-        />
+        <ShareArea />
 
         <Spacing size={52} />
         <SearchEndButton stadiumId={stadiumId} />
