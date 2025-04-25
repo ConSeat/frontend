@@ -40,11 +40,13 @@ const AllReviewContent = ({
 
       <div className={styles.searchResultContainer}>
         <div className={styles.searchResultHeader}>
-          <span className={styles.searchResultCount}>검색결과 {filteredList?.data.reviewCount}개</span>
+          <span className={styles.searchResultCount}>
+            검색결과 {filteredList?.data.reviewCount}개
+          </span>
           <SortDropdown sort={filterData.sort} dispatch={dispatch} />
         </div>
 
-        <div className={styles.reviewCard}>결과 리스트</div>
+        <div className={styles.reviewCard}>결과 리스트결과</div>
       </div>
     </div>
   );
