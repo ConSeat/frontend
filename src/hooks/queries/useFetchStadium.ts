@@ -25,7 +25,7 @@ export const useFetchStadiumSections = (stadiumId: number) => {
   return useQuery(stadiumQueries.sections(stadiumId));
 };
 
-export const useFetchStadiumSectionSeating = (seatingId: number, enabled: boolean) => {
+export const useFetchStadiumSectionSeating = (seatingId: number, enabled?: boolean) => {
   const { queryKey, queryFn } = stadiumQueries.sectionSeating(seatingId);
 
   return useQuery({
