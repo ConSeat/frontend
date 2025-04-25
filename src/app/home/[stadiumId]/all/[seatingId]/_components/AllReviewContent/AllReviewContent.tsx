@@ -22,7 +22,6 @@ const AllReviewContent = ({
   seatingId,
 }: AllReviewContentProps) => {
   const { data: filteredList } = useFetchAllReviewList(filterData.seatingId, filterData);
-  console.log(filteredList);
 
   return (
     <div>
@@ -41,7 +40,7 @@ const AllReviewContent = ({
 
       <div className={styles.searchResultContainer}>
         <div className={styles.searchResultHeader}>
-          <span className={styles.searchResultCount}>검색결과 8개</span>
+          <span className={styles.searchResultCount}>검색결과 {filteredList?.data.reviewCount}개</span>
           <SortDropdown sort={filterData.sort} dispatch={dispatch} />
         </div>
 

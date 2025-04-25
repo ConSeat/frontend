@@ -23,6 +23,7 @@ export const getSeatingReviews = async (seatingId: number) => {
 };
 
 export interface AllReviewListResponse {
+  reviewCount: number;
   reviews: {
     content: SeatingReview[];
     sliceNumber: number;
