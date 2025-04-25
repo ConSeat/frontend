@@ -1,12 +1,9 @@
 'use client';
 
 import styles from './MyPage.module.scss';
+import MyHeader from './_components/MyHeader/MyHeader';
 import ReviewCollection from './_components/ReviewCollection/ReviewCollection';
 import UserInfo from './_components/UserInfo';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import Header from '@/components/Header/Header';
-import Icon from '@/components/Icon/Icon';
 
 const options = ['옵션1', '옵션2', '옵션3'];
 const reviews = [
@@ -32,21 +29,10 @@ const reviews = [
   { reviewId: 14, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
 ];
 
-// TODO: page는 ssr로 바꿔야함
 const MyPage = () => {
-  const router = useRouter();
-
   return (
     <div className={styles.pageLayout}>
-      <Header
-        left={<Icon icon="LeftArrow" onClick={() => router.back()} />}
-        title="마이 페이지"
-        right={
-          <Link href="/mypage/settings/service">
-            <Icon icon="Gear" />
-          </Link>
-        }
-      />
+      <MyHeader />
       <div className={styles.userInfoArea}>
         <UserInfo
           thumbnail="/images/jamsil-arena.jpg"
