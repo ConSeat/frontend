@@ -39,10 +39,10 @@ const SingleSectionStep = ({ stadiumId, setStep, data, setData }: SingleSectionS
             stadiumId={stadiumId}
             selectedSectionId={data.sectionId ?? null}
             onSelectSection={(info) => {
-              setData((prev) => ({
-                ...prev,
+              setData(() => ({
                 sectionId: info.sectionId,
                 sectionName: info.sectionName,
+                seatingId: info.sectionName.includes('floor') ? info.sectionId : 0,
               }));
             }}
           />
@@ -61,7 +61,7 @@ const SingleSectionStep = ({ stadiumId, setStep, data, setData }: SingleSectionS
               if (!data.sectionName) return;
 
               if (data.sectionName.includes('floor')) {
-                setStep('Result');
+                router.push(`/home/${stadiumId}/single/${data.seatingId}`);
               } else {
                 setStep('Seating');
               }
