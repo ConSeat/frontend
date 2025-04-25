@@ -17,16 +17,17 @@ interface PopupData {
   cancelText?: string;
   onConfirm: () => void;
   onCancel?: () => void;
-  isWaring?: boolean;
+  type?: 'confirm' | 'alert';
 }
 
-const initPopupData = {
+const initPopupData: PopupData = {
   title: '',
   subtitle: '',
   confirmText: '네',
   cancelText: '아니요',
   onConfirm: () => {},
   onCancel: undefined,
+  type: 'confirm',
 };
 
 const PopupContext = createContext<PopupContext | undefined>(undefined);
@@ -70,7 +71,7 @@ export const PopupProvider = ({ children }: { children: ReactNode }) => {
                   popupData.onCancel?.();
                   hidePopup();
                 }}
-                isWarning={popupData.isWaring}
+                type={popupData.type}
               />
             </Popup>
           </Modal>
