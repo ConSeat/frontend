@@ -94,7 +94,7 @@ const StageView = ({ stadiumId, selectedSectionId, onSelectSection }: StageViewP
 
   // 페이지 복귀 시, 기존 선택 상태 복원
   useEffect(() => {
-    if (selectedSectionId == null || !wrapperRef.current) return;
+    if (selectedSectionId === null || !wrapperRef.current) return;
 
     const svg = wrapperRef.current.querySelector('svg');
     if (!svg) return;
