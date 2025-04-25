@@ -1,5 +1,3 @@
-'use client';
-
 import styles from './MyPage.module.scss';
 import MyHeader from './_components/MyHeader/MyHeader';
 import ReviewCollection from './_components/ReviewCollection/ReviewCollection';
