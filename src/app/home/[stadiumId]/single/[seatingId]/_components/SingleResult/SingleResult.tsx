@@ -29,7 +29,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
         <PageExplanation>
           <PageExplanation.Title>
             <Highlight variant="background">
-              {`${data.floorName} ${data.sectionName} ${data.seatingName ? data.seatingName : ''}`}
+              {`${data.floorName} ${data.sectionName}${data.seatingName ? ` ${data.seatingName}` : ''}`}
             </Highlight>
             은
             <br />

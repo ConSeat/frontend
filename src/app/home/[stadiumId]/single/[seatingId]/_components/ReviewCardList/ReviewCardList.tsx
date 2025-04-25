@@ -18,6 +18,7 @@ const ReviewCardList = ({ stadiumId, seatingId, reviews }: ReviewCardListProps) 
       <div className={styles.reviewsHeader}>
         <div className={styles.titleContainer}>
           <div className={styles.title}>상세후기</div>
+          {/* TODO: reviewCount로 변경 */}
           <div className={styles.reviewNumber}>{reviews.length}</div>
         </div>
         <Button
