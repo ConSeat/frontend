@@ -24,7 +24,7 @@
 
 .toastLayout {
   position: fixed;
-  z-index: 99;
+  z-index: z-index('toast');
   bottom: 128px;
   left: 50vw;
   transform: translate(-50%, 100%);
