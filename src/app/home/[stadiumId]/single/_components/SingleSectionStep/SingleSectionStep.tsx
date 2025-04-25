@@ -1,14 +1,12 @@
 import type { SingleFunnelData, Step } from '../../_types/funnel';
 import styles from './SingleSectionStep.module.scss';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import Button from '@/components/Button/Button';
 import ButtonContainer from '@/components/ButtonContainer/ButtonContainer';
 import Highlight from '@/components/Highlight/Highlight';
 import PageExplanation from '@/components/PageExplanation';
 import Spacing from '@/components/Spacing/Spacing';
 import StageView from '@/components/StageView';
-import { parseBtnId } from '@/utils/parseBtnId';
 
 interface SingleSectionStepProps {
   stadiumId: number;
@@ -19,7 +17,6 @@ interface SingleSectionStepProps {
 
 const SingleSectionStep = ({ stadiumId, setStep, data, setData }: SingleSectionStepProps) => {
   const router = useRouter();
-  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   return (
     <>
@@ -40,10 +37,13 @@ const SingleSectionStep = ({ stadiumId, setStep, data, setData }: SingleSectionS
         <div className={styles.stageViewContainer}>
           <StageView
             stadiumId={stadiumId}
-            onSelectSection={(id) => {
-              setSelectedId(id);
-              const { sectionId } = parseBtnId(id);
-              setData((prev) => ({ ...prev, sectionId }));
+            selectedSectionId={data.sectionId ?? null}
+            onSelectSection={(info) => {
+              setData((prev) => ({
+                ...prev,
+                sectionId: info.sectionId,
+                sectionName: info.sectionName,
+              }));
             }}
           />
         </div>
@@ -58,11 +58,9 @@ const SingleSectionStep = ({ stadiumId, setStep, data, setData }: SingleSectionS
             variant={data.sectionId ? 'primary' : 'inactive'}
             disabled={!data.sectionId}
             onClick={() => {
-              if (!selectedId) return;
+              if (!data.sectionName) return;
 
-              const { floorInfo } = parseBtnId(selectedId);
-
-              if (floorInfo.includes('floor')) {
+              if (data.sectionName.includes('floor')) {
                 setStep('Result');
               } else {
                 setStep('Seating');

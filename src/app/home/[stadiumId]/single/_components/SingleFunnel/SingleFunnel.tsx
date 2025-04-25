@@ -18,6 +18,7 @@ const SingleFunnel = ({ stadiumId }: SingleFunnelProps) => {
     initialStep: SINGLE_FUNNEL_STEPS[0],
     initialData: {
       sectionId: 0,
+      sectionName: '',
       seatingId: 0,
     },
   });
