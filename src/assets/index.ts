@@ -10,6 +10,9 @@ export { default as MoreFunction } from '@/assets/icons/common/more-function.svg
 export { default as PrevArrow } from '@/assets/icons/common/prev-arrow.svg';
 export { default as NextArrow } from '@/assets/icons/common/next-arrow.svg';
 export { default as LinkCopy } from '@/assets/icons/common/link-copy.svg';
+export { default as Info } from '@/assets/icons/common/info.svg';
+export { default as Success } from '@/assets/icons/common/success.svg';
+export { default as Waring } from '@/assets/icons/common/warning.svg';
 
 /**************** icons - homePage ****************/
 export { default as IcChat } from '@/assets/icons/homePage/ic-chat.svg';
