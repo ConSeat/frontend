@@ -20,17 +20,21 @@ const PopupButtonArea = ({
   cancelText,
   onCancel,
   onConfirm,
+  isWarning = false,
 }: {
   confirmText: string;
   cancelText: string;
   onCancel: () => void;
   onConfirm: () => void;
+  isWarning?: boolean;
 }) => {
   return (
     <div className={styles.buttonBox}>
-      <Button className={styles.noButton} onClick={onCancel}>
-        {cancelText}
-      </Button>
+      {!isWarning && (
+        <Button className={styles.noButton} onClick={onCancel}>
+          {cancelText}
+        </Button>
+      )}
       <Button className={styles.yesButton} onClick={onConfirm}>
         {confirmText}
       </Button>

@@ -17,6 +17,7 @@ interface PopupData {
   cancelText?: string;
   onConfirm: () => void;
   onCancel?: () => void;
+  isWaring?: boolean;
 }
 
 const initPopupData = {
@@ -69,6 +70,7 @@ export const PopupProvider = ({ children }: { children: ReactNode }) => {
                   popupData.onCancel?.();
                   hidePopup();
                 }}
+                isWarning={popupData.isWaring}
               />
             </Popup>
           </Modal>
