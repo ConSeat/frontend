@@ -8,6 +8,7 @@ export const API_ENDPOINTS = {
   // review
   REVIEWS: '/reviews',
   REVIEW_IMAGES: '/reviews/images',
+  REVIEWS_SEATING: (seatingId: number) => `/reviews/seating/${seatingId}`,
   REVIEWS_WITH_PARAMS: (concertId: number, seatingId: number) =>
     `/reviews/concerts/${concertId}/seating/${seatingId}`,
 

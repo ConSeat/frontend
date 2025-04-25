@@ -8,6 +8,7 @@ const ERROR_MESSAGES: Record<string, string> = {
   // review
   POST_REVIEWS_WITH_PARAMS: '리뷰 등록에 실패했습니다. 다시 시도해주세요.',
   POST_REVIEW_IMAGES: '리뷰 이미지 등록에 실패했습니다. 다시 시도해주세요.',
+  GET_REVIEW_SEATINGS: '검색 구역 리뷰 조회에 실패했습니다. 다시 시도해주세요.',
 
   // stadium
   GET_STADIUMS: '공연장 정보를 가져오지 못했습니다. 다시 시도해주세요.',

@@ -1,20 +1,23 @@
 import ClientHeaderWrapper from './_components/ClientHeaderWrapper/ClientHeaderWrapper';
 import styles from './page.module.scss';
+import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
-import { ALL_STADIUM_INFO, STADIUM_INFO } from '@/constants/stadium';
-
-interface StadiumId {
-  stadiumId: number;
-}
+import { getStadiumList } from '@/apis/stadium/stadium.api';
+import { PUBLIC_ENV } from '@/config/env';
+import type { StadiumInfo } from '@/types/stadium';
 
 interface StadiumLayoutProps {
   children: ReactNode;
-  params: Promise<StadiumId>;
+  params: Promise<{ stadiumId: string }>;
 }
 
 export async function generateStaticParams() {
-  return ALL_STADIUM_INFO.map(({ stadiumId }) => ({
-    stadiumId: String(stadiumId),
+  const res = await fetch(`${PUBLIC_ENV.baseUrl}/stadiums`);
+  const data = await res.json();
+  const allStadiums = [...(data.active ?? []), ...(data.inactive ?? [])];
+
+  return allStadiums.map((stadium: { stadiumId: number }) => ({
+    stadiumId: String(stadium.stadiumId),
   }));
 }
 
@@ -22,21 +25,17 @@ export const dynamicParams = false;
 
 const StadiumLayout = async ({ children, params }: StadiumLayoutProps) => {
   const stadiumId = Number((await params).stadiumId);
+  const { data } = await getStadiumList();
 
-  const isActive = STADIUM_INFO.active.some((stadium) => stadium.stadiumId === stadiumId);
+  const activeStadium = data.active?.find((s: StadiumInfo) => s.stadiumId === stadiumId);
 
-  if (!isActive) {
-    return (
-      <div className={styles.stadiumLayout}>
-        <h2>이 페이지는 아직 열리지 않았습니다.</h2>
-        <p>현재는 접근할 수 없습니다. 나중에 다시 확인해 주세요.</p>
-      </div>
-    );
+  if (!activeStadium) {
+    notFound();
   }
 
   return (
     <div className={styles.stadiumLayout}>
-      <ClientHeaderWrapper stadiumId={stadiumId} />
+      <ClientHeaderWrapper stadium={activeStadium} />
       {children}
     </div>
   );

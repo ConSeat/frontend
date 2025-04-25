@@ -124,7 +124,7 @@ interface ReviewCardProps {
   writerSrc: string;
   createdAt: string;
   writerNickname: string;
-  likeNumber: number;
+  likesCount: number;
   isBookmarked: boolean;
   isLiked: boolean;
   handleClickMore: () => void;
@@ -141,7 +141,7 @@ const ReviewCard = ({
   concertName,
   contents,
   createdAt,
-  likeNumber,
+  likesCount,
   isBookmarked,
   isLiked,
   handleClickMore,
@@ -165,7 +165,7 @@ const ReviewCard = ({
         <KeywordList keywordArray={obstructions} isPrimary={false} />
       </div>
       <Footer
-        likeNum={likeNumber}
+        likeNum={likesCount}
         isLiked={isLiked}
         onClickLike={handleClickLike}
         onClickMore={handleClickMore}

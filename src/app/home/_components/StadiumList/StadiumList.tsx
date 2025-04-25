@@ -1,10 +1,9 @@
 import StadiumItem from '../StadiumItem';
 import styles from './StadiumList.module.scss';
-import { STADIUM_INFO } from '@/constants/stadium';
-import type { StadiumInfo } from '@/types/stadium';
+import type { StadiumInfo, StadiumType } from '@/types/stadium';
 
 interface StadiumListProps {
-  stadiumType: keyof typeof STADIUM_INFO;
+  stadiumType: StadiumType;
   data?: StadiumInfo[];
 }
 

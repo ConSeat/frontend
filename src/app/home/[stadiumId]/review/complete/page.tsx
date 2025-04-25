@@ -15,7 +15,7 @@ const CompletePage = () => {
         <button
           className={styles.completeLink}
           type="button"
-          onClick={() => router.push('/mypage?tab=review')}
+          onClick={() => router.replace('/mypage?tab=review')}
         >
           내 후기 바로가기 &gt;
         </button>

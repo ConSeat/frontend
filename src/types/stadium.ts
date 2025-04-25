@@ -1,3 +1,5 @@
+export type StadiumType = 'active' | 'inactive';
+
 export interface StadiumInfo {
   stadiumId: number;
   stadiumName: string;
