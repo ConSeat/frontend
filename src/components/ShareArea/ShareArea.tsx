@@ -1,12 +1,17 @@
+'use client';
+
 import Button from '../Button/Button';
 import Icon from '../Icon/Icon';
 import styles from './ShareArea.module.scss';
 import Image from 'next/image';
+import { useToast } from '@/providers/ToastProvider';
 
 const ShareArea = () => {
+  const { activateToast } = useToast();
+
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
-    alert('링크가 복사되었습니다!');
+    activateToast('링크를 복사했어요!', 'LinkCopy');
   };
 
   const handleShareKakao = () => {

@@ -1,8 +1,10 @@
 'use client';
 
+import Icon from '../Icon/Icon';
 import styles from './Toast.module.scss';
+import colors from '@/styles/color';
 
-export type ToastType = 'default' | 'warning' | 'error';
+export type ToastType = 'Info' | 'Success' | 'Waring' | 'LinkCopy';
 
 interface ToastProps {
   type?: ToastType;
@@ -10,16 +12,11 @@ interface ToastProps {
   onClose: () => void;
 }
 
-const Toast = ({ type = 'default', text, onClose }: ToastProps) => {
-  const emoji = {
-    default: '🔗',
-    warning: '⚠️',
-    error: '🚫',
-  };
-
+const Toast = ({ type = 'Info', text, onClose }: ToastProps) => {
   return (
     <div className={styles.toastLayout} onAnimationEnd={onClose}>
-      <div className={styles.text}>{`${emoji[type]} ${text}`}</div>
+      <Icon icon={type} size={20} color={colors.mainMint1} />
+      <div className={styles.text}>{`${text}`}</div>
     </div>
   );
 };

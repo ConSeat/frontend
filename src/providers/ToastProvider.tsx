@@ -13,7 +13,7 @@ const ToastContext = createContext<ToastContextType | undefined>(undefined);
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
-  const [type, setType] = useState<ToastType>('default');
+  const [type, setType] = useState<ToastType>('Info');
 
   const activateToast = (message: string, type: ToastType) => {
     setIsOpen(true);
