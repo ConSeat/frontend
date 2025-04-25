@@ -1,7 +1,19 @@
+@import '@/styles/style';
+
 .btnContainer {
   display: flex;
   flex-direction: column;
   gap: 12px;
   align-items: flex-start;
   justify-content: center;
+
+  .retryText {
+    @include subtitle-1;
+
+    padding-left: 10px;
+  }
+
+  .finishText {
+    @include subtitle-1;
+  }
 }

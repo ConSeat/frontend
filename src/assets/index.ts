@@ -13,6 +13,7 @@ export { default as LinkCopy } from '@/assets/icons/common/link-copy.svg';
 export { default as Info } from '@/assets/icons/common/info.svg';
 export { default as Success } from '@/assets/icons/common/success.svg';
 export { default as Waring } from '@/assets/icons/common/warning.svg';
+export { default as Retry } from '@/assets/icons/common/retry.svg';
 
 /**************** icons - homePage ****************/
 export { default as IcChat } from '@/assets/icons/homePage/ic-chat.svg';
