@@ -2,9 +2,9 @@ import styles from './page.module.scss';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import KakaoScript from '@/components/KakaoScript';
-import { ToastProvider } from '@/Context/ToastProvider';
 import { PopupProvider } from '@/providers/PopupProvider';
 import QueryProvider from '@/providers/QueryProvider';
+import { ToastProvider } from '@/providers/ToastProvider';
 import '@/styles/global.scss';
 
 const pretendard = localFont({

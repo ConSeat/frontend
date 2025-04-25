@@ -36,5 +36,9 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export const useToast = () => {
-  return useContext(ToastContext);
+  const context = useContext(ToastContext);
+  if (context === undefined) {
+    throw new Error('usePopup must be used within a PopupProvider');
+  }
+  return context;
 };
