@@ -2,29 +2,24 @@
 
 import DetailReviewModal from '../DetailReviewModal';
 import FilterDropdown from '../FilterDropdown';
+import LoadingSpinner from '../LoadingSpinner';
 import styles from './ReviewCollection.module.scss';
 import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import useStateModal from '@/hooks/common/useStateModal';
+import { useFetchMyReview } from '@/hooks/queries/useFetchMyReview';
 import Portal from '@/components/Portal/Portal';
 import { MY_PAGE_QUERY, REVIEW_TAP, VIEW_TAP } from '@/constants/myPage';
-
-interface MyPageReview {
-  reviewId: number;
-  imageSrc: string;
-  title: string;
-  seat: string;
-  status?: string;
-}
+import { Stadiums } from '@/types/stadium';
 
 interface ReviewCollectionProps {
   viewNumber: number;
   reviewNumber: number;
   filterOptions: string[];
-  reviews: MyPageReview[];
+  stadiums: Stadiums[];
 }
 
 interface ReviewStatusTagProps {
@@ -32,7 +27,8 @@ interface ReviewStatusTagProps {
 }
 
 interface ReviewListProps {
-  reviews: MyPageReview[];
+  stadiumId: number | undefined;
+  stadium: string;
   onClick: (reviewId: number, status?: string) => void;
 }
 
@@ -40,10 +36,18 @@ const ReviewStatusTag = ({ status }: ReviewStatusTagProps) => {
   return <div className={styles.statusTag}>{status}</div>;
 };
 
-const ReviewList = ({ reviews, onClick }: ReviewListProps) => {
+const ReviewList = ({ stadium, stadiumId, onClick }: ReviewListProps) => {
+  if (!stadiumId) {
+    notFound();
+  }
+
+  const { data, isLoading } = useFetchMyReview(stadiumId);
+
+  if (isLoading) return <LoadingSpinner />;
+
   return (
     <ul className={styles.reviewList}>
-      {reviews.map(({ reviewId, imageSrc, title, seat, status }) => {
+      {data?.reviews.content.map(({ reviewId, seatingName, sectionName, status, thumbnailUrl }) => {
         return (
           <li
             key={reviewId}
@@ -51,11 +55,11 @@ const ReviewList = ({ reviews, onClick }: ReviewListProps) => {
             onClick={() => onClick(reviewId, status)}
           >
             <div className={styles.reviewImage}>
-              <Image width={100} height={120} alt="" src={imageSrc} />
+              <Image width={100} height={120} alt="" src={thumbnailUrl} />
             </div>
             <div className={styles.reviewText}>
-              <div className={styles.title}>{title}</div>
-              <div className={styles.seat}>{seat}</div>
+              <div className={styles.title}>{stadium}</div>
+              <div className={styles.seat}>{seatingName + ' ' + sectionName}</div>
             </div>
             {status && <ReviewStatusTag status={status} />}
           </li>
@@ -80,7 +84,7 @@ const ReviewCollection = ({
   viewNumber,
   reviewNumber,
   filterOptions,
-  reviews,
+  stadiums,
 }: ReviewCollectionProps) => {
   const [filterValue, setFilterValue] = useState('');
   const [reviewId, setReviewId] = useState(0);
@@ -88,29 +92,19 @@ const ReviewCollection = ({
   const { isModalOpen, openModal, closeModal } = useStateModal();
 
   const router = useRouter();
-
   const searchParams = useSearchParams();
-
   const tapType = searchParams.get(MY_PAGE_QUERY);
-
-  const isNoneContent = () => {
-    return (
-      (tapType === REVIEW_TAP && reviewNumber === 0) || (tapType === VIEW_TAP && viewNumber === 0)
-    );
-  };
 
   const handleRouteView = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.set(MY_PAGE_QUERY, VIEW_TAP);
     router.replace(`?${params.toString()}`);
-    setFilterValue('');
   };
 
   const handleRouteReView = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.set(MY_PAGE_QUERY, REVIEW_TAP);
     router.replace(`?${params.toString()}`);
-    setFilterValue('');
   };
 
   const handleChangeFilter = (value: string) => {
@@ -144,16 +138,27 @@ const ReviewCollection = ({
         </div>
       </div>
       <div className={styles.reviewContainer}>
-        <FilterDropdown
-          placeholder="전체"
-          value={filterValue}
-          options={filterOptions}
-          onChange={handleChangeFilter}
-        />
-        {isNoneContent() ? (
+        {stadiums[0]?.stadiumName === undefined ? (
           <NoneContent />
         ) : (
-          <ReviewList reviews={reviews} onClick={handelClickReviewItem} />
+          <>
+            <FilterDropdown
+              value={stadiums[0].stadiumName}
+              options={filterOptions}
+              onChange={handleChangeFilter}
+            />
+
+            <ReviewList
+              stadium={filterValue ? filterValue : stadiums[0].stadiumName}
+              stadiumId={
+                stadiums.find((elem) => {
+                  const target = filterValue ? filterValue : stadiums[0].stadiumName;
+                  return elem.stadiumName === target;
+                })?.stadiumId
+              }
+              onClick={handelClickReviewItem}
+            />
+          </>
         )}
       </div>
       <Portal isOpen={isModalOpen}>

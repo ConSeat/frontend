@@ -2,48 +2,36 @@
 
 import ReviewCollection from '../ReviewCollection';
 import UserInfo from '../UserInfo/UserInfo';
-import { notFound } from 'next/navigation';
-import { useFetchMemberInfo } from '@/hooks/queries/useFetchMember';
-
-const options = ['옵션1', '옵션2', '옵션3'];
-const reviews = [
-  {
-    reviewId: 1,
-    imageSrc: '/images/kspo-dome.jpg',
-    title: 'KSPO COME',
-    seat: '1구역 5~8열',
-    status: '반려',
-  },
-  { reviewId: 2, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
-  { reviewId: 3, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
-  { reviewId: 4, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
-  { reviewId: 5, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
-  { reviewId: 6, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
-  { reviewId: 7, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
-  { reviewId: 8, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
-  { reviewId: 9, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
-  { reviewId: 10, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
-  { reviewId: 11, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
-  { reviewId: 12, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
-  { reviewId: 13, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
-  { reviewId: 14, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
-];
+import { notFound, useSearchParams } from 'next/navigation';
+import { useFetchBookMarkStadiums, useFetchMemberInfo } from '@/hooks/queries/useFetchMember';
+import { useFetchMyStadiums } from '@/hooks/queries/useFetchMyReview';
+import { MY_PAGE_QUERY } from '@/constants/myPage';
 
 const UserInfoContainer = () => {
-  const { data } = useFetchMemberInfo();
+  const { data: memberInfo } = useFetchMemberInfo();
+  const { data: myReviewStadiums } = useFetchMyStadiums();
+  const { data: bookmarkStadiums } = useFetchBookMarkStadiums();
+  const searchParams = useSearchParams();
+  const tapType = searchParams.get(MY_PAGE_QUERY);
 
-  if (!data) {
+  if (!memberInfo || !myReviewStadiums || !bookmarkStadiums) {
     notFound();
   }
+  const { stadiums } = tapType === 'view' ? bookmarkStadiums : myReviewStadiums;
 
   return (
     <>
-      <UserInfo profileImage={data.profileImage} nickname={data.nickname} email={data.email} />
+      <UserInfo
+        profileImage={memberInfo.profileImage}
+        nickname={memberInfo.nickname}
+        email={memberInfo.email}
+      />
+
       <ReviewCollection
-        viewNumber={data.favoriteCount}
-        reviewNumber={data.myReviewCount}
-        filterOptions={options}
-        reviews={reviews}
+        viewNumber={memberInfo.favoriteCount}
+        reviewNumber={memberInfo.myReviewCount}
+        filterOptions={stadiums.map((elem) => elem.stadiumName)}
+        stadiums={stadiums}
       />
     </>
   );
