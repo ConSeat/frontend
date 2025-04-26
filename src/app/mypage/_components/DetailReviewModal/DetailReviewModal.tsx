@@ -1,6 +1,6 @@
 'use client';
 
-import MyViewCard from '../MyViewCard/MyViewCard';
+import MyReviewCard from '../MyReviewCard/MyReviewCard';
 import styles from './DetailReviewModal.module.scss';
 import Modal from '@/components/Modal';
 
@@ -32,7 +32,7 @@ const DetailReviewModal = ({ reviewStatus, closeModal }: DetailReviewModalProps)
     <Modal>
       <Modal.Overlay onClick={closeModal} />
       <Modal.Content className={styles.content}>
-        <MyViewCard review={review} closeModal={closeModal} />
+        <MyReviewCard review={review} closeModal={closeModal} />
       </Modal.Content>
     </Modal>
   );
