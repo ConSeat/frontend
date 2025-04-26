@@ -137,9 +137,7 @@ const Screening = ({ status, rejectReason }: ScreeningProps) => {
         <Icon icon="Info" size={20} />
         <span className={styles.status}>후기 심사 여부 : {status}</span>
       </div>
-      <ul className={styles.reason}>
-        <li>{rejectReason}</li>
-      </ul>
+      {rejectReason && <span className={styles.reason}>{rejectReason}</span>}
     </div>
   );
 };
