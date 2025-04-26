@@ -9,10 +9,12 @@ export const API_ENDPOINTS = {
 
   //members
   MEMBERS: '/members',
+  MEMBERS_BOOKMARK: '/members/bookmarks/stadiums',
 
   // review
   REVIEWS: '/reviews',
   REVIEW_IMAGES: '/reviews/images',
+  REVIEW_STADIUMS: '/reviews/stadiums',
   REVIEWS_SEATING: (seatingId: number) => `/reviews/seating/${seatingId}`,
   REVIEWS_WITH_PARAMS: (concertId: number, seatingId: number) =>
     `/reviews/concerts/${concertId}/seating/${seatingId}`,
