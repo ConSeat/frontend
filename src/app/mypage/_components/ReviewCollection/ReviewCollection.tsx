@@ -47,24 +47,31 @@ const ReviewList = ({ stadium, stadiumId, onClick }: ReviewListProps) => {
 
   return (
     <ul className={styles.reviewList}>
-      {data?.reviews.content.map(({ reviewId, seatingName, sectionName, status, thumbnailUrl }) => {
-        return (
-          <li
-            key={reviewId}
-            className={styles.reviewItem}
-            onClick={() => onClick(reviewId, status)}
-          >
-            <div className={styles.reviewImage}>
-              <Image width={100} height={120} alt="" src={thumbnailUrl} />
-            </div>
-            <div className={styles.reviewText}>
-              <div className={styles.title}>{stadium}</div>
-              <div className={styles.seat}>{seatingName + ' ' + sectionName}</div>
-            </div>
-            {status && <ReviewStatusTag status={status} />}
-          </li>
-        );
-      })}
+      {data?.reviews.content.map(
+        ({ reviewId, seatingName, floorName, sectionName, status, thumbnailUrl }) => {
+          return (
+            <li
+              key={reviewId}
+              className={styles.reviewItem}
+              onClick={() => onClick(reviewId, status)}
+            >
+              <div className={styles.reviewImage}>
+                <Image width={100} height={120} alt="" src={thumbnailUrl} />
+              </div>
+              <div className={styles.reviewText}>
+                <div className={styles.title}>{stadium}</div>
+                <div className={styles.seat}>
+                  {floorName +
+                    ' ' +
+                    sectionName +
+                    `${seatingName === 'FLOOR' ? '' : ' ' + seatingName}`}
+                </div>
+              </div>
+              {status && <ReviewStatusTag status={status} />}
+            </li>
+          );
+        },
+      )}
     </ul>
   );
 };
