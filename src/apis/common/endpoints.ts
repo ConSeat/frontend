@@ -7,6 +7,9 @@ export const API_ENDPOINTS = {
   SOCIAL_LOGIN: (socialType: SocialType) => `/auth/login/${socialType}`,
   LOGIN: '/auth/login',
 
+  //members
+  MEMBERS: '/members',
+
   // review
   REVIEWS: '/reviews',
   REVIEW_IMAGES: '/reviews/images',
