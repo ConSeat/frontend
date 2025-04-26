@@ -2,6 +2,9 @@ import styles from './MyPage.module.scss';
 import MyHeader from './_components/MyHeader/MyHeader';
 import ReviewCollection from './_components/ReviewCollection/ReviewCollection';
 import UserInfo from './_components/UserInfo';
+import { HydrationBoundary } from '@tanstack/react-query';
+import { memberQueries } from '@/apis/members/member.query';
+import { createPrefetchedQueryClient } from '@/utils/createPrefetchedQueryClient';
 
 const options = ['옵션1', '옵션2', '옵션3'];
 const reviews = [
@@ -27,22 +30,22 @@ const reviews = [
   { reviewId: 14, imageSrc: '/images/kspo-dome.jpg', title: 'KSPO COME', seat: '1구역 5~8열' },
 ];
 
-const MyPage = () => {
+const MyPage = async () => {
+  const { dehydratedState } = await createPrefetchedQueryClient([memberQueries.info]);
+
   return (
     <div className={styles.pageLayout}>
       <MyHeader />
       <div className={styles.userInfoArea}>
-        <UserInfo
-          thumbnail="/images/jamsil-arena.jpg"
-          nickName="부희주콘"
-          email="j7papa@naver.com"
-        />
-        <ReviewCollection
-          viewNumber={0}
-          reviewNumber={4}
-          filterOptions={options}
-          reviews={reviews}
-        />
+        <HydrationBoundary state={dehydratedState}>
+          <UserInfo />
+          <ReviewCollection
+            viewNumber={0}
+            reviewNumber={5}
+            filterOptions={options}
+            reviews={reviews}
+          />
+        </HydrationBoundary>
       </div>
     </div>
   );
