@@ -93,7 +93,7 @@ interface ConcertDescriptionProps {
 }
 
 const ConcertDescription = ({ contents }: ConcertDescriptionProps) => {
-  <div className={styles.description}>{contents}</div>;
+  return <div className={styles.description}>{contents}</div>;
 };
 
 // KeywordItem
@@ -184,13 +184,13 @@ const LikeButton = ({ likeNum, isLiked, onClick }: LikeButtonProps) => {
 
 // MoreButton
 interface MoreButtonProps {
-  onClickMore: () => void;
+  onClick: () => void;
 }
 
-const MoreButton = ({ onClickMore }: MoreButtonProps) => {
+const MoreButton = ({ onClick }: MoreButtonProps) => {
   return (
     <div className={styles.more}>
-      <Button className={styles.moreButton} onClick={onClickMore}>
+      <Button className={styles.moreButton} onClick={onClick}>
         <Icon icon="MoreFunction" />
       </Button>
     </div>

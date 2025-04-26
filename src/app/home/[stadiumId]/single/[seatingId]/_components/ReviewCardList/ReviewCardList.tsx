@@ -1,7 +1,7 @@
+import ResultReviewCard from '../ResultReviewCard/ResultReviewCard';
 import styles from './ReviewCardList.module.scss';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
-import ReviewCard from '@/components/ReviewCard';
 import { SeatingReview } from '@/types/review';
 
 interface ReviewCardListProps {
@@ -29,42 +29,9 @@ const ReviewCardList = ({ stadiumId, seatingId, reviews }: ReviewCardListProps) 
         </Button>
       </div>
       <div>
-        {reviews.map(
-          ({
-            reviewId,
-            concertName,
-            contents,
-            createdAt,
-            features,
-            images,
-            isBookmarked,
-            isLiked,
-            likesCount,
-            obstructions,
-            writerNickname,
-            writerSrc,
-          }) => {
-            return (
-              <ReviewCard
-                key={reviewId}
-                images={images}
-                features={features}
-                obstructions={obstructions}
-                concertName={concertName}
-                contents={contents}
-                writerSrc={writerSrc}
-                createdAt={createdAt}
-                writerNickname={writerNickname}
-                likesCount={likesCount}
-                isBookmarked={isBookmarked}
-                isLiked={isLiked}
-                handleClickMore={() => {}}
-                handleClickLike={() => {}}
-                handleClickBookmark={() => {}}
-              />
-            );
-          },
-        )}
+        {reviews.map((review: SeatingReview) => {
+          return <ResultReviewCard key={review.reviewId} review={review} />;
+        })}
       </div>
     </div>
   );
