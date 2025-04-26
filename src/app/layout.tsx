@@ -4,6 +4,7 @@ import localFont from 'next/font/local';
 import KakaoScript from '@/components/KakaoScript';
 import { PopupProvider } from '@/providers/PopupProvider';
 import QueryProvider from '@/providers/QueryProvider';
+import { ToastProvider } from '@/providers/ToastProvider';
 import '@/styles/global.scss';
 
 const pretendard = localFont({
@@ -23,12 +24,14 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     <html lang="ko" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
         <QueryProvider>
-          <PopupProvider>
-            <div className={styles.layout}>
-              {children}
-              <div id="portal"></div>
-            </div>
-          </PopupProvider>
+          <ToastProvider>
+            <PopupProvider>
+              <div className={styles.layout}>
+                {children}
+                <div id="portal"></div>
+              </div>
+            </PopupProvider>
+          </ToastProvider>
         </QueryProvider>
       </body>
       <KakaoScript />

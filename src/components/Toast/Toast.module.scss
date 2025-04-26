@@ -1,0 +1,54 @@
+@import '@/styles/style';
+
+@keyframes slide-up-down {
+  0% {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+
+  33% {
+    transform: translate(-50%, 0%);
+    opacity: 1;
+  }
+
+  66% {
+    transform: translate(-50%, 0%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+}
+
+.toastLayout {
+  position: fixed;
+  z-index: z-index('toast');
+  bottom: 128px;
+  left: 50vw;
+  transform: translate(-50%, 100%);
+
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  align-items: center;
+
+  min-width: 343px;
+  height: 52px;
+  padding: 4px 16px;
+  border: 1px solid rgb(73 80 87 / 50%);
+  border-radius: 5px;
+
+  background: rgb(0 0 0 / 80%);
+  backdrop-filter: blur(2.5px);
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 50%);
+
+  animation: slide-up-down 1.5s ease-in-out forwards;
+
+  .text {
+    @include body-4;
+
+    color: $sub-white;
+  }
+}

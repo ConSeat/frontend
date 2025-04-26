@@ -3,6 +3,7 @@
 import { NONE_SELECT } from '../../_constants/info';
 import { REVIEW } from '../../_constants/review';
 import ReviewDropdownInput from '../ReviewDropdownInput/ReviewDropdownInput';
+import styles from './ConcertSelect.module.scss';
 import { useEffect, useState } from 'react';
 import useDebounce from '@/hooks/common/useDebounce';
 import { useFetchStadiumConcerts } from '@/hooks/queries/useFetchStadium';
@@ -48,14 +49,16 @@ const ConcertSelect = ({ stadiumId, dispatch }: ConcertSelectProps) => {
   };
 
   return (
-    <ReviewDropdownInput
-      value={inputValue}
-      onChange={handleSelect}
-      onInputChange={handleInputChange}
-      options={cachedConcerts}
-      selectedId={selectedId}
-      placeholder="콘서트명을 검색해주세요"
-    />
+    <div className={styles.concertInfoSelectContainer}>
+      <ReviewDropdownInput
+        value={inputValue}
+        onChange={handleSelect}
+        onInputChange={handleInputChange}
+        options={cachedConcerts}
+        selectedId={selectedId}
+        placeholder="콘서트명을 검색해주세요"
+      />
+    </div>
   );
 };
 

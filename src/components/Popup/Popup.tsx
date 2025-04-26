@@ -20,17 +20,21 @@ const PopupButtonArea = ({
   cancelText,
   onCancel,
   onConfirm,
+  type = 'confirm',
 }: {
   confirmText: string;
   cancelText: string;
   onCancel: () => void;
   onConfirm: () => void;
+  type?: 'confirm' | 'alert';
 }) => {
   return (
     <div className={styles.buttonBox}>
-      <Button className={styles.noButton} onClick={onCancel}>
-        {cancelText}
-      </Button>
+      {type === 'confirm' && (
+        <Button className={styles.noButton} onClick={onCancel}>
+          {cancelText}
+        </Button>
+      )}
       <Button className={styles.yesButton} onClick={onConfirm}>
         {confirmText}
       </Button>

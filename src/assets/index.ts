@@ -10,6 +10,10 @@ export { default as MoreFunction } from '@/assets/icons/common/more-function.svg
 export { default as PrevArrow } from '@/assets/icons/common/prev-arrow.svg';
 export { default as NextArrow } from '@/assets/icons/common/next-arrow.svg';
 export { default as LinkCopy } from '@/assets/icons/common/link-copy.svg';
+export { default as Info } from '@/assets/icons/common/info.svg';
+export { default as Success } from '@/assets/icons/common/success.svg';
+export { default as Waring } from '@/assets/icons/common/warning.svg';
+export { default as Retry } from '@/assets/icons/common/retry.svg';
 
 /**************** icons - homePage ****************/
 export { default as IcChat } from '@/assets/icons/homePage/ic-chat.svg';
@@ -20,6 +24,9 @@ export { default as QnA } from '@/assets/icons/homePage/qna.svg';
 export { default as Gear } from '@/assets/icons/myPage/gear.svg';
 export { default as Camera } from '@/assets/icons/myPage/camera.svg';
 export { default as Exclamation } from '@/assets/icons/myPage/exclamation.svg';
+
+/**************** icons - AllReviewPage ****************/
+export { default as Reset } from '@/assets/icons/AllReviewPage/reset.svg';
 
 /**************** icons - stadiumPage ****************/
 export { default as Compare } from '@/assets/icons/stadiumPage/compare.svg';

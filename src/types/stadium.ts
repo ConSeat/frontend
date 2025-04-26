@@ -16,9 +16,14 @@ export interface Seat {
   name: string;
 }
 
+export interface SeatWithReviewCount extends Seat {
+  reviewCount: number;
+}
+
 export interface Section {
+  sectionId: number;
   name: string;
-  seats: Seat[];
+  seats?: Seat[];
 }
 
 export interface Floor {

@@ -1,5 +1,5 @@
 import styles from './MyPage.module.scss';
-import Header from './_components/Header/Header';
+import MyHeader from './_components/MyHeader/MyHeader';
 import ReviewCollection from './_components/ReviewCollection/ReviewCollection';
 import UserInfo from './_components/UserInfo';
 
@@ -30,7 +30,7 @@ const reviews = [
 const MyPage = () => {
   return (
     <div className={styles.pageLayout}>
-      <Header />
+      <MyHeader />
       <div className={styles.userInfoArea}>
         <UserInfo
           thumbnail="/images/jamsil-arena.jpg"

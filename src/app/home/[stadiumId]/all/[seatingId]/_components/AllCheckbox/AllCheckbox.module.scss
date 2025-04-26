@@ -1,0 +1,41 @@
+@import '@/styles/style';
+
+.allCheckbox {
+  cursor: pointer;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  width: auto;
+  padding: 10px 16px;
+  border-radius: 5px;
+
+  background-color: $sub-gray7;
+  outline: 1px solid $sub-gray6;
+  outline-offset: 0;
+
+  transition: outline 0.1s ease;
+}
+
+.allCheckboxText {
+  @include body-1;
+
+  color: $sub-gray2;
+}
+
+.hiddenCheckbox {
+  display: none;
+}
+
+.select {
+  outline: 2px solid $main-mint1;
+  outline-offset: 0;
+
+  .allCheckboxText {
+    @include body-1;
+
+    color: $main-mint1;
+  }
+}

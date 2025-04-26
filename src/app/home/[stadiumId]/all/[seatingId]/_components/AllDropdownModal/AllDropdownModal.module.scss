@@ -1,0 +1,95 @@
+@import '@/styles/style';
+
+.triggerButton {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  width: fit-content;
+  padding: 8px;
+  border-radius: 5px;
+
+  color: $sub-gray2;
+  white-space: nowrap;
+
+  background-color: $sub-gray8;
+
+  @include body-3;
+
+  &.selected {
+    color: $sub-black;
+    background-color: $sub-gray2;
+  }
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+
+  width: 100%;
+  margin-top: auto;
+}
+
+.reset {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  width: auto;
+  height: 52px;
+  padding: 8px 16px;
+  border: 1px solid $sub-gray6;
+  border-radius: 100px;
+
+  color: $sub-gray5;
+  white-space: nowrap;
+
+  background-color: $sub-black;
+
+  @include subtitle-4;
+}
+
+.modalBody {
+  position: relative;
+  z-index: z-index(modal-content);
+
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 12px;
+  align-items: flex-start;
+
+  height: 380px;
+  padding: 20px;
+  border-radius: 16px 16px 0 0;
+
+  background-color: $sub-gray8;
+
+  @include layout-width;
+}
+
+.modalTextContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: center;
+
+  width: 100%;
+  padding: 10px;
+}
+
+.modalTextTitle {
+  @include subtitle-1;
+
+  color: $sub-gray1;
+}
+
+.modalTextSubTitle {
+  @include body-6;
+
+  color: $sub-gray4;
+}

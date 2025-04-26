@@ -1,14 +1,14 @@
-import Header from '../_components/Header/Header';
-import InfoSection from '../_components/InfoSection';
+import InfoSection from './_components/InfoSection';
+import ServiceHeader from './_components/ServiceHeader/ServiceHeader';
 import styles from './service.module.scss';
 
-const page = () => {
+const Page = () => {
   return (
     <div className={styles.layout}>
-      <Header title="앱 설정" />
+      <ServiceHeader />
       <InfoSection />
     </div>
   );
 };
 
-export default page;
+export default Page;
