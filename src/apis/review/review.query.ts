@@ -1,8 +1,12 @@
 import { reviewKeys } from '../common/queryKeys';
-import { getMyReviewStadiums } from './review.api';
+import { getMyReview, getMyReviewStadiums } from './review.api';
 
 export const reviewQueries = {
-  myReview: {
+  myReview: (stadiumId: number) => ({
+    queryKey: reviewKeys.all,
+    queryFn: () => getMyReview(stadiumId),
+  }),
+  myReviewStadiums: {
     queryKey: reviewKeys.stadiums(),
     queryFn: getMyReviewStadiums,
   },

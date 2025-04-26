@@ -12,7 +12,7 @@ export const API_ENDPOINTS = {
   MEMBERS_BOOKMARK: '/members/bookmarks/stadiums',
 
   // review
-  REVIEWS: '/reviews',
+  REVIEWS: (stadiumId: number) => `/reviews?stadiumId=${stadiumId}`,
   REVIEW_IMAGES: '/reviews/images',
   REVIEW_STADIUMS: '/reviews/stadiums',
   REVIEWS_SEATING: (seatingId: number) => `/reviews/seating/${seatingId}`,
