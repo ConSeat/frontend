@@ -1,3 +1,9 @@
+@import '@/styles/style';
+
+.container {
+  background-color: $sub-black;
+}
+
 .reviewKeywordList {
   display: flex;
   flex-wrap: wrap;

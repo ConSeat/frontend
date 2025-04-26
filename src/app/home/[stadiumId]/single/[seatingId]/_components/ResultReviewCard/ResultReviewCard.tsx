@@ -8,7 +8,7 @@ interface ResultReviewCardProps {
 
 const ResultReviewCard = ({ review }: ResultReviewCardProps) => {
   return (
-    <ReviewCard>
+    <ReviewCard className={styles.container}>
       <ReviewCard.Header>
         <ReviewCard.UserInfo
           profileSrc={review.writerSrc}
