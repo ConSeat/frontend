@@ -25,7 +25,7 @@ const review = {
   isBookmarked: true,
 };
 
-const DetailReviewModal = ({ reviewStatus, closeModal }: DetailReviewModalProps) => {
+const DetailReviewModal = ({ closeModal }: DetailReviewModalProps) => {
   // reviewId를 활용해 상세 리뷰 정보를 받아옵니다.
 
   return (
