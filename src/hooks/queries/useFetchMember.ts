@@ -1,0 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
+import { memberQueries } from '@/apis/members/member.query';
+
+export const useFetchMemberInfo = () => {
+  return useQuery(memberQueries.info);
+};

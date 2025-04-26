@@ -5,6 +5,10 @@ const ERROR_MESSAGES: Record<string, string> = {
   // auth
   POST_LOGIN: '로그인에 실패했습니다. 다시 시도해주세요.',
 
+  //member
+  GET_MEMBER_INFO: '사용자 정보를 가져오는데 실패했습니다. 다시 시도해주세요',
+  POST_MEMBER_INFO: '사용자 정보를 수정하는데 실패했습니다. 다시 시도해주세요',
+
   // review
   POST_REVIEWS_WITH_PARAMS: '리뷰 등록에 실패했습니다. 다시 시도해주세요.',
   POST_REVIEW_IMAGES: '리뷰 이미지 등록에 실패했습니다. 다시 시도해주세요.',
