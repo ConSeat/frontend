@@ -41,7 +41,7 @@ export interface StadiumObstructionInfo {
   name: string;
 }
 
-interface Stadiums {
+export interface Stadiums {
   stadiumId: number;
   stadiumName: string;
 }
