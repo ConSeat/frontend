@@ -1,1 +1,1 @@
-export { default } from './ReviewCollection.module.scss';
+export { default } from './ReviewCollection';
