@@ -35,19 +35,5 @@
 
 // ModalContent
 .modalContent {
-  @include fixed-centered-fullscreen;
-
   z-index: z-index(modal-content);
-  left: 50%;
-  transform: translateX(-50%);
-
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  height: 100dvh;
-  padding: 0 24px 32px;
-
-  background-color: $main-mint6;
 }

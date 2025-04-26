@@ -1,20 +1,16 @@
 @import '@/styles/style';
 
-.reviewContainer {
-  flex-grow: 1;
-  align-content: center;
+.content {
+  position: fixed;
+  z-index: z-index(modal-content);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-  .reviewDetail {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    place-content: center center;
+  overflow: auto;
 
-    width: 100%;
-    padding: 28px 20px 20px;
-    border: 1px solid $sub-gray6;
-    border-radius: 10px;
-
-    background-color: $sub-black;
-  }
+  width: 90vw;
+  max-width: 500px;
+  max-height: 80vh;
+  margin: 0 auto;
 }
