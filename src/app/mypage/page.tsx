@@ -10,7 +10,7 @@ const MyPage = async () => {
   const { dehydratedState } = await createPrefetchedQueryClient([
     memberQueries.info,
     memberQueries.bookmarkStadiums,
-    reviewQueries.myReview,
+    reviewQueries.myReviewStadiums,
   ]);
 
   return (

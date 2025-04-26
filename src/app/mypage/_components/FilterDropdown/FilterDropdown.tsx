@@ -8,12 +8,11 @@ import Splitter from '@/components/Splitter/Splitter';
 
 interface FilterDropdown {
   value: string;
-  placeholder: string;
   options: string[];
   onChange: (value: string) => void;
 }
 
-const FilterDropdown = ({ value, placeholder, options, onChange }: FilterDropdown) => {
+const FilterDropdown = ({ value, options, onChange }: FilterDropdown) => {
   const { isDropdownOpen, handleToggleDropdown, dropdownRef } = useDropdown();
 
   return (
@@ -32,7 +31,7 @@ const FilterDropdown = ({ value, placeholder, options, onChange }: FilterDropdow
                 [styles.placeholder]: !value,
               })}
             >
-              {value || placeholder}
+              {value}
             </span>
             {isDropdownOpen ? <Icon icon="UpArrow" /> : <Icon icon="DownArrow" />}
           </button>
