@@ -2,6 +2,7 @@ import { API_ENDPOINTS } from '../common/endpoints';
 import api from '../common/universalApi';
 import MESSAGES from '@/constants/message';
 import { MemberInfoRequestBody } from '@/types/member';
+import { MyReviewStadiumsResponse } from '@/types/stadium';
 
 interface MemberInfoResponse {
   favoriteCount: number;
@@ -33,4 +34,13 @@ export const postMemberInfo = async (body: MemberInfoRequestBody) => {
     errorMessage: MESSAGES.ERROR.POST_MEMBER_INFO,
     body: formData,
   });
+};
+
+export const getBookmarkStadiums = async () => {
+  const { data } = await api.get<MyReviewStadiumsResponse>({
+    endpoint: API_ENDPOINTS.MEMBERS_BOOKMARK,
+    errorMessage: MESSAGES.ERROR.GET_MEMBER_INFO,
+  });
+
+  return data.body;
 };

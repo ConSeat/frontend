@@ -40,3 +40,12 @@ export interface StadiumObstructionInfo {
   obstructionId: number;
   name: string;
 }
+
+interface Stadiums {
+  stadiumId: number;
+  stadiumName: string;
+}
+
+export interface MyReviewStadiumsResponse {
+  stadiums: Stadiums[];
+}

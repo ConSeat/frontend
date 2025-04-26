@@ -2,6 +2,7 @@ import { API_ENDPOINTS } from '../common/endpoints';
 import api from '../common/universalApi';
 import MESSAGES from '@/constants/message';
 import type { ImageData, ReviewSubmitRequestBody } from '@/types/review';
+import { MyReviewStadiumsResponse } from '@/types/stadium';
 
 export const postReview = async (
   concertId: number,
@@ -32,4 +33,13 @@ export const postReviewImages = async (images: ImageData[]) => {
   });
 
   return { data: data.body };
+};
+
+export const getMyReviewStadiums = async () => {
+  const { data } = await api.get<MyReviewStadiumsResponse>({
+    endpoint: API_ENDPOINTS.REVIEW_STADIUMS,
+    errorMessage: MESSAGES.ERROR.GET_MEMBER_INFO,
+  });
+
+  return data.body;
 };

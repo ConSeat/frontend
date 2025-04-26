@@ -4,3 +4,7 @@ import { memberQueries } from '@/apis/members/member.query';
 export const useFetchMemberInfo = () => {
   return useQuery(memberQueries.info);
 };
+
+export const useFetchBookMarkStadiums = () => {
+  return useQuery(memberQueries.bookmarkStadiums);
+};

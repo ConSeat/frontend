@@ -1,5 +1,5 @@
 import { memberKeys } from '../common/queryKeys';
-import { getMemberInfo, postMemberInfo } from './member.api';
+import { getBookmarkStadiums, getMemberInfo, postMemberInfo } from './member.api';
 
 export const memberQueries = {
   info: {
@@ -10,5 +10,10 @@ export const memberQueries = {
   update: {
     queryKey: memberKeys.me(),
     queryFn: postMemberInfo,
+  },
+
+  bookmarkStadiums: {
+    queryKey: memberKeys.bookmarksStadiums(),
+    queryFn: getBookmarkStadiums,
   },
 };
