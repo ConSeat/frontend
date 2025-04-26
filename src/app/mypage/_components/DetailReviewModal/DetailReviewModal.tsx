@@ -1,7 +1,7 @@
 'use client';
 
-import MyReviewCard from '../MyReviewCard/MyReviewCard';
-import styles from './detailReview.module.scss';
+import MyViewCard from '../MyViewCard/MyViewCard';
+import styles from './DetailReviewModal.module.scss';
 import Modal from '@/components/Modal';
 
 interface DetailReviewModalProps {
@@ -22,6 +22,7 @@ const review = {
   createdAt: '9시간 전',
   status: '승인',
   rejectReason: '이유',
+  isBookmarked: true,
 };
 
 const DetailReviewModal = ({ reviewStatus, closeModal }: DetailReviewModalProps) => {
@@ -31,7 +32,7 @@ const DetailReviewModal = ({ reviewStatus, closeModal }: DetailReviewModalProps)
     <Modal>
       <Modal.Overlay onClick={closeModal} />
       <Modal.Content className={styles.content}>
-        <MyReviewCard review={review} closeModal={closeModal} />
+        <MyViewCard review={review} closeModal={closeModal} />
       </Modal.Content>
     </Modal>
   );

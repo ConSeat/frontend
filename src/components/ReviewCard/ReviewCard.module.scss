@@ -11,7 +11,7 @@
   padding: 28px 20px 20px;
   border-radius: 10px;
 
-  background: $sub-black;
+  background: $sub-bg-black;
 }
 
 // Header
@@ -32,8 +32,10 @@
   justify-content: space-between;
 
   .profile {
+    overflow: hidden;
     width: 38px;
     height: 38px;
+    border-radius: 50%;
   }
 
   .textInfo {
@@ -97,7 +99,7 @@
 .description {
   @include body-2;
 
-  color: $sub-gray3;
+  color: $sub-gray2;
 }
 
 // KeywordItem
