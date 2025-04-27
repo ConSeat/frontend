@@ -74,3 +74,25 @@ export const getBookmarkReview = async (stadiumId: number) => {
 
   return data.body;
 };
+
+export interface MyBookmarkDetailResponse {
+  reviewId: number;
+  writerNickname: string;
+  writerSrc: string;
+  concertName: string;
+  images: string[];
+  contents: string;
+  createdAt: string;
+  features: string[];
+  obstructions: string[];
+  isBookmarked: boolean;
+}
+
+export const getBookmarkDetail = async (reviewId: number) => {
+  const { data } = await api.get<MyBookmarkDetailResponse>({
+    endpoint: API_ENDPOINTS.MEMBERS_BOOKMARK_DETAIL(reviewId),
+    errorMessage: MESSAGES.ERROR.GET_MEMBER_INFO,
+  });
+
+  return data.body;
+};

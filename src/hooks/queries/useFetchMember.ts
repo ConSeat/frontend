@@ -12,3 +12,7 @@ export const useFetchBookMarkStadiums = () => {
 export const useFetchBookMarkReviews = (stadiumId: number) => {
   return useQuery(memberQueries.bookmarkReviews(stadiumId));
 };
+
+export const useFetchBookMarkDetail = (reviewId: number) => {
+  return useQuery(memberQueries.bookmarkDetail(reviewId));
+};
