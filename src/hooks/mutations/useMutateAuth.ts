@@ -1,11 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
 import { postLogin } from '@/apis/auth/auth.api';
+import { setAccessToken } from '@/utils/accessTokenStorage';
 
 const useMutateAuth = () => {
   const postLoginMutation = useMutation({
     mutationFn: postLogin,
-    onSuccess: ({ accessToken }: { accessToken: string }) => {
-      document.cookie = `accessToken=${accessToken}; path=/`;
+    onSuccess: async ({ accessToken }: { accessToken: string }) => {
+      await setAccessToken(accessToken);
     },
   });
 
