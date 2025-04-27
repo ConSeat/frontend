@@ -26,7 +26,7 @@ export const postMemberInfo = async (body: MemberInfoRequestBody) => {
   formData.append('nickname', body.nickname);
 
   if (body.profileImage) {
-    formData.append('profileImage', body.profileImage.file);
+    formData.append('file', body.profileImage.file);
   }
 
   return await api.post({
