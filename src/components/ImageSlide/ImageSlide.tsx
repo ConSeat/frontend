@@ -58,7 +58,7 @@ const ImageSlide = ({ currentIndex, imageSrcArray, height, onPrev, onNext }: Ima
               src={src}
               width={`${100 / totalLength}%`}
               height={height}
-              style={{ objectFit: 'cover' }}
+              style={{ objectFit: 'contain' }}
             />
           );
         })}

@@ -35,7 +35,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
       </PageExplanation>
 
       <Spacing size={24} />
-      {data.thumbnails.length > 0 && <ReviewThumbnail images={data.thumbnails} />}
+      <ReviewThumbnail images={data.reviews.map((elem) => elem.images[0])} />
       <Spacing size={52} />
 
       <div className={styles.searchResultContainer}>
