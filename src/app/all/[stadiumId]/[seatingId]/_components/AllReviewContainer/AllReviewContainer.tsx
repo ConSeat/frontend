@@ -2,6 +2,7 @@
 
 import AllReviewContent from '../AllReviewContent/AllReviewContent';
 import React, { useReducer } from 'react';
+import { NONE_SELECT } from '@/app/home/[stadiumId]/review/_constants/info';
 import type { ListSort } from '@/types/review';
 
 export interface FilterState {
@@ -26,7 +27,7 @@ const createInitFilterData = (stadiumId: number, seatingId: number) => {
     seatingId,
     features: [],
     obstructions: [],
-    lastReviewId: -1,
+    lastReviewId: NONE_SELECT,
     sort: '' as ListSort,
   };
 

@@ -1,6 +1,5 @@
 'use client';
 
-import ReviewCardList from '../ReviewCardList';
 import ReviewThumbnail from '../ReviewThumnail';
 import SearchEndButton from '../SearchEndButton';
 import styles from './SingleResult.module.scss';
@@ -10,6 +9,7 @@ import { useFetchSeating } from '@/hooks/queries/useFetchSeatingReview';
 import Button from '@/components/Button/Button';
 import Highlight from '@/components/Highlight/Highlight';
 import PageExplanation from '@/components/PageExplanation';
+import ReviewCardList from '@/components/ReviewCardList';
 import ShareArea from '@/components/ShareArea';
 import Spacing from '@/components/Spacing/Spacing';
 
@@ -53,11 +53,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
           </Button>
         </div>
 
-        <ReviewCardList
-          stadiumId={stadiumId}
-          seatingId={seatingId}
-          reviews={data.reviews.slice(0, 2)} // TODO: slice 제거
-        />
+        <ReviewCardList stadiumId={stadiumId} seatingId={seatingId} reviews={data.reviews} />
       </div>
 
       <Spacing size={52} />

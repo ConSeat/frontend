@@ -40,5 +40,5 @@ export const getAllReviewList = async (seatingId: number, params: ReviewListQuer
     errorMessage: MESSAGES.ERROR.GET_ALL_REVIEW_LIST,
   });
 
-  return { data: data.body };
+  return data.body;
 };

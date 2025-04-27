@@ -6,6 +6,7 @@ import SortDropdown from '../SortDropdown/SortDropdown';
 import styles from './AllReviewContent.module.scss';
 import { type Dispatch } from 'react';
 import { useFetchAllReviewList } from '@/hooks/queries/useFetchSeatingReview';
+import ReviewCardList from '@/components/ReviewCardList';
 import Splitter from '@/components/Splitter/Splitter';
 
 interface AllReviewContentProps {
@@ -21,7 +22,7 @@ const AllReviewContent = ({
   stadiumId,
   seatingId,
 }: AllReviewContentProps) => {
-  const { data: filteredList } = useFetchAllReviewList(filterData.seatingId, filterData);
+  const { data: filteredList, isLoading } = useFetchAllReviewList(filterData.seatingId, filterData);
 
   return (
     <div>
@@ -41,12 +42,18 @@ const AllReviewContent = ({
       <div className={styles.searchResultContainer}>
         <div className={styles.searchResultHeader}>
           <span className={styles.searchResultCount}>
-            검색결과 {filteredList?.data.reviewCount}개
+            {isLoading ? '검색 중...' : `검색결과 ${filteredList?.reviewCount}개`}
           </span>
           <SortDropdown sort={filterData.sort} dispatch={dispatch} />
         </div>
 
-        <div className={styles.reviewCard}>결과 리스트결과</div>
+        {filteredList?.reviews.content && (
+          <ReviewCardList
+            stadiumId={stadiumId}
+            seatingId={seatingId}
+            reviews={filteredList?.reviews.content}
+          />
+        )}
       </div>
     </div>
   );

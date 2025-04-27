@@ -31,21 +31,22 @@ const SeatDropdownModal = ({
     sectionId: NONE_SELECT,
     seatingId: seatingIdState,
   });
+
+  const { data: seatNameInfo } = useFetchSeating(seatingIdState);
   const { data: sectionData } = useFetchStadiumSections(stadiumId);
   const { data: sectionSeatingData } = useFetchStadiumSectionSeating(
     seatInfo.sectionId,
     seatInfo.sectionId !== NONE_SELECT,
   );
-  const { data: fetchedInfo } = useFetchSeating(seatingIdState);
+
+  const label = seatNameInfo
+    ? `${seatNameInfo.floorName} / ${seatNameInfo.sectionName}${seatNameInfo.seatingName ? ' / ' + seatNameInfo.seatingName : ''}`
+    : '좌석 정보 불러오는 중';
 
   const fetchedSeats = sectionData?.data.floors || [];
   const availableSections =
     fetchedSeats.find((floor) => floor.name === seatInfo.floor)?.sections || [];
   const availableSeating = sectionSeatingData?.data.seating || [];
-
-  const label = fetchedInfo
-    ? `${fetchedInfo.floorName} / ${fetchedInfo.sectionName}${fetchedInfo.seatingName ? ' / ' + fetchedInfo.seatingName : ''}`
-    : '좌석을 선택해주세요';
 
   const handleSeatInfoSelect = (updates: Partial<typeof seatInfo>) => {
     const newSeatInfo = { ...seatInfo, ...updates };
