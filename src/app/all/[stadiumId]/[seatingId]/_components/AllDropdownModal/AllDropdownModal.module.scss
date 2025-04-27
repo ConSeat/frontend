@@ -2,7 +2,7 @@
 
 .triggerButton {
   display: flex;
-  gap: 8px;
+  gap: 12px;
   align-items: center;
 
   width: fit-content;
@@ -14,7 +14,7 @@
 
   background-color: $sub-gray8;
 
-  @include body-3;
+  @include body-4;
 
   &.selected {
     color: $sub-black;
