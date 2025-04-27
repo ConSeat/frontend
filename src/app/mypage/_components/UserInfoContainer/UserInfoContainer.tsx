@@ -3,8 +3,12 @@
 import ReviewCollection from '../ReviewCollection';
 import UserInfo from '../UserInfo/UserInfo';
 import { notFound, useSearchParams } from 'next/navigation';
-import { useFetchBookMarkStadiums, useFetchMemberInfo } from '@/hooks/queries/useFetchMember';
-import { useFetchMyStadiums } from '@/hooks/queries/useFetchMyReview';
+import {
+  useFetchBookMarkReviews,
+  useFetchBookMarkStadiums,
+  useFetchMemberInfo,
+} from '@/hooks/queries/useFetchMember';
+import { useFetchMyReview, useFetchMyStadiums } from '@/hooks/queries/useFetchMyReview';
 import { MY_PAGE_QUERY } from '@/constants/myPage';
 
 const UserInfoContainer = () => {
@@ -14,10 +18,12 @@ const UserInfoContainer = () => {
   const searchParams = useSearchParams();
   const tapType = searchParams.get(MY_PAGE_QUERY);
 
-  if (!memberInfo || !myReviewStadiums || !bookmarkStadiums) {
+  if (!memberInfo || !bookmarkStadiums || !myReviewStadiums) {
     notFound();
   }
+
   const { stadiums } = tapType === 'view' ? bookmarkStadiums : myReviewStadiums;
+  const useFetchReview = tapType === 'view' ? useFetchBookMarkReviews : useFetchMyReview;
 
   return (
     <>
@@ -26,12 +32,11 @@ const UserInfoContainer = () => {
         nickname={memberInfo.nickname}
         email={memberInfo.email}
       />
-
       <ReviewCollection
         viewNumber={memberInfo.favoriteCount}
         reviewNumber={memberInfo.myReviewCount}
-        filterOptions={stadiums.map((elem) => elem.stadiumName)}
         stadiums={stadiums}
+        useFetchReview={useFetchReview}
       />
     </>
   );

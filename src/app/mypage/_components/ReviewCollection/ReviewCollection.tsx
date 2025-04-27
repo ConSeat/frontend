@@ -4,22 +4,26 @@ import DetailReviewModal from '../DetailReviewModal';
 import FilterDropdown from '../FilterDropdown';
 import LoadingSpinner from '../LoadingSpinner';
 import styles from './ReviewCollection.module.scss';
+import { UseQueryResult } from '@tanstack/react-query';
 import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import useStateModal from '@/hooks/common/useStateModal';
-import { useFetchMyReview } from '@/hooks/queries/useFetchMyReview';
 import Portal from '@/components/Portal/Portal';
+import { MyBookmarkResponse } from '@/apis/members/member.api';
+import { MyReviewResponse } from '@/apis/review/review.api';
 import { MY_PAGE_QUERY, REVIEW_TAP, VIEW_TAP } from '@/constants/myPage';
 import { Stadiums } from '@/types/stadium';
 
 interface ReviewCollectionProps {
   viewNumber: number;
   reviewNumber: number;
-  filterOptions: string[];
   stadiums: Stadiums[];
+  useFetchReview:
+    | ((stadiumId: number) => UseQueryResult<MyReviewResponse, Error>)
+    | ((stadiumId: number) => UseQueryResult<MyBookmarkResponse, Error>);
 }
 
 interface ReviewStatusTagProps {
@@ -30,48 +34,51 @@ interface ReviewListProps {
   stadiumId: number | undefined;
   stadium: string;
   onClick: (reviewId: number, status?: string) => void;
+  useFetchReview:
+    | ((stadiumId: number) => UseQueryResult<MyReviewResponse, Error>)
+    | ((stadiumId: number) => UseQueryResult<MyBookmarkResponse, Error>);
 }
 
 const ReviewStatusTag = ({ status }: ReviewStatusTagProps) => {
   return <div className={styles.statusTag}>{status}</div>;
 };
 
-const ReviewList = ({ stadium, stadiumId, onClick }: ReviewListProps) => {
+const ReviewList = ({ stadium, stadiumId, onClick, useFetchReview }: ReviewListProps) => {
   if (!stadiumId) {
     notFound();
   }
 
-  const { data, isLoading } = useFetchMyReview(stadiumId);
+  const { data, isLoading } = useFetchReview(stadiumId);
 
   if (isLoading) return <LoadingSpinner />;
 
   return (
     <ul className={styles.reviewList}>
-      {data?.reviews.content.map(
-        ({ reviewId, seatingName, floorName, sectionName, status, thumbnailUrl }) => {
-          return (
-            <li
-              key={reviewId}
-              className={styles.reviewItem}
-              onClick={() => onClick(reviewId, status)}
-            >
-              <div className={styles.reviewImage}>
-                <Image width={100} height={120} alt="" src={thumbnailUrl} />
+      {data?.reviews.content.map((elem) => {
+        const { reviewId, seatingName, floorName, sectionName, thumbnailUrl } = elem;
+
+        return (
+          <li
+            key={reviewId}
+            className={styles.reviewItem}
+            onClick={() => onClick(reviewId, status)}
+          >
+            <div className={styles.reviewImage}>
+              <Image width={100} height={120} alt="" src={thumbnailUrl} />
+            </div>
+            <div className={styles.reviewText}>
+              <div className={styles.title}>{stadium}</div>
+              <div className={styles.seat}>
+                {floorName +
+                  ' ' +
+                  sectionName +
+                  `${seatingName === 'FLOOR' ? '' : ' ' + seatingName}`}
               </div>
-              <div className={styles.reviewText}>
-                <div className={styles.title}>{stadium}</div>
-                <div className={styles.seat}>
-                  {floorName +
-                    ' ' +
-                    sectionName +
-                    `${seatingName === 'FLOOR' ? '' : ' ' + seatingName}`}
-                </div>
-              </div>
-              {status && <ReviewStatusTag status={status} />}
-            </li>
-          );
-        },
-      )}
+            </div>
+            {elem?.status && <ReviewStatusTag status={elem.status} />}
+          </li>
+        );
+      })}
     </ul>
   );
 };
@@ -90,10 +97,10 @@ const NoneContent = () => {
 const ReviewCollection = ({
   viewNumber,
   reviewNumber,
-  filterOptions,
   stadiums,
+  useFetchReview,
 }: ReviewCollectionProps) => {
-  const [filterValue, setFilterValue] = useState('');
+  const [filterValue, setFilterValue] = useState(stadiums[0]?.stadiumName);
   const [reviewId, setReviewId] = useState(0);
   const [reviewStatus, setReviewStatus] = useState(undefined);
   const { isModalOpen, openModal, closeModal } = useStateModal();
@@ -145,25 +152,24 @@ const ReviewCollection = ({
         </div>
       </div>
       <div className={styles.reviewContainer}>
-        {stadiums[0]?.stadiumName === undefined ? (
+        {stadiums.length === 0 ? (
           <NoneContent />
         ) : (
           <>
             <FilterDropdown
               value={stadiums[0].stadiumName}
-              options={filterOptions}
+              options={stadiums.map((stadium) => stadium.stadiumName)}
               onChange={handleChangeFilter}
             />
-
             <ReviewList
-              stadium={filterValue ? filterValue : stadiums[0].stadiumName}
+              stadium={stadiums[0].stadiumName}
               stadiumId={
                 stadiums.find((elem) => {
-                  const target = filterValue ? filterValue : stadiums[0].stadiumName;
-                  return elem.stadiumName === target;
+                  return elem.stadiumName === filterValue;
                 })?.stadiumId
               }
               onClick={handelClickReviewItem}
+              useFetchReview={useFetchReview}
             />
           </>
         )}
