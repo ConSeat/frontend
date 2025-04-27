@@ -39,7 +39,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
       </div>
 
       <Spacing size={24} />
-      <ReviewThumbnail images={['/images/jamsil-arena.jpg', '/images/jamsil-arena.jpg']} />
+      {data.thumbnails.length > 0 && <ReviewThumbnail images={data.thumbnails} />}
 
       <div
         style={{
@@ -47,11 +47,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
         }}
       >
         <Spacing size={52} />
-        <ReviewCardList
-          stadiumId={stadiumId}
-          seatingId={seatingId}
-          reviews={data.reviews.slice(0, 2)}
-        />
+        <ReviewCardList stadiumId={stadiumId} seatingId={seatingId} reviews={data.reviews} />
         <Spacing size={52} />
         <ShareArea />
         <Spacing size={104} />
