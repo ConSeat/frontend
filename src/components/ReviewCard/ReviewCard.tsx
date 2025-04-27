@@ -7,6 +7,8 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import type React from 'react';
 import type { ReactNode } from 'react';
+import { useAuth } from '@/hooks/common/useAuth';
+import useMutateBookmark from '@/hooks/mutations/useMutateBookmark';
 
 // Container
 interface Container {
@@ -144,16 +146,34 @@ const Screening = ({ status, rejectReason }: ScreeningProps) => {
 
 // Bookmark
 interface BookmarkProps {
+  reviewId: number;
   isSaved: boolean;
-  onClick: () => void;
 }
 
-const Bookmark = ({ isSaved, onClick }: BookmarkProps) => {
+const Bookmark = ({ reviewId, isSaved }: BookmarkProps) => {
+  const { checkAndExecute } = useAuth();
+  const { postBookmarkMutation, deleteBookmarkMutation } = useMutateBookmark(reviewId);
   const bookMarkColor = isSaved ? '#00FFE5' : undefined;
+
+  const handleClickBookMark = () => {
+    if (isSaved) {
+      deleteBookmarkMutation.mutate(undefined, {
+        onSuccess: () => {},
+      });
+    } else {
+      const addBookmark = () => {
+        postBookmarkMutation.mutate(undefined, {
+          onSuccess: () => {},
+        });
+      };
+
+      checkAndExecute(addBookmark, '결과 저장을 위해 로그인 / 회원 가입을 진행해주세요');
+    }
+  };
 
   return (
     <div className={styles.bookMark}>
-      <Icon icon="Bookmark" color={bookMarkColor} onClick={onClick} size={24} />
+      <Icon icon="Bookmark" color={bookMarkColor} onClick={handleClickBookMark} size={24} />
     </div>
   );
 };
