@@ -4,6 +4,7 @@ import ObstructionDropdownModal from '../ObstructionDropdownModal/ObstructionDro
 import SeatDropdownModal from '../SeatDropdownModal/SeatDropdownModal';
 import SortDropdown from '../SortDropdown/SortDropdown';
 import styles from './AllReviewContent.module.scss';
+import Link from 'next/link';
 import { type Dispatch } from 'react';
 import useIntersectionObserver from '@/hooks/common/useIntersectionObserver';
 import { useFetchAllReviewList } from '@/hooks/queries/useFetchSeatingReview';
@@ -17,6 +18,17 @@ interface AllReviewContentProps {
   stadiumId: number;
   seatingId: number;
 }
+
+const NoneContent = () => {
+  return (
+    <div className={styles.noneContentContainer}>
+      <div className={styles.subtitle}>아직 후기가 없어요😢</div>
+      <Link href="/home">
+        <div className={styles.homeLink}>내 후기 등록하러가기 {'>'}</div>
+      </Link>
+    </div>
+  );
+};
 
 const AllReviewContent = ({
   filterData,
@@ -53,7 +65,9 @@ const AllReviewContent = ({
           <SortDropdown sort={filterData.sort} dispatch={dispatch} />
         </div>
 
-        {filteredList && (
+        {filteredList.length === 0 ? (
+          <NoneContent />
+        ) : (
           <>
             <ReviewCardList stadiumId={stadiumId} seatingId={seatingId} reviews={filteredList} />
             {canFetchNextPage && (

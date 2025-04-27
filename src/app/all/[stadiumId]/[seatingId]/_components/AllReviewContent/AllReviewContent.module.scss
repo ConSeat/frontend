@@ -35,3 +35,28 @@
   justify-content: center;
   margin: 40px 0;
 }
+
+// NonContent
+.noneContentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 212px;
+
+  .subtitle {
+    @include subtitle-1;
+
+    color: $sub-gray6;
+  }
+
+  .homeLink {
+    @include body-2;
+
+    color: $sub-gray6;
+    text-decoration: underline;
+  }
+}
