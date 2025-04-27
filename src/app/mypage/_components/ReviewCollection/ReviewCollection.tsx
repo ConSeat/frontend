@@ -100,7 +100,7 @@ const ReviewCollection = ({
   stadiums,
   useFetchReview,
 }: ReviewCollectionProps) => {
-  const [filterValue, setFilterValue] = useState(stadiums[0]?.stadiumName);
+  const [filterValue, setFilterValue] = useState('');
   const [reviewId, setReviewId] = useState(0);
   const [reviewStatus, setReviewStatus] = useState(undefined);
   const { isModalOpen, openModal, closeModal } = useStateModal();
@@ -165,7 +165,8 @@ const ReviewCollection = ({
               stadium={stadiums[0].stadiumName}
               stadiumId={
                 stadiums.find((elem) => {
-                  return elem.stadiumName === filterValue;
+                  const target = filterValue ? filterValue : stadiums[0].stadiumName;
+                  return elem.stadiumName === target;
                 })?.stadiumId
               }
               onClick={handelClickReviewItem}
