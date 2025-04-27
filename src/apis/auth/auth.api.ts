@@ -1,5 +1,6 @@
 import { API_ENDPOINTS } from '../common/endpoints';
 import api from '../common/universalApi';
+import { PUBLIC_ENV } from '@/config/env';
 import MESSAGES from '@/constants/message';
 
 export type SocialType = 'google' | 'kakao' | 'twitter';
@@ -17,4 +18,9 @@ export const postLogin = async () => {
   }
 
   return { accessToken };
+};
+
+// --- 소셜 로그인 URL 생성 함수 ---
+export const socialLogin = (socialType: SocialType) => {
+  return `${PUBLIC_ENV.baseUrl}${API_ENDPOINTS.SOCIAL_LOGIN(socialType)}`;
 };

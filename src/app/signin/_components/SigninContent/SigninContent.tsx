@@ -6,16 +6,10 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon/Icon';
 import Spacing from '@/components/Spacing/Spacing';
-import type { SocialType } from '@/apis/auth/auth.api';
-import { API_ENDPOINTS } from '@/apis/common/endpoints';
-import { PUBLIC_ENV } from '@/config/env';
+import { socialLogin } from '@/apis/auth/auth.api';
 
 const SigninContent = () => {
   const router = useRouter();
-
-  const getLoginUrl = (socialType: SocialType) => {
-    return `${PUBLIC_ENV.baseUrl}${API_ENDPOINTS.SOCIAL_LOGIN(socialType)}`;
-  };
 
   return (
     <div className={styles.signinLayout}>
@@ -31,7 +25,7 @@ const SigninContent = () => {
           <Button
             className={styles.googleButton}
             onClick={() => {
-              window.open(getLoginUrl('google'), '_self');
+              window.open(socialLogin('google'), '_self');
             }}
           >
             <Image src="/logo/google.svg" alt="구글 아이콘" width={24} height={24} />
@@ -40,7 +34,7 @@ const SigninContent = () => {
           <Button
             className={styles.kakaoButton}
             onClick={() => {
-              window.open(getLoginUrl('kakao'), '_self');
+              window.open(socialLogin('kakao'), '_self');
             }}
           >
             <Image src="/logo/kakaotalk.svg" alt="카카오톡 아이콘" width={28} height={28} />
@@ -49,7 +43,7 @@ const SigninContent = () => {
           {/* <Button
             className={styles.xButton}
             onClick={() => {
-              window.open(getLoginUrl('twitter'), '_self');
+              window.open(socialLogin('twitter'), '_self');
             }}
           >
             <Image src="/logo/X.svg" alt="x 아이콘" width={20} height={20} />
