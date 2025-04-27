@@ -1,12 +1,23 @@
 'use client';
 
+import LoadingSpinner from '../LoadingSpinner';
 import styles from './MyReviewCard.module.scss';
+import { notFound } from 'next/navigation';
 import React from 'react';
+import { useFetchMyReviewDetail } from '@/hooks/queries/useFetchMyReview';
 import Button from '@/components/Button/Button';
 import ReviewCard from '@/components/ReviewCard';
 import Splitter from '@/components/Splitter/Splitter';
 
-const MyReviewCard = ({ review, closeModal }) => {
+const MyReviewCard = ({ reviewId, closeModal }) => {
+  const { data: review, isLoading } = useFetchMyReviewDetail(reviewId);
+
+  if (isLoading) return <LoadingSpinner />;
+
+  if (!review) {
+    notFound();
+  }
+
   return (
     <ReviewCard className={styles.myReviewCardContainer}>
       <ReviewCard.Header>

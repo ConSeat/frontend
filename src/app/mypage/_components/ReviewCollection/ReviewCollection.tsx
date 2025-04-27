@@ -102,12 +102,14 @@ const ReviewCollection = ({
 }: ReviewCollectionProps) => {
   const [filterValue, setFilterValue] = useState('');
   const [reviewId, setReviewId] = useState(0);
-  const [reviewStatus, setReviewStatus] = useState(undefined);
   const { isModalOpen, openModal, closeModal } = useStateModal();
 
   const router = useRouter();
   const searchParams = useSearchParams();
   const tapType = searchParams.get(MY_PAGE_QUERY);
+  if (tapType === null) {
+    notFound();
+  }
 
   const handleRouteView = () => {
     const params = new URLSearchParams(searchParams.toString());
@@ -125,9 +127,8 @@ const ReviewCollection = ({
     setFilterValue(value);
   };
 
-  const handelClickReviewItem = (reviewId, status) => {
+  const handelClickReviewItem = (reviewId) => {
     setReviewId(reviewId);
-    setReviewStatus(status);
     openModal();
   };
 
@@ -176,11 +177,7 @@ const ReviewCollection = ({
         )}
       </div>
       <Portal isOpen={isModalOpen}>
-        <DetailReviewModal
-          reviewId={reviewId}
-          reviewStatus={reviewStatus}
-          closeModal={closeModal}
-        />
+        <DetailReviewModal reviewId={reviewId} reviewType={tapType} closeModal={closeModal} />
       </Portal>
     </div>
   );
