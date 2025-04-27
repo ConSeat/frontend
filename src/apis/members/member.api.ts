@@ -39,7 +39,7 @@ export const postMemberInfo = async (body: MemberInfoRequestBody) => {
 export const getBookmarkStadiums = async () => {
   const { data } = await api.get<MyReviewStadiumsResponse>({
     endpoint: API_ENDPOINTS.MEMBERS_BOOKMARK,
-    errorMessage: MESSAGES.ERROR.GET_MEMBER_INFO,
+    errorMessage: MESSAGES.ERROR.GET_STADIUMS_BOOKMARK,
   });
 
   return data.body;
@@ -69,7 +69,7 @@ export interface Content {
 export const getBookmarkReview = async (stadiumId: number) => {
   const { data } = await api.get<MyBookmarkResponse>({
     endpoint: API_ENDPOINTS.MEMBERS_BOOKMARK_REVIEW(stadiumId),
-    errorMessage: MESSAGES.ERROR.GET_MEMBER_INFO,
+    errorMessage: MESSAGES.ERROR.GET_BOOKMARK_REVIEW,
   });
 
   return data.body;
@@ -91,7 +91,7 @@ export interface MyBookmarkDetailResponse {
 export const getBookmarkDetail = async (reviewId: number) => {
   const { data } = await api.get<MyBookmarkDetailResponse>({
     endpoint: API_ENDPOINTS.MEMBERS_BOOKMARK_DETAIL(reviewId),
-    errorMessage: MESSAGES.ERROR.GET_MEMBER_INFO,
+    errorMessage: MESSAGES.ERROR.GET_BOOKMARK_DETAIL,
   });
 
   return data.body;

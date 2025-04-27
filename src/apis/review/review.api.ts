@@ -38,7 +38,7 @@ export const postReviewImages = async (images: ImageData[]) => {
 export const getMyReviewStadiums = async () => {
   const { data } = await api.get<MyReviewStadiumsResponse>({
     endpoint: API_ENDPOINTS.REVIEW_STADIUMS,
-    errorMessage: MESSAGES.ERROR.GET_MEMBER_INFO,
+    errorMessage: MESSAGES.ERROR.GET_STADIUMS_MY_REVIEW,
   });
 
   return data.body;
@@ -68,7 +68,7 @@ export interface Content {
 export const getMyReview = async (stadiumId: number) => {
   const { data } = await api.get<MyReviewResponse>({
     endpoint: API_ENDPOINTS.REVIEWS(stadiumId),
-    errorMessage: MESSAGES.ERROR.GET_MEMBER_INFO,
+    errorMessage: MESSAGES.ERROR.GET_MY_REVIEW,
   });
 
   return data.body;
@@ -91,7 +91,7 @@ export interface MyReviewDetailResponse {
 export const getMyReviewDetail = async (reviewId: number) => {
   const { data } = await api.get<MyReviewDetailResponse>({
     endpoint: API_ENDPOINTS.REVIEW_MY_DETAIL(reviewId),
-    errorMessage: MESSAGES.ERROR.GET_MEMBER_INFO,
+    errorMessage: MESSAGES.ERROR.GET_MY_REVIEW_DETAIL,
   });
 
   return data.body;
