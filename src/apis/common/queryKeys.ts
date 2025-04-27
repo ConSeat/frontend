@@ -21,6 +21,8 @@ export const reviewKeys = {
     const serializedParams = serializeReviewListParams(params);
     return [...reviewKeys.all, 'seating', seatingId, serializedParams] as const;
   },
+  bookmark: (reviewId: number) => [...reviewKeys.all, 'bookmark', reviewId] as const,
+  like: (reviewId: number) => [...reviewKeys.all, 'like', reviewId] as const,
 };
 
 export const stadiumKeys = {

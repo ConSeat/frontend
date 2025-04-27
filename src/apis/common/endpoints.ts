@@ -27,6 +27,8 @@ export const API_ENDPOINTS = {
     const query = searchParams.toString();
     return `/reviews/seating/${seatingId}/list${query ? `?${query}` : ''}`;
   },
+  REVIEW_BOOKMARK: (reviewId: number) => `/reviews/${reviewId}/bookmarks`,
+  REVIEW_LIKE: (reviewId: number) => `/reviews/${reviewId}/likes`,
 
   // stadium
   STADIUMS: '/stadiums',

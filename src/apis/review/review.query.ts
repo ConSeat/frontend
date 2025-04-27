@@ -1,5 +1,13 @@
 import { reviewKeys } from '../common/queryKeys';
-import { getMyReview, getMyReviewDetail, getMyReviewStadiums } from './review.api';
+import {
+  deleteBookMark,
+  deleteLike,
+  getMyReview,
+  getMyReviewDetail,
+  getMyReviewStadiums,
+  postBookMark,
+  postLike,
+} from './review.api';
 
 export const reviewQueries = {
   myReview: ({ stadiumId, lastReviewId }) => ({
@@ -13,5 +21,21 @@ export const reviewQueries = {
   myReviewDetail: (reviewId: number) => ({
     queryKey: reviewKeys.detail(reviewId),
     queryFn: () => getMyReviewDetail(reviewId),
+  }),
+  addBookmark: (reviewId: number) => ({
+    queryKey: reviewKeys.bookmark(reviewId),
+    queryFn: () => postBookMark(reviewId),
+  }),
+  popBookmark: (reviewId: number) => ({
+    queryKey: reviewKeys.bookmark(reviewId),
+    queryFn: () => deleteBookMark(reviewId),
+  }),
+  addLike: (reviewId: number) => ({
+    queryKey: reviewKeys.like(reviewId),
+    queryFn: () => postLike(reviewId),
+  }),
+  popLike: (reviewId: number) => ({
+    queryKey: reviewKeys.like(reviewId),
+    queryFn: () => deleteLike(reviewId),
   }),
 };

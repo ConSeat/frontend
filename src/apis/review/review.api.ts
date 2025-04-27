@@ -100,3 +100,31 @@ export const getMyReviewDetail = async (reviewId: number) => {
 
   return data.body;
 };
+
+export const postBookMark = async (reviewId: number) => {
+  return await api.post({
+    endpoint: API_ENDPOINTS.REVIEW_BOOKMARK(reviewId),
+    errorMessage: MESSAGES.ERROR.POST_REVIEWS_BOOKMARK,
+  });
+};
+
+export const deleteBookMark = async (reviewId: number) => {
+  return await api.delete({
+    endpoint: API_ENDPOINTS.REVIEW_BOOKMARK(reviewId),
+    errorMessage: MESSAGES.ERROR.DELETE_REVIEWS_BOOKMARK,
+  });
+};
+
+export const postLike = async (reviewId: number) => {
+  return await api.post({
+    endpoint: API_ENDPOINTS.REVIEW_LIKE(reviewId),
+    errorMessage: MESSAGES.ERROR.POST_REVIEWS_LIKE,
+  });
+};
+
+export const deleteLike = async (reviewId: number) => {
+  return await api.delete({
+    endpoint: API_ENDPOINTS.REVIEW_LIKE(reviewId),
+    errorMessage: MESSAGES.ERROR.DELETE_REVIEWS_LIKE,
+  });
+};
