@@ -8,3 +8,7 @@ export const useFetchMyStadiums = () => {
 export const useFetchMyReview = (stadiumId: number) => {
   return useQuery(reviewQueries.myReview(stadiumId));
 };
+
+export const useFetchMyReviewDetail = (reviewId: number) => {
+  return useQuery(reviewQueries.myReviewDetail(reviewId));
+};

@@ -73,3 +73,26 @@ export const getMyReview = async (stadiumId: number) => {
 
   return data.body;
 };
+
+export interface MyReviewDetailResponse {
+  images: string[];
+  features: string[];
+  obstructions: string[];
+  reviewId: number;
+  writerNickname: string;
+  writerSrc: string;
+  concertName: string;
+  contents: string;
+  createdAt: string;
+  status: '심사대기' | '승인' | '반려' | '재심사';
+  rejectReason: string | null;
+}
+
+export const getMyReviewDetail = async (reviewId: number) => {
+  const { data } = await api.get<MyReviewDetailResponse>({
+    endpoint: API_ENDPOINTS.REVIEW_MY_DETAIL(reviewId),
+    errorMessage: MESSAGES.ERROR.GET_MEMBER_INFO,
+  });
+
+  return data.body;
+};
