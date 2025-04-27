@@ -26,7 +26,7 @@ const MyViewCard = ({ reviewId, closeModal }) => {
           userName={review.writerNickname}
           uploadTime={review.createdAt}
         />
-        <ReviewCard.Bookmark isSaved={true} onClick={() => {}} />
+        <ReviewCard.Bookmark reviewId={review.reviewId} isSaved={true} />
       </ReviewCard.Header>
 
       <ReviewCard.ImageList imageSrcArray={review.images} />

@@ -15,7 +15,7 @@ const ResultReviewCard = ({ review }: ResultReviewCardProps) => {
           userName={review.writerNickname}
           uploadTime={review.createdAt}
         />
-        <ReviewCard.Bookmark isSaved={review.isBookmarked} onClick={() => {}} />
+        <ReviewCard.Bookmark reviewId={review.reviewId} isSaved={review.isBookmarked} />
       </ReviewCard.Header>
 
       <ReviewCard.ImageList imageSrcArray={review.images} />
@@ -31,9 +31,9 @@ const ResultReviewCard = ({ review }: ResultReviewCardProps) => {
 
       <div className={styles.cardActions}>
         <ReviewCard.LikeButton
+          reviewId={review.reviewId}
           likeNum={review.likesCount}
           isLiked={review.isLiked}
-          onClick={() => {}}
         />
         <ReviewCard.MoreButton onClick={() => {}} />
       </div>

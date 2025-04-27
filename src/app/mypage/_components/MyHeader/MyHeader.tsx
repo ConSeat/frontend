@@ -11,7 +11,7 @@ const MyHeader = () => {
 
   return (
     <Header
-      left={<Icon icon="LeftArrow" onClick={() => router.back()} />}
+      left={<Icon icon="LeftArrow" onClick={() => router.push('/home')} />}
       title="마이 페이지"
       right={
         <Link href="/mypage/settings/service">

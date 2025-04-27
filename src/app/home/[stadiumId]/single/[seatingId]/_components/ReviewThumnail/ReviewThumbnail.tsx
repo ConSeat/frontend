@@ -12,7 +12,7 @@ const ReviewThumbnail = ({ images }: ReviewThumbnailProps) => {
   return (
     <div className={styles.thumbnailContainer}>
       <ImageSlide
-        imageSrcArray={['/images/jamsil-arena.jpg', '/images/jamsil-arena.jpg']}
+        imageSrcArray={images}
         currentIndex={imageIndex}
         height={240}
         onNext={handleClickNext}
