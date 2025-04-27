@@ -1,12 +1,23 @@
 'use client';
 
+import LoadingSpinner from '../LoadingSpinner';
 import styles from './MyViewCard.module.scss';
+import { notFound } from 'next/navigation';
 import React from 'react';
+import { useFetchBookMarkDetail } from '@/hooks/queries/useFetchMember';
 import Button from '@/components/Button/Button';
 import ReviewCard from '@/components/ReviewCard';
 import Splitter from '@/components/Splitter/Splitter';
 
-const MyViewCard = ({ review, closeModal }) => {
+const MyViewCard = ({ reviewId, closeModal }) => {
+  const { data: review, isLoading } = useFetchBookMarkDetail(reviewId);
+
+  if (isLoading) return <LoadingSpinner />;
+
+  if (!review) {
+    notFound();
+  }
+
   return (
     <ReviewCard className={styles.myViewCardContainer}>
       <ReviewCard.Header>
