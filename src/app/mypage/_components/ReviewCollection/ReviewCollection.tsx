@@ -106,9 +106,11 @@ const ReviewCollection = ({
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  const tapType = searchParams.get(MY_PAGE_QUERY);
+  let tapType = searchParams.get(MY_PAGE_QUERY);
+
   if (tapType === null) {
-    notFound();
+    router.replace('mypage?tab=view');
+    tapType = 'view';
   }
 
   const handleRouteView = () => {
