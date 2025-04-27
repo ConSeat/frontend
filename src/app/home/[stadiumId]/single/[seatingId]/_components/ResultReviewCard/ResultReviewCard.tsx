@@ -15,7 +15,7 @@ const ResultReviewCard = ({ review }: ResultReviewCardProps) => {
           userName={review.writerNickname}
           uploadTime={review.createdAt}
         />
-        <ReviewCard.Bookmark isSaved={review.isBookmarked} onClick={() => {}} />
+        <ReviewCard.Bookmark reviewId={review.reviewId} isSaved={review.isBookmarked} />
       </ReviewCard.Header>
 
       <ReviewCard.ImageList imageSrcArray={review.images} />
