@@ -44,3 +44,33 @@ export const getBookmarkStadiums = async () => {
 
   return data.body;
 };
+
+export interface MyBookmarkResponse {
+  reviews: Reviews;
+}
+
+export interface Reviews {
+  content: Content[];
+  sliceNumber: number;
+  size: number;
+  hasNext: boolean;
+  numberOfElements: number;
+}
+
+export interface Content {
+  reviewId: number;
+  thumbnailUrl: string;
+  floorName: string;
+  sectionName: string;
+  seatingName: string;
+  modifiedAt: string;
+}
+
+export const getBookmarkReview = async (stadiumId: number) => {
+  const { data } = await api.get<MyBookmarkResponse>({
+    endpoint: API_ENDPOINTS.MEMBERS_BOOKMARK_REVIEW(stadiumId),
+    errorMessage: MESSAGES.ERROR.GET_MEMBER_INFO,
+  });
+
+  return data.body;
+};

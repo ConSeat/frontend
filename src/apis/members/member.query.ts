@@ -1,5 +1,10 @@
 import { memberKeys } from '../common/queryKeys';
-import { getBookmarkStadiums, getMemberInfo, postMemberInfo } from './member.api';
+import {
+  getBookmarkReview,
+  getBookmarkStadiums,
+  getMemberInfo,
+  postMemberInfo,
+} from './member.api';
 
 export const memberQueries = {
   info: {
@@ -16,4 +21,9 @@ export const memberQueries = {
     queryKey: memberKeys.bookmarksStadiums(),
     queryFn: getBookmarkStadiums,
   },
+
+  bookmarkReviews: (stadiumId: number) => ({
+    queryKey: memberKeys.bookmarks(),
+    queryFn: () => getBookmarkReview(stadiumId),
+  }),
 };

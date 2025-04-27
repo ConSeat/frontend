@@ -8,3 +8,7 @@ export const useFetchMemberInfo = () => {
 export const useFetchBookMarkStadiums = () => {
   return useQuery(memberQueries.bookmarkStadiums);
 };
+
+export const useFetchBookMarkReviews = (stadiumId: number) => {
+  return useQuery(memberQueries.bookmarkReviews(stadiumId));
+};
