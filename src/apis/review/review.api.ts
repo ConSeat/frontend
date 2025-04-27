@@ -44,18 +44,6 @@ export const getMyReviewStadiums = async () => {
   return data.body;
 };
 
-export interface MyReviewResponse {
-  reviews: Reviews;
-}
-
-export interface Reviews {
-  content: Content[];
-  sliceNumber: number;
-  size: number;
-  hasNext: boolean;
-  numberOfElements: number;
-}
-
 export interface Content {
   reviewId: number;
   thumbnailUrl: string;
@@ -64,10 +52,26 @@ export interface Content {
   seatingName: string;
   status: string;
 }
+export interface Reviews {
+  content: Content[];
+  sliceNumber: number;
+  size: number;
+  hasNext: boolean;
+  numberOfElements: number;
+}
 
-export const getMyReview = async (stadiumId: number) => {
+export interface MyReviewResponse {
+  reviews: Reviews;
+}
+
+export interface MyReviewRequest {
+  stadiumId: number;
+  lastReviewId?: number | undefined;
+}
+
+export const getMyReview = async ({ stadiumId, lastReviewId }: MyReviewRequest) => {
   const { data } = await api.get<MyReviewResponse>({
-    endpoint: API_ENDPOINTS.REVIEWS(stadiumId),
+    endpoint: API_ENDPOINTS.REVIEWS({ stadiumId, lastReviewId }),
     errorMessage: MESSAGES.ERROR.GET_MY_REVIEW,
   });
 

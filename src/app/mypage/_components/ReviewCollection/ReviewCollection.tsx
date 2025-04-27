@@ -22,8 +22,8 @@ interface ReviewCollectionProps {
   reviewNumber: number;
   stadiums: Stadiums[];
   useFetchReview:
-    | ((stadiumId: number) => UseQueryResult<MyReviewResponse, Error>)
-    | ((stadiumId: number) => UseQueryResult<MyBookmarkResponse, Error>);
+    | (({ stadiumId }) => UseQueryResult<MyReviewResponse, Error>)
+    | (({ stadiumId }) => UseQueryResult<MyBookmarkResponse, Error>);
 }
 
 interface ReviewStatusTagProps {
@@ -35,8 +35,8 @@ interface ReviewListProps {
   stadium: string;
   onClick: (reviewId: number, status?: string) => void;
   useFetchReview:
-    | ((stadiumId: number) => UseQueryResult<MyReviewResponse, Error>)
-    | ((stadiumId: number) => UseQueryResult<MyBookmarkResponse, Error>);
+    | (({ stadiumId }) => UseQueryResult<MyReviewResponse, Error>)
+    | (({ stadiumId }) => UseQueryResult<MyBookmarkResponse, Error>);
 }
 
 const ReviewStatusTag = ({ status }: ReviewStatusTagProps) => {
@@ -48,7 +48,7 @@ const ReviewList = ({ stadium, stadiumId, onClick, useFetchReview }: ReviewListP
     notFound();
   }
 
-  const { data, isLoading } = useFetchReview(stadiumId);
+  const { data, isLoading } = useFetchReview({ stadiumId });
 
   if (isLoading) return <LoadingSpinner />;
 
