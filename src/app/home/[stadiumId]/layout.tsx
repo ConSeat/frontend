@@ -13,10 +13,10 @@ interface StadiumLayoutProps {
 
 export async function generateStaticParams() {
   const res = await fetch(`${PUBLIC_ENV.baseUrl}/stadiums`);
-  const data = await res.json();
-  const allStadiums = [...(data.active ?? []), ...(data.inactive ?? [])];
+  const { body } = await res.json();
+  const { active } = body;
 
-  return allStadiums.map((stadium: { stadiumId: number }) => ({
+  return active.map((stadium: { stadiumId: number }) => ({
     stadiumId: String(stadium.stadiumId),
   }));
 }
