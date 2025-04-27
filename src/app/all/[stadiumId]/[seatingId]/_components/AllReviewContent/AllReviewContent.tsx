@@ -19,11 +19,11 @@ interface AllReviewContentProps {
   seatingId: number;
 }
 
-const NoneContent = () => {
+const NoneContent = ({ stadiumId }: { stadiumId: number }) => {
   return (
     <div className={styles.noneContentContainer}>
       <div className={styles.subtitle}>아직 후기가 없어요😢</div>
-      <Link href="/home">
+      <Link href={`/home/${stadiumId}/review`}>
         <div className={styles.homeLink}>내 후기 등록하러가기 {'>'}</div>
       </Link>
     </div>
@@ -66,7 +66,7 @@ const AllReviewContent = ({
         </div>
 
         {filteredList.length === 0 ? (
-          <NoneContent />
+          <NoneContent stadiumId={stadiumId} />
         ) : (
           <>
             <ReviewCardList stadiumId={stadiumId} seatingId={seatingId} reviews={filteredList} />
