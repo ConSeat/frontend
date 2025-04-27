@@ -1,7 +1,7 @@
 import useMutateBookmark from '../mutations/useMutateBookmark';
 import { useAuth } from './useAuth';
 import { useQueryClient } from '@tanstack/react-query';
-import { reviewKeys } from '@/apis/common/queryKeys';
+import { memberKeys, reviewKeys } from '@/apis/common/queryKeys';
 
 const useBookMark = (isSaved: boolean, reviewId: number) => {
   const queryClient = useQueryClient();
@@ -12,14 +12,14 @@ const useBookMark = (isSaved: boolean, reviewId: number) => {
     if (isSaved) {
       deleteBookmarkMutation.mutate(undefined, {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: reviewKeys.all });
+          queryClient.invalidateQueries({ queryKey: [reviewKeys.all, memberKeys.all] });
         },
       });
     } else {
       const addBookmark = () => {
         postBookmarkMutation.mutate(undefined, {
           onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: reviewKeys.all });
+            queryClient.invalidateQueries({ queryKey: [reviewKeys.all, memberKeys.all] });
           },
         });
       };
