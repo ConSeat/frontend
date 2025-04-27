@@ -50,7 +50,6 @@ const SingleResult = ({ stadiumId, seatingId }) => {
             더보기 {'>'}
           </Button>
         </div>
-        <Spacing size={52} />
         <ReviewCardList stadiumId={stadiumId} seatingId={seatingId} reviews={data.reviews} />
         <Spacing size={52} />
         <ShareArea />
