@@ -11,7 +11,6 @@ interface Props {
 
 const hiddenPathPatterns = [
   /^\/home\/[^/]+\/review\/complete$/, // 리뷰 작성 완료
-  /^\/home\/[^/]+\/all\/[^/]+$/, // 전체 후기
 ];
 
 const ClientHeaderWrapper = ({ stadium }: Props) => {

@@ -4,7 +4,6 @@ import type { HTMLAttributes } from 'react';
 interface SplitterProps extends HTMLAttributes<HTMLDivElement> {
   height?: string;
   width?: string;
-
   color?: string;
 }
 

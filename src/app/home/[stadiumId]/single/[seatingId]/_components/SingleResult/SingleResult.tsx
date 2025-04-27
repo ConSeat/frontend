@@ -29,7 +29,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
         <PageExplanation>
           <PageExplanation.Title>
             <Highlight variant="background">
-              {`${data.floorName} ${data.sectionName} ${data.seatingName ? data.seatingName : ''}`}
+              {`${data.floorName} ${data.sectionName}${data.seatingName ? ` ${data.seatingName}` : ''}`}
             </Highlight>
             은
             <br />
@@ -47,7 +47,11 @@ const SingleResult = ({ stadiumId, seatingId }) => {
         }}
       >
         <Spacing size={52} />
-        <ReviewCardList reviews={data.reviews.slice(0, 2)} />
+        <ReviewCardList
+          stadiumId={stadiumId}
+          seatingId={seatingId}
+          reviews={data.reviews.slice(0, 2)}
+        />
         <Spacing size={52} />
         <ShareArea />
         <Spacing size={104} />

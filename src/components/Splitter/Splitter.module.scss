@@ -23,7 +23,8 @@
       sub-gray7: $sub-gray7,
       sub-gray8: $sub-gray8,
       sub-black: $sub-black,
-      sub-white: $sub-white
+      sub-white: $sub-white,
+      sub-bg-black: $sub-bg-black
     )
 {
   .splitter-#{$name} {

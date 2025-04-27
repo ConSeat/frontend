@@ -1,0 +1,32 @@
+@import '@/styles/style';
+
+.myViewCardContainer {
+  border: 1px solid $sub-gray6;
+  border-radius: 10px;
+  background: $sub-bg-black;
+}
+
+.reviewKeywordList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: flex-start;
+  align-self: stretch;
+}
+
+.closeButton {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  padding: 8px 0;
+  border-radius: 100px;
+
+  color: $sub-gray4;
+
+  background: $sub-gray8;
+
+  @include subtitle-4;
+}

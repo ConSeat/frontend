@@ -19,7 +19,7 @@ const DetailViewModal = ({ stadiumId, children }: DetailViewModalProps) => {
   return (
     <Modal>
       <Modal.Overlay onClick={() => {}} className={styles.overlay} />
-      <Modal.Content>
+      <Modal.Content className={styles.content}>
         <Modal.Header title="도면보기" onClose={closeModal} />
         <div className={styles.stadiumSection}>{children}</div>
         <Button variant="secondary" onClick={closeModal}>

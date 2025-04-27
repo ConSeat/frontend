@@ -5,38 +5,50 @@ import Icon from '../Icon/Icon';
 import styles from './ReviewCard.module.scss';
 import classNames from 'classnames';
 import Image from 'next/image';
+import type React from 'react';
+import type { ReactNode } from 'react';
 
+// Container
+interface Container {
+  className?: string;
+  children?: ReactNode;
+}
+
+const Container = ({ className, children }: Container) => {
+  return <div className={classNames(styles.reviewCardContainer, className)}>{children}</div>;
+};
+
+// Header
 interface HeaderProps {
+  children: ReactNode;
+}
+
+const Header = ({ children }: HeaderProps) => {
+  return <div className={styles.reviewCardHeader}>{children}</div>;
+};
+
+// UserInfo (이미지, 닉네임, 시간)
+interface BasicInfoProps {
   profileSrc: string;
   userName: string;
   uploadTime: string;
-  isSaved: boolean;
-  onClick: () => void;
 }
 
-const Header = ({ profileSrc, uploadTime, userName, isSaved, onClick }: HeaderProps) => {
-  const bookMarkColor = isSaved ? '#00FFE5' : undefined;
-
+const UserInfo = ({ profileSrc, userName, uploadTime }: BasicInfoProps) => {
   return (
-    <div className={styles.reviewCardHeader}>
-      <div className={styles.userInfo}>
-        <div className={styles.profile}>
-          <Image src={profileSrc} width={38} height={38} alt={'프로필'} />
-        </div>
-        <div className={styles.textInfo}>
-          <div className={styles.userName}>{userName}</div>
-          <div className={styles.uploadTime}>{uploadTime}</div>
-        </div>
+    <div className={styles.userInfo}>
+      <div className={styles.profile}>
+        <Image src={profileSrc} width={38} height={38} alt={'프로필'} />
       </div>
-      <div className={styles.bookMark}>
-        <Button className={styles.bookMarkButton} onClick={onClick}>
-          <Icon icon="Bookmark" color={bookMarkColor} />
-        </Button>
+      <div className={styles.textInfo}>
+        <div className={styles.userName}>{userName}</div>
+        <div className={styles.uploadTime}>{uploadTime}</div>
       </div>
     </div>
   );
 };
 
+// ImageItem
 interface ImageItem {
   imageSrc: string;
 }
@@ -51,6 +63,7 @@ const ImageItem = ({ imageSrc }: ImageItem) => {
   );
 };
 
+// ImageList
 interface ImageListProps {
   imageSrcArray: string[];
 }
@@ -65,18 +78,43 @@ const ImageList = ({ imageSrcArray }: ImageListProps) => {
   );
 };
 
-const KeywordItem = ({ keyword, isPrimary }: { keyword: string; isPrimary: boolean }) => {
+// ConcertTitle
+interface ConcertTitleProps {
+  concertName: string;
+}
+
+const ConcertTitle = ({ concertName }: ConcertTitleProps) => {
+  return <div className={styles.concertTitle}>{concertName}</div>;
+};
+
+// ConcertDescription
+interface ConcertDescriptionProps {
+  contents: string;
+}
+
+const ConcertDescription = ({ contents }: ConcertDescriptionProps) => {
+  return <div className={styles.description}>{contents}</div>;
+};
+
+// KeywordItem
+interface KeywordItemProps {
+  keyword: string;
+  isPrimary: boolean;
+}
+
+const KeywordItem = ({ keyword, isPrimary }: KeywordItemProps) => {
   return (
     <div className={classNames(styles.keyword, { [styles.primary]: isPrimary })}>{keyword}</div>
   );
 };
 
-interface KeywordList {
+// KeywordList
+interface KeywordListProps {
   keywordArray: string[];
   isPrimary: boolean;
 }
 
-const KeywordList = ({ keywordArray, isPrimary }: KeywordList) => {
+const KeywordList = ({ keywordArray, isPrimary }: KeywordListProps) => {
   return (
     <>
       {keywordArray.map((keyword) => {
@@ -86,92 +124,88 @@ const KeywordList = ({ keywordArray, isPrimary }: KeywordList) => {
   );
 };
 
-interface FooterProps {
-  likeNum: number;
-  isLiked: boolean;
-  onClickLike: () => void;
-  onClickMore: () => void;
+// Screening
+interface ScreeningProps {
+  status: '심사대기' | '승인' | '반려' | '재심사';
+  rejectReason: string | null;
 }
 
-const Footer = ({ likeNum, isLiked, onClickLike, onClickMore }: FooterProps) => {
+const Screening = ({ status, rejectReason }: ScreeningProps) => {
+  return (
+    <div className={styles.screeningContainer}>
+      <div className={styles.statusWrapper}>
+        <Icon icon="Info" size={20} />
+        <span className={styles.status}>후기 심사 여부 : {status}</span>
+      </div>
+      {rejectReason && <span className={styles.reason}>{rejectReason}</span>}
+    </div>
+  );
+};
+
+// Bookmark
+interface BookmarkProps {
+  isSaved: boolean;
+  onClick: () => void;
+}
+
+const Bookmark = ({ isSaved, onClick }: BookmarkProps) => {
+  const bookMarkColor = isSaved ? '#00FFE5' : undefined;
+
+  return (
+    <div className={styles.bookMark}>
+      <Icon icon="Bookmark" color={bookMarkColor} onClick={onClick} size={24} />
+    </div>
+  );
+};
+
+// LikeButton
+interface LikeButtonProps {
+  likeNum: number;
+  isLiked: boolean;
+  onClick: () => void;
+}
+
+const LikeButton = ({ likeNum, isLiked, onClick }: LikeButtonProps) => {
   const likeColor = isLiked ? '#00FFE5' : undefined;
 
   return (
-    <div className={styles.reviewCardFooter}>
-      <div className={styles.likeBox}>
-        <Button className={styles.likeButton} onClick={onClickLike}>
-          <Icon icon="Like" color={likeColor} />
-          <div className={styles.likeText} style={{ color: likeColor }}>
-            {likeNum}
-          </div>
-        </Button>
-      </div>
-      <div className={styles.more}>
-        <Button className={styles.moreButton} onClick={onClickMore}>
-          <Icon icon="MoreFunction" />
-        </Button>
-      </div>
+    <div className={styles.likeBox}>
+      <Button className={styles.likeButton} onClick={onClick}>
+        <Icon icon="Like" color={likeColor} />
+        <div className={styles.likeText} style={{ color: likeColor }}>
+          {likeNum}
+        </div>
+      </Button>
     </div>
   );
 };
 
-interface ReviewCardProps {
-  images: string[];
-  features: string[];
-  obstructions: string[];
-  concertName: string;
-  contents: string;
-  writerSrc: string;
-  createdAt: string;
-  writerNickname: string;
-  likesCount: number;
-  isBookmarked: boolean;
-  isLiked: boolean;
-  handleClickMore: () => void;
-  handleClickLike: () => void;
-  handleClickBookmark: () => void;
+// MoreButton
+interface MoreButtonProps {
+  onClick: () => void;
 }
 
-const ReviewCard = ({
-  images,
-  features,
-  obstructions,
-  writerNickname,
-  writerSrc,
-  concertName,
-  contents,
-  createdAt,
-  likesCount,
-  isBookmarked,
-  isLiked,
-  handleClickMore,
-  handleClickLike,
-  handleClickBookmark,
-}: ReviewCardProps) => {
+const MoreButton = ({ onClick }: MoreButtonProps) => {
   return (
-    <div className={styles.reviewCardLayout}>
-      <Header
-        onClick={handleClickBookmark}
-        profileSrc={writerSrc}
-        uploadTime={createdAt}
-        userName={writerNickname}
-        isSaved={isBookmarked}
-      />
-      <ImageList imageSrcArray={images} />
-      <div className={styles.concertTitle}>{concertName}</div>
-      <div className={styles.description}>{contents}</div>
-      <div className={styles.reviewKeywordList}>
-        <KeywordList keywordArray={features} isPrimary={true} />
-        <KeywordList keywordArray={obstructions} isPrimary={false} />
-      </div>
-      <Footer
-        likeNum={likesCount}
-        isLiked={isLiked}
-        onClickLike={handleClickLike}
-        onClickMore={handleClickMore}
-      />
+    <div className={styles.more}>
+      <Button className={styles.moreButton} onClick={onClick}>
+        <Icon icon="MoreFunction" />
+      </Button>
     </div>
   );
 };
+
+const ReviewCard = Object.assign(Container, {
+  Header,
+  UserInfo,
+  ImageList,
+  ConcertTitle,
+  ConcertDescription,
+  KeywordList,
+  Screening,
+  Bookmark,
+  LikeButton,
+  MoreButton,
+});
 
 export default ReviewCard;

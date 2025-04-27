@@ -5,16 +5,18 @@ import styles from './StageView.module.scss';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useStageTransform } from '@/hooks/common/useStageTransform';
 import { getStadiumAssetUrl } from '@/utils/getAssetUrl';
+import { parseBtnId } from '@/utils/parseBtnId';
 
 const svgCache: Record<number, string> = {};
 const svgRequestCache: Record<number, Promise<string>> = {};
 
 interface StageViewProps {
   stadiumId: number;
-  onSelectSection: (sectionId: string) => void;
+  selectedSectionId: number | null;
+  onSelectSection: (info: { sectionId: number; sectionName: string }) => void;
 }
 
-const StageView = ({ stadiumId, onSelectSection }: StageViewProps) => {
+const StageView = ({ stadiumId, selectedSectionId, onSelectSection }: StageViewProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const minimapRef = useRef<HTMLDivElement>(null);
@@ -33,6 +35,7 @@ const StageView = ({ stadiumId, onSelectSection }: StageViewProps) => {
     handleTouchEnd,
   } = useStageTransform({ containerRef, wrapperRef, minimapRef });
 
+  // 줌 및 드래그 이벤트 등록
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -56,6 +59,7 @@ const StageView = ({ stadiumId, onSelectSection }: StageViewProps) => {
     };
   }, []);
 
+  // stadiumId 변경 시 SVG fetch 또는 캐시 활용
   useEffect(() => {
     // 캐시에 있으면 바로 사용
     if (svgCache[stadiumId]) {
@@ -88,6 +92,25 @@ const StageView = ({ stadiumId, onSelectSection }: StageViewProps) => {
     };
   }, [stadiumId]);
 
+  // 페이지 복귀 시, 기존 선택 상태 복원
+  useEffect(() => {
+    if (selectedSectionId === null || !wrapperRef.current) return;
+
+    const svg = wrapperRef.current.querySelector('svg');
+    if (!svg) return;
+
+    svg.querySelectorAll('g[id^="btn"]').forEach((g) => {
+      g.classList.remove(styles.selected);
+
+      const { sectionId } = parseBtnId(g.id);
+      if (sectionId === selectedSectionId) {
+        g.classList.add(styles.selected);
+        svg.classList.add(styles.gHasSelection);
+      }
+    });
+  }, []);
+
+  // 사용자가 구역을 클릭했을 때: 선택 상태 업데이트 및 외부에 section 정보 전달
   const handleSVGClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as Element;
     const group = target.closest('g[id^="btn"]');
@@ -103,7 +126,10 @@ const StageView = ({ stadiumId, onSelectSection }: StageViewProps) => {
     svg.classList.add(styles.gHasSelection);
     svg.querySelector(`g[id="${group.id}"]`)!.classList.add(styles.selected);
 
-    onSelectSection(group.id);
+    const { sectionId, sectionName } = parseBtnId(group.id);
+    if (!sectionId) return;
+
+    onSelectSection({ sectionId, sectionName });
   };
 
   return (

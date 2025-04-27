@@ -1,7 +1,9 @@
-import { FIND_SEAT_LIST } from '../../_constants/seatExample';
+import { NONE_SELECT } from '../../../review/_constants/info';
 import type { SingleFunnelData, Step } from '../../_types/funnel';
 import styles from './SingleSeatingStep.module.scss';
+import { useRouter } from 'next/navigation';
 import React, { type Dispatch, type SetStateAction } from 'react';
+import { useFetchStadiumSectionSeating } from '@/hooks/queries/useFetchStadium';
 import Button from '@/components/Button/Button';
 import ButtonContainer from '@/components/ButtonContainer/ButtonContainer';
 import ColumnSelectList from '@/components/ColumnSelectList';
@@ -16,7 +18,14 @@ interface SingleSeatingStepProps {
   setData: Dispatch<SetStateAction<Partial<SingleFunnelData>>>;
 }
 
-const SingleSeatingStep = ({ setStep, data, setData }: SingleSeatingStepProps) => {
+const SingleSeatingStep = ({ stadiumId, setStep, data, setData }: SingleSeatingStepProps) => {
+  const router = useRouter();
+
+  const { data: sectionSeatingData } = useFetchStadiumSectionSeating(
+    data.sectionId ?? NONE_SELECT,
+    data.sectionId !== NONE_SELECT,
+  );
+
   const handleClickSelectItem = (seatingId: number) => {
     setData((prev) => ({ ...prev, seatingId }));
   };
@@ -26,7 +35,7 @@ const SingleSeatingStep = ({ setStep, data, setData }: SingleSeatingStepProps) =
       <div className={styles.singleSeatingStepMainContainer}>
         <PageExplanation>
           <PageExplanation.Title>
-            {data.sectionId}
+            {sectionSeatingData?.data.sectionInfo}
             <br />
             <Highlight>열 정보</Highlight>를 선택해주세요
           </PageExplanation.Title>
@@ -36,16 +45,16 @@ const SingleSeatingStep = ({ setStep, data, setData }: SingleSeatingStepProps) =
         <Spacing size={32} />
 
         <ColumnSelectList>
-          {FIND_SEAT_LIST.map(({ seatingId, name, count }) => (
+          {sectionSeatingData?.data.seating.map(({ seatingId, name, reviewCount }) => (
             <ColumnSelectList.Item
               key={seatingId}
               onClick={() => handleClickSelectItem(seatingId)}
               isSelected={data.seatingId === seatingId}
               isUnSelected={!!data.seatingId && data.seatingId !== seatingId}
-              disabled={count === 0}
+              disabled={reviewCount === 0}
             >
               <ColumnSelectList.Title>
-                {name} <span className={styles.review}>후기 {count}개</span>
+                {name} <span className={styles.review}>후기 {reviewCount}개</span>
               </ColumnSelectList.Title>
             </ColumnSelectList.Item>
           ))}
@@ -59,7 +68,7 @@ const SingleSeatingStep = ({ setStep, data, setData }: SingleSeatingStepProps) =
         <Button
           variant={data.seatingId ? 'primary' : 'inactive'}
           disabled={!data.seatingId}
-          onClick={() => setStep('Result')}
+          onClick={() => router.push(`/home/${stadiumId}/single/${data.seatingId}`)}
         >
           다음
         </Button>

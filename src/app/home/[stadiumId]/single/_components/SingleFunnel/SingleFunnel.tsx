@@ -1,6 +1,7 @@
 'use client';
 
 import ProgressBar from '../../../_components/ProgressBar/ProgressBar';
+import { NONE_SELECT } from '../../../review/_constants/info';
 import { SINGLE_FUNNEL_STEPS } from '../../_constants/funnelSteps';
 import type { SingleFunnelData, Step } from '../../_types/funnel';
 import SingleSeatingStep from '../SingleSeatingStep/SingleSeatingStep';
@@ -17,8 +18,9 @@ const SingleFunnel = ({ stadiumId }: SingleFunnelProps) => {
   const { Funnel, step, setStep, data, setData } = useFunnel<Step, SingleFunnelData>({
     initialStep: SINGLE_FUNNEL_STEPS[0],
     initialData: {
-      sectionId: 0,
-      seatingId: 0,
+      sectionId: NONE_SELECT,
+      sectionName: '',
+      seatingId: NONE_SELECT,
     },
   });
 
