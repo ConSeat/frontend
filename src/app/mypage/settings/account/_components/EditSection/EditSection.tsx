@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { notFound, useRouter } from 'next/navigation';
 import { ChangeEventHandler, useRef, useState } from 'react';
-import useMutationMember from '@/hooks/mutations/useMutationMember';
+import useMutationMember from '@/hooks/mutations/useMutateMember';
 import { useFetchMemberInfo } from '@/hooks/queries/useFetchMember';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon/Icon';
