@@ -4,9 +4,9 @@ import { serializeReviewListParams } from '@/utils/queryParams';
 export const memberKeys = {
   all: ['members'] as const,
   me: () => [...memberKeys.all, 'me'] as const,
-  bookmarks: () => [...memberKeys.all, 'bookmarks'] as const,
-  bookmarksStadiums: () => [...memberKeys.bookmarks(), 'stadiums'] as const,
-  bookmarkDetail: (reviewId: number) => [...memberKeys.bookmarks(), 'review', reviewId] as const,
+  bookmarks: (stadiumId: number) => [...memberKeys.all, 'bookmarks', stadiumId] as const,
+  bookmarksStadiums: () => [...memberKeys.all, 'stadiums'] as const,
+  bookmarkDetail: (reviewId: number) => [...memberKeys.all, 'review', reviewId] as const,
 };
 
 export const reviewKeys = {

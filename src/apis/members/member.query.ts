@@ -24,7 +24,7 @@ export const memberQueries = {
   },
 
   bookmarkReviews: (stadiumId: number) => ({
-    queryKey: memberKeys.bookmarks(),
+    queryKey: memberKeys.bookmarks(stadiumId),
     queryFn: () => getBookmarkReview(stadiumId),
   }),
 
