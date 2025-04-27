@@ -4,15 +4,17 @@ import ReviewCardList from '../ReviewCardList';
 import ReviewThumbnail from '../ReviewThumnail';
 import SearchEndButton from '../SearchEndButton';
 import styles from './SingleResult.module.scss';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import React from 'react';
 import { useFetchSeating } from '@/hooks/queries/useFetchSeatingReview';
+import Button from '@/components/Button/Button';
 import Highlight from '@/components/Highlight/Highlight';
 import PageExplanation from '@/components/PageExplanation';
 import ShareArea from '@/components/ShareArea';
 import Spacing from '@/components/Spacing/Spacing';
 
 const SingleResult = ({ stadiumId, seatingId }) => {
+  const router = useRouter();
   const { data } = useFetchSeating(seatingId);
 
   if (!data) {
@@ -21,42 +23,50 @@ const SingleResult = ({ stadiumId, seatingId }) => {
 
   return (
     <div className={styles.singleResultStepLayout}>
-      <div
-        style={{
-          padding: '0 24px',
-        }}
-      >
-        <PageExplanation>
-          <PageExplanation.Title>
-            <Highlight variant="background">
-              {`${data.floorName} ${data.sectionName}${data.seatingName ? ` ${data.seatingName}` : ''}`}
-            </Highlight>
-            은
-            <br />
-            {data.distanceMessage}
-          </PageExplanation.Title>
-        </PageExplanation>
-      </div>
+      <PageExplanation>
+        <PageExplanation.Title>
+          <Highlight variant="background">
+            {`${data.floorName} ${data.sectionName}${data.seatingName ? ` ${data.seatingName}` : ''}`}
+          </Highlight>
+          은
+          <br />
+          {data.distanceMessage}
+        </PageExplanation.Title>
+      </PageExplanation>
 
       <Spacing size={24} />
+
       <ReviewThumbnail images={['/images/jamsil-arena.jpg', '/images/jamsil-arena.jpg']} />
 
-      <div
-        style={{
-          padding: '0 24px',
-        }}
-      >
-        <Spacing size={52} />
+      <Spacing size={52} />
+
+      <div className={styles.searchResultContainer}>
+        <div className={styles.searchResultHeader}>
+          <div className={styles.searchResultCount}>
+            상세후기 <span className={styles.reviewNumber}>{data.reviewCount}</span>
+          </div>
+          <Button
+            className={styles.moreButton}
+            onClick={() => router.push(`/all/${stadiumId}/${seatingId}`)}
+          >
+            더보기 {'>'}
+          </Button>
+        </div>
+
         <ReviewCardList
           stadiumId={stadiumId}
           seatingId={seatingId}
-          reviews={data.reviews.slice(0, 2)}
+          reviews={data.reviews.slice(0, 2)} // TODO: slice 제거
         />
-        <Spacing size={52} />
-        <ShareArea />
-        <Spacing size={104} />
-        <SearchEndButton stadiumId={stadiumId} />
       </div>
+
+      <Spacing size={52} />
+
+      <ShareArea />
+
+      <Spacing size={104} />
+
+      <SearchEndButton stadiumId={stadiumId} />
     </div>
   );
 };

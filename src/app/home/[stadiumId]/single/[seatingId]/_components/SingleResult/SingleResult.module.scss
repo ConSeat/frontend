@@ -1,6 +1,51 @@
+@import '@/styles/style';
+
 .singleResultStepLayout {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   justify-content: space-between;
+
+  padding: 0 24px 42px;
+}
+
+.searchFilterContainer {
+  overflow: auto hidden;
+  display: flex;
+  gap: 13px;
+  padding: 24px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.searchResultContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.searchResultHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.searchResultCount {
+  @include subtitle-1;
+
+  color: $sub-gray1;
+
+  .reviewNumber {
+    @include body-2;
+
+    color: $sub-gray2;
+  }
+}
+
+.moreButton {
+  @include body-4;
+
+  color: $sub-gray4;
 }
