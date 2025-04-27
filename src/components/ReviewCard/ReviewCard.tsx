@@ -3,12 +3,15 @@
 import Button from '../Button/Button';
 import Icon from '../Icon/Icon';
 import styles from './ReviewCard.module.scss';
+import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import Image from 'next/image';
 import type React from 'react';
 import type { ReactNode } from 'react';
 import { useAuth } from '@/hooks/common/useAuth';
 import useMutateBookmark from '@/hooks/mutations/useMutateBookmark';
+import useMutateLike from '@/hooks/mutations/useMutateLike';
+import { reviewKeys } from '@/apis/common/queryKeys';
 
 // Container
 interface Container {
@@ -151,19 +154,25 @@ interface BookmarkProps {
 }
 
 const Bookmark = ({ reviewId, isSaved }: BookmarkProps) => {
+  const queryClient = useQueryClient();
   const { checkAndExecute } = useAuth();
   const { postBookmarkMutation, deleteBookmarkMutation } = useMutateBookmark(reviewId);
+
   const bookMarkColor = isSaved ? '#00FFE5' : undefined;
 
   const handleClickBookMark = () => {
     if (isSaved) {
       deleteBookmarkMutation.mutate(undefined, {
-        onSuccess: () => {},
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: reviewKeys.all });
+        },
       });
     } else {
       const addBookmark = () => {
         postBookmarkMutation.mutate(undefined, {
-          onSuccess: () => {},
+          onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: reviewKeys.all });
+          },
         });
       };
 
@@ -180,17 +189,41 @@ const Bookmark = ({ reviewId, isSaved }: BookmarkProps) => {
 
 // LikeButton
 interface LikeButtonProps {
+  reviewId: number;
   likeNum: number;
   isLiked: boolean;
-  onClick: () => void;
 }
 
-const LikeButton = ({ likeNum, isLiked, onClick }: LikeButtonProps) => {
+const LikeButton = ({ reviewId, likeNum, isLiked }: LikeButtonProps) => {
   const likeColor = isLiked ? '#00FFE5' : undefined;
+
+  const queryClient = useQueryClient();
+  const { checkAndExecute } = useAuth();
+  const { postLikeMutation, deleteLikeMutation } = useMutateLike(reviewId);
+
+  const handleClickLike = () => {
+    if (isLiked) {
+      deleteLikeMutation.mutate(undefined, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: reviewKeys.all });
+        },
+      });
+    } else {
+      const addBookmark = () => {
+        postLikeMutation.mutate(undefined, {
+          onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: reviewKeys.all });
+          },
+        });
+      };
+
+      checkAndExecute(addBookmark, '결과 저장을 위해 로그인 / 회원 가입을 진행해주세요');
+    }
+  };
 
   return (
     <div className={styles.likeBox}>
-      <Button className={styles.likeButton} onClick={onClick}>
+      <Button className={styles.likeButton} onClick={handleClickLike}>
         <Icon icon="Like" color={likeColor} />
         <div className={styles.likeText} style={{ color: likeColor }}>
           {likeNum}

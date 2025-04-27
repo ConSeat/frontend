@@ -31,9 +31,9 @@ const ResultReviewCard = ({ review }: ResultReviewCardProps) => {
 
       <div className={styles.cardActions}>
         <ReviewCard.LikeButton
+          reviewId={review.reviewId}
           likeNum={review.likesCount}
           isLiked={review.isLiked}
-          onClick={() => {}}
         />
         <ReviewCard.MoreButton onClick={() => {}} />
       </div>

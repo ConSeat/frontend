@@ -35,9 +35,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
       </PageExplanation>
 
       <Spacing size={24} />
-
-      <ReviewThumbnail images={['/images/jamsil-arena.jpg', '/images/jamsil-arena.jpg']} />
-
+      {data.thumbnails.length > 0 && <ReviewThumbnail images={data.thumbnails} />}
       <Spacing size={52} />
 
       <div className={styles.searchResultContainer}>
@@ -52,17 +50,13 @@ const SingleResult = ({ stadiumId, seatingId }) => {
             더보기 {'>'}
           </Button>
         </div>
-
+        <Spacing size={52} />
         <ReviewCardList stadiumId={stadiumId} seatingId={seatingId} reviews={data.reviews} />
+        <Spacing size={52} />
+        <ShareArea />
+        <Spacing size={104} />
+        <SearchEndButton stadiumId={stadiumId} />
       </div>
-
-      <Spacing size={52} />
-
-      <ShareArea />
-
-      <Spacing size={104} />
-
-      <SearchEndButton stadiumId={stadiumId} />
     </div>
   );
 };
