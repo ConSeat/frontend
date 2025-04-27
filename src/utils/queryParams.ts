@@ -1,3 +1,4 @@
+import { NONE_SELECT } from '@/app/home/[stadiumId]/review/_constants/info';
 import type { ListSort } from '@/types/review';
 
 export const serializeReviewListParams = (params?: {
@@ -16,7 +17,7 @@ export const serializeReviewListParams = (params?: {
     searchParams.set('obstructions', params.obstructions.join(','));
   }
 
-  if (params?.lastReviewId !== undefined && params.lastReviewId !== -1) {
+  if (params?.lastReviewId !== undefined && params.lastReviewId !== NONE_SELECT) {
     searchParams.set('lastReviewId', String(params.lastReviewId));
   }
 

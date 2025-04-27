@@ -10,6 +10,6 @@ export const seatingReviewQueries = {
 
   allReviewList: (seatingId: number, params: ReviewListQueryParams) => ({
     queryKey: reviewKeys.allReviewList(seatingId, params),
-    queryFn: () => getAllReviewList(seatingId, params),
+    queryFn: () => getAllReviewList({ seatingId, params }),
   }),
 };

@@ -1,4 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { reviewKeys } from '@/apis/common/queryKeys';
+import { type AllReviewListResponse, getAllReviewList } from '@/apis/review/seating.api';
 import { seatingReviewQueries } from '@/apis/review/seating.query';
 import type { ReviewListQueryParams } from '@/types/review';
 
@@ -6,6 +8,50 @@ export const useFetchSeating = (seatingId: number) => {
   return useQuery(seatingReviewQueries.seating(seatingId));
 };
 
-export const useFetchAllReviewList = (seatingId: number, params: ReviewListQueryParams) => {
-  return useQuery(seatingReviewQueries.allReviewList(seatingId, params));
+interface UseFetchAllReviewList {
+  filteredList: AllReviewListResponse['reviews']['content'];
+  reviewCount: number;
+  isLoading: boolean;
+  status: 'error' | 'success' | 'pending';
+  isLast: boolean;
+  handlePage: () => void;
+}
+
+export const useFetchAllReviewList = (
+  seatingId: number,
+  params: ReviewListQueryParams,
+): UseFetchAllReviewList => {
+  const { data, status, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: reviewKeys.allReviewList(seatingId, params),
+      queryFn: ({ pageParam = undefined }: { pageParam: number | undefined }) =>
+        getAllReviewList({
+          seatingId,
+          params: {
+            ...params,
+            lastReviewId: pageParam,
+          },
+        }),
+      initialPageParam: undefined,
+      getNextPageParam: (lastPage) =>
+        lastPage.reviews.hasNext ? lastPage.reviews.content.at(-1)?.reviewId : undefined,
+    });
+
+  const filteredList = data?.pages.flatMap((page) => page.reviews.content) || [];
+  const reviewCount = data?.pages[0]?.reviewCount ?? 0;
+
+  const handlePage = () => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  };
+
+  return {
+    filteredList,
+    reviewCount,
+    isLoading: isFetching || isFetchingNextPage,
+    status,
+    isLast: !hasNextPage,
+    handlePage,
+  };
 };

@@ -22,6 +22,11 @@ export const getSeatingReviews = async (seatingId: number) => {
   return data.body;
 };
 
+export interface AllReviewListRequest {
+  seatingId: number;
+  params: ReviewListQueryParams;
+}
+
 export interface AllReviewListResponse {
   reviewCount: number;
   reviews: {
@@ -33,7 +38,7 @@ export interface AllReviewListResponse {
   };
 }
 
-export const getAllReviewList = async (seatingId: number, params: ReviewListQueryParams) => {
+export const getAllReviewList = async ({ seatingId, params }: AllReviewListRequest) => {
   const endpoint = API_ENDPOINTS.REVIEW_LIST_WITH_PARAMS(seatingId, params);
   const { data } = await api.get<AllReviewListResponse>({
     endpoint,

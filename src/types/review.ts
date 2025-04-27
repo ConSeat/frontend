@@ -79,6 +79,6 @@ export type ListSort = '' | 'modifiedAt';
 export type ReviewListQueryParams = {
   features?: number[];
   obstructions?: number[];
-  lastReviewId?: number;
+  lastReviewId?: number | undefined;
   sort?: ListSort;
 };
