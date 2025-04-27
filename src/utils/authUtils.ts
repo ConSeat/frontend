@@ -10,6 +10,8 @@ export const getAccessToken = async (): Promise<string> => {
 };
 
 export const setAccessToken = async (accessToken: string) => {
+  const EXPIRES_IN_DAYS = 1; // 하루
+
   if (typeof window === 'undefined') {
     const { cookies } = await import('next/headers');
     const cookieStore = await cookies();
@@ -17,9 +19,21 @@ export const setAccessToken = async (accessToken: string) => {
       path: '/',
       secure: true,
       sameSite: 'strict',
+      expires: new Date(Date.now() + EXPIRES_IN_DAYS * 24 * 60 * 60 * 1000),
     });
   } else {
     const { default: JsCookie } = await import('js-cookie');
-    JsCookie.set('accessToken', accessToken);
+    JsCookie.set('accessToken', accessToken, {
+      expires: EXPIRES_IN_DAYS,
+    });
+  }
+};
+
+export const redirectToSignin = async () => {
+  if (typeof window === 'undefined') {
+    const { redirect } = await import('next/navigation');
+    redirect('/signin');
+  } else {
+    window.location.href = '/signin';
   }
 };

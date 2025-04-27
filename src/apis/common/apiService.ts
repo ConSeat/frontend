@@ -1,13 +1,24 @@
+import { postLogin } from '../auth/auth.api';
 import { PUBLIC_ENV } from '@/config/env';
 import MESSAGES from '@/constants/message';
+import { redirectToSignin, setAccessToken } from '@/utils/authUtils';
 
 type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+
+export interface PendingRequest {
+  resolve: (value: string | PromiseLike<string>) => void;
+  reject: (reason?: Error) => void;
+}
 
 interface ApiProps {
   endpoint: string;
   headers?: Record<string, string>;
   body?: object | null;
   errorMessage?: string;
+}
+
+interface RequestProps extends ApiProps {
+  method: Method;
 }
 
 interface ApiResponse<T> {
@@ -18,13 +29,43 @@ interface ApiResponse<T> {
   headers: Headers;
 }
 
-interface RequestProps extends ApiProps {
-  method: Method;
-}
+let isRefreshing = false;
+let pendingRequests: PendingRequest[] = [];
+
+const processPendingRequests = (error: Error | null = null, token: string | null = null) => {
+  pendingRequests.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token as string);
+    }
+  });
+  pendingRequests = [];
+};
 
 const parseResponse = async (response: Response) => {
   const text = await response.text();
   return text ? JSON.parse(text) : null;
+};
+
+export const refreshAccessToken = async (): Promise<string> => {
+  try {
+    const { accessToken } = await postLogin();
+
+    setAccessToken(accessToken);
+    processPendingRequests(null, accessToken);
+
+    return accessToken;
+  } catch {
+    const authorizationError = new Error(MESSAGES.ERROR.POST_LOGIN);
+    processPendingRequests(authorizationError, null);
+
+    redirectToSignin();
+
+    throw authorizationError;
+  } finally {
+    isRefreshing = false;
+  }
 };
 
 const createRequestInit = (
@@ -59,12 +100,53 @@ const fetchWithToken = async <T = unknown>(
   requestInit: RequestInit,
   errorMessage: string,
 ): Promise<ApiResponse<T>> => {
-  const response = await fetch(PUBLIC_ENV.baseUrl + endpoint, requestInit);
-  const message = response.headers.get('message');
-  const data = await parseResponse(response);
+  if (!navigator.onLine) {
+    throw new Error(MESSAGES.ERROR.OFFLINE_ACTION);
+  }
+
+  let response = await fetch(PUBLIC_ENV.baseUrl + endpoint, requestInit);
+  let data = await parseResponse(response);
+
+  if (response.status === 401) {
+    if (isRefreshing) {
+      return new Promise((resolve, reject) => {
+        pendingRequests.push({ resolve, reject });
+      }).then(async (token) => {
+        // 새로운 Access Token으로 pending 요청 실행
+        requestInit.headers = {
+          ...requestInit.headers,
+          Authorization: `Bearer ${token}`,
+        };
+
+        response = await fetch(PUBLIC_ENV.baseUrl + endpoint, requestInit);
+        data = await parseResponse(response);
+
+        if (!response.ok) {
+          throw new Error(errorMessage || MESSAGES.ERROR.DEFAULT);
+        }
+
+        return { data: data ?? response, headers: response.headers };
+      });
+    }
+
+    isRefreshing = true;
+    const newAccessToken = await refreshAccessToken();
+
+    requestInit.headers = {
+      ...requestInit.headers,
+      Authorization: `Bearer ${newAccessToken}`,
+    };
+
+    response = await fetch(PUBLIC_ENV.baseUrl + endpoint, requestInit);
+    data = await parseResponse(response);
+
+    if (!response.ok) {
+      throw new Error(errorMessage || MESSAGES.ERROR.DEFAULT);
+    }
+  }
 
   if (!response.ok) {
-    throw new Error(errorMessage || message || MESSAGES.ERROR.DEFAULT);
+    throw new Error(errorMessage || MESSAGES.ERROR.DEFAULT);
   }
 
   return { data: data ?? response, headers: response.headers };
