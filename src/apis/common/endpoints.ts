@@ -9,7 +9,8 @@ export const API_ENDPOINTS = {
 
   //members
   MEMBERS: '/members',
-  MEMBERS_BOOKMARK_REVIEW: (stadiumId: number) => `/members/bookmarks?stadiumId=${stadiumId}`,
+  MEMBERS_BOOKMARK_REVIEW: (stadiumId: number, lastModifiedAt: string) =>
+    `/members/bookmarks?stadiumId=${stadiumId}${lastModifiedAt ? `?lastReviewId=${lastModifiedAt}` : ''}`,
   MEMBERS_BOOKMARK: '/members/bookmarks/stadiums',
   MEMBERS_BOOKMARK_DETAIL: (reviewId: number) => `/members/bookmarks/${reviewId}`,
 

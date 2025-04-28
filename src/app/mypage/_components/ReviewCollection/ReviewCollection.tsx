@@ -4,16 +4,15 @@ import DetailReviewModal from '../DetailReviewModal';
 import FilterDropdown from '../FilterDropdown';
 import LoadingSpinner from '../LoadingSpinner';
 import styles from './ReviewCollection.module.scss';
-import { UseQueryResult } from '@tanstack/react-query';
 import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import useStateModal from '@/hooks/common/useStateModal';
+import type { UseFetchBookmarkReviewList } from '@/hooks/queries/useFetchMember';
+import type { UseFetchMyReviewList } from '@/hooks/queries/useFetchMyReview';
 import Portal from '@/components/Portal/Portal';
-import { MyBookmarkResponse } from '@/apis/members/member.api';
-import { MyReviewResponse } from '@/apis/review/review.api';
 import { MY_PAGE_QUERY, REVIEW_TAP, VIEW_TAP } from '@/constants/myPage';
 import { Stadiums } from '@/types/stadium';
 
@@ -22,8 +21,8 @@ interface ReviewCollectionProps {
   reviewNumber: number;
   stadiums: Stadiums[];
   useFetchReview:
-    | (({ stadiumId }) => UseQueryResult<MyReviewResponse, Error>)
-    | (({ stadiumId }) => UseQueryResult<MyBookmarkResponse, Error>);
+    | ((stadiumId: number) => UseFetchBookmarkReviewList)
+    | ((stadiumId: number) => UseFetchMyReviewList);
 }
 
 interface ReviewStatusTagProps {
@@ -35,8 +34,8 @@ interface ReviewListProps {
   stadium: string;
   onClick: (reviewId: number, status?: string) => void;
   useFetchReview:
-    | (({ stadiumId }) => UseQueryResult<MyReviewResponse, Error>)
-    | (({ stadiumId }) => UseQueryResult<MyBookmarkResponse, Error>);
+    | ((stadiumId: number) => UseFetchBookmarkReviewList)
+    | ((stadiumId: number) => UseFetchMyReviewList);
 }
 
 const ReviewStatusTag = ({ status }: ReviewStatusTagProps) => {
@@ -48,13 +47,13 @@ const ReviewList = ({ stadium, stadiumId, onClick, useFetchReview }: ReviewListP
     notFound();
   }
 
-  const { data, isLoading } = useFetchReview({ stadiumId });
+  const { data, isLoading } = useFetchReview(stadiumId);
 
   if (isLoading) return <LoadingSpinner />;
 
   return (
     <ul className={styles.reviewList}>
-      {data?.reviews.content.map((elem) => {
+      {data?.map((elem) => {
         const { reviewId, seatingName, floorName, sectionName, thumbnailUrl } = elem;
 
         return (

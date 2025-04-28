@@ -1,4 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { memberKeys } from '@/apis/common/queryKeys';
+import { Content, getBookmarkReview } from '@/apis/members/member.api';
 import { memberQueries } from '@/apis/members/member.query';
 
 export const useFetchMemberInfo = () => {
@@ -9,10 +11,44 @@ export const useFetchBookMarkStadiums = () => {
   return useQuery(memberQueries.bookmarkStadiums);
 };
 
-export const useFetchBookMarkReviews = ({ stadiumId }) => {
-  return useQuery(memberQueries.bookmarkReviews(stadiumId));
-};
-
 export const useFetchBookMarkDetail = (reviewId: number) => {
   return useQuery(memberQueries.bookmarkDetail(reviewId));
+};
+
+export interface UseFetchBookmarkReviewList {
+  data: Content[];
+  isLoading: boolean;
+  status: 'error' | 'success' | 'pending';
+  isLast: boolean;
+  handlePage: () => void;
+}
+
+export const useFetchBookMarkReviews = (stadiumId: number): UseFetchBookmarkReviewList => {
+  const { data, status, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: memberKeys.bookmarks(stadiumId),
+      queryFn: ({ pageParam = '' }: { pageParam: string | undefined }) =>
+        getBookmarkReview({ stadiumId, lastModifiedAt: pageParam }),
+      initialPageParam: undefined,
+      getNextPageParam: (lastPage) =>
+        lastPage.reviews.hasNext ? lastPage.reviews.content.at(-1)?.modifiedAt : undefined,
+      networkMode: 'always',
+      retry: false,
+    });
+
+  const bookmarkReviews = data?.pages.flatMap((page) => page.reviews.content) || [];
+
+  const handlePage = () => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  };
+
+  return {
+    data: bookmarkReviews,
+    isLoading: isFetching || isFetchingNextPage,
+    status,
+    isLast: !hasNextPage,
+    handlePage,
+  };
 };

@@ -66,9 +66,15 @@ export interface Content {
   modifiedAt: string;
 }
 
-export const getBookmarkReview = async (stadiumId: number) => {
+export const getBookmarkReview = async ({
+  stadiumId,
+  lastModifiedAt,
+}: {
+  stadiumId: number;
+  lastModifiedAt: string;
+}) => {
   const { data } = await api.get<MyBookmarkResponse>({
-    endpoint: API_ENDPOINTS.MEMBERS_BOOKMARK_REVIEW(stadiumId),
+    endpoint: API_ENDPOINTS.MEMBERS_BOOKMARK_REVIEW(stadiumId, lastModifiedAt),
     errorMessage: MESSAGES.ERROR.GET_BOOKMARK_REVIEW,
   });
 
