@@ -45,7 +45,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
           </div>
           <Button
             className={styles.moreButton}
-            onClick={() => router.push(`/all/${stadiumId}/${seatingId}`)}
+            onClick={() => router.push(`/home/${stadiumId}/${seatingId}/all`)}
           >
             더보기 {'>'}
           </Button>
