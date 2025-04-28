@@ -82,6 +82,18 @@
 
     width: 104px;
 
+    &:nth-child(3n-2) {
+      justify-self: start;
+    }
+
+    &:nth-child(3n-1) {
+      justify-self: center;
+    }
+
+    &:nth-child(3n) {
+      justify-self: end;
+    }
+
     .reviewImage {
       overflow: hidden;
 
