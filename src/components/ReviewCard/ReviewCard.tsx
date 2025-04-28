@@ -184,21 +184,6 @@ const LikeButton = ({ reviewId, likeNum, isLiked }: LikeButtonProps) => {
   );
 };
 
-// MoreButton
-interface MoreButtonProps {
-  onClick: () => void;
-}
-
-const MoreButton = ({ onClick }: MoreButtonProps) => {
-  return (
-    <div className={styles.more}>
-      <Button className={styles.moreButton} onClick={onClick}>
-        <Icon icon="MoreFunction" />
-      </Button>
-    </div>
-  );
-};
-
 const ReviewCard = Object.assign(Container, {
   Header,
   UserInfo,
@@ -209,7 +194,6 @@ const ReviewCard = Object.assign(Container, {
   Screening,
   Bookmark,
   LikeButton,
-  MoreButton,
 });
 
 export default ReviewCard;

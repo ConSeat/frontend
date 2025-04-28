@@ -35,7 +35,6 @@ const ResultReviewCard = ({ review }: ResultReviewCardProps) => {
           likeNum={review.likesCount}
           isLiked={review.isLiked}
         />
-        <ReviewCard.MoreButton onClick={() => {}} />
       </div>
     </ReviewCard>
   );
