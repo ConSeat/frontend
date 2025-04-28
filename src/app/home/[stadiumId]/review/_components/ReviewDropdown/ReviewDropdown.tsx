@@ -2,7 +2,7 @@
 
 import styles from './ReviewDropdown.module.scss';
 import classNames from 'classnames';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import useDropdown from '@/hooks/common/useDropdown';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import Icon from '@/components/Icon/Icon';
@@ -13,10 +13,29 @@ interface ReviewDropdownProps {
   onChange: (value: string) => void;
   options: string[];
   placeholder: string;
+  autoOpen?: boolean;
 }
 
-const ReviewDropdown = ({ value, onChange, options, placeholder }: ReviewDropdownProps) => {
-  const { isDropdownOpen, handleToggleDropdown, dropdownRef } = useDropdown();
+const ReviewDropdown = ({
+  value,
+  onChange,
+  options,
+  placeholder,
+  autoOpen,
+}: ReviewDropdownProps) => {
+  const {
+    isDropdownOpen,
+    handleToggleDropdown,
+    handleOpenDropdown,
+    handleCloseDropdown,
+    dropdownRef,
+  } = useDropdown();
+
+  useEffect(() => {
+    if (autoOpen) {
+      handleOpenDropdown();
+    }
+  }, [value]);
 
   return (
     <Dropdown ref={dropdownRef}>
@@ -49,7 +68,7 @@ const ReviewDropdown = ({ value, onChange, options, placeholder }: ReviewDropdow
                 isSelected={value === option}
                 onClick={() => {
                   onChange(option);
-                  handleToggleDropdown();
+                  handleCloseDropdown();
                 }}
               >
                 {option}
