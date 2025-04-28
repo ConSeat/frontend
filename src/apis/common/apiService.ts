@@ -100,10 +100,6 @@ const fetchWithToken = async <T = unknown>(
   requestInit: RequestInit,
   errorMessage: string,
 ): Promise<ApiResponse<T>> => {
-  if (!navigator.onLine) {
-    throw new Error(MESSAGES.ERROR.OFFLINE_ACTION);
-  }
-
   let response = await fetch(PUBLIC_ENV.baseUrl + endpoint, requestInit);
   let data = await parseResponse(response);
 
