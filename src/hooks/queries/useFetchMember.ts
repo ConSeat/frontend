@@ -27,9 +27,9 @@ export const useFetchBookMarkReviews = (stadiumId: number): UseFetchBookmarkRevi
   const { data, status, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: memberKeys.bookmarks(stadiumId),
-      queryFn: ({ pageParam = '' }: { pageParam: string | undefined }) =>
+      queryFn: ({ pageParam = '' }: { pageParam: string }) =>
         getBookmarkReview({ stadiumId, lastModifiedAt: pageParam }),
-      initialPageParam: undefined,
+      initialPageParam: '',
       getNextPageParam: (lastPage) =>
         lastPage.reviews.hasNext ? lastPage.reviews.content.at(-1)?.modifiedAt : undefined,
       networkMode: 'always',
