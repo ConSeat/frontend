@@ -72,7 +72,13 @@ const ReviewList = ({ stadium, stadiumId, onClick, useFetchReview }: ReviewListP
               onClick={() => onClick(reviewId, status)}
             >
               <div className={styles.reviewImage}>
-                <Image width={100} height={120} alt="" src={thumbnailUrl} />
+                <Image
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                  width={100}
+                  height={120}
+                  alt="후기 이미지"
+                  src={thumbnailUrl}
+                />
               </div>
               <div className={styles.reviewText}>
                 <div className={styles.title}>{stadium}</div>

@@ -64,8 +64,8 @@
 
 .reviewList {
   display: grid;
+  grid-gap: 24px 12px;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px 12px;
   justify-items: center;
 
   width: 100%;
@@ -80,25 +80,13 @@
     gap: 4px;
     align-items: center;
 
-    width: 104px;
-
-    &:nth-child(3n-2) {
-      justify-self: start;
-    }
-
-    &:nth-child(3n-1) {
-      justify-self: center;
-    }
-
-    &:nth-child(3n) {
-      justify-self: end;
-    }
+    width: 100%;
 
     .reviewImage {
       overflow: hidden;
 
-      width: 100px;
-      height: 120px;
+      aspect-ratio: 1 / 1;
+      width: 100%;
       border: 1px solid $sub-gray6;
       border-radius: 3.15px;
     }
