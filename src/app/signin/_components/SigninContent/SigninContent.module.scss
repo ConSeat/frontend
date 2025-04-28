@@ -60,12 +60,14 @@
 .googleButton {
   @include login-btn-layout;
 
+  color: $sub-black;
   background-color: #fff;
 }
 
 .kakaoButton {
   @include login-btn-layout;
 
+  color: $sub-black;
   background: #fde500;
 }
 
