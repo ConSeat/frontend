@@ -63,10 +63,10 @@
 }
 
 .reviewList {
-  display: flex;
-  flex-flow: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px 12px;
-  align-items: flex-start;
+  justify-items: center;
 
   width: 100%;
 
