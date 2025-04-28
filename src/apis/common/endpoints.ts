@@ -10,13 +10,13 @@ export const API_ENDPOINTS = {
   //members
   MEMBERS: '/members',
   MEMBERS_BOOKMARK_REVIEW: (stadiumId: number, lastModifiedAt: string) =>
-    `/members/bookmarks?stadiumId=${stadiumId}${lastModifiedAt ? `?lastReviewId=${lastModifiedAt}` : ''}`,
+    `/members/bookmarks?stadiumId=${stadiumId}${lastModifiedAt ? `&lastModifiedAt=${lastModifiedAt}` : ''}`,
   MEMBERS_BOOKMARK: '/members/bookmarks/stadiums',
   MEMBERS_BOOKMARK_DETAIL: (reviewId: number) => `/members/bookmarks/${reviewId}`,
 
   // review
   REVIEWS: ({ stadiumId, lastReviewId }: { stadiumId: number; lastReviewId: number | undefined }) =>
-    `/reviews?stadiumId=${stadiumId}${lastReviewId ? `?lastReviewId=${lastReviewId}` : ''}`,
+    `/reviews?stadiumId=${stadiumId}${lastReviewId ? `&lastReviewId=${lastReviewId}` : ''}`,
   REVIEW_IMAGES: '/reviews/images',
   REVIEW_STADIUMS: '/reviews/stadiums',
   REVIEW_MY_DETAIL: (reviewId: number) => `/reviews/${reviewId}`,
