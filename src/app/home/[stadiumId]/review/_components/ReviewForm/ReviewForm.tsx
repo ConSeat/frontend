@@ -17,7 +17,7 @@ import SeatImage from '../SeatImage';
 import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
 import styles from './ReviewForm.module.scss';
 import { useRouter } from 'next/navigation';
-import { Dispatch, useRef } from 'react';
+import React, { Dispatch, useRef } from 'react';
 import useMutateReview from '@/hooks/mutations/useMutateReview';
 import Button from '@/components/Button/Button';
 import SmallStageView from '@/components/SmallStageView';
@@ -208,17 +208,15 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
         </ReviewSection>
       )}
 
-      {isRender(REVIEW.STEPS.SUBMIT) && (
-        <>
-          <Button
-            variant={getInvalidFields(reviewData).length > 0 ? 'inactive' : 'primary'}
-            onClick={handleSubmitButton}
-          >
-            <span className={styles.submitButtonText}>작성완료</span>
-          </Button>
-          <pre className={styles.reviewRule}>{REVIEW.MESSAGE.REVIEW_RULE.TEXT}</pre>
-        </>
-      )}
+      <div style={{ visibility: isRender(REVIEW.STEPS.SUBMIT) ? 'visible' : 'hidden' }}>
+        <Button
+          variant={getInvalidFields(reviewData).length > 0 ? 'inactive' : 'primary'}
+          onClick={handleSubmitButton}
+        >
+          <span className={styles.submitButtonText}>작성완료</span>
+        </Button>
+        <pre className={styles.reviewRule}>{REVIEW.MESSAGE.REVIEW_RULE.TEXT}</pre>
+      </div>
     </form>
   );
 };
