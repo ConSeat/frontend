@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import useMutateAuth from '@/hooks/mutations/useMutateAuth';
+import PageLoading from '@/components/PageLoading';
 
 const OAuthCallbackPage = () => {
   const router = useRouter();
@@ -15,11 +16,7 @@ const OAuthCallbackPage = () => {
     });
   }, []);
 
-  return (
-    <div>
-      <p>로그인 처리 중...</p>
-    </div>
-  );
+  return <PageLoading text="로그인 중..." />;
 };
 
 export default OAuthCallbackPage;
