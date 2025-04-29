@@ -11,7 +11,7 @@ const AccountHeader = () => {
   return (
     <Header
       title="프로필 설정"
-      right={<Icon icon="Close" size={24} onClick={() => router.push('/mypage')} />}
+      right={<Icon icon="Close" size={24} onClick={() => router.replace('/mypage')} />}
     />
   );
 };

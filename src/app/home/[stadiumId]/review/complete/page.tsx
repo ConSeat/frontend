@@ -17,7 +17,7 @@ const CompletePage = () => {
           type="button"
           onClick={() => router.replace('/mypage?tab=review')}
         >
-          내 후기 바로가기 &gt;
+          내 후기 바로가기 {'>'}
         </button>
       </div>
       <Button onClick={() => router.replace('/home')}>닫기</Button>
