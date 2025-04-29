@@ -60,7 +60,13 @@ const ImageItem = ({ imageSrc }: ImageItem) => {
 
   return (
     <div className={styles.imageBox}>
-      <Image width={IMAGE_SIZE} height={IMAGE_SIZE} alt="콘서트 이미지" src={imageSrc} />
+      <Image
+        style={{ objectFit: 'contain' }}
+        width={IMAGE_SIZE}
+        height={IMAGE_SIZE}
+        alt="콘서트 이미지"
+        src={imageSrc}
+      />
     </div>
   );
 };

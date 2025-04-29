@@ -85,10 +85,12 @@
     .reviewImage {
       overflow: hidden;
 
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 1 / 1.2;
       width: 100%;
-      border: 1px solid $sub-gray6;
+      min-width: 100px;
       border-radius: 3.15px;
+
+      background-color: $sub-black;
     }
 
     .reviewText {
