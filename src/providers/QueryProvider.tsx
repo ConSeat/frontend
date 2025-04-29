@@ -25,16 +25,12 @@ function makeQueryClient(setError) {
     },
     queryCache: new QueryCache({
       onError: (error) => {
-        console.log(error.message);
         setError(error);
-        // alert(error.message); // TODO: 추후 error boundary 또는 toast 처리
       },
     }),
     mutationCache: new MutationCache({
       onError: (error) => {
-        console.log(error.message);
         setError(error);
-        // alert(error.message); // TODO: toast 연결
       },
     }),
   });
