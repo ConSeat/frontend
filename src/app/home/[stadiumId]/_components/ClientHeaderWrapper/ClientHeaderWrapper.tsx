@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
+import { useCallback } from 'react';
 import Header from '@/components/Header/Header';
 import Icon from '@/components/Icon/Icon';
 import type { StadiumInfo } from '@/types/stadium';
@@ -17,16 +18,18 @@ const ClientHeaderWrapper = ({ stadium }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
 
+  const onBack = useCallback(() => {
+    const idx = pathname.lastIndexOf('/');
+    const newPath = pathname.slice(0, idx);
+    router.push(newPath);
+    console.log(newPath);
+  }, [pathname]);
+
   const isHeaderHidden = hiddenPathPatterns.some((regex) => regex.test(pathname));
 
   if (isHeaderHidden) return null;
 
-  return (
-    <Header
-      left={<Icon icon="LeftArrow" onClick={() => router.back()} />}
-      title={stadium.stadiumName}
-    />
-  );
+  return <Header left={<Icon icon="LeftArrow" onClick={onBack} />} title={stadium.stadiumName} />;
 };
 
 export default ClientHeaderWrapper;
