@@ -17,8 +17,9 @@ import ReviewSection from '../ReviewSection/ReviewSection';
 import SeatImage from '../SeatImage';
 import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
 import styles from './ReviewForm.module.scss';
+import classNames from 'classnames';
 import { useRouter } from 'next/navigation';
-import React, { Dispatch, useRef } from 'react';
+import React, { Dispatch, useEffect, useRef, useState } from 'react';
 import useMutateReview from '@/hooks/mutations/useMutateReview';
 import Button from '@/components/Button/Button';
 import SmallStageView from '@/components/SmallStageView';
@@ -32,6 +33,7 @@ interface ReviewFormProps {
 }
 
 const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
+  const [triedSubmit, setTriedSubmit] = useState(false);
   const { postReviewMutation, postReviewImagesMutation } = useMutateReview();
   const { showPopup } = usePopup();
 
@@ -52,6 +54,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
     screenDistance: null,
     obstructions: null,
     contents: null,
+    submit: null,
   } as Record<string, HTMLDivElement | null>);
 
   const assignRef = (key: string) => (el: HTMLDivElement | null) => {
@@ -59,7 +62,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
   };
 
   const { scrollToInvalid } = useAutoScroll<keyof typeof sectionRefs.current>(
-    reviewData.currentStep,
+    stepRef.current,
     sectionRefs.current,
   );
 
@@ -91,11 +94,25 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
     );
   };
 
+  const invalidFields = getInvalidFields(reviewData) as (keyof typeof sectionRefs.current)[];
+
+  useEffect(() => {
+    if (!triedSubmit) return;
+
+    if (invalidFields.length > 0) {
+      scrollToInvalid(invalidFields);
+    } else {
+      // 모두 유효할 때 "작성 완료" 버튼으로 스크롤
+      sectionRefs.current.submit?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  }, [invalidFields, triedSubmit]);
+
   const handleSubmitButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    const invalidFields = getInvalidFields(reviewData) as (keyof typeof sectionRefs.current)[];
-    scrollToInvalid(invalidFields);
+    setTriedSubmit(true);
 
     if (invalidFields.length > 0) {
       return;
@@ -207,7 +224,10 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
       )}
 
       {/* 작성 완료 버튼 */}
-      <div style={{ visibility: isRender(REVIEW.STEPS.SUBMIT) ? 'visible' : 'hidden' }}>
+      <div
+        ref={assignRef('submit')}
+        className={classNames(styles.submit, { [styles.visible]: isRender(REVIEW.STEPS.SUBMIT) })}
+      >
         <Button
           variant={getInvalidFields(reviewData).length > 0 ? 'inactive' : 'primary'}
           onClick={handleSubmitButton}
