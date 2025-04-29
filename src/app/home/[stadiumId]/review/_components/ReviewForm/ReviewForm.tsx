@@ -6,6 +6,7 @@ import {
   THRUST_STAGE_DISTANCE_INFO,
 } from '../../_constants/info';
 import { REVIEW } from '../../_constants/review';
+import { useAutoScroll } from '../../_hooks/useAutoScroll';
 import { getInvalidFields } from '../../_utils/getInvalidFields';
 import ConcertSelect from '../ConcertSelect/ConcertSelect';
 import DistanceInfoSelect from '../DistanceInfoSelect/DistanceInfoSelect';
@@ -17,7 +18,7 @@ import SeatImage from '../SeatImage';
 import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
 import styles from './ReviewForm.module.scss';
 import { useRouter } from 'next/navigation';
-import React, { Dispatch, useEffect, useRef } from 'react';
+import React, { Dispatch, useRef } from 'react';
 import useMutateReview from '@/hooks/mutations/useMutateReview';
 import Button from '@/components/Button/Button';
 import SmallStageView from '@/components/SmallStageView';
@@ -33,6 +34,7 @@ interface ReviewFormProps {
 const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
   const { postReviewMutation, postReviewImagesMutation } = useMutateReview();
   const { showPopup } = usePopup();
+
   const router = useRouter();
 
   const stepRef = useRef<number>(0);
@@ -55,6 +57,11 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
   const assignRef = (key: string) => (el: HTMLDivElement | null) => {
     sectionRefs.current[key] = el;
   };
+
+  const { scrollToInvalid } = useAutoScroll<keyof typeof sectionRefs.current>(
+    reviewData.currentStep,
+    sectionRefs.current,
+  );
 
   const handleSubmitReview = async () => {
     const { data: uploadImage } = await postReviewImagesMutation.mutateAsync(reviewData.images);
@@ -86,27 +93,11 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
 
   const handleSubmitButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const invalidFields = getInvalidFields(reviewData);
 
-    const distanceGroup = ['stageDistance', 'thrustStageDistance', 'screenDistance'];
-
-    const isDistanceInvalid = distanceGroup.some((field) =>
-      invalidFields.includes(field as keyof ReviewData),
-    );
-
-    if (isDistanceInvalid) {
-      sectionRefs.current.stageDistance?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-      return;
-    }
+    const invalidFields = getInvalidFields(reviewData) as (keyof typeof sectionRefs.current)[];
+    scrollToInvalid(invalidFields);
 
     if (invalidFields.length > 0) {
-      const firstInvalid = invalidFields[0];
-      const target = sectionRefs.current[firstInvalid];
-
-      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
     }
 
@@ -118,24 +109,6 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
       onConfirm: handleSubmitReview,
     });
   };
-
-  useEffect(() => {
-    // 자동 스크롤 대상 스텝 -> ref key 매핑
-    const stepToKey: Record<number, keyof typeof sectionRefs.current> = {
-      [REVIEW.STEPS.SEAT_INFO_SELECT]: 'seatingId',
-      [REVIEW.STEPS.FEATURES_INFO_SELECT]: 'features',
-      [REVIEW.STEPS.DISTANCE_INFO_SELECT]: 'stageDistance',
-      [REVIEW.STEPS.OBSTRUCTIONS_SELECT]: 'obstructions',
-    };
-
-    const key = stepToKey[reviewData.currentStep];
-    if (key) {
-      sectionRefs.current[key]?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    }
-  }, [reviewData.currentStep]);
 
   return (
     <form className={styles.reviewFormLayout}>
