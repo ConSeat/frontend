@@ -17,7 +17,7 @@ import SeatImage from '../SeatImage';
 import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
 import styles from './ReviewForm.module.scss';
 import { useRouter } from 'next/navigation';
-import React, { Dispatch, useRef } from 'react';
+import React, { Dispatch, useEffect, useRef } from 'react';
 import useMutateReview from '@/hooks/mutations/useMutateReview';
 import Button from '@/components/Button/Button';
 import SmallStageView from '@/components/SmallStageView';
@@ -119,8 +119,27 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
     });
   };
 
+  useEffect(() => {
+    // 자동 스크롤 대상 스텝 -> ref key 매핑
+    const stepToKey: Record<number, keyof typeof sectionRefs.current> = {
+      [REVIEW.STEPS.SEAT_INFO_SELECT]: 'seatingId',
+      [REVIEW.STEPS.FEATURES_INFO_SELECT]: 'features',
+      [REVIEW.STEPS.DISTANCE_INFO_SELECT]: 'stageDistance',
+      [REVIEW.STEPS.OBSTRUCTIONS_SELECT]: 'obstructions',
+    };
+
+    const key = stepToKey[reviewData.currentStep];
+    if (key) {
+      sectionRefs.current[key]?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  }, [reviewData.currentStep]);
+
   return (
     <form className={styles.reviewFormLayout}>
+      {/* 콘서트 선택 */}
       {isRender(REVIEW.STEPS.CONCERT_SELECT) && (
         <ReviewSection ref={assignRef('concertId')}>
           <ReviewSection.Title
@@ -131,6 +150,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
         </ReviewSection>
       )}
 
+      {/* 층, 구역, 열 선택 */}
       {isRender(REVIEW.STEPS.SEAT_INFO_SELECT) && (
         <ReviewSection ref={assignRef('seatingId')}>
           <SmallStageView stadiumId={reviewData.stadiumId} />
@@ -146,6 +166,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
         </ReviewSection>
       )}
 
+      {/* 특이사항 선택 */}
       {isRender(REVIEW.STEPS.FEATURES_INFO_SELECT) && (
         <ReviewSection ref={assignRef('features')}>
           <ReviewSection.Title
@@ -156,6 +177,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
         </ReviewSection>
       )}
 
+      {/* 시야 사진 업로드 */}
       {isRender(REVIEW.STEPS.IMAGE_UPLOAD) && (
         <ReviewSection ref={assignRef('images')}>
           <ReviewSection.Title
@@ -166,6 +188,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
         </ReviewSection>
       )}
 
+      {/* 무대, 돌출무대, 스크린 거리 선택 */}
       {isRender(REVIEW.STEPS.DISTANCE_INFO_SELECT) && (
         <ReviewSection ref={assignRef('stageDistance')}>
           <ReviewSection.Title title={REVIEW.MESSAGE.SCREEN_DISTANCE.TITLE} />
@@ -191,6 +214,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
         </ReviewSection>
       )}
 
+      {/* 방해 요소 선택 */}
       {isRender(REVIEW.STEPS.OBSTRUCTIONS_SELECT) && (
         <ReviewSection ref={assignRef('obstructions')}>
           <ReviewSection.Title
@@ -201,6 +225,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
         </ReviewSection>
       )}
 
+      {/* 시야 후기 작성 */}
       {isRender(REVIEW.STEPS.REVIEW_INPUT) && (
         <ReviewSection ref={assignRef('contents')}>
           <ReviewSection.Title title={REVIEW.MESSAGE.REVIEW_INPUT.TITLE} />
@@ -208,6 +233,7 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
         </ReviewSection>
       )}
 
+      {/* 작성 완료 버튼 */}
       <div style={{ visibility: isRender(REVIEW.STEPS.SUBMIT) ? 'visible' : 'hidden' }}>
         <Button
           variant={getInvalidFields(reviewData).length > 0 ? 'inactive' : 'primary'}
