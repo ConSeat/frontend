@@ -21,7 +21,13 @@ const ReviewSection = ({ children, ref, isInvalid = false }: ReviewSectionProps)
   );
 };
 
-const ReviewSectionTitle = ({ title, subtitle }: { title?: string; subtitle?: string }) => {
+const ReviewSectionTitle = ({
+  title,
+  subtitle,
+}: {
+  title?: string | ReactNode;
+  subtitle?: string | ReactNode;
+}) => {
   return (
     <div className={styles.reviewSectionTitleWrapper}>
       {title && <h2 className={styles.reviewSectionTitle}>{title}</h2>}

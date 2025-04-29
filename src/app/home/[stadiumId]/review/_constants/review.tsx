@@ -37,7 +37,14 @@ const REVIEW_MESSAGE = {
   },
   IMAGE_UPLOAD: {
     TITLE: '시야 사진을 등록해주세요',
-    SUBTITLE: '*방해요소, 거리감이 잘 느껴지는 사진이면 좋아요',
+    SUBTITLE: (
+      <>
+        *방해요소, 거리감이 잘 느껴지는 사진이면 좋아요
+        <br />
+        사진은 최대 <span style={{ color: '#00FFE5', font: 'inherit' }}>4장</span>까지 업로드할 수
+        있어요
+      </>
+    ),
   },
   STAGE_DISTANCE: {
     TITLE: '본 무대와 거리는 어떤가요?',
