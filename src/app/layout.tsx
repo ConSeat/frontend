@@ -1,7 +1,9 @@
 import styles from './page.module.scss';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import ErrorCapture from '@/components/ErrorCapture';
 import KakaoScript from '@/components/KakaoScript';
+import { ErrorProvider } from '@/providers/ErrorProvider';
 import { PopupProvider } from '@/providers/PopupProvider';
 import QueryProvider from '@/providers/QueryProvider';
 import { ToastProvider } from '@/providers/ToastProvider';
@@ -23,16 +25,19 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
-        <QueryProvider>
-          <ToastProvider>
-            <PopupProvider>
-              <div className={styles.layout}>
-                {children}
-                <div id="portal"></div>
-              </div>
-            </PopupProvider>
-          </ToastProvider>
-        </QueryProvider>
+        <ErrorProvider>
+          <QueryProvider>
+            <ToastProvider>
+              <PopupProvider>
+                <ErrorCapture />
+                <div className={styles.layout}>
+                  {children}
+                  <div id="portal"></div>
+                </div>
+              </PopupProvider>
+            </ToastProvider>
+          </QueryProvider>
+        </ErrorProvider>
       </body>
       <KakaoScript />
     </html>
