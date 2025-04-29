@@ -1,8 +1,15 @@
 @import '@/styles/style';
 
+.reviewWrapper {
+  position: relative;
+  overflow-y: auto;
+  height: 100%;
+  padding-bottom: 56px;
+}
+
 .searchFilterContainer {
   position: sticky;
-  z-index: 10;
+  z-index: z-index(floating);
   top: 56px;
   transform: translateY(0);
 
@@ -78,4 +85,27 @@
     color: $sub-gray6;
     text-decoration: underline;
   }
+}
+
+.scrollUpButton {
+  position: fixed;
+  z-index: z-index(floating);
+  right: calc((100vw - #{$modal-width}) / 2 + 16px);
+  bottom: 52px;
+
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  aspect-ratio: 1/1;
+  width: 58px;
+  height: 58px;
+  padding: 10px;
+  border-radius: 50px;
+
+  background-color: rgb(52 58 64 / 50%);
+  backdrop-filter: blur(10px);
+  box-shadow: 5px 5px 10px 0 rgb(0 0 0 / 70%);
 }

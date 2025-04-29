@@ -10,6 +10,7 @@ import { type Dispatch } from 'react';
 import useIntersectionObserver from '@/hooks/common/useIntersectionObserver';
 import useScrollDirection from '@/hooks/common/useScrollDirection';
 import { useFetchAllReviewList } from '@/hooks/queries/useFetchSeatingReview';
+import Icon from '@/components/Icon/Icon';
 import ReviewCardList from '@/components/ReviewCardList';
 import Splitter from '@/components/Splitter/Splitter';
 import LoadingSpinner from '@/app/mypage/_components/LoadingSpinner';
@@ -49,7 +50,7 @@ const AllReviewContent = ({
   const canFetchNextPage = status !== 'error' && !isLast;
 
   return (
-    <div>
+    <>
       <div
         className={classNames(styles.searchFilterContainer, {
           [styles.hide]: scrollDir === 'down',
@@ -89,7 +90,14 @@ const AllReviewContent = ({
           </>
         )}
       </div>
-    </div>
+
+      <button
+        className={styles.scrollUpButton}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      >
+        <Icon icon="ScrollUpArrow" />
+      </button>
+    </>
   );
 };
 

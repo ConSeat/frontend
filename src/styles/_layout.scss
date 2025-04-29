@@ -1,7 +1,11 @@
+$modal-min-width: 344px;
+$modal-max-width: 640px;
+$modal-width: clamp(#{$modal-min-width}, 100%, #{$modal-max-width});
+
 @mixin layout-width {
-  width: 100%;
-  min-width: 344px;
-  max-width: 640px;
+  width: $modal-width;
+  min-width: $modal-min-width;
+  max-width: $modal-max-width;
 }
 
 @mixin fixed-centered-fullscreen {

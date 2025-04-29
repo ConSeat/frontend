@@ -27,6 +27,7 @@ export { default as Exclamation } from '@/assets/icons/myPage/exclamation.svg';
 
 /**************** icons - AllReviewPage ****************/
 export { default as Reset } from '@/assets/icons/AllReviewPage/reset.svg';
+export { default as ScrollUpArrow } from '@/assets/icons/AllReviewPage/scroll-up-arrow.svg';
 
 /**************** icons - stadiumPage ****************/
 export { default as Compare } from '@/assets/icons/stadiumPage/compare.svg';
