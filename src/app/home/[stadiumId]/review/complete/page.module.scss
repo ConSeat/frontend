@@ -27,8 +27,5 @@
   @include body-2;
 
   color: $sub-gray4;
-
-  &:hover {
-    text-decoration: underline;
-  }
+  text-decoration: underline;
 }

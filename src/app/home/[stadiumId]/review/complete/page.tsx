@@ -20,7 +20,9 @@ const CompletePage = () => {
           내 후기 바로가기 {'>'}
         </button>
       </div>
-      <Button onClick={() => router.replace('/home')}>후기 등록 완료</Button>
+      <Button title="홈 화면으로 가기" onClick={() => router.replace('/home')}>
+        후기 등록 완료
+      </Button>
     </div>
   );
 };
