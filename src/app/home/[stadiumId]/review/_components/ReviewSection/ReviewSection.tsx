@@ -1,15 +1,21 @@
 import styles from './ReviewSection.module.scss';
+import classNames from 'classnames';
 import React, { type ReactNode } from 'react';
 
-const ReviewSection = ({
-  children,
-  ref,
-}: {
+interface ReviewSectionProps {
   children: ReactNode;
   ref?: React.Ref<HTMLDivElement> | null;
-}) => {
+  isInvalid?: boolean;
+}
+
+const ReviewSection = ({ children, ref, isInvalid = false }: ReviewSectionProps) => {
   return (
-    <section className={styles.reviewSection} ref={ref}>
+    <section
+      className={classNames(styles.reviewSection, {
+        [styles.error]: isInvalid,
+      })}
+      ref={ref}
+    >
       {children}
     </section>
   );

@@ -131,7 +131,10 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
     <form className={styles.reviewFormLayout}>
       {/* 콘서트 선택 */}
       {isRender(REVIEW.STEPS.CONCERT_SELECT) && (
-        <ReviewSection ref={assignRef('concertId')}>
+        <ReviewSection
+          ref={assignRef('concertId')}
+          isInvalid={triedSubmit && invalidFields.includes('concertId')}
+        >
           <ReviewSection.Title
             title={REVIEW.MESSAGE.CONCERT_SELECT.TITLE}
             subtitle={REVIEW.MESSAGE.CONCERT_SELECT.SUBTITLE}
@@ -142,7 +145,10 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
 
       {/* 층, 구역, 열 선택 */}
       {isRender(REVIEW.STEPS.SEAT_INFO_SELECT) && (
-        <ReviewSection ref={assignRef('seatingId')}>
+        <ReviewSection
+          ref={assignRef('seatingId')}
+          isInvalid={triedSubmit && invalidFields.includes('seatingId')}
+        >
           <SmallStageView stadiumId={reviewData.stadiumId} />
           <ReviewSection.Title
             title={REVIEW.MESSAGE.SEAT_INFO_SELECT.TITLE}
@@ -158,7 +164,10 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
 
       {/* 특이사항 선택 */}
       {isRender(REVIEW.STEPS.FEATURES_INFO_SELECT) && (
-        <ReviewSection ref={assignRef('features')}>
+        <ReviewSection
+          ref={assignRef('features')}
+          isInvalid={triedSubmit && invalidFields.includes('features')}
+        >
           <ReviewSection.Title
             title={REVIEW.MESSAGE.FEATURES_INFO_SELECT.TITLE}
             subtitle={REVIEW.MESSAGE.FEATURES_INFO_SELECT.SUBTITLE}
@@ -169,7 +178,10 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
 
       {/* 시야 사진 업로드 */}
       {isRender(REVIEW.STEPS.IMAGE_UPLOAD) && (
-        <ReviewSection ref={assignRef('images')}>
+        <ReviewSection
+          ref={assignRef('images')}
+          isInvalid={triedSubmit && invalidFields.includes('images')}
+        >
           <ReviewSection.Title
             title={REVIEW.MESSAGE.IMAGE_UPLOAD.TITLE}
             subtitle={REVIEW.MESSAGE.IMAGE_UPLOAD.SUBTITLE}
@@ -180,7 +192,15 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
 
       {/* 무대, 돌출무대, 스크린 거리 선택 */}
       {isRender(REVIEW.STEPS.DISTANCE_INFO_SELECT) && (
-        <ReviewSection ref={assignRef('stageDistance')}>
+        <ReviewSection
+          ref={assignRef('stageDistance')}
+          isInvalid={
+            triedSubmit &&
+            invalidFields.some((field) =>
+              ['stageDistance', 'thrustStageDistance', 'screenDistance'].includes(field),
+            )
+          }
+        >
           <ReviewSection.Title title={REVIEW.MESSAGE.SCREEN_DISTANCE.TITLE} />
           <DistanceInfoSelect
             name="stageDistance"
@@ -206,7 +226,10 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
 
       {/* 방해 요소 선택 */}
       {isRender(REVIEW.STEPS.OBSTRUCTIONS_SELECT) && (
-        <ReviewSection ref={assignRef('obstructions')}>
+        <ReviewSection
+          ref={assignRef('obstructions')}
+          isInvalid={triedSubmit && invalidFields.includes('obstructions')}
+        >
           <ReviewSection.Title
             title={REVIEW.MESSAGE.OBSTRUCTIONS_SELECT.TITLE}
             subtitle={REVIEW.MESSAGE.OBSTRUCTIONS_SELECT.SUBTITLE}
@@ -217,7 +240,10 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
 
       {/* 시야 후기 작성 */}
       {isRender(REVIEW.STEPS.REVIEW_INPUT) && (
-        <ReviewSection ref={assignRef('contents')}>
+        <ReviewSection
+          ref={assignRef('contents')}
+          isInvalid={triedSubmit && invalidFields.includes('contents')}
+        >
           <ReviewSection.Title title={REVIEW.MESSAGE.REVIEW_INPUT.TITLE} />
           <ReviewContents data={reviewData.contents} dispatch={dispatch} />
         </ReviewSection>
