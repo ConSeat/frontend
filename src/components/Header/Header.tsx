@@ -1,6 +1,7 @@
 'use client';
 
 import styles from './Header.module.scss';
+import { useCallback } from 'react';
 
 interface HeaderProps {
   left?: React.ReactNode;
@@ -9,8 +10,27 @@ interface HeaderProps {
 }
 
 const Header = ({ title, left, right }: HeaderProps) => {
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  const onKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        scrollToTop();
+      }
+    },
+    [scrollToTop],
+  );
+
   return (
-    <header className={styles.header}>
+    <header
+      className={styles.header}
+      onClick={scrollToTop}
+      role="button"
+      tabIndex={0}
+      onKeyDown={onKeyDown}
+    >
       <div className={styles.left}>{left}</div>
       <h1 className={styles.title}>{title}</h1>
       <div className={styles.right}>{right}</div>
