@@ -18,7 +18,7 @@ import SeatImage from '../SeatImage';
 import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
 import styles from './ReviewForm.module.scss';
 import classNames from 'classnames';
-import React, { Dispatch, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, useRef, useState } from 'react';
 import Button from '@/components/Button/Button';
 import SmallStageView from '@/components/SmallStageView';
 import Spacing from '@/components/Spacing/Spacing';
@@ -61,23 +61,9 @@ const ReviewForm = ({ reviewData, dispatch, onSubmit }: ReviewFormProps) => {
     sectionRefs.current[key] = el;
   };
 
-  const { scrollToInvalid } = useAutoScroll<SectionKeys>(stepRef.current, sectionRefs.current);
-
   const invalidFields = getInvalidFields(reviewData) as SectionKeys[];
 
-  useEffect(() => {
-    if (!triedSubmit) return;
-
-    if (invalidFields.length > 0) {
-      scrollToInvalid(invalidFields);
-    } else {
-      // 모두 유효할 때 "작성 완료" 버튼으로 스크롤
-      sectionRefs.current.submit?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    }
-  }, [invalidFields, triedSubmit]);
+  const { scrollToInvalid } = useAutoScroll<SectionKeys>(stepRef.current, sectionRefs.current);
 
   const handleSubmitButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -85,6 +71,7 @@ const ReviewForm = ({ reviewData, dispatch, onSubmit }: ReviewFormProps) => {
 
     // 유효하지 않은 경우: toast
     if (invalidFields.length > 0) {
+      scrollToInvalid(invalidFields);
       activateToast('입력하지 않은 정보가 있어요!', 'Waring');
       return;
     }
