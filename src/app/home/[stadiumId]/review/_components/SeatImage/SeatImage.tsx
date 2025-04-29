@@ -7,6 +7,7 @@ import ImageUpLoadArea from '../ImageUpLoadArea';
 import UpLoadStatus from '../UpLoadStatus/UpLoadStatus';
 import React, { ChangeEventHandler, useRef } from 'react';
 import Splitter from '@/components/Splitter/Splitter';
+import { useToast } from '@/providers/ToastProvider';
 import type { ImageData, ReviewDispatch } from '@/types/review';
 
 interface SeatImageProps {
@@ -15,6 +16,7 @@ interface SeatImageProps {
 }
 
 const SeatImage = ({ data, dispatch }: SeatImageProps) => {
+  const { activateToast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -24,7 +26,7 @@ const SeatImage = ({ data, dispatch }: SeatImageProps) => {
     const remainingSlots = MAX_IMAGE_UPLOAD_NUMBER - data.length;
 
     if (selectedFiles.length > remainingSlots) {
-      alert(`최대 ${MAX_IMAGE_UPLOAD_NUMBER}장까지 업로드할 수 있어요.`); // TODO: toast로 변경
+      activateToast(`최대 ${MAX_IMAGE_UPLOAD_NUMBER}장까지만 업로드할 수 있어요.`, 'Waring');
     }
 
     const filesToUpload = selectedFiles.slice(0, remainingSlots);

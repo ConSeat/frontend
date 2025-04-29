@@ -18,6 +18,11 @@
   background-color: $sub-gray8;
 }
 
+.error {
+  border: 2px solid #e04848;
+  border-radius: 8px;
+}
+
 // Title
 .reviewSectionTitleWrapper {
   display: flex;

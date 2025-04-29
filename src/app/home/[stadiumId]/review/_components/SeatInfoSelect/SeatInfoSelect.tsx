@@ -49,6 +49,7 @@ const SeatInfoSelect = ({ stadiumId, data, dispatch }: SeatInfoSelectProps) => {
         }
         options={fetchedSeats.map((floor) => floor.name)}
         placeholder="층을 선택해주세요"
+        autoOpen={seatInfo.floor === ''}
       />
 
       {seatInfo.floor && (
@@ -65,6 +66,7 @@ const SeatInfoSelect = ({ stadiumId, data, dispatch }: SeatInfoSelectProps) => {
           }}
           options={availableSections.map((section) => section.name)}
           placeholder="구역을 선택해주세요"
+          autoOpen={seatInfo.section === ''}
         />
       )}
 
@@ -79,6 +81,7 @@ const SeatInfoSelect = ({ stadiumId, data, dispatch }: SeatInfoSelectProps) => {
           }}
           options={availableSeating.map((seat) => seat.name)}
           placeholder="좌석을 선택해주세요"
+          autoOpen={seatInfo.seatingId === NONE_SELECT}
         />
       )}
     </div>

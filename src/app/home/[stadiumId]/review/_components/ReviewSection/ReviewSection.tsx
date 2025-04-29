@@ -1,21 +1,33 @@
 import styles from './ReviewSection.module.scss';
+import classNames from 'classnames';
 import React, { type ReactNode } from 'react';
 
-const ReviewSection = ({
-  children,
-  ref,
-}: {
+interface ReviewSectionProps {
   children: ReactNode;
   ref?: React.Ref<HTMLDivElement> | null;
-}) => {
+  isInvalid?: boolean;
+}
+
+const ReviewSection = ({ children, ref, isInvalid = false }: ReviewSectionProps) => {
   return (
-    <section className={styles.reviewSection} ref={ref}>
+    <section
+      className={classNames(styles.reviewSection, {
+        [styles.error]: isInvalid,
+      })}
+      ref={ref}
+    >
       {children}
     </section>
   );
 };
 
-const ReviewSectionTitle = ({ title, subtitle }: { title?: string; subtitle?: string }) => {
+const ReviewSectionTitle = ({
+  title,
+  subtitle,
+}: {
+  title?: string | ReactNode;
+  subtitle?: string | ReactNode;
+}) => {
   return (
     <div className={styles.reviewSectionTitleWrapper}>
       {title && <h2 className={styles.reviewSectionTitle}>{title}</h2>}
