@@ -4,9 +4,11 @@ import ObstructionDropdownModal from '../ObstructionDropdownModal/ObstructionDro
 import SeatDropdownModal from '../SeatDropdownModal/SeatDropdownModal';
 import SortDropdown from '../SortDropdown/SortDropdown';
 import styles from './AllReviewContent.module.scss';
+import classNames from 'classnames';
 import Link from 'next/link';
 import { type Dispatch } from 'react';
 import useIntersectionObserver from '@/hooks/common/useIntersectionObserver';
+import useScrollDirection from '@/hooks/common/useScrollDirection';
 import { useFetchAllReviewList } from '@/hooks/queries/useFetchSeatingReview';
 import ReviewCardList from '@/components/ReviewCardList';
 import Splitter from '@/components/Splitter/Splitter';
@@ -36,6 +38,10 @@ const AllReviewContent = ({
   stadiumId,
   seatingId,
 }: AllReviewContentProps) => {
+  const scrollDir = useScrollDirection();
+
+  console.log(scrollDir);
+
   const { filteredList, reviewCount, isLoading, status, isLast, handlePage } =
     useFetchAllReviewList(filterData.seatingId, filterData);
   const targetRef = useIntersectionObserver(handlePage);
@@ -44,7 +50,12 @@ const AllReviewContent = ({
 
   return (
     <div>
-      <div className={styles.searchFilterContainer}>
+      <div
+        className={classNames(styles.searchFilterContainer, {
+          [styles.hide]: scrollDir === 'down',
+          [styles.show]: scrollDir === 'up',
+        })}
+      >
         <SeatDropdownModal
           seatingIdState={filterData.seatingId}
           dispatch={dispatch}

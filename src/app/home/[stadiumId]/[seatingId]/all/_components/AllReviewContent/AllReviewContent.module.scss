@@ -1,14 +1,33 @@
 @import '@/styles/style';
 
 .searchFilterContainer {
+  position: sticky;
+  z-index: 10;
+  top: 56px;
+  transform: translateY(0);
+
   overflow: auto hidden;
   display: flex;
   gap: 13px;
+
   padding: 24px;
+
+  background-color: $sub-bg-black;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+
+  transition: transform 0.2s ease;
 
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+.hide {
+  transform: translateY(calc(-100% - 56px));
+}
+
+.show {
+  transform: translateY(0);
 }
 
 .searchResultContainer {

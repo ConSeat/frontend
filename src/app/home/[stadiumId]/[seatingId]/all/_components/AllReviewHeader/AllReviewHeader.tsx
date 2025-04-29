@@ -23,6 +23,7 @@ const AllReviewHeader = ({ stadiumId, seatingId }: AllReviewHeaderProps) => {
           onClick={() => router.replace(`/home/${stadiumId}/single/${seatingId}`)}
         />
       }
+      style={{ backgroundColor: '#1B1C1E', backdropFilter: 'none' }}
     />
   );
 };
