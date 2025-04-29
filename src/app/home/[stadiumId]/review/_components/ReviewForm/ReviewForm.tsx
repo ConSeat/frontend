@@ -18,26 +18,24 @@ import SeatImage from '../SeatImage';
 import SeatInfoSelect from '../SeatInfoSelect/SeatInfoSelect';
 import styles from './ReviewForm.module.scss';
 import classNames from 'classnames';
-import { useRouter } from 'next/navigation';
 import React, { Dispatch, useEffect, useRef, useState } from 'react';
-import useMutateReview from '@/hooks/mutations/useMutateReview';
 import Button from '@/components/Button/Button';
 import SmallStageView from '@/components/SmallStageView';
 import Spacing from '@/components/Spacing/Spacing';
 import { usePopup } from '@/providers/PopupProvider';
+import { useToast } from '@/providers/ToastProvider';
 import type { ReviewAction, ReviewData } from '@/types/review';
 
 interface ReviewFormProps {
   reviewData: ReviewData;
   dispatch: Dispatch<ReviewAction>;
+  onSubmit: () => void;
 }
 
-const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
+const ReviewForm = ({ reviewData, dispatch, onSubmit }: ReviewFormProps) => {
   const [triedSubmit, setTriedSubmit] = useState(false);
-  const { postReviewMutation, postReviewImagesMutation } = useMutateReview();
   const { showPopup } = usePopup();
-
-  const router = useRouter();
+  const { activateToast } = useToast();
 
   const stepRef = useRef<number>(0);
   stepRef.current = Math.max(stepRef.current, reviewData.currentStep);
@@ -57,44 +55,15 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
     submit: null,
   } as Record<string, HTMLDivElement | null>);
 
+  type SectionKeys = keyof typeof sectionRefs.current;
+
   const assignRef = (key: string) => (el: HTMLDivElement | null) => {
     sectionRefs.current[key] = el;
   };
 
-  const { scrollToInvalid } = useAutoScroll<keyof typeof sectionRefs.current>(
-    stepRef.current,
-    sectionRefs.current,
-  );
+  const { scrollToInvalid } = useAutoScroll<SectionKeys>(stepRef.current, sectionRefs.current);
 
-  const handleSubmitReview = async () => {
-    const { data: uploadImage } = await postReviewImagesMutation.mutateAsync(reviewData.images);
-    const uploadImageUrls = uploadImage.originalImage;
-
-    const sanitize = (arr: number[]) => (arr.includes(-1) ? [] : arr);
-
-    const body = {
-      features: sanitize(reviewData.features),
-      images: uploadImageUrls,
-      stageDistance: reviewData.stageDistance,
-      thrustStageDistance: reviewData.thrustStageDistance,
-      screenDistance: reviewData.screenDistance,
-      obstructions: sanitize(reviewData.obstructions),
-      contents: reviewData.contents,
-    };
-
-    postReviewMutation.mutate(
-      {
-        concertId: reviewData.concertId,
-        seatingId: reviewData.seatingId,
-        body,
-      },
-      {
-        onSuccess: () => router.push(`/home/${reviewData.stadiumId}/review/complete`),
-      },
-    );
-  };
-
-  const invalidFields = getInvalidFields(reviewData) as (keyof typeof sectionRefs.current)[];
+  const invalidFields = getInvalidFields(reviewData) as SectionKeys[];
 
   useEffect(() => {
     if (!triedSubmit) return;
@@ -114,16 +83,18 @@ const ReviewForm = ({ reviewData, dispatch }: ReviewFormProps) => {
     e.preventDefault();
     setTriedSubmit(true);
 
+    // 유효하지 않은 경우: toast
     if (invalidFields.length > 0) {
+      activateToast('입력하지 않은 정보가 있어요!', 'Waring');
       return;
     }
 
-    // 유효한 경우 팝업 띄우기
+    // 유효한 경우: popup
     showPopup({
       title: '후기를 등록하시겠습니까?',
       subtitle:
         '등록된 후기는 수정/삭제가 불가합니다. 민감한 정보가 들어간 후기는 관리자에 의해 삭제 처리될 수 있습니다.',
-      onConfirm: handleSubmitReview,
+      onConfirm: onSubmit,
     });
   };
 

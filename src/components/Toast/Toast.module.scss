@@ -40,11 +40,11 @@
   border: 1px solid rgb(73 80 87 / 50%);
   border-radius: 5px;
 
-  background: rgb(0 0 0 / 80%);
+  background: $sub-black;
   backdrop-filter: blur(2.5px);
   box-shadow: 0 4px 20px 0 rgb(0 0 0 / 50%);
 
-  animation: slide-up-down 1.5s ease-in-out forwards;
+  animation: slide-up-down 2.5s ease-in-out forwards;
 
   .text {
     @include body-4;

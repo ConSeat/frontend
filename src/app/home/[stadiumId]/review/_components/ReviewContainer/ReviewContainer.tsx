@@ -3,7 +3,9 @@
 import { NONE_SELECT } from '../../_constants/info';
 import { REVIEW } from '../../_constants/review';
 import ReviewForm from '../ReviewForm';
+import { useRouter } from 'next/navigation';
 import { useReducer } from 'react';
+import useMutateReview from '@/hooks/mutations/useMutateReview';
 import type { ReviewAction, ReviewData, Step } from '@/types/review';
 import { toggleItem } from '@/utils/toggleItem';
 
@@ -137,8 +139,39 @@ interface ReviewContainerProps {
 
 const ReviewContainer = ({ stadiumId }: ReviewContainerProps) => {
   const [state, dispatch] = useReducer(reviewReducer, createInitReviewData(stadiumId));
+  const { postReviewMutation, postReviewImagesMutation } = useMutateReview();
+  const router = useRouter();
 
-  return <ReviewForm reviewData={state} dispatch={dispatch} />;
+  const handleSubmitReview = async () => {
+    const { data: uploadImage } = await postReviewImagesMutation.mutateAsync(state.images);
+
+    const uploadImageUrls = uploadImage.originalImage;
+
+    const sanitize = (arr: number[]) => (arr.includes(-1) ? [] : arr);
+
+    const body = {
+      features: sanitize(state.features),
+      images: uploadImageUrls,
+      stageDistance: state.stageDistance,
+      thrustStageDistance: state.thrustStageDistance,
+      screenDistance: state.screenDistance,
+      obstructions: sanitize(state.obstructions),
+      contents: state.contents,
+    };
+
+    postReviewMutation.mutate(
+      {
+        concertId: state.concertId,
+        seatingId: state.seatingId,
+        body,
+      },
+      {
+        onSuccess: () => router.push(`/home/${state.stadiumId}/review/complete`),
+      },
+    );
+  };
+
+  return <ReviewForm reviewData={state} dispatch={dispatch} onSubmit={handleSubmitReview} />;
 };
 
 export default ReviewContainer;
