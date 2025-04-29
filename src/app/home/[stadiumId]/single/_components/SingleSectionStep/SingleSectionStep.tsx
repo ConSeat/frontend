@@ -1,3 +1,4 @@
+import { NONE_SELECT } from '../../../review/_constants/info';
 import type { SingleFunnelData, Step } from '../../_types/funnel';
 import styles from './SingleSectionStep.module.scss';
 import { useRouter } from 'next/navigation';
@@ -49,13 +50,15 @@ const SingleSectionStep = ({ stadiumId, setStep, data, setData }: SingleSectionS
         </div>
       </div>
 
+      <Spacing size={96} />
+
       <div className={styles.buttonContainer}>
         <ButtonContainer>
           <Button variant="secondary" onClick={() => router.push(`/home/${stadiumId}`)}>
             이전
           </Button>
           <Button
-            variant={data.sectionId ? 'primary' : 'inactive'}
+            variant={data.sectionId !== NONE_SELECT ? 'primary' : 'inactive'}
             disabled={!data.sectionId}
             onClick={() => {
               if (!data.sectionName) return;

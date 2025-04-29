@@ -61,6 +61,8 @@ const SingleSeatingStep = ({ stadiumId, setStep, data, setData }: SingleSeatingS
         </ColumnSelectList>
       </div>
 
+      <Spacing size={96} />
+
       <ButtonContainer>
         <Button variant="secondary" onClick={() => setStep('Section')}>
           이전
