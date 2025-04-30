@@ -23,7 +23,6 @@ const ClientHeaderWrapper = ({ stadium }: Props) => {
     const idx = pathname.lastIndexOf('/');
     const newPath = pathname.slice(0, idx);
     router.push(newPath);
-    console.log(newPath);
   }, [pathname]);
 
   const isHeaderHidden = hiddenPathPatterns.some((regex) => regex.test(pathname));

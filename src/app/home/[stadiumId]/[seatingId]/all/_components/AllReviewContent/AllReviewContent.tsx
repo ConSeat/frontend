@@ -41,8 +41,6 @@ const AllReviewContent = ({
 }: AllReviewContentProps) => {
   const scrollDir = useScrollDirection();
 
-  console.log(scrollDir);
-
   const { filteredList, reviewCount, isLoading, status, isLast, handlePage } =
     useFetchAllReviewList(filterData.seatingId, filterData);
   const targetRef = useIntersectionObserver(handlePage);
