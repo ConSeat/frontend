@@ -2,6 +2,7 @@
 
 import styles from './ApiErrorBoundary.module.scss';
 import { QueryKey, useQueryClient } from '@tanstack/react-query';
+import { usePathname } from 'next/navigation';
 import { ReactNode, useEffect, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import Button from '@/components/Button/Button';
@@ -43,10 +44,11 @@ interface ApiErrorBoundaryProps {
 
 const ApiErrorBoundary = ({ children, queryKey, resetKey }: ApiErrorBoundaryProps) => {
   const queryClient = useQueryClient();
+  const pathName = usePathname();
 
   return (
     <ErrorBoundary
-      resetKeys={resetKey ? [window.location.pathname, ...resetKey] : [window.location.pathname]}
+      resetKeys={resetKey ? [pathName, ...resetKey] : [pathName]}
       onReset={() => {
         queryClient.invalidateQueries({ queryKey });
         queryClient.resetQueries({ queryKey, exact: true });
