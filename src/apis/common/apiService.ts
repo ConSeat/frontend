@@ -1,5 +1,6 @@
 import { PUBLIC_ENV } from '@/config/env';
 import MESSAGES from '@/constants/message';
+import ApiRequestError from '@/utils/ApiRequestError';
 
 type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
@@ -55,6 +56,7 @@ const createRequestInit = (
 };
 
 const fetchWithToken = async <T = unknown>(
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
   endpoint: string,
   requestInit: RequestInit,
   errorMessage: string,
@@ -64,6 +66,12 @@ const fetchWithToken = async <T = unknown>(
   const data = await parseResponse(response);
 
   if (!response.ok) {
+    if (method === 'GET') {
+      throw new ApiRequestError({
+        errorMessage: errorMessage || message || MESSAGES.ERROR.DEFAULT,
+      });
+    }
+
     throw new Error(errorMessage || message || MESSAGES.ERROR.DEFAULT);
   }
 
@@ -80,7 +88,7 @@ export const apiService = (getAccessToken: () => Promise<string>) => {
   }: RequestProps): Promise<ApiResponse<T>> => {
     const token = await getAccessToken();
     const requestInit = createRequestInit(method, headers, body, token);
-    return await fetchWithToken<T>(endpoint, requestInit, errorMessage);
+    return await fetchWithToken<T>(method, endpoint, requestInit, errorMessage);
   };
 
   return {
