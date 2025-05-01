@@ -13,7 +13,9 @@ import useIntersectionObserver from '@/hooks/common/useIntersectionObserver';
 import useStateModal from '@/hooks/common/useStateModal';
 import type { UseFetchBookmarkReviewList } from '@/hooks/queries/useFetchMember';
 import type { UseFetchMyReviewList } from '@/hooks/queries/useFetchMyReview';
+import ApiErrorBoundary from '@/components/ApiErrorBoundary';
 import Portal from '@/components/Portal/Portal';
+import { memberKeys, reviewKeys } from '@/apis/common/queryKeys';
 import { MY_PAGE_QUERY, REVIEW_TAP, VIEW_TAP } from '@/constants/myPage';
 import { Stadiums } from '@/types/stadium';
 
@@ -56,6 +58,7 @@ const ReviewList = ({ stadium, stadiumId, onClick, useFetchReview }: ReviewListP
 
   if (firstFetchRef.current) {
     firstFetchRef.current = false;
+
     return <LoadingSpinner />;
   }
 
@@ -176,22 +179,27 @@ const ReviewCollection = ({
           <NoneContent />
         ) : (
           <>
-            <FilterDropdown
-              value={stadiums[0].stadiumName}
-              options={stadiums.map((stadium) => stadium.stadiumName)}
-              onChange={handleChangeFilter}
-            />
-            <ReviewList
-              stadium={stadiums[0].stadiumName}
-              stadiumId={
-                stadiums.find((elem) => {
-                  const target = filterValue ? filterValue : stadiums[0].stadiumName;
-                  return elem.stadiumName === target;
-                })?.stadiumId
-              }
-              onClick={handelClickReviewItem}
-              useFetchReview={useFetchReview}
-            />
+            <ApiErrorBoundary
+              resetKey={tapType}
+              queryKey={tapType === 'view' ? memberKeys.all : reviewKeys.all}
+            >
+              <FilterDropdown
+                value={stadiums[0].stadiumName}
+                options={stadiums.map((stadium) => stadium.stadiumName)}
+                onChange={handleChangeFilter}
+              />
+              <ReviewList
+                stadium={stadiums[0].stadiumName}
+                stadiumId={
+                  stadiums.find((elem) => {
+                    const target = filterValue ? filterValue : stadiums[0].stadiumName;
+                    return elem.stadiumName === target;
+                  })?.stadiumId
+                }
+                onClick={handelClickReviewItem}
+                useFetchReview={useFetchReview}
+              />
+            </ApiErrorBoundary>
           </>
         )}
       </div>
