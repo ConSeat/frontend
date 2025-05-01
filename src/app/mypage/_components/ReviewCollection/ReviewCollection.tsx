@@ -180,7 +180,7 @@ const ReviewCollection = ({
         ) : (
           <>
             <ApiErrorBoundary
-              resetKey={[window.location.pathname, tapType]}
+              resetKey={[tapType]}
               queryKey={tapType === 'view' ? memberKeys.all : reviewKeys.all}
             >
               <FilterDropdown

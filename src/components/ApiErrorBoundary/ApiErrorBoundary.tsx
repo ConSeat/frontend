@@ -46,7 +46,7 @@ const ApiErrorBoundary = ({ children, queryKey, resetKey }: ApiErrorBoundaryProp
 
   return (
     <ErrorBoundary
-      resetKeys={resetKey}
+      resetKeys={resetKey ? [window.location.pathname, ...resetKey] : [window.location.pathname]}
       onReset={() => {
         queryClient.invalidateQueries({ queryKey });
         queryClient.resetQueries({ queryKey, exact: true });

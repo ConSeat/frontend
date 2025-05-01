@@ -84,7 +84,7 @@ const AllReviewContainer = ({ stadiumId, seatingId }: AllReviewContainerProps) =
   const [state, dispatch] = useReducer(filterReducer, createInitFilterData(stadiumId, seatingId));
 
   return (
-    <ApiErrorBoundary resetKey={[window.location.pathname]} queryKey={reviewKeys.all}>
+    <ApiErrorBoundary queryKey={reviewKeys.all}>
       <AllReviewContent
         filterData={state}
         dispatch={dispatch}
