@@ -38,7 +38,7 @@ const Fallback = ({ error, resetErrorBoundary, queryKey }: FallbackProps) => {
 interface ApiErrorBoundaryProps {
   children: ReactNode;
   queryKey: QueryKey;
-  resetKey?: string;
+  resetKey?: string[];
 }
 
 const ApiErrorBoundary = ({ children, queryKey, resetKey }: ApiErrorBoundaryProps) => {
@@ -46,7 +46,7 @@ const ApiErrorBoundary = ({ children, queryKey, resetKey }: ApiErrorBoundaryProp
 
   return (
     <ErrorBoundary
-      resetKeys={[resetKey]}
+      resetKeys={resetKey}
       onReset={() => {
         queryClient.invalidateQueries({ queryKey });
         queryClient.resetQueries({ queryKey, exact: true });
