@@ -9,6 +9,7 @@ import {
   isServer,
 } from '@tanstack/react-query';
 import React from 'react';
+import ApiRequestError from '@/utils/ApiRequestError';
 
 function makeQueryClient(setError) {
   return new QueryClient({
@@ -24,12 +25,16 @@ function makeQueryClient(setError) {
       },
     },
     queryCache: new QueryCache({
-      onError: (error) => {
+      onError: (error: Error | ApiRequestError) => {
+        if (error instanceof ApiRequestError || error instanceof TypeError) return;
+
         setError(error);
       },
     }),
     mutationCache: new MutationCache({
-      onError: (error) => {
+      onError: (error: Error | ApiRequestError) => {
+        if (error instanceof ApiRequestError || error instanceof TypeError) return;
+
         setError(error);
       },
     }),
