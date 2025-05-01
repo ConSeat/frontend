@@ -2,6 +2,8 @@
 
 import AllReviewContent from '../AllReviewContent/AllReviewContent';
 import React, { useReducer } from 'react';
+import ApiErrorBoundary from '@/components/ApiErrorBoundary';
+import { reviewKeys } from '@/apis/common/queryKeys';
 import { NONE_SELECT } from '@/app/home/[stadiumId]/review/_constants/info';
 import type { ListSort } from '@/types/review';
 
@@ -82,12 +84,14 @@ const AllReviewContainer = ({ stadiumId, seatingId }: AllReviewContainerProps) =
   const [state, dispatch] = useReducer(filterReducer, createInitFilterData(stadiumId, seatingId));
 
   return (
-    <AllReviewContent
-      filterData={state}
-      dispatch={dispatch}
-      stadiumId={stadiumId}
-      seatingId={seatingId}
-    />
+    <ApiErrorBoundary queryKey={reviewKeys.all}>
+      <AllReviewContent
+        filterData={state}
+        dispatch={dispatch}
+        stadiumId={stadiumId}
+        seatingId={seatingId}
+      />
+    </ApiErrorBoundary>
   );
 };
 
