@@ -11,8 +11,11 @@ import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState } from 'react';
 import useIntersectionObserver from '@/hooks/common/useIntersectionObserver';
 import useStateModal from '@/hooks/common/useStateModal';
-import type { UseFetchBookmarkReviewList } from '@/hooks/queries/useFetchMember';
-import type { UseFetchMyReviewList } from '@/hooks/queries/useFetchMyReview';
+import {
+  type UseFetchBookmarkReviewList,
+  useFetchBookMarkReviews,
+} from '@/hooks/queries/useFetchMember';
+import { type UseFetchMyReviewList, useFetchMyReview } from '@/hooks/queries/useFetchMyReview';
 import ApiErrorBoundary from '@/components/ApiErrorBoundary';
 import Portal from '@/components/Portal/Portal';
 import { memberKeys, reviewKeys } from '@/apis/common/queryKeys';
@@ -23,9 +26,6 @@ interface ReviewCollectionProps {
   viewNumber: number;
   reviewNumber: number;
   stadiums: Stadiums[];
-  useFetchReview:
-    | ((stadiumId: number) => UseFetchBookmarkReviewList)
-    | ((stadiumId: number) => UseFetchMyReviewList);
 }
 
 interface ReviewStatusTagProps {
@@ -114,12 +114,7 @@ const NoneContent = () => {
   );
 };
 
-const ReviewCollection = ({
-  viewNumber,
-  reviewNumber,
-  stadiums,
-  useFetchReview,
-}: ReviewCollectionProps) => {
+const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollectionProps) => {
   const [filterValue, setFilterValue] = useState('');
   const [reviewId, setReviewId] = useState(0);
   const { isModalOpen, openModal, closeModal } = useStateModal();
@@ -154,6 +149,12 @@ const ReviewCollection = ({
     openModal();
   };
 
+  const useFetchReview = tapType === 'view' ? useFetchBookMarkReviews : useFetchMyReview;
+  const stadiumId = stadiums.find((elem) => {
+    const target = filterValue ? filterValue : stadiums[0].stadiumName;
+    return elem.stadiumName === target;
+  })!.stadiumId;
+
   return (
     <div className={styles.collectionContainer}>
       <div className={styles.reviewTap}>
@@ -179,23 +180,18 @@ const ReviewCollection = ({
           <NoneContent />
         ) : (
           <>
+            <FilterDropdown
+              value={stadiums[0].stadiumName}
+              options={stadiums.map((stadium) => stadium.stadiumName)}
+              onChange={handleChangeFilter}
+            />
             <ApiErrorBoundary
               resetKey={[tapType]}
-              queryKey={tapType === 'view' ? memberKeys.all : reviewKeys.all}
+              queryKey={tapType === 'view' ? memberKeys.bookmarks(stadiumId) : reviewKeys.mine()}
             >
-              <FilterDropdown
-                value={stadiums[0].stadiumName}
-                options={stadiums.map((stadium) => stadium.stadiumName)}
-                onChange={handleChangeFilter}
-              />
               <ReviewList
                 stadium={stadiums[0].stadiumName}
-                stadiumId={
-                  stadiums.find((elem) => {
-                    const target = filterValue ? filterValue : stadiums[0].stadiumName;
-                    return elem.stadiumName === target;
-                  })?.stadiumId
-                }
+                stadiumId={stadiumId}
                 onClick={handelClickReviewItem}
                 useFetchReview={useFetchReview}
               />

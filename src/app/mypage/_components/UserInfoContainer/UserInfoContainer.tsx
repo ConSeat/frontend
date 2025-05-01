@@ -3,12 +3,8 @@
 import ReviewCollection from '../ReviewCollection';
 import UserInfo from '../UserInfo/UserInfo';
 import { notFound, useSearchParams } from 'next/navigation';
-import {
-  useFetchBookMarkReviews,
-  useFetchBookMarkStadiums,
-  useFetchMemberInfo,
-} from '@/hooks/queries/useFetchMember';
-import { useFetchMyReview, useFetchMyStadiums } from '@/hooks/queries/useFetchMyReview';
+import { useFetchBookMarkStadiums, useFetchMemberInfo } from '@/hooks/queries/useFetchMember';
+import { useFetchMyStadiums } from '@/hooks/queries/useFetchMyReview';
 import { MY_PAGE_QUERY } from '@/constants/myPage';
 
 const UserInfoContainer = () => {
@@ -23,7 +19,6 @@ const UserInfoContainer = () => {
   }
 
   const { stadiums } = tapType === 'view' ? bookmarkStadiums : myReviewStadiums;
-  const useFetchReview = tapType === 'view' ? useFetchBookMarkReviews : useFetchMyReview;
 
   return (
     <>
@@ -36,7 +31,6 @@ const UserInfoContainer = () => {
         viewNumber={memberInfo.favoriteCount}
         reviewNumber={memberInfo.myReviewCount}
         stadiums={stadiums}
-        useFetchReview={useFetchReview}
       />
     </>
   );
