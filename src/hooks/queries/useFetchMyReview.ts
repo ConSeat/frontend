@@ -24,7 +24,6 @@ export const useFetchMyReview = (stadiumId: number): UseFetchMyReviewList => {
       initialPageParam: undefined,
       getNextPageParam: (lastPage) =>
         lastPage.reviews.hasNext ? lastPage.reviews.content.at(-1)?.reviewId : undefined,
-      networkMode: 'always',
       retry: false,
     });
 

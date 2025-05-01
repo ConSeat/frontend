@@ -32,7 +32,6 @@ export const useFetchBookMarkReviews = (stadiumId: number): UseFetchBookmarkRevi
       initialPageParam: '',
       getNextPageParam: (lastPage) =>
         lastPage.reviews.hasNext ? lastPage.reviews.content.at(-1)?.modifiedAt : undefined,
-      networkMode: 'always',
       retry: false,
     });
 
