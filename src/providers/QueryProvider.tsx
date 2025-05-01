@@ -32,9 +32,7 @@ function makeQueryClient(setError) {
       },
     }),
     mutationCache: new MutationCache({
-      onError: (error: Error | ApiRequestError) => {
-        if (error instanceof ApiRequestError || error instanceof TypeError) return;
-
+      onError: (error: Error) => {
         setError(error);
       },
     }),
