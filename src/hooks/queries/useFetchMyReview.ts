@@ -18,7 +18,7 @@ export interface UseFetchMyReviewList {
 export const useFetchMyReview = (stadiumId: number): UseFetchMyReviewList => {
   const { data, status, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } =
     useInfiniteQuery({
-      queryKey: reviewKeys.all,
+      queryKey: reviewKeys.mine(),
       queryFn: ({ pageParam = undefined }: { pageParam: number | undefined }) =>
         getMyReview({ stadiumId, lastReviewId: pageParam }),
       initialPageParam: undefined,
