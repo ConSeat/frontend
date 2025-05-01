@@ -2,7 +2,7 @@
 
 import styles from './ApiErrorBoundary.module.scss';
 import { QueryKey, useQueryClient } from '@tanstack/react-query';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import Button from '@/components/Button/Button';
 
@@ -14,17 +14,21 @@ interface FallbackProps {
 
 const Fallback = ({ error, resetErrorBoundary, queryKey }: FallbackProps) => {
   const queryClient = useQueryClient();
+  const hasInitialized = useRef(false);
 
-  const handleReset = () => {
-    queryClient.invalidateQueries({ queryKey });
-    resetErrorBoundary();
-  };
+  useEffect(() => {
+    if (!hasInitialized.current) {
+      queryClient.invalidateQueries({ queryKey });
+      queryClient.resetQueries({ queryKey, exact: true });
+      hasInitialized.current = true;
+    }
+  }, [queryClient, queryKey]);
 
   return (
     <div className={styles.fallbackContainer}>
       <h2 className={styles.fallbackTitle}>요청을 처리하지 못했어요.</h2>
       <p className={styles.errorMessage}>{error.message}</p>
-      <Button variant="primary" onClick={handleReset}>
+      <Button variant="primary" onClick={resetErrorBoundary}>
         다시 시도
       </Button>
     </div>
@@ -38,15 +42,28 @@ interface ApiErrorBoundaryProps {
 }
 
 const ApiErrorBoundary = ({ children, queryKey, resetKey }: ApiErrorBoundaryProps) => {
+  const queryClient = useQueryClient();
+
   return (
     <ErrorBoundary
       resetKeys={[resetKey]}
-      fallbackRender={({ error, resetErrorBoundary }) => (
-        <Fallback error={error} resetErrorBoundary={resetErrorBoundary} queryKey={queryKey} />
-      )}
+      onReset={() => {
+        queryClient.invalidateQueries({ queryKey });
+        queryClient.resetQueries({ queryKey, exact: true });
+      }}
+      fallbackRender={({ error, resetErrorBoundary }) => {
+        const handleReset = () => {
+          queryClient.invalidateQueries({ queryKey });
+          queryClient.resetQueries({ queryKey, exact: true });
+          resetErrorBoundary();
+        };
+
+        return <Fallback error={error} resetErrorBoundary={handleReset} queryKey={queryKey} />;
+      }}
     >
       {children}
     </ErrorBoundary>
   );
 };
+
 export default ApiErrorBoundary;
