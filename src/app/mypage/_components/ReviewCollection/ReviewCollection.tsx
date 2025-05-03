@@ -108,7 +108,7 @@ const NoneContent = () => {
     <div className={styles.noneContentContainer}>
       <div className={styles.subtitle}>아직 저장한 시야가 없어요😢</div>
       <Link href="/home">
-        <div className={styles.homeLink}>궁금한 시야 검색하러가 가기 {'>'}</div>
+        <div className={styles.homeLink}>궁금한 시야 검색하러 가기 {'>'}</div>
       </Link>
     </div>
   );
