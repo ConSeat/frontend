@@ -52,8 +52,9 @@
 }
 
 .modalBody {
-  position: relative;
+  position: fixed;
   z-index: z-index(modal-content);
+  bottom: 0;
 
   overflow-y: auto;
   display: flex;
