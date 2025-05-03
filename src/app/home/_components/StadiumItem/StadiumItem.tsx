@@ -17,7 +17,7 @@ const StadiumItem = ({ stadiumName, isActive, backgroundImageSrc, href }: Stadiu
   const handleClickInactive: MouseEventHandler<HTMLAnchorElement> = (e) => {
     if (!isActive) {
       e.preventDefault();
-      activateToast('곧 오픈될 공연장이에요! 다른 공연장을 선택해주세요', 'Info');
+      activateToast('아직 오픈되지 않은 공연장이에요', 'Info');
     }
   };
 
