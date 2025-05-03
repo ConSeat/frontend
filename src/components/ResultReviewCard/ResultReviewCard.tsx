@@ -1,4 +1,6 @@
 import styles from './ResultReviewCard.module.scss';
+import useBookMark from '@/hooks/common/useBookmark';
+import useLike from '@/hooks/common/useLike';
 import ReviewCard from '@/components/ReviewCard';
 import type { SeatingReview } from '@/types/review';
 
@@ -7,6 +9,9 @@ interface ResultReviewCardProps {
 }
 
 const ResultReviewCard = ({ review }: ResultReviewCardProps) => {
+  const { handleClickBookMark } = useBookMark(review.isBookmarked, review.reviewId);
+  const { handleClickLike } = useLike(review.isLiked, review.reviewId);
+
   return (
     <ReviewCard className={styles.container}>
       <ReviewCard.Header>
@@ -15,7 +20,7 @@ const ResultReviewCard = ({ review }: ResultReviewCardProps) => {
           userName={review.writerNickname}
           uploadTime={review.createdAt}
         />
-        <ReviewCard.Bookmark reviewId={review.reviewId} isSaved={review.isBookmarked} />
+        <ReviewCard.Bookmark isSaved={review.isBookmarked} onClick={handleClickBookMark} />
       </ReviewCard.Header>
 
       <ReviewCard.ImageList imageSrcArray={review.images} />
@@ -31,9 +36,9 @@ const ResultReviewCard = ({ review }: ResultReviewCardProps) => {
 
       <div className={styles.cardActions}>
         <ReviewCard.LikeButton
-          reviewId={review.reviewId}
           likeNum={review.likesCount}
           isLiked={review.isLiked}
+          onClick={handleClickLike}
         />
       </div>
     </ReviewCard>

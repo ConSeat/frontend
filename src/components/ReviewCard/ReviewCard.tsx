@@ -7,8 +7,6 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import type React from 'react';
 import type { ReactNode } from 'react';
-import useBookMark from '@/hooks/common/useBookmark';
-import useLike from '@/hooks/common/useLike';
 
 // Container
 interface Container {
@@ -152,35 +150,33 @@ const Screening = ({ status, rejectReason }: ScreeningProps) => {
 
 // Bookmark
 interface BookmarkProps {
-  reviewId: number;
   isSaved: boolean;
+  onClick: () => void;
 }
 
-const Bookmark = ({ reviewId, isSaved }: BookmarkProps) => {
+const Bookmark = ({ isSaved, onClick }: BookmarkProps) => {
   const bookMarkColor = isSaved ? '#00FFE5' : undefined;
-  const { handleClickBookMark } = useBookMark(isSaved, reviewId);
 
   return (
     <div className={styles.bookMark}>
-      <Icon icon="Bookmark" color={bookMarkColor} onClick={handleClickBookMark} size={24} />
+      <Icon icon="Bookmark" color={bookMarkColor} onClick={onClick} size={24} />
     </div>
   );
 };
 
 // LikeButton
 interface LikeButtonProps {
-  reviewId: number;
   likeNum: number;
   isLiked: boolean;
+  onClick: () => void;
 }
 
-const LikeButton = ({ reviewId, likeNum, isLiked }: LikeButtonProps) => {
+const LikeButton = ({ likeNum, isLiked, onClick }: LikeButtonProps) => {
   const likeColor = isLiked ? '#00FFE5' : undefined;
-  const { handleClickLike } = useLike(isLiked, reviewId);
 
   return (
     <div className={styles.likeBox}>
-      <Button className={styles.likeButton} onClick={handleClickLike}>
+      <Button className={styles.likeButton} onClick={onClick}>
         <Icon icon="Like" color={likeColor} />
         <div className={styles.likeText} style={{ color: likeColor }}>
           {likeNum}
