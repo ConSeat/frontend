@@ -11,7 +11,7 @@ const ErrorCapture = () => {
   useEffect(() => {
     if (!error) return;
 
-    activateToast(error.message, 'warning');
+    activateToast(error.message, 'Warning');
   }, [error]);
 
   return <></>;
