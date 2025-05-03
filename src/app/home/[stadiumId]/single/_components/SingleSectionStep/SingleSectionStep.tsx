@@ -50,7 +50,7 @@ const SingleSectionStep = ({ stadiumId, setStep, data, setData }: SingleSectionS
         </div>
       </div>
 
-      <Spacing size={96} />
+      <Spacing size={40} />
 
       <div className={styles.buttonContainer}>
         <ButtonContainer>
