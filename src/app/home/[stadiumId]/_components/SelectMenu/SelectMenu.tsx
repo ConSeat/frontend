@@ -27,9 +27,9 @@ const SelectMenu = ({ stadiumId }: SelectMenuProps) => {
       <div className={styles.selectMenuContainer}>
         <PageExplanation>
           <PageExplanation.Title>
-            어떤 <Highlight>시야</Highlight>가
+            선택한 공연장의
             <br />
-            궁금하신가요?
+            <Highlight>시야 정보</Highlight>를 확인해보세요
           </PageExplanation.Title>
         </PageExplanation>
 
