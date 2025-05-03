@@ -21,12 +21,11 @@ const SearchEndButton = ({ stadiumId }: SearchEndButtonProps) => {
 
   return (
     <div className={styles.btnContainer}>
-      <Button variant="secondary" onClick={handleSearchRe}>
-        <Icon icon="Retry" />
-        <div className={styles.retryText}>다시 검색하기</div>
-      </Button>
       <Button onClick={handleSearchEnd}>
         <div className={styles.finishText}>검색 종료</div>
+      </Button>
+      <Button variant="secondary" onClick={handleSearchRe} style={{ width: '72px' }}>
+        <Icon icon="Retry" />
       </Button>
     </div>
   );
