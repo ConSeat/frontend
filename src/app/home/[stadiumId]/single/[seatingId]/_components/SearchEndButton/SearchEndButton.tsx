@@ -16,7 +16,7 @@ const SearchEndButton = ({ stadiumId }: SearchEndButtonProps) => {
   };
 
   const handleSearchRe = () => {
-    router.push(`/home/${stadiumId}`);
+    router.push(`/home/${stadiumId}/single`);
   };
 
   return (
