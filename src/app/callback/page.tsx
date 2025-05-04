@@ -21,7 +21,11 @@ const OAuthCallbackPage = () => {
     });
   }, []);
 
-  return <PageLoading text="로그인 중..." />;
+  return (
+    <div style={{ height: '100dvh' }}>
+      <PageLoading text="로그인 중..." />
+    </div>
+  );
 };
 
 export default OAuthCallbackPage;
