@@ -11,7 +11,12 @@ const OAuthCallbackPage = () => {
 
   useEffect(() => {
     postLoginMutation.mutate(undefined, {
-      onSuccess: () => router.replace('/home'), // TODO: home 말고 이전 화면으로 돌아가게 해야함
+      onSuccess: () => {
+        const returnUrl = sessionStorage.getItem('returnUrl') || '/home';
+        sessionStorage.removeItem('returnUrl');
+
+        router.replace(returnUrl);
+      },
       onError: () => router.replace('/signin'),
     });
   }, []);
