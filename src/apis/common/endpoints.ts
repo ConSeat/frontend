@@ -20,6 +20,7 @@ export const API_ENDPOINTS = {
   REVIEW_IMAGES: '/reviews/images',
   REVIEW_STADIUMS: '/reviews/stadiums',
   REVIEW_MY_DETAIL: (reviewId: number) => `/reviews/${reviewId}`,
+  REVIEW_IMAGES_BY_ID: (reviewId: number) => `/reviews/${reviewId}/images`,
   REVIEWS_SEATING: (seatingId: number) => `/reviews/seating/${seatingId}`,
   REVIEWS_WITH_PARAMS: (concertId: number, seatingId: number) =>
     `/reviews/concerts/${concertId}/seating/${seatingId}`,

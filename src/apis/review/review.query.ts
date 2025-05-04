@@ -5,6 +5,7 @@ import {
   getMyReview,
   getMyReviewDetail,
   getMyReviewStadiums,
+  getReviewImages,
   postBookMark,
   postLike,
 } from './review.api';
@@ -21,6 +22,10 @@ export const reviewQueries = {
   myReviewDetail: (reviewId: number) => ({
     queryKey: reviewKeys.detail(reviewId),
     queryFn: () => getMyReviewDetail(reviewId),
+  }),
+  reviewImages: (reviewId: number) => ({
+    queryKey: reviewKeys.images(reviewId),
+    queryFn: () => getReviewImages(reviewId),
   }),
   addBookmark: (reviewId: number) => ({
     queryKey: reviewKeys.bookmark(reviewId),
