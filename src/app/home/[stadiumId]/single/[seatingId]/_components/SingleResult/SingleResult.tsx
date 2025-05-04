@@ -51,9 +51,9 @@ const SingleResult = ({ stadiumId, seatingId }) => {
           </Button>
         </div>
         <ReviewCardList stadiumId={stadiumId} seatingId={seatingId} reviews={data.reviews} />
-        <Spacing size={52} />
+        <Spacing size={36} />
         <ShareArea />
-        <Spacing size={104} />
+        <Spacing size={100} />
         <SearchEndButton stadiumId={stadiumId} />
       </div>
     </div>

@@ -26,7 +26,7 @@ const SeatImage = ({ data, dispatch }: SeatImageProps) => {
     const remainingSlots = MAX_IMAGE_UPLOAD_NUMBER - data.length;
 
     if (selectedFiles.length > remainingSlots) {
-      activateToast(`최대 ${MAX_IMAGE_UPLOAD_NUMBER}장까지만 업로드할 수 있어요.`, 'Waring');
+      activateToast(`최대 ${MAX_IMAGE_UPLOAD_NUMBER}장까지만 업로드할 수 있어요.`, 'Warning');
     }
 
     const filesToUpload = selectedFiles.slice(0, remainingSlots);

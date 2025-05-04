@@ -21,9 +21,9 @@ const HomeClient = () => {
       <main className={styles.homeMain}>
         <PageExplanation>
           <PageExplanation.Title>
-            한눈에 비교하는 <Highlight>콘서트장 시야</Highlight>
+            시야를 확인할
             <br />
-            공연장을 선택해주세요
+            <Highlight>공연장</Highlight>을 선택해주세요
           </PageExplanation.Title>
           <PageExplanation.Subtitle>
             <Icon icon="IcChat" />

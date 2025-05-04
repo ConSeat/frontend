@@ -4,7 +4,7 @@ import Icon from '../Icon/Icon';
 import styles from './Toast.module.scss';
 import colors from '@/styles/color';
 
-export type ToastType = 'Info' | 'Success' | 'Waring' | 'LinkCopy';
+export type ToastType = 'Info' | 'Success' | 'Warning' | 'LinkCopy';
 
 interface ToastProps {
   type?: ToastType;

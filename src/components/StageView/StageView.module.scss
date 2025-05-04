@@ -29,6 +29,10 @@
     cursor: grabbing;
   }
 
+  svg g[id^='btn_floor'] {
+    filter: brightness(2);
+  }
+
   svg g[id^='btn'] {
     cursor: pointer;
   }

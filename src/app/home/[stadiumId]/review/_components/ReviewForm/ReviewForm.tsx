@@ -72,7 +72,7 @@ const ReviewForm = ({ reviewData, dispatch, onSubmit }: ReviewFormProps) => {
     // 유효하지 않은 경우: toast
     if (invalidFields.length > 0) {
       scrollToInvalid(invalidFields);
-      activateToast('입력하지 않은 정보가 있어요!', 'Waring');
+      activateToast('입력하지 않은 정보가 있어요!', 'Warning');
       return;
     }
 
