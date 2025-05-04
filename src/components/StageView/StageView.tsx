@@ -10,6 +10,24 @@ import { parseBtnId } from '@/utils/parseBtnId';
 const svgCache: Record<number, string> = {};
 const svgRequestCache: Record<number, Promise<string>> = {};
 
+/**
+ * SVG 문자열에 밝기 2.5배, DropShadow 삽입
+ */
+const injectFilter = (raw: string): string => {
+  const filterDefs = `
+    <defs>
+      <filter id="bright">
+        <feComponentTransfer>
+          <feFuncR type="linear" slope="2.5"/>
+          <feFuncG type="linear" slope="2.5"/>
+          <feFuncB type="linear" slope="2.5"/>
+        </feComponentTransfer>
+        <feDropShadow dx="10" dy="10" stdDeviation="20" flood-color="rgba(0,0,0,0.7)"/>
+      </filter>
+    </defs>`;
+  return raw.replace(/<svg([^>]*)>/, `<svg$1>${filterDefs}`);
+};
+
 interface StageViewProps {
   stadiumId: number;
   selectedSectionId: number | null;
@@ -67,7 +85,6 @@ const StageView = ({ stadiumId, selectedSectionId, onSelectSection }: StageViewP
       return;
     }
 
-    // 요청 캐시가 없으면 fetch 시작
     let ignore = false;
     const fetchSvg = async () => {
       if (!svgRequestCache[stadiumId]) {
@@ -75,11 +92,12 @@ const StageView = ({ stadiumId, selectedSectionId, onSelectSection }: StageViewP
       }
 
       try {
-        const data = await svgRequestCache[stadiumId];
-        if (!ignore) {
-          svgCache[stadiumId] = data;
-          setInnerHTML(svgCache[stadiumId]);
-        }
+        const raw = await svgRequestCache[stadiumId];
+        if (ignore) return;
+
+        const svgWithDefs = injectFilter(raw);
+        svgCache[stadiumId] = svgWithDefs;
+        setInnerHTML(svgWithDefs);
       } catch (err) {
         console.error('Error fetching SVG:', stadiumId, svgUrl, err);
       }
