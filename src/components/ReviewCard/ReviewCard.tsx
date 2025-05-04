@@ -71,17 +71,11 @@ const ImageItem = ({ imageSrc }: ImageItem) => {
 
 // ImageList
 interface ImageListProps {
-  imageSrcArray: string[];
+  children: ReactNode;
 }
 
-const ImageList = ({ imageSrcArray }: ImageListProps) => {
-  return (
-    <div className={styles.reviewImageList}>
-      {imageSrcArray.map((src, index) => {
-        return <ImageItem key={index + src} imageSrc={src} />;
-      })}
-    </div>
-  );
+const ImageList = ({ children }: ImageListProps) => {
+  return <div className={styles.reviewImageList}>{children}</div>;
 };
 
 // ConcertTitle
@@ -189,6 +183,7 @@ const LikeButton = ({ likeNum, isLiked, onClick }: LikeButtonProps) => {
 const ReviewCard = Object.assign(Container, {
   Header,
   UserInfo,
+  ImageItem,
   ImageList,
   ConcertTitle,
   ConcertDescription,

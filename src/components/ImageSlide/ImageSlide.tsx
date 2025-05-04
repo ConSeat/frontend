@@ -47,7 +47,7 @@ const ImageSlide = ({ currentIndex, imageSrcArray, height, onPrev, onNext }: Ima
         style={{
           width: `${100 * totalLength}%`,
           height: `${height}px`,
-          transform: `translateX(-${(100 / totalLength) * (currentIndex - 1)}%)`,
+          transform: `translateX(-${(100 / totalLength) * currentIndex}%)`,
           transition: `transform 0.5s`,
         }}
       >

@@ -28,7 +28,11 @@ const MyReviewCard = ({ reviewId, closeModal }) => {
         />
       </ReviewCard.Header>
 
-      <ReviewCard.ImageList imageSrcArray={review.images} />
+      <ReviewCard.ImageList>
+        {review.images.map((src, index) => (
+          <ReviewCard.ImageItem key={index + src} imageSrc={src} />
+        ))}
+      </ReviewCard.ImageList>
 
       <ReviewCard.ConcertTitle concertName={review.concertName} />
 

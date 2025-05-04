@@ -7,7 +7,10 @@ interface ReviewThumbnailProps {
 }
 
 const ReviewThumbnail = ({ images }: ReviewThumbnailProps) => {
-  const { imageIndex, handleClickNext, handleClickPrev } = useImageSlide(images.length);
+  const { imageIndex, handleClickNext, handleClickPrev } = useImageSlide({
+    initialIdx: 0,
+    totalImageNumber: images.length,
+  });
 
   return (
     <div className={styles.thumbnailContainer}>
@@ -19,7 +22,7 @@ const ReviewThumbnail = ({ images }: ReviewThumbnailProps) => {
         onPrev={handleClickPrev}
       />
       <div className={styles.imageNumber}>
-        {imageIndex}/{images.length}
+        {imageIndex + 1}/{images.length}
       </div>
     </div>
   );

@@ -1,4 +1,8 @@
+'use client';
+
 import styles from './ResultReviewCard.module.scss';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import useBookMark from '@/hooks/common/useBookmark';
 import useLike from '@/hooks/common/useLike';
 import ReviewCard from '@/components/ReviewCard';
@@ -9,6 +13,8 @@ interface ResultReviewCardProps {
 }
 
 const ResultReviewCard = ({ review }: ResultReviewCardProps) => {
+  const { stadiumId, seatingId } = useParams();
+
   const { handleClickBookMark } = useBookMark(review.isBookmarked, review.reviewId);
   const { handleClickLike } = useLike(review.isLiked, review.reviewId);
 
@@ -23,7 +29,16 @@ const ResultReviewCard = ({ review }: ResultReviewCardProps) => {
         <ReviewCard.Bookmark isSaved={review.isBookmarked} onClick={handleClickBookMark} />
       </ReviewCard.Header>
 
-      <ReviewCard.ImageList imageSrcArray={review.images} />
+      <ReviewCard.ImageList>
+        {review.images.map((src, idx) => (
+          <Link
+            key={src + idx}
+            href={`/home/${stadiumId}/single/${seatingId}/${review.reviewId}?pidx=${idx}`}
+          >
+            <ReviewCard.ImageItem imageSrc={src} />
+          </Link>
+        ))}
+      </ReviewCard.ImageList>
 
       <ReviewCard.ConcertTitle concertName={review.concertName} />
 
