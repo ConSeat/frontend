@@ -53,15 +53,13 @@ export default function PhotoModal({ stadiumId, seatingId, reviewId }: PhotoModa
       <Modal.Overlay onClick={closeModal} className={styles.overlay} />
       <Modal.Content className={styles.content}>
         <Modal.Header title={`${imageIndex + 1}/${total}`} onClose={closeModal} />
-        <div className={styles.slideWrapper}>
-          <ImageSlide
-            imageSrcArray={review.images}
-            currentIndex={imageIndex}
-            height={400}
-            onNext={handleClickNext}
-            onPrev={handleClickPrev}
-          />
-        </div>
+        <ImageSlide
+          imageSrcArray={review.images}
+          currentIndex={imageIndex}
+          height={400}
+          onNext={handleClickNext}
+          onPrev={handleClickPrev}
+        />
         <Spacing size={56} />
       </Modal.Content>
     </Modal>

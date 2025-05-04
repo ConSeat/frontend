@@ -51,13 +51,14 @@ const UserInfo = ({ profileSrc, userName, uploadTime }: BasicInfoProps) => {
 // ImageItem
 interface ImageItem {
   imageSrc: string;
+  onClick?: () => void;
 }
 
-const ImageItem = ({ imageSrc }: ImageItem) => {
+const ImageItem = ({ imageSrc, onClick }: ImageItem) => {
   const IMAGE_SIZE = 120;
 
   return (
-    <div className={styles.imageBox}>
+    <div className={styles.imageBox} onClick={onClick}>
       <Image
         style={{ objectFit: 'contain' }}
         width={IMAGE_SIZE}
