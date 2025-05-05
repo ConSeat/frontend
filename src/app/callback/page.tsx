@@ -1,5 +1,6 @@
 'use client';
 
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import useMutateAuth from '@/hooks/mutations/useMutateAuth';
@@ -11,8 +12,15 @@ const OAuthCallbackPage = () => {
 
   useEffect(() => {
     postLoginMutation.mutate(undefined, {
-      onSuccess: () => {
+      onSuccess: async (data) => {
         const returnUrl = sessionStorage.getItem('returnUrl') || '/home';
+
+        await signIn('credentials', {
+          accessToken: data.accessToken,
+          callbackUrl: returnUrl,
+          redirect: false,
+        });
+
         sessionStorage.removeItem('returnUrl');
 
         router.replace(returnUrl);

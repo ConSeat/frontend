@@ -1,9 +1,11 @@
 'use client';
 
 import styles from './InfoSection.module.scss';
+import { signOut } from 'next-auth/react';
 import { Fragment } from 'react';
 import Icon from '@/components/Icon/Icon';
 import Splitter from '@/components/Splitter/Splitter';
+import { postLogout } from '@/apis/auth/auth.api';
 
 const SectionTitle = ({ children }) => <div className={styles.title}>{children}</div>;
 
@@ -43,7 +45,20 @@ const InfoSection = () => {
     },
   ];
 
-  const handleClick = () => {};
+  const handleClick = async (title: string) => {
+    switch (title) {
+      case '로그아웃':
+        await postLogout();
+        await signOut({ redirectTo: '/home' });
+        break;
+      case '회원탈퇴':
+        break;
+      case '이용약관':
+        break;
+      case '개인정보처리방침':
+        break;
+    }
+  };
 
   return (
     <div className={styles.infoSection}>
