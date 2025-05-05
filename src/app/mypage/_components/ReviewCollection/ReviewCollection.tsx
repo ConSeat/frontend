@@ -149,11 +149,14 @@ const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollecti
     openModal();
   };
 
+  const getCurrentStadiumId = () => {
+    return stadiums.find((elem) => {
+      const target = filterValue ? filterValue : stadiums[0].stadiumName;
+      return elem.stadiumName === target;
+    })!.stadiumId;
+  };
+
   const useFetchReview = tapType === 'view' ? useFetchBookMarkReviews : useFetchMyReview;
-  const stadiumId = stadiums.find((elem) => {
-    const target = filterValue ? filterValue : stadiums[0].stadiumName;
-    return elem.stadiumName === target;
-  })!.stadiumId;
 
   return (
     <div className={styles.collectionContainer}>
@@ -187,11 +190,13 @@ const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollecti
             />
             <ApiErrorBoundary
               resetKey={[tapType]}
-              queryKey={tapType === 'view' ? memberKeys.bookmarks(stadiumId) : reviewKeys.mine()}
+              queryKey={
+                tapType === 'view' ? memberKeys.bookmarks(getCurrentStadiumId()) : reviewKeys.mine()
+              }
             >
               <ReviewList
                 stadium={stadiums[0].stadiumName}
-                stadiumId={stadiumId}
+                stadiumId={getCurrentStadiumId()}
                 onClick={handelClickReviewItem}
                 useFetchReview={useFetchReview}
               />
