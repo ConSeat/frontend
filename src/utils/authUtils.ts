@@ -1,39 +1,13 @@
-export const getAccessToken = async (): Promise<string> => {
+export async function getAccessToken(): Promise<string> {
   if (typeof window === 'undefined') {
-    const { cookies } = await import('next/headers');
-    const cookieStore = await cookies();
-    return cookieStore.get('accessToken')?.value ?? '';
+    const { auth } = await import('@/auth');
+    const session = await auth();
+    console.log('server session', session?.accessToken); // TODO: 배포 후 확인&제거
+    return session?.accessToken ?? '';
   } else {
-    const { default: JsCookie } = await import('js-cookie');
-    return JsCookie.get('accessToken') || '';
+    const { getSession } = await import('next-auth/react');
+    const session = await getSession();
+    console.log('client session', session?.accessToken); // TODO: 배포 후 확인&제거
+    return session?.accessToken ?? '';
   }
-};
-
-export const setAccessToken = async (accessToken: string) => {
-  const EXPIRES_IN_DAYS = 1; // 하루
-
-  if (typeof window === 'undefined') {
-    const { cookies } = await import('next/headers');
-    const cookieStore = await cookies();
-    cookieStore.set('accessToken', accessToken, {
-      path: '/',
-      secure: true,
-      sameSite: 'strict',
-      expires: new Date(Date.now() + EXPIRES_IN_DAYS * 24 * 60 * 60 * 1000),
-    });
-  } else {
-    const { default: JsCookie } = await import('js-cookie');
-    JsCookie.set('accessToken', accessToken, {
-      expires: EXPIRES_IN_DAYS,
-    });
-  }
-};
-
-export const redirectToSignin = async () => {
-  if (typeof window === 'undefined') {
-    const { redirect } = await import('next/navigation');
-    redirect('/signin');
-  } else {
-    window.location.href = '/signin';
-  }
-};
+}
