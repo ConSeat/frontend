@@ -12,9 +12,7 @@ const MypageLink = () => {
 
   console.log('MypageLink', isLogin); // TODO: 확인 후 제거
 
-  const handleClickLink: MouseEventHandler = (e) => {
-    e.preventDefault();
-
+  const handleClickLink: MouseEventHandler = () => {
     if (!isLogin) {
       sessionStorage.setItem('returnUrl', window.location.href);
     }
