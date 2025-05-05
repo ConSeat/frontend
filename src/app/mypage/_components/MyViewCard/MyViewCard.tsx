@@ -4,6 +4,7 @@ import LoadingSpinner from '../LoadingSpinner';
 import styles from './MyViewCard.module.scss';
 import { notFound } from 'next/navigation';
 import React from 'react';
+import useBookMark from '@/hooks/common/useBookmark';
 import { useFetchBookMarkDetail } from '@/hooks/queries/useFetchMember';
 import Button from '@/components/Button/Button';
 import ReviewCard from '@/components/ReviewCard';
@@ -11,6 +12,8 @@ import Splitter from '@/components/Splitter/Splitter';
 
 const MyViewCard = ({ reviewId, closeModal }) => {
   const { data: review, isLoading } = useFetchBookMarkDetail(reviewId);
+  const isBookmarked = !!review?.isBookmarked;
+  const { handleClickBookMark } = useBookMark(isBookmarked, reviewId);
 
   if (isLoading) return <LoadingSpinner />;
 
@@ -26,10 +29,14 @@ const MyViewCard = ({ reviewId, closeModal }) => {
           userName={review.writerNickname}
           uploadTime={review.createdAt}
         />
-        <ReviewCard.Bookmark reviewId={review.reviewId} isSaved={true} />
+        <ReviewCard.Bookmark isSaved={review.isBookmarked} onClick={handleClickBookMark} />
       </ReviewCard.Header>
 
-      <ReviewCard.ImageList imageSrcArray={review.images} />
+      <ReviewCard.ImageList>
+        {review.images.map((src, index) => (
+          <ReviewCard.ImageItem key={index + src} imageSrc={src} />
+        ))}
+      </ReviewCard.ImageList>
 
       <ReviewCard.ConcertTitle concertName={review.concertName} />
 

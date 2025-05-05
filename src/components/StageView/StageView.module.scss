@@ -29,17 +29,14 @@
     cursor: grabbing;
   }
 
-  svg g[id^='btn_floor'] {
-    filter: brightness(2);
-  }
-
   svg g[id^='btn'] {
     cursor: pointer;
+    filter: none;
   }
 
   svg g[id^='btn'].selected > path {
     opacity: 1;
-    filter: brightness(1.5) drop-shadow(10px 10px 20px rgb(0 0 0 / 70%));
+    filter: url('#bright');
   }
 
   svg.gHasSelection g[id^='btn']:not(.selected) > path {

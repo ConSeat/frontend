@@ -1,15 +1,20 @@
 import { useState } from 'react';
 
-const useImageSlide = (totalImageNumber: number) => {
-  const [imageIndex, setImageIndex] = useState(1);
+interface UseImageSlideProps {
+  initialIdx: number;
+  totalImageNumber: number;
+}
+
+const useImageSlide = ({ initialIdx, totalImageNumber }: UseImageSlideProps) => {
+  const [imageIndex, setImageIndex] = useState(initialIdx);
 
   const handleClickNext = () => {
-    const nextIdx = imageIndex + 1 > totalImageNumber ? 1 : imageIndex + 1;
+    const nextIdx = imageIndex >= totalImageNumber - 1 ? 0 : imageIndex + 1;
     setImageIndex(nextIdx);
   };
 
   const handleClickPrev = () => {
-    const nextIdx = imageIndex - 1 <= 0 ? totalImageNumber : imageIndex - 1;
+    const nextIdx = imageIndex <= 0 ? totalImageNumber - 1 : imageIndex - 1;
     setImageIndex(nextIdx);
   };
 

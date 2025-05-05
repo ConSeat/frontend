@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import Header from '@/components/Header/Header';
 import Icon from '@/components/Icon/Icon';
+import MypageLink from '@/components/MypageLink';
 import type { StadiumInfo } from '@/types/stadium';
 
 interface Props {
@@ -29,7 +30,13 @@ const ClientHeaderWrapper = ({ stadium }: Props) => {
 
   if (isHeaderHidden) return null;
 
-  return <Header left={<Icon icon="LeftArrow" onClick={onBack} />} title={stadium.stadiumName} />;
+  return (
+    <Header
+      left={<Icon icon="LeftArrow" onClick={onBack} />}
+      title={stadium.stadiumName}
+      right={<MypageLink />}
+    />
+  );
 };
 
 export default ClientHeaderWrapper;

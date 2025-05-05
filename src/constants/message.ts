@@ -17,6 +17,7 @@ const ERROR_MESSAGES: Record<string, string> = {
   GET_MY_REVIEW_DETAIL: '내 후기 상세정보 조회에 실패했습니다. 다시 시도해주세요.',
   GET_BOOKMARK_REVIEW: '관심 시야 조회에 실패했습니다. 다시 시도해주세요.',
   GET_BOOKMARK_DETAIL: '관심 시야 상세정보 조회에 실패했습니다. 다시 시도해주세요.',
+  GET_REVIEW_IMAGES: '해당 리뷰 이미지 조회에 실패했습니다. 다시 시도해주세요.',
   POST_REVIEWS_BOOKMARK: '관심 시야 등록에 실패했습니다. 다시 시도해주세요.',
   POST_REVIEWS_LIKE: '좋아요 등록에 실패했습니다. 다시 시도해주세요.',
   DELETE_REVIEWS_BOOKMARK: '관심 시야 삭제에 실패했습니다. 다시 시도해주세요.',

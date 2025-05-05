@@ -14,6 +14,7 @@ export const reviewKeys = {
   mine: () => [...reviewKeys.all, 'mine'] as const,
   stadiums: () => [...reviewKeys.all, 'stadiums'] as const,
   detail: (reviewId: number) => [...reviewKeys.all, reviewId] as const,
+  images: (reviewId: number) => [...reviewKeys.all, reviewId, 'images'] as const,
   concertSeating: (concertId: number, seatingId: number) =>
     [...reviewKeys.all, 'concert', concertId, 'seating', seatingId] as const,
   seating: (seatingId: number) => [...reviewKeys.all, 'seating', seatingId] as const,

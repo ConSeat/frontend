@@ -101,6 +101,19 @@ export const getMyReviewDetail = async (reviewId: number) => {
   return data.body;
 };
 
+export interface ReviewImagesResponse {
+  images: string[];
+}
+
+export const getReviewImages = async (reviewId: number) => {
+  const { data } = await api.get<ReviewImagesResponse>({
+    endpoint: API_ENDPOINTS.REVIEW_IMAGES_BY_ID(reviewId),
+    errorMessage: MESSAGES.ERROR.GET_REVIEW_IMAGES,
+  });
+
+  return data.body;
+};
+
 export const postBookMark = async (reviewId: number) => {
   return await api.post({
     endpoint: API_ENDPOINTS.REVIEW_BOOKMARK(reviewId),
