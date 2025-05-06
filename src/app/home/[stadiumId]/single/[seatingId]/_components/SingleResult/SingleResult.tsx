@@ -3,8 +3,9 @@
 import ReviewThumbnail from '../ReviewThumnail';
 import SearchEndButton from '../SearchEndButton';
 import styles from './SingleResult.module.scss';
+import { useQueryClient } from '@tanstack/react-query';
 import { notFound, useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFetchSeating } from '@/hooks/queries/useFetchSeatingReview';
 import Button from '@/components/Button/Button';
 import Highlight from '@/components/Highlight/Highlight';
@@ -17,12 +18,20 @@ import { reviewKeys } from '@/apis/common/queryKeys';
 const SingleResult = ({ stadiumId, seatingId }) => {
   const router = useRouter();
   const { data } = useFetchSeating(seatingId);
+  const queryClient = useQueryClient();
 
   if (!data) {
     notFound();
   }
 
   const queryKey = reviewKeys.seating(seatingId).map(String);
+
+  useEffect(() => {
+    const cleanup = () => {
+      queryClient.invalidateQueries({ queryKey });
+    };
+    return cleanup;
+  }, []);
 
   return (
     <div className={styles.singleResultStepLayout}>

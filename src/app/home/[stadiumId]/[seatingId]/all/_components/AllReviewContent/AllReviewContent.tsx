@@ -4,9 +4,10 @@ import ObstructionDropdownModal from '../ObstructionDropdownModal/ObstructionDro
 import SeatDropdownModal from '../SeatDropdownModal/SeatDropdownModal';
 import SortDropdown from '../SortDropdown/SortDropdown';
 import styles from './AllReviewContent.module.scss';
+import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { type Dispatch } from 'react';
+import { type Dispatch, useEffect } from 'react';
 import useIntersectionObserver from '@/hooks/common/useIntersectionObserver';
 import useScrollDirection from '@/hooks/common/useScrollDirection';
 import { useFetchAllReviewList } from '@/hooks/queries/useFetchSeatingReview';
@@ -47,7 +48,16 @@ const AllReviewContent = ({
   const targetRef = useIntersectionObserver(handlePage);
 
   const canFetchNextPage = status !== 'error' && !isLast;
+
+  const queryClient = useQueryClient();
   const queryKey = reviewKeys.allReviewList(filterData.seatingId, filterData);
+
+  useEffect(() => {
+    const cleanup = () => {
+      queryClient.invalidateQueries({ queryKey });
+    };
+    return cleanup;
+  }, []);
 
   return (
     <>
