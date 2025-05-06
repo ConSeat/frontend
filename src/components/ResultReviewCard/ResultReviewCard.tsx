@@ -16,7 +16,7 @@ const ResultReviewCard = ({ review, queryKey }: ResultReviewCardProps) => {
   const { stadiumId, seatingId } = useParams();
   const router = useRouter();
   const { handleClickBookMark } = useBookMark(review.isBookmarked, review.reviewId, queryKey);
-  const { handleClickLike } = useLike(review.isLiked, review.reviewId);
+  const { handleClickLike } = useLike(review.isLiked, review.reviewId, queryKey);
 
   return (
     <ReviewCard className={styles.container}>
