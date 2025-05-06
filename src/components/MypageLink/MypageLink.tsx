@@ -1,38 +1,25 @@
+'use client';
+
 import Icon from '../Icon/Icon';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { MouseEventHandler, useEffect, useState } from 'react';
+import { MouseEventHandler } from 'react';
 import { MY_PAGE_QUERY, VIEW_TAP } from '@/constants/myPage';
-import { isLoggedIn } from '@/utils/requireLogin';
 
 const MypageLink = () => {
-  const [isLogin, setIsLogin] = useState<boolean>(false);
-  const router = useRouter();
+  const { data: session, status } = useSession();
+  const isLogin = status === 'authenticated' && !!session?.user;
 
-  useEffect(() => {
-    const checkLogin = async () => {
-      const result = await isLoggedIn();
-      setIsLogin(result);
-    };
-    checkLogin();
-  }, []);
+  console.log('MypageLink', isLogin); // TODO: 확인 후 제거
 
-  const handleClickLink: MouseEventHandler = (e) => {
-    e.preventDefault();
-
+  const handleClickLink: MouseEventHandler = () => {
     if (!isLogin) {
       sessionStorage.setItem('returnUrl', window.location.href);
     }
-
-    const nextHref = isLogin ? `/mypage?${MY_PAGE_QUERY}=${VIEW_TAP}` : `/signin`;
-    router.push(nextHref);
   };
 
   return (
-    <Link
-      href={isLogin ? `/mypage?${MY_PAGE_QUERY}=${VIEW_TAP}` : `/signin`}
-      onClick={handleClickLink}
-    >
+    <Link href={`/mypage?${MY_PAGE_QUERY}=${VIEW_TAP}`} onClick={handleClickLink}>
       <Icon icon="DefaultProfile" />
     </Link>
   );

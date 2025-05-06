@@ -6,7 +6,7 @@ import styles from './ReviewCard.module.scss';
 import classNames from 'classnames';
 import Image from 'next/image';
 import type React from 'react';
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 // Container
 interface Container {

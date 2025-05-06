@@ -4,15 +4,17 @@ import ObstructionDropdownModal from '../ObstructionDropdownModal/ObstructionDro
 import SeatDropdownModal from '../SeatDropdownModal/SeatDropdownModal';
 import SortDropdown from '../SortDropdown/SortDropdown';
 import styles from './AllReviewContent.module.scss';
+import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { type Dispatch } from 'react';
+import { type Dispatch, useEffect } from 'react';
 import useIntersectionObserver from '@/hooks/common/useIntersectionObserver';
 import useScrollDirection from '@/hooks/common/useScrollDirection';
 import { useFetchAllReviewList } from '@/hooks/queries/useFetchSeatingReview';
 import Icon from '@/components/Icon/Icon';
 import ReviewCardList from '@/components/ReviewCardList';
 import Splitter from '@/components/Splitter/Splitter';
+import { memberKeys, reviewKeys } from '@/apis/common/queryKeys';
 import LoadingSpinner from '@/app/mypage/_components/LoadingSpinner';
 
 interface AllReviewContentProps {
@@ -47,6 +49,19 @@ const AllReviewContent = ({
 
   const canFetchNextPage = status !== 'error' && !isLast;
 
+  const queryClient = useQueryClient();
+  const queryKey = reviewKeys.allReviewList(filterData.seatingId, filterData);
+
+  useEffect(() => {
+    const cleanup = () => {
+      const memberKey = memberKeys.bookmarks(seatingId);
+
+      queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({ queryKey: memberKey });
+    };
+    return cleanup;
+  }, []);
+
   return (
     <>
       <div
@@ -79,7 +94,12 @@ const AllReviewContent = ({
           <NoneContent stadiumId={stadiumId} />
         ) : (
           <>
-            <ReviewCardList stadiumId={stadiumId} seatingId={seatingId} reviews={filteredList} />
+            <ReviewCardList
+              stadiumId={stadiumId}
+              seatingId={seatingId}
+              reviews={filteredList}
+              queryKey={queryKey}
+            />
             {canFetchNextPage && (
               <div className={styles.loadingBox} ref={targetRef}>
                 {isLoading && <LoadingSpinner />}

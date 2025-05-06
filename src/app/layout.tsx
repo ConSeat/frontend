@@ -4,6 +4,7 @@ import localFont from 'next/font/local';
 import ErrorCapture from '@/components/ErrorCapture';
 import KakaoScript from '@/components/KakaoScript';
 import ScrollToTop from '@/components/ScrollToTop/ScrollToTop';
+import { AuthProvider } from '@/providers/AuthProvider';
 import { ErrorProvider } from '@/providers/ErrorProvider';
 import { PopupProvider } from '@/providers/PopupProvider';
 import QueryProvider from '@/providers/QueryProvider';
@@ -31,11 +32,13 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           <QueryProvider>
             <ToastProvider>
               <PopupProvider>
-                <ErrorCapture />
-                <div className={styles.layout}>
-                  {children}
-                  <div id="portal"></div>
-                </div>
+                <AuthProvider>
+                  <ErrorCapture />
+                  <div className={styles.layout}>
+                    {children}
+                    <div id="portal"></div>
+                  </div>
+                </AuthProvider>
               </PopupProvider>
             </ToastProvider>
           </QueryProvider>

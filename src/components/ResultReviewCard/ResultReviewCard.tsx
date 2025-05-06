@@ -9,13 +9,14 @@ import type { SeatingReview } from '@/types/review';
 
 interface ResultReviewCardProps {
   review: SeatingReview;
+  queryKey: readonly (string | number)[];
 }
 
-const ResultReviewCard = ({ review }: ResultReviewCardProps) => {
+const ResultReviewCard = ({ review, queryKey }: ResultReviewCardProps) => {
   const { stadiumId, seatingId } = useParams();
   const router = useRouter();
-  const { handleClickBookMark } = useBookMark(review.isBookmarked, review.reviewId);
-  const { handleClickLike } = useLike(review.isLiked, review.reviewId);
+  const { handleClickBookMark } = useBookMark(review.isBookmarked, review.reviewId, queryKey);
+  const { handleClickLike } = useLike(review.isLiked, review.reviewId, queryKey);
 
   return (
     <ReviewCard className={styles.container}>

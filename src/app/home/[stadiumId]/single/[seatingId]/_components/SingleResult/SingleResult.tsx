@@ -3,8 +3,9 @@
 import ReviewThumbnail from '../ReviewThumnail';
 import SearchEndButton from '../SearchEndButton';
 import styles from './SingleResult.module.scss';
+import { useQueryClient } from '@tanstack/react-query';
 import { notFound, useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFetchSeating } from '@/hooks/queries/useFetchSeatingReview';
 import Button from '@/components/Button/Button';
 import Highlight from '@/components/Highlight/Highlight';
@@ -12,14 +13,28 @@ import PageExplanation from '@/components/PageExplanation';
 import ReviewCardList from '@/components/ReviewCardList';
 import ShareArea from '@/components/ShareArea';
 import Spacing from '@/components/Spacing/Spacing';
+import { memberKeys, reviewKeys } from '@/apis/common/queryKeys';
 
 const SingleResult = ({ stadiumId, seatingId }) => {
   const router = useRouter();
   const { data } = useFetchSeating(seatingId);
+  const queryClient = useQueryClient();
 
   if (!data) {
     notFound();
   }
+
+  const queryKey = reviewKeys.seating(seatingId).map(String);
+
+  useEffect(() => {
+    const cleanup = () => {
+      const memberKey = memberKeys.bookmarks(seatingId);
+
+      queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({ queryKey: memberKey });
+    };
+    return cleanup;
+  }, []);
 
   return (
     <div className={styles.singleResultStepLayout}>
@@ -50,7 +65,12 @@ const SingleResult = ({ stadiumId, seatingId }) => {
             더보기 {'>'}
           </Button>
         </div>
-        <ReviewCardList stadiumId={stadiumId} seatingId={seatingId} reviews={data.reviews} />
+        <ReviewCardList
+          stadiumId={stadiumId}
+          seatingId={seatingId}
+          reviews={data.reviews}
+          queryKey={queryKey}
+        />
         <Spacing size={36} />
         <ShareArea />
         <Spacing size={100} />

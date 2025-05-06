@@ -9,11 +9,14 @@ import { useFetchBookMarkDetail } from '@/hooks/queries/useFetchMember';
 import Button from '@/components/Button/Button';
 import ReviewCard from '@/components/ReviewCard';
 import Splitter from '@/components/Splitter/Splitter';
+import { memberKeys } from '@/apis/common/queryKeys';
 
 const MyViewCard = ({ reviewId, closeModal }) => {
   const { data: review, isLoading } = useFetchBookMarkDetail(reviewId);
   const isBookmarked = !!review?.isBookmarked;
-  const { handleClickBookMark } = useBookMark(isBookmarked, reviewId);
+  const queryKey = memberKeys.bookmarkDetail(reviewId);
+
+  const { handleClickBookMark } = useBookMark(isBookmarked, reviewId, queryKey);
 
   if (isLoading) return <LoadingSpinner />;
 
