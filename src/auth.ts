@@ -56,4 +56,5 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   },
 
   secret: PUBLIC_ENV.nextAuthSecret,
+  basePath: '/auth',
 } as NextAuthConfig);
