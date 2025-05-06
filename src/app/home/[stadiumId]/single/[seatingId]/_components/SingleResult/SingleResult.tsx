@@ -12,6 +12,7 @@ import PageExplanation from '@/components/PageExplanation';
 import ReviewCardList from '@/components/ReviewCardList';
 import ShareArea from '@/components/ShareArea';
 import Spacing from '@/components/Spacing/Spacing';
+import { reviewKeys } from '@/apis/common/queryKeys';
 
 const SingleResult = ({ stadiumId, seatingId }) => {
   const router = useRouter();
@@ -20,6 +21,8 @@ const SingleResult = ({ stadiumId, seatingId }) => {
   if (!data) {
     notFound();
   }
+
+  const queryKey = reviewKeys.seating(seatingId).map(String);
 
   return (
     <div className={styles.singleResultStepLayout}>
@@ -50,7 +53,12 @@ const SingleResult = ({ stadiumId, seatingId }) => {
             더보기 {'>'}
           </Button>
         </div>
-        <ReviewCardList stadiumId={stadiumId} seatingId={seatingId} reviews={data.reviews} />
+        <ReviewCardList
+          stadiumId={stadiumId}
+          seatingId={seatingId}
+          reviews={data.reviews}
+          queryKey={queryKey}
+        />
         <Spacing size={36} />
         <ShareArea />
         <Spacing size={100} />

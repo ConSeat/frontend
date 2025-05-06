@@ -4,6 +4,7 @@ import DetailReviewModal from '../DetailReviewModal';
 import FilterDropdown from '../FilterDropdown';
 import LoadingSpinner from '../LoadingSpinner';
 import styles from './ReviewCollection.module.scss';
+import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -121,6 +122,8 @@ const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollecti
 
   const router = useRouter();
   const searchParams = useSearchParams();
+  const queryClient = useQueryClient();
+
   let tapType = searchParams.get(MY_PAGE_QUERY);
 
   if (tapType === null) {
@@ -205,7 +208,16 @@ const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollecti
         )}
       </div>
       <Portal isOpen={isModalOpen}>
-        <DetailReviewModal reviewId={reviewId} reviewType={tapType} closeModal={closeModal} />
+        <DetailReviewModal
+          reviewId={reviewId}
+          reviewType={tapType}
+          closeModal={() => {
+            queryClient.invalidateQueries({
+              queryKey: memberKeys.bookmarks(getCurrentStadiumId()),
+            });
+            closeModal();
+          }}
+        />
       </Portal>
     </div>
   );

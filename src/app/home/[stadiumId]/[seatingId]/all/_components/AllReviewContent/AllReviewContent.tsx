@@ -13,6 +13,7 @@ import { useFetchAllReviewList } from '@/hooks/queries/useFetchSeatingReview';
 import Icon from '@/components/Icon/Icon';
 import ReviewCardList from '@/components/ReviewCardList';
 import Splitter from '@/components/Splitter/Splitter';
+import { reviewKeys } from '@/apis/common/queryKeys';
 import LoadingSpinner from '@/app/mypage/_components/LoadingSpinner';
 
 interface AllReviewContentProps {
@@ -46,6 +47,7 @@ const AllReviewContent = ({
   const targetRef = useIntersectionObserver(handlePage);
 
   const canFetchNextPage = status !== 'error' && !isLast;
+  const queryKey = reviewKeys.allReviewList(filterData.seatingId, filterData);
 
   return (
     <>
@@ -79,7 +81,12 @@ const AllReviewContent = ({
           <NoneContent stadiumId={stadiumId} />
         ) : (
           <>
-            <ReviewCardList stadiumId={stadiumId} seatingId={seatingId} reviews={filteredList} />
+            <ReviewCardList
+              stadiumId={stadiumId}
+              seatingId={seatingId}
+              reviews={filteredList}
+              queryKey={queryKey}
+            />
             {canFetchNextPage && (
               <div className={styles.loadingBox} ref={targetRef}>
                 {isLoading && <LoadingSpinner />}
