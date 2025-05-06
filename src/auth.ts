@@ -1,3 +1,4 @@
+import { PUBLIC_ENV } from './config/env';
 import { jwtDecode } from 'jwt-decode';
 import NextAuth from 'next-auth';
 import type { NextAuthConfig, User } from 'next-auth';
@@ -54,5 +55,5 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     },
   },
 
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: PUBLIC_ENV.nextAuthSecret,
 } as NextAuthConfig);

@@ -1,4 +1,4 @@
-export async function getAccessToken(): Promise<string> {
+export const getAccessToken = async (): Promise<string> => {
   if (typeof window === 'undefined') {
     const { auth } = await import('@/auth');
     const session = await auth();
@@ -10,4 +10,4 @@ export async function getAccessToken(): Promise<string> {
     console.log('client session', session?.accessToken); // TODO: 배포 후 확인&제거
     return session?.accessToken ?? '';
   }
-}
+};
