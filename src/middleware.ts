@@ -1,5 +1,4 @@
 import { auth } from './auth';
-import { PUBLIC_ENV } from './config/env';
 import { getToken } from 'next-auth/jwt';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
@@ -17,8 +16,10 @@ function isExpired(token: { accessTokenExpires?: number }) {
 export default auth(async (request: NextRequest) => {
   const token = await getToken({
     req: request,
-    secret: PUBLIC_ENV.nextAuthSecret,
+    secret: process.env.AUTH_SECRET,
   });
+
+  console.log('middleware', token, token?.accessToken);
 
   if (!token || !token.accessToken || isExpired(token)) {
     return redirectToSignin(request);
