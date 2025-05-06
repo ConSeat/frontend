@@ -12,7 +12,6 @@ async function getClientSession(): Promise<Session | null> {
 
 export const getAccessToken = async (): Promise<string> => {
   if (typeof window === 'undefined') {
-    // 서버 사이드: auth()를 매번 호출해도 오버헤드가 크지 않습니다.
     const { auth } = await import('@/auth');
     const session = await auth();
     console.log('server session', session?.accessToken); // TODO: 배포 후 확인&제거
