@@ -13,7 +13,7 @@ import PageExplanation from '@/components/PageExplanation';
 import ReviewCardList from '@/components/ReviewCardList';
 import ShareArea from '@/components/ShareArea';
 import Spacing from '@/components/Spacing/Spacing';
-import { reviewKeys } from '@/apis/common/queryKeys';
+import { memberKeys, reviewKeys } from '@/apis/common/queryKeys';
 
 const SingleResult = ({ stadiumId, seatingId }) => {
   const router = useRouter();
@@ -28,7 +28,10 @@ const SingleResult = ({ stadiumId, seatingId }) => {
 
   useEffect(() => {
     const cleanup = () => {
+      const memberKey = memberKeys.bookmarks(seatingId);
+
       queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({ queryKey: memberKey });
     };
     return cleanup;
   }, []);

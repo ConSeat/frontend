@@ -14,7 +14,7 @@ import { useFetchAllReviewList } from '@/hooks/queries/useFetchSeatingReview';
 import Icon from '@/components/Icon/Icon';
 import ReviewCardList from '@/components/ReviewCardList';
 import Splitter from '@/components/Splitter/Splitter';
-import { reviewKeys } from '@/apis/common/queryKeys';
+import { memberKeys, reviewKeys } from '@/apis/common/queryKeys';
 import LoadingSpinner from '@/app/mypage/_components/LoadingSpinner';
 
 interface AllReviewContentProps {
@@ -54,7 +54,10 @@ const AllReviewContent = ({
 
   useEffect(() => {
     const cleanup = () => {
+      const memberKey = memberKeys.bookmarks(seatingId);
+
       queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({ queryKey: memberKey });
     };
     return cleanup;
   }, []);
