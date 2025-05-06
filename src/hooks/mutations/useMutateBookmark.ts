@@ -1,5 +1,4 @@
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
-import { reviewKeys } from '@/apis/common/queryKeys';
 import { MyBookmarkDetailResponse } from '@/apis/members/member.api';
 import { deleteBookMark, postBookMark } from '@/apis/review/review.api';
 import { AllReviewListResponse, SeatingReviews } from '@/apis/review/seating.api';
@@ -93,7 +92,7 @@ const useMutateBookmark = (reviewId: number, queryKey: readonly (string | number
     },
     onError: (_err, _variables, context) => {
       if (context?.previousData) {
-        queryClient.setQueryData(reviewKeys.all, context.previousData);
+        queryClient.setQueryData(queryKey, context.previousData);
       }
     },
   });
@@ -116,7 +115,7 @@ const useMutateBookmark = (reviewId: number, queryKey: readonly (string | number
     },
     onError: (_err, _variables, context) => {
       if (context?.previousData) {
-        queryClient.setQueryData(reviewKeys.all, context.previousData);
+        queryClient.setQueryData(queryKey, context.previousData);
       }
     },
   });

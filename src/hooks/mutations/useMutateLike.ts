@@ -83,6 +83,11 @@ const useMutateLike = (reviewId: number, queryKey: readonly (string | number)[])
 
       return { previousData };
     },
+    onError: (_err, _variables, context) => {
+      if (context?.previousData) {
+        queryClient.setQueryData(queryKey, context.previousData);
+      }
+    },
   });
 
   const deleteLikeMutation = useMutation({
@@ -100,6 +105,11 @@ const useMutateLike = (reviewId: number, queryKey: readonly (string | number)[])
       });
 
       return { previousData };
+    },
+    onError: (_err, _variables, context) => {
+      if (context?.previousData) {
+        queryClient.setQueryData(queryKey, context.previousData);
+      }
     },
   });
 
