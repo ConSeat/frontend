@@ -3,7 +3,7 @@ import api from '../common/universalApi';
 import MESSAGES from '@/constants/message';
 import { type ReviewListQueryParams, SeatingReview } from '@/types/review';
 
-interface SeatingReviews {
+export interface SeatingReviews {
   reviews: SeatingReview[];
   floorName: string;
   sectionName: string;
