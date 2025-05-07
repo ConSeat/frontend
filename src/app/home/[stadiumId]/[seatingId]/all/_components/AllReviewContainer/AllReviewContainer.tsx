@@ -4,7 +4,6 @@ import AllReviewContent from '../AllReviewContent/AllReviewContent';
 import React, { useReducer } from 'react';
 import ApiErrorBoundary from '@/components/ApiErrorBoundary';
 import { reviewKeys } from '@/apis/common/queryKeys';
-import { NONE_SELECT } from '@/app/home/[stadiumId]/review/_constants/info';
 import type { ListSort } from '@/types/review';
 
 export interface FilterState {
@@ -12,7 +11,6 @@ export interface FilterState {
   seatingId: number;
   features: number[];
   obstructions: number[];
-  lastReviewId: number;
   sort: ListSort;
 }
 
@@ -20,7 +18,6 @@ export type FilterAction =
   | { type: 'SEATING'; payload: { seatingId: number } }
   | { type: 'FEATURES'; payload: { features: number[] } }
   | { type: 'OBSTRUCTIONS'; payload: { obstructions: number[] } }
-  | { type: 'LAST_REVIEW_ID'; payload: { lastReviewId: number } }
   | { type: 'SORT'; payload: { sort: ListSort } };
 
 const createInitFilterData = (stadiumId: number, seatingId: number) => {
@@ -29,7 +26,6 @@ const createInitFilterData = (stadiumId: number, seatingId: number) => {
     seatingId,
     features: [],
     obstructions: [],
-    lastReviewId: NONE_SELECT,
     sort: '' as ListSort,
   };
 
@@ -68,9 +64,6 @@ const filterReducer = (state: FilterState, action: FilterAction): FilterState =>
       return updateState(state, {
         obstructions: action.payload.obstructions,
       });
-
-    case 'LAST_REVIEW_ID':
-      return updateState(state, { lastReviewId: action.payload.lastReviewId });
 
     case 'SORT':
       return updateState(state, { sort: action.payload.sort });

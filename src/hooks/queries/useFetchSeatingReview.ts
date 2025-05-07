@@ -1,16 +1,16 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { reviewKeys } from '@/apis/common/queryKeys';
 import { reviewQueries } from '@/apis/review/review.query';
-import { type AllReviewListResponse, getAllReviewList } from '@/apis/review/seating.api';
+import { getAllReviewList } from '@/apis/review/seating.api';
 import { seatingReviewQueries } from '@/apis/review/seating.query';
-import type { ReviewListQueryParams } from '@/types/review';
+import type { ReviewListQueryParams, SeatingReview } from '@/types/review';
 
 export const useFetchSeating = (seatingId: number) => {
   return useQuery(seatingReviewQueries.seating(seatingId));
 };
 
 interface UseFetchAllReviewList {
-  filteredList: AllReviewListResponse['reviews']['content'];
+  filteredList: SeatingReview[];
   reviewCount: number;
   isLoading: boolean;
   status: 'error' | 'success' | 'pending';
