@@ -70,7 +70,7 @@ const InfoSection = () => {
               item.type === 'info' ? (
                 <InfoItem key={idx} title={item.title} description={item.description} />
               ) : (
-                <ButtonItem key={idx} title={item.title} onClick={handleClick} />
+                <ButtonItem key={idx} title={item.title} onClick={() => handleClick(item.title)} />
               ),
             )}
           </div>
