@@ -19,6 +19,8 @@ function makeQueryClient(setError) {
         throwOnError: true,
         staleTime: 60 * 1000,
         networkMode: 'online',
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
       },
       mutations: {
         networkMode: 'always',
