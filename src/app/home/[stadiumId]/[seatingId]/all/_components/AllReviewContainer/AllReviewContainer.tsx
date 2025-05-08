@@ -1,25 +1,11 @@
 'use client';
 
+import type { FilterAction, FilterState } from '../../_types/filter';
 import AllReviewContent from '../AllReviewContent/AllReviewContent';
-import React, { Suspense, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import ApiErrorBoundary from '@/components/ApiErrorBoundary';
 import { reviewKeys } from '@/apis/common/queryKeys';
-import LoadingSpinner from '@/app/mypage/_components/LoadingSpinner';
 import type { ListSort } from '@/types/review';
-
-export interface FilterState {
-  stadiumId: number;
-  seatingId: number;
-  features: number[];
-  obstructions: number[];
-  sort: ListSort;
-}
-
-export type FilterAction =
-  | { type: 'SEATING'; payload: { seatingId: number } }
-  | { type: 'FEATURES'; payload: { features: number[] } }
-  | { type: 'OBSTRUCTIONS'; payload: { obstructions: number[] } }
-  | { type: 'SORT'; payload: { sort: ListSort } };
 
 const createInitFilterData = (stadiumId: number, seatingId: number) => {
   const initData = {
@@ -36,12 +22,6 @@ const createInitFilterData = (stadiumId: number, seatingId: number) => {
 export interface AllReviewContainerProps {
   stadiumId: number;
   seatingId: number;
-}
-
-export interface ReviewSummary {
-  floorName: string;
-  sectionName: string;
-  seatingName: string;
 }
 
 const updateState = (state: FilterState, updates: Partial<FilterState>): FilterState => ({

@@ -1,6 +1,6 @@
 'use client';
 
-import type { FilterAction } from '../AllReviewContainer/AllReviewContainer';
+import type { FilterAction } from '../../_types/filter';
 import styles from './SortDropdown.module.scss';
 import classNames from 'classnames';
 import type { Dispatch } from 'react';
