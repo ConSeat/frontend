@@ -28,11 +28,12 @@ const SingleResult = ({ stadiumId, seatingId }) => {
 
   useEffect(() => {
     const cleanup = () => {
-      const memberKey = memberKeys.bookmarks(seatingId);
+      const memberKey = memberKeys.bookmarks(Number(stadiumId));
 
       queryClient.invalidateQueries({ queryKey });
       queryClient.invalidateQueries({ queryKey: memberKey });
     };
+
     return cleanup;
   }, []);
 
