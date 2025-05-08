@@ -97,7 +97,11 @@ const ReviewForm = ({ reviewData, dispatch, onSubmit }: ReviewFormProps) => {
             title={REVIEW.MESSAGE.CONCERT_SELECT.TITLE}
             subtitle={REVIEW.MESSAGE.CONCERT_SELECT.SUBTITLE}
           />
-          <ConcertSelect stadiumId={reviewData.stadiumId} dispatch={dispatch} />
+          <ConcertSelect
+            stadiumId={reviewData.stadiumId}
+            data={reviewData.concertId}
+            dispatch={dispatch}
+          />
         </ReviewSection>
       )}
 

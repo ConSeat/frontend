@@ -19,7 +19,10 @@ function useScrollDirection(): ScrollDirection | null {
 
     const handleScroll = () => {
       const currentY = window.scrollY;
-      if (currentY > prevScrollY.current) {
+
+      if (currentY === 0) {
+        setDirection('up');
+      } else if (currentY > prevScrollY.current) {
         setDirection('down');
       } else if (currentY < prevScrollY.current) {
         setDirection('up');
