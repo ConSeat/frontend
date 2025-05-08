@@ -1,7 +1,7 @@
 'use client';
 
+import type { FilterAction } from '../../_types/filter';
 import DetailDropdownModal from '../AllDropdownModal/AllDropdownModal';
-import type { FilterAction } from '../AllReviewContainer/AllReviewContainer';
 import SeatDropdown from '../SeatDropdown/SeatDropdown';
 import styles from './SeatDropdownModal.module.scss';
 import { useState } from 'react';

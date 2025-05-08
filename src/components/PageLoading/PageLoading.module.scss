@@ -1,7 +1,8 @@
 @import '@/styles/style';
 
 .layout {
-  position: relative;
+  position: fixed;
+  inset: 0;
 
   overflow: hidden;
   flex-grow: 1;

@@ -1,8 +1,8 @@
 'use client';
 
+import type { FilterAction } from '../../_types/filter';
 import AllCheckbox from '../AllCheckbox/AllCheckbox';
 import DetailDropdownModal from '../AllDropdownModal/AllDropdownModal';
-import type { FilterAction } from '../AllReviewContainer/AllReviewContainer';
 import styles from './FeatureDropdownModal.module.scss';
 import { useState } from 'react';
 import { useFetchStadiumFeatures } from '@/hooks/queries/useFetchStadium';

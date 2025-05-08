@@ -1,7 +1,7 @@
-import PageLoading from '@/components/PageLoading';
+import DelayLoading from '@/components/DelayLoading/DelayLoading';
 
 const loading = () => {
-  return <PageLoading />;
+  return <DelayLoading />;
 };
 
 export default loading;

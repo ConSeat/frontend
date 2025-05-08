@@ -1,4 +1,4 @@
-import type { FilterAction, FilterState } from '../AllReviewContainer/AllReviewContainer';
+import type { FilterAction, FilterState } from '../../_types/filter';
 import FeatureDropdownModal from '../FeatureDropdownModal/FeatureDropdownModal';
 import ObstructionDropdownModal from '../ObstructionDropdownModal/ObstructionDropdownModal';
 import SeatDropdownModal from '../SeatDropdownModal/SeatDropdownModal';
@@ -90,7 +90,7 @@ const AllReviewContent = ({
           <SortDropdown sort={filterData.sort} dispatch={dispatch} />
         </div>
 
-        {filteredList.length === 0 ? (
+        {!isLoading && filteredList.length === 0 ? (
           <NoneContent stadiumId={stadiumId} />
         ) : (
           <>
