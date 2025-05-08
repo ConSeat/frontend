@@ -1,9 +1,10 @@
 'use client';
 
 import AllReviewContent from '../AllReviewContent/AllReviewContent';
-import React, { useReducer } from 'react';
+import React, { Suspense, useReducer } from 'react';
 import ApiErrorBoundary from '@/components/ApiErrorBoundary';
 import { reviewKeys } from '@/apis/common/queryKeys';
+import LoadingSpinner from '@/app/mypage/_components/LoadingSpinner';
 import type { ListSort } from '@/types/review';
 
 export interface FilterState {

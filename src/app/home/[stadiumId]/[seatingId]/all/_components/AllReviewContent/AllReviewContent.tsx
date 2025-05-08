@@ -90,7 +90,7 @@ const AllReviewContent = ({
           <SortDropdown sort={filterData.sort} dispatch={dispatch} />
         </div>
 
-        {filteredList.length === 0 ? (
+        {!isLoading && filteredList.length === 0 ? (
           <NoneContent stadiumId={stadiumId} />
         ) : (
           <>
