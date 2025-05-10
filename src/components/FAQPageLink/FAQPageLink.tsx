@@ -4,12 +4,12 @@ import Icon from '../Icon/Icon';
 import Link from 'next/link';
 import React from 'react';
 
-const QAPageLink = () => {
+const FAQPageLink = () => {
   return (
-    <Link href="/qapage">
+    <Link href="/faq">
       <Icon icon="QnA" />
     </Link>
   );
 };
 
-export default QAPageLink;
+export default FAQPageLink;
