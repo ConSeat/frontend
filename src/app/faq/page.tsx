@@ -1,3 +1,4 @@
+import ContactSection from './_components/ContactSection/ContactSection';
 import FAQDropdown from './_components/FAQDropdown/FAQDropdown';
 import FAQHeader from './_components/FAQHeader/FAQHeader';
 import FAQSection from './_components/FAQSection/FAQSection';
@@ -33,6 +34,8 @@ const FAQPage = () => {
         </FAQSection>
 
         <Splitter />
+
+        <ContactSection />
       </div>
     </>
   );

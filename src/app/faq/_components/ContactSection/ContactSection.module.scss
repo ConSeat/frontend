@@ -1,0 +1,29 @@
+@import '@/styles/style';
+
+.contactContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  align-self: stretch;
+
+  padding: 20px;
+  border: 0.6px solid $sub-gray7;
+  border-radius: 5px;
+
+  background: url('/images/conseat-header.png') no-repeat center center / cover;
+}
+
+.contactTitle {
+  @include body-1;
+
+  color: $sub-gray1;
+}
+
+.contactButton {
+  width: fit-content;
+
+  @include body-1;
+
+  color: $sub-black;
+}
