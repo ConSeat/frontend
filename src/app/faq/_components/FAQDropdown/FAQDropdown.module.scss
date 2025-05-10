@@ -1,0 +1,29 @@
+@import '@/styles/style';
+
+.dropdownContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.faqDropdownTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 8px 0;
+}
+
+.faqDropdownText {
+  @include body-2;
+
+  color: $sub-gray5;
+}
+
+.faqDropdownContent {
+  @include body-3;
+
+  color: $sub-gray5;
+}

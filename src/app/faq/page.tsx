@@ -1,3 +1,4 @@
+import FAQDropdown from './_components/FAQDropdown/FAQDropdown';
 import FAQHeader from './_components/FAQHeader/FAQHeader';
 import FAQSection from './_components/FAQSection/FAQSection';
 import styles from './page.module.scss';
@@ -13,7 +14,10 @@ const FAQPage = () => {
 
       <div className={styles.faqContainer}>
         <FAQSection title="검색">
-          <div>검색 결과에 문제 있어요</div>
+          <FAQDropdown
+            title="🚨 검색 결과에 문제가 있어요"
+            content="A. 아직 해당 구역에 등록된 후기가 없는 경우, 검색 결과가 표시되지 않을 수 있습니다. 다른 구역을 선택해보시거나, 직접 후기를 등록해 주시면 다른 사용자에게도 도움이 될 거예요."
+          />
         </FAQSection>
       </div>
     </>
