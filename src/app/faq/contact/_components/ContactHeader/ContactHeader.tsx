@@ -10,7 +10,7 @@ const ContactHeader = () => {
 
   return (
     <Header
-      left={<Icon icon="LeftArrow" onClick={() => router.push('/home')} />}
+      left={<Icon icon="LeftArrow" onClick={() => router.push('/home/fqa')} />}
       title="문의하기"
       style={{ backgroundColor: 'transparent', backdropFilter: 'none' }}
     />
