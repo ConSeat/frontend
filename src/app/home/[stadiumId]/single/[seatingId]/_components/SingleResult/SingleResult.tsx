@@ -31,7 +31,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
       const memberKey = memberKeys.bookmarks(Number(stadiumId));
 
       queryClient.invalidateQueries({ queryKey });
-      queryClient.invalidateQueries({ queryKey: memberKey });
+      queryClient.removeQueries({ queryKey: memberKey });
     };
 
     return cleanup;
