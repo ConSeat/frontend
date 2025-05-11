@@ -1,0 +1,56 @@
+@import '@/styles/style';
+
+.contactTextContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 100%;
+  padding: 0 24px;
+}
+
+.contactTextTitle {
+  @include subtitle-1;
+
+  color: $sub-gray2;
+}
+
+.contactTextContent {
+  @include body-2;
+
+  color: $sub-gray4;
+
+  .plus {
+    display: flex;
+
+    &::before {
+      content: '•';
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 18px;
+      height: 18px;
+
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .plusContent {
+      @include body-2;
+
+      color: $sub-gray4;
+    }
+  }
+
+  .highlight {
+    margin-left: 5px;
+
+    font-size: 16px;
+    font-weight: 800;
+    font-style: normal;
+    line-height: 20px;
+    letter-spacing: -0.32px;
+  }
+}
