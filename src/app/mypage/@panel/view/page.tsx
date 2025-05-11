@@ -1,7 +1,11 @@
 'use client';
 
 import ReviewCollection from '../../_components/ReviewCollection';
-import { useFetchBookMarkStadiums, useFetchMemberInfo } from '@/hooks/queries/useFetchMember';
+import {
+  useFetchBookMarkReviews,
+  useFetchBookMarkStadiums,
+  useFetchMemberInfo,
+} from '@/hooks/queries/useFetchMember';
 
 const MyBookmark = () => {
   const { data } = useFetchBookMarkStadiums();
@@ -13,6 +17,7 @@ const MyBookmark = () => {
       viewNumber={memberInfo!.favoriteCount}
       reviewNumber={memberInfo!.myReviewCount}
       tabType="view"
+      useFetchReview={useFetchBookMarkReviews}
     />
   );
 };

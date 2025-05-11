@@ -2,7 +2,7 @@
 
 import ReviewCollection from '../../_components/ReviewCollection';
 import { useFetchMemberInfo } from '@/hooks/queries/useFetchMember';
-import { useFetchMyStadiums } from '@/hooks/queries/useFetchMyReview';
+import { useFetchMyReview, useFetchMyStadiums } from '@/hooks/queries/useFetchMyReview';
 
 const MyReview = () => {
   const { data } = useFetchMyStadiums();
@@ -14,6 +14,7 @@ const MyReview = () => {
       viewNumber={memberInfo!.favoriteCount}
       reviewNumber={memberInfo!.myReviewCount}
       tabType="review"
+      useFetchReview={useFetchMyReview}
     />
   );
 };

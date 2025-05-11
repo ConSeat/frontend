@@ -12,11 +12,8 @@ import { notFound, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import useIntersectionObserver from '@/hooks/common/useIntersectionObserver';
 import useStateModal from '@/hooks/common/useStateModal';
-import {
-  type UseFetchBookmarkReviewList,
-  useFetchBookMarkReviews,
-} from '@/hooks/queries/useFetchMember';
-import { type UseFetchMyReviewList, useFetchMyReview } from '@/hooks/queries/useFetchMyReview';
+import { type UseFetchBookmarkReviewList } from '@/hooks/queries/useFetchMember';
+import { type UseFetchMyReviewList } from '@/hooks/queries/useFetchMyReview';
 import ApiErrorBoundary from '@/components/ApiErrorBoundary';
 import Portal from '@/components/Portal/Portal';
 import { memberKeys, reviewKeys } from '@/apis/common/queryKeys';
@@ -28,6 +25,9 @@ interface ReviewCollectionProps {
   viewNumber: number;
   tabType: 'view' | 'review';
   stadiums: Stadiums[];
+  useFetchReview:
+    | ((stadiumId: number) => UseFetchBookmarkReviewList)
+    | ((stadiumId: number) => UseFetchMyReviewList);
 }
 
 interface ReviewStatusTagProps {
@@ -53,7 +53,7 @@ const ReviewList = ({ stadium, stadiumId, onClick, useFetchReview }: ReviewListP
   }
 
   const { data, isLoading, status, isLast, handlePage } = useFetchReview(stadiumId);
-  console.log(data);
+
   const observerRef = useIntersectionObserver(handlePage);
   const canFetchNextPage = status !== 'error' && !isLast;
 
@@ -114,6 +114,7 @@ const ReviewCollection = ({
   viewNumber,
   tabType,
   stadiums,
+  useFetchReview,
 }: ReviewCollectionProps) => {
   const [filterValue, setFilterValue] = useState('');
   const [reviewId, setReviewId] = useState(0);
@@ -145,8 +146,6 @@ const ReviewCollection = ({
       return elem.stadiumName === target;
     })!.stadiumId;
   };
-
-  const useFetchReview = tabType === 'view' ? useFetchBookMarkReviews : useFetchMyReview;
 
   return (
     <div className={styles.collectionContainer}>
