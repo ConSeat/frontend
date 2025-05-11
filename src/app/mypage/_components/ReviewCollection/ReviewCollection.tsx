@@ -8,7 +8,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound, useRouter, useSearchParams } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import useIntersectionObserver from '@/hooks/common/useIntersectionObserver';
 import useStateModal from '@/hooks/common/useStateModal';
@@ -20,12 +20,13 @@ import { type UseFetchMyReviewList, useFetchMyReview } from '@/hooks/queries/use
 import ApiErrorBoundary from '@/components/ApiErrorBoundary';
 import Portal from '@/components/Portal/Portal';
 import { memberKeys, reviewKeys } from '@/apis/common/queryKeys';
-import { MY_PAGE_QUERY, REVIEW_TAP, VIEW_TAP } from '@/constants/myPage';
+import { REVIEW_TAP, VIEW_TAP } from '@/constants/myPage';
 import { Stadiums } from '@/types/stadium';
 
 interface ReviewCollectionProps {
-  viewNumber: number;
   reviewNumber: number;
+  viewNumber: number;
+  tabType: 'view' | 'review';
   stadiums: Stadiums[];
 }
 
@@ -115,34 +116,25 @@ const NoneContent = () => {
   );
 };
 
-const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollectionProps) => {
+const ReviewCollection = ({
+  reviewNumber,
+  viewNumber,
+  tabType,
+  stadiums,
+}: ReviewCollectionProps) => {
   const [filterValue, setFilterValue] = useState('');
   const [reviewId, setReviewId] = useState(0);
   const { isModalOpen, openModal, closeModal } = useStateModal();
 
   const router = useRouter();
-  const searchParams = useSearchParams();
   const queryClient = useQueryClient();
 
-  let tapType = searchParams.get(MY_PAGE_QUERY);
-
-  if (tapType === null) {
-    router.replace('/mypage?tab=view');
-    tapType = 'view';
-  }
-
-  // const handleRouteView = () => {
-  //   const params = new URLSearchParams(searchParams.toString());
-  //   params.set(MY_PAGE_QUERY, VIEW_TAP);
-  //   router.prefetch(`?${params.toString()}`);
-  //   router.push(`?${params.toString()}`);
-  // };
+  const handleRouteView = () => {
+    router.push(`/mypage/view`);
+  };
 
   const handleRouteReView = () => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set(MY_PAGE_QUERY, REVIEW_TAP);
-    router.prefetch(`?${params.toString()}`);
-    router.push(`?${params.toString()}`);
+    router.push(`/mypage/review`);
   };
 
   const handleChangeFilter = (value: string) => {
@@ -161,21 +153,22 @@ const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollecti
     })!.stadiumId;
   };
 
-  const useFetchReview = tapType === 'view' ? useFetchBookMarkReviews : useFetchMyReview;
+  const useFetchReview = tabType === 'view' ? useFetchBookMarkReviews : useFetchMyReview;
 
   return (
     <div className={styles.collectionContainer}>
       <div className={styles.reviewTap}>
         <div
           className={classNames(styles.tap, {
-            [styles.active]: tapType === VIEW_TAP,
+            [styles.active]: tabType === VIEW_TAP,
           })}
+          onClick={handleRouteView}
         >
-          <Link href={'/mypage?tab=view'}>관심시야 {viewNumber}</Link>
+          관심시야 {viewNumber}
         </div>
         <div
           className={classNames(styles.tap, {
-            [styles.active]: tapType === REVIEW_TAP,
+            [styles.active]: tabType === REVIEW_TAP,
           })}
           onClick={handleRouteReView}
         >
@@ -193,9 +186,9 @@ const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollecti
               onChange={handleChangeFilter}
             />
             <ApiErrorBoundary
-              resetKey={[tapType]}
+              resetKey={[tabType]}
               queryKey={
-                tapType === 'view' ? memberKeys.bookmarks(getCurrentStadiumId()) : reviewKeys.mine()
+                tabType === 'view' ? memberKeys.bookmarks(getCurrentStadiumId()) : reviewKeys.mine()
               }
             >
               <ReviewList
@@ -211,7 +204,7 @@ const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollecti
       <Portal isOpen={isModalOpen}>
         <DetailReviewModal
           reviewId={reviewId}
-          reviewType={tapType}
+          reviewType={tabType}
           closeModal={() => {
             queryClient.invalidateQueries({
               queryKey: memberKeys.bookmarks(getCurrentStadiumId()),
