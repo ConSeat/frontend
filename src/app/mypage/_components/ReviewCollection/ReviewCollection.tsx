@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound, useRouter } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import useIntersectionObserver from '@/hooks/common/useIntersectionObserver';
 import useStateModal from '@/hooks/common/useStateModal';
 import {
@@ -53,16 +53,9 @@ const ReviewList = ({ stadium, stadiumId, onClick, useFetchReview }: ReviewListP
   }
 
   const { data, isLoading, status, isLast, handlePage } = useFetchReview(stadiumId);
+  console.log(data);
   const observerRef = useIntersectionObserver(handlePage);
-  const firstFetchRef = useRef(true);
-
   const canFetchNextPage = status !== 'error' && !isLast;
-
-  if (firstFetchRef.current) {
-    firstFetchRef.current = false;
-
-    return <LoadingSpinner />;
-  }
 
   return (
     <>
