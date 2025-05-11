@@ -98,10 +98,12 @@ const ReviewList = ({ stadium, stadiumId, onClick, useFetchReview }: ReviewListP
   );
 };
 
-const NoneContent = () => {
+const NoneContent = ({ tabType }: { tabType: 'view' | 'review' }) => {
   return (
     <div className={styles.noneContentContainer}>
-      <div className={styles.subtitle}>아직 저장한 시야가 없어요😢</div>
+      <div className={styles.subtitle}>
+        {tabType === 'view' ? '아직 저장한 시야가 없어요😢' : '아직 후기가 없어요😢'}
+      </div>
       <Link href="/home">
         <div className={styles.homeLink}>궁금한 시야 검색하러 가기 {'>'}</div>
       </Link>
@@ -169,7 +171,7 @@ const ReviewCollection = ({
       </div>
       <div className={styles.reviewContainer}>
         {stadiums.length === 0 ? (
-          <NoneContent />
+          <NoneContent tabType={tabType} />
         ) : (
           <>
             <FilterDropdown
