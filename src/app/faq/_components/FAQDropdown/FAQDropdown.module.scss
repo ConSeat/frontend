@@ -3,7 +3,9 @@
 .dropdownContainer {
   display: flex;
   flex-direction: column;
+  gap: 10px;
   align-items: flex-start;
+
   width: 100%;
 }
 
@@ -26,4 +28,38 @@
   @include body-3;
 
   color: $sub-gray5;
+}
+
+// AnswerBold
+.bold {
+  @include body-3;
+
+  font-weight: 500;
+  color: $sub-gray3;
+}
+
+// AnswerOfficial
+.officialLink {
+  @include body-3;
+
+  font-weight: 500;
+  color: $sub-gray5;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// AnswerMail
+.mail {
+  @include body-3;
+
+  font-weight: 500;
+  color: $sub-gray5;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
