@@ -127,7 +127,7 @@ const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollecti
   let tapType = searchParams.get(MY_PAGE_QUERY);
 
   if (tapType === null) {
-    router.replace('mypage?tab=view');
+    router.replace('/mypage?tab=view');
     tapType = 'view';
   }
 
