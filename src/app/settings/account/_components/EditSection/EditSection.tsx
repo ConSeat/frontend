@@ -46,7 +46,7 @@ const EditSection = () => {
       {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: memberKeys.all });
-          router.push(`/mypage?tab=view`);
+          router.push(`/mypage/view`);
         },
       },
     );

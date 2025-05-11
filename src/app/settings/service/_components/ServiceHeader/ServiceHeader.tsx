@@ -11,7 +11,7 @@ const ServiceHeader = () => {
   return (
     <Header
       title="앱 설정"
-      right={<Icon icon="Close" size={24} onClick={() => router.replace('/mypage?tab=view')} />}
+      right={<Icon icon="Close" size={24} onClick={() => router.replace('/mypage/view')} />}
     />
   );
 };
