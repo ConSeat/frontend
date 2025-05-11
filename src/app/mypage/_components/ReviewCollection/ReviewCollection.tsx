@@ -131,16 +131,18 @@ const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollecti
     tapType = 'view';
   }
 
-  const handleRouteView = () => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set(MY_PAGE_QUERY, VIEW_TAP);
-    router.replace(`?${params.toString()}`);
-  };
+  // const handleRouteView = () => {
+  //   const params = new URLSearchParams(searchParams.toString());
+  //   params.set(MY_PAGE_QUERY, VIEW_TAP);
+  //   router.prefetch(`?${params.toString()}`);
+  //   router.push(`?${params.toString()}`);
+  // };
 
   const handleRouteReView = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.set(MY_PAGE_QUERY, REVIEW_TAP);
-    router.replace(`?${params.toString()}`);
+    router.prefetch(`?${params.toString()}`);
+    router.push(`?${params.toString()}`);
   };
 
   const handleChangeFilter = (value: string) => {
@@ -168,9 +170,8 @@ const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollecti
           className={classNames(styles.tap, {
             [styles.active]: tapType === VIEW_TAP,
           })}
-          onClick={handleRouteView}
         >
-          관심시야 {viewNumber}
+          <Link href={'/mypage?tab=view'}>관심시야 {viewNumber}</Link>
         </div>
         <div
           className={classNames(styles.tap, {
