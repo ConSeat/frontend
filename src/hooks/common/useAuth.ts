@@ -21,8 +21,10 @@ export const useAuth = () => {
       action();
     } else {
       showPopup({
-        title: '로그인 필요',
+        title: '로그인이 필요합니다',
         subtitle: popupText,
+        confirmText: '로그인',
+        cancelText: '취소',
         onConfirm: () => {
           sessionStorage.setItem('returnUrl', window.location.href);
           router.push('/signin');
