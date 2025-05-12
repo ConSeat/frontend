@@ -60,7 +60,7 @@ const ImageItem = ({ imageSrc, onClick }: ImageItem) => {
   return (
     <div className={styles.imageBox} onClick={onClick}>
       <Image
-        style={{ objectFit: 'contain' }}
+        style={{ objectFit: 'cover' }}
         width={IMAGE_SIZE}
         height={IMAGE_SIZE}
         alt="콘서트 이미지"

@@ -3,6 +3,7 @@
 .slideContainer {
   position: relative;
   overflow: hidden;
+  background-color: $sub-black;
 }
 
 @mixin nav-button {
