@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './ResultReviewCard.module.scss';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import useBookMark from '@/hooks/common/useBookmark';
 import useLike from '@/hooks/common/useLike';
 import ReviewCard from '@/components/ReviewCard';
@@ -13,7 +13,6 @@ interface ResultReviewCardProps {
 }
 
 const ResultReviewCard = ({ review, queryKey }: ResultReviewCardProps) => {
-  const { stadiumId, seatingId } = useParams();
   const router = useRouter();
   const { handleClickBookMark } = useBookMark(review.isBookmarked, review.reviewId, queryKey);
   const { handleClickLike } = useLike(review.isLiked, review.reviewId, queryKey);
@@ -32,11 +31,11 @@ const ResultReviewCard = ({ review, queryKey }: ResultReviewCardProps) => {
       <ReviewCard.ImageList>
         {review.images.map((src, idx) => (
           <ReviewCard.ImageItem
-            key={idx + src}
+            key={src}
             imageSrc={src}
-            onClick={() =>
-              router.push(`/home/${stadiumId}/single/${seatingId}/${review.reviewId}?pidx=${idx}`)
-            }
+            onClick={() => {
+              router.push(`${window.location.href}/${review.reviewId}?pidx=${idx}`);
+            }}
           />
         ))}
       </ReviewCard.ImageList>

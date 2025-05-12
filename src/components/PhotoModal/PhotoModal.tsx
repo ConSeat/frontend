@@ -17,12 +17,20 @@ interface PhotoModalProps {
   reviewId: string;
 }
 
-export default function PhotoModal({ stadiumId, seatingId, reviewId }: PhotoModalProps) {
+export default function PhotoModal({ reviewId }: PhotoModalProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const modalPath =
+    typeof window !== 'undefined' ? window.location.pathname + window.location.search : '/home';
+  const fallbackPath =
+    typeof window !== 'undefined'
+      ? window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'))
+      : '/home';
+
   const { closeModal } = useRouterModal({
-    modalPath: `/home/${stadiumId}/single/${seatingId}/${reviewId}`,
-    fallbackPath: `/home/${stadiumId}/single/${seatingId}`,
+    modalPath: modalPath,
+    fallbackPath: fallbackPath,
   });
 
   const rawPidx = searchParams.get('pidx');
