@@ -16,7 +16,7 @@ const AllReviewPage = async ({ params }) => {
     <>
       <AllReviewHeader stadiumId={Number(stadiumId)} seatingId={Number(seatingId)} />
 
-      <Splitter color="sub-gray8" />
+      <Splitter color="sub-gray8" style={{ position: 'sticky', top: '56px' }} />
 
       <HydrationBoundary state={dehydratedState}>
         <AllReviewContainer stadiumId={Number(stadiumId)} seatingId={Number(seatingId)} />
