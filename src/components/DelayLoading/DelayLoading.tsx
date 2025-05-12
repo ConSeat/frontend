@@ -1,9 +1,13 @@
 'use client';
 
-import PageLoading from '../PageLoading';
 import { useEffect, useState } from 'react';
 
-export default function DelayLoading({ delay = 500 }) {
+interface DelayLoadingProps {
+  delay?: number;
+  children: React.ReactNode;
+}
+
+const DelayLoading = ({ delay = 500, children }: DelayLoadingProps) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -11,5 +15,7 @@ export default function DelayLoading({ delay = 500 }) {
     return () => clearTimeout(timer);
   }, [delay]);
 
-  return show ? <PageLoading /> : null;
-}
+  return show ? <>{children}</> : null;
+};
+
+export default DelayLoading;

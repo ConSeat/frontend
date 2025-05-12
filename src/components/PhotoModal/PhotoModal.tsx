@@ -1,5 +1,6 @@
 'use client';
 
+import DelayLoading from '../DelayLoading/DelayLoading';
 import Spacing from '../Spacing/Spacing';
 import styles from './PhotoModal.module.scss';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
@@ -48,10 +49,18 @@ export default function PhotoModal({ reviewId }: PhotoModalProps) {
   }, [imageIndex]);
 
   if (rawPidx === null) return null;
-  if (isLoading) return <LoadingSpinner />;
+
+  if (isLoading)
+    return (
+      <DelayLoading>
+        <LoadingSpinner />
+      </DelayLoading>
+    );
+
   if (!review) {
     notFound();
   }
+
   if (isNaN(initialIdx) || initialIdx < 0 || initialIdx >= total) {
     return null;
   }
