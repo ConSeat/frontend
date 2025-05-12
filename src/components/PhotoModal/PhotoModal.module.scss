@@ -11,7 +11,7 @@
 
   height: 100lvh;
 
-  background-color: $main-mint6;
+  background-color: $sub-black;
 
   @include layout-width;
 }
@@ -30,5 +30,5 @@
   height: 100dvh;
   padding: 0 24px 32px;
 
-  background-color: $main-mint6;
+  background-color: $sub-black;
 }
