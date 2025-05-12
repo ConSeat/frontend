@@ -4,9 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-
   width: 100%;
-  min-width: 342px;
 
   .subtitle {
     @include subtitle-1;
