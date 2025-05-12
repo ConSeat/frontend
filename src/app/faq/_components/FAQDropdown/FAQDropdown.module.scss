@@ -48,24 +48,28 @@
 
 // AnswerBold
 .bold {
-  @include body-4;
+  @include body-3;
 
-  font-weight: 500;
-  color: $sub-gray3;
+  color: $sub-gray1;
 }
 
 // AnswerOfficial
 .officialLink {
-  @include body-4;
+  @include body-3;
 
-  color: $sub-gray3;
+  color: $sub-gray1;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 // AnswerMail
 .mail {
-  @include body-4;
+  @include body-3;
 
-  color: $sub-gray3;
+  color: $sub-gray1;
   text-decoration: underline;
 
   &:hover {

@@ -12,6 +12,8 @@ const ContactSection = () => {
     showPopup({
       title: '📮 문의하기',
       subtitle: '궁금하신 사항은 X(트위터)로 문의해주세요',
+      confirmText: '문의하기',
+      cancelText: '취소',
       onConfirm: () => {
         window.open(
           'https://x.com/messages/1568567420574662658-1914300317010968576',
