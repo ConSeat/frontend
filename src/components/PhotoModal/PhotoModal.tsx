@@ -50,12 +50,13 @@ const PhotoModal = ({ reviewId }: PhotoModalProps) => {
 
   if (rawPidx === null) return null;
 
-  if (isLoading)
+  if (isLoading) {
     return (
       <DelayLoading>
         <LoadingSpinner />
       </DelayLoading>
     );
+  }
 
   if (!review) {
     notFound();
