@@ -1,6 +1,7 @@
 'use client';
 
 import styles from './FAQDropdown.module.scss';
+import classNames from 'classnames';
 import React, { type ReactNode } from 'react';
 import useDropdown from '@/hooks/common/useDropdown';
 import Dropdown from '@/components/Dropdown/Dropdown';
@@ -30,12 +31,7 @@ export const AnswerOfficialLink = () => {
 
 export const AnswerMail = () => {
   return (
-    <a
-      className={styles.mail}
-      href="mailto:conseat@gmail.com"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+    <a className={styles.mail} href="mailto:conseat@gmail.com" rel="noopener noreferrer">
       conseeat@gmail.com
     </a>
   );
@@ -51,7 +47,9 @@ const FAQDropdown = ({ question, answer }: FAQDropdownProps) => {
           <button
             type="button"
             onClick={handleToggleDropdown}
-            className={styles.faqDropdownTrigger}
+            className={classNames(styles.faqDropdownTrigger, {
+              [styles.isOpen]: isDropdownOpen,
+            })}
           >
             <span className={styles.faqDropdownText}>{question}</span>
             <Icon icon={isDropdownOpen ? 'UpArrow' : 'DownArrow'} color="#6C757D" />
