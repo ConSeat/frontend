@@ -18,7 +18,7 @@ interface PhotoModalProps {
   reviewId: string;
 }
 
-export default function PhotoModal({ reviewId }: PhotoModalProps) {
+const PhotoModal = ({ reviewId }: PhotoModalProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -81,4 +81,6 @@ export default function PhotoModal({ reviewId }: PhotoModalProps) {
       </Modal.Content>
     </Modal>
   );
-}
+};
+
+export default PhotoModal;
