@@ -8,25 +8,26 @@ import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound, useRouter, useSearchParams } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { notFound, useRouter } from 'next/navigation';
+import { useState } from 'react';
 import useIntersectionObserver from '@/hooks/common/useIntersectionObserver';
 import useStateModal from '@/hooks/common/useStateModal';
-import {
-  type UseFetchBookmarkReviewList,
-  useFetchBookMarkReviews,
-} from '@/hooks/queries/useFetchMember';
-import { type UseFetchMyReviewList, useFetchMyReview } from '@/hooks/queries/useFetchMyReview';
+import { type UseFetchBookmarkReviewList } from '@/hooks/queries/useFetchMember';
+import { type UseFetchMyReviewList } from '@/hooks/queries/useFetchMyReview';
 import ApiErrorBoundary from '@/components/ApiErrorBoundary';
 import Portal from '@/components/Portal/Portal';
 import { memberKeys, reviewKeys } from '@/apis/common/queryKeys';
-import { MY_PAGE_QUERY, REVIEW_TAP, VIEW_TAP } from '@/constants/myPage';
+import { REVIEW_TAP, VIEW_TAP } from '@/constants/myPage';
 import { Stadiums } from '@/types/stadium';
 
 interface ReviewCollectionProps {
-  viewNumber: number;
   reviewNumber: number;
+  viewNumber: number;
+  tabType: 'view' | 'review';
   stadiums: Stadiums[];
+  useFetchReview:
+    | ((stadiumId: number) => UseFetchBookmarkReviewList)
+    | ((stadiumId: number) => UseFetchMyReviewList);
 }
 
 interface ReviewStatusTagProps {
@@ -52,16 +53,9 @@ const ReviewList = ({ stadium, stadiumId, onClick, useFetchReview }: ReviewListP
   }
 
   const { data, isLoading, status, isLast, handlePage } = useFetchReview(stadiumId);
+
   const observerRef = useIntersectionObserver(handlePage);
-  const firstFetchRef = useRef(true);
-
   const canFetchNextPage = status !== 'error' && !isLast;
-
-  if (firstFetchRef.current) {
-    firstFetchRef.current = false;
-
-    return <LoadingSpinner />;
-  }
 
   return (
     <>
@@ -104,43 +98,41 @@ const ReviewList = ({ stadium, stadiumId, onClick, useFetchReview }: ReviewListP
   );
 };
 
-const NoneContent = () => {
+const NoneContent = ({ tabType }: { tabType: 'view' | 'review' }) => {
   return (
     <div className={styles.noneContentContainer}>
-      <div className={styles.subtitle}>아직 저장한 시야가 없어요😢</div>
+      <div className={styles.subtitle}>
+        {tabType === 'view' ? '아직 저장한 시야가 없어요😢' : '아직 후기가 없어요😢'}
+      </div>
       <Link href="/home">
-        <div className={styles.homeLink}>궁금한 시야 검색하러 가기 {'>'}</div>
+        <div className={styles.homeLink}>
+          {tabType === 'view' ? '궁금한 시야 검색하러 가기 >' : '내 후기 등록하러 가기 >'}
+        </div>
       </Link>
     </div>
   );
 };
 
-const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollectionProps) => {
+const ReviewCollection = ({
+  reviewNumber,
+  viewNumber,
+  tabType,
+  stadiums,
+  useFetchReview,
+}: ReviewCollectionProps) => {
   const [filterValue, setFilterValue] = useState('');
   const [reviewId, setReviewId] = useState(0);
   const { isModalOpen, openModal, closeModal } = useStateModal();
 
   const router = useRouter();
-  const searchParams = useSearchParams();
   const queryClient = useQueryClient();
 
-  let tapType = searchParams.get(MY_PAGE_QUERY);
-
-  if (tapType === null) {
-    router.replace('/mypage?tab=view');
-    tapType = 'view';
-  }
-
   const handleRouteView = () => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set(MY_PAGE_QUERY, VIEW_TAP);
-    router.replace(`?${params.toString()}`);
+    router.push(`/mypage/view`);
   };
 
   const handleRouteReView = () => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set(MY_PAGE_QUERY, REVIEW_TAP);
-    router.replace(`?${params.toString()}`);
+    router.push(`/mypage/review`);
   };
 
   const handleChangeFilter = (value: string) => {
@@ -159,14 +151,12 @@ const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollecti
     })!.stadiumId;
   };
 
-  const useFetchReview = tapType === 'view' ? useFetchBookMarkReviews : useFetchMyReview;
-
   return (
     <div className={styles.collectionContainer}>
       <div className={styles.reviewTap}>
         <div
           className={classNames(styles.tap, {
-            [styles.active]: tapType === VIEW_TAP,
+            [styles.active]: tabType === VIEW_TAP,
           })}
           onClick={handleRouteView}
         >
@@ -174,7 +164,7 @@ const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollecti
         </div>
         <div
           className={classNames(styles.tap, {
-            [styles.active]: tapType === REVIEW_TAP,
+            [styles.active]: tabType === REVIEW_TAP,
           })}
           onClick={handleRouteReView}
         >
@@ -183,7 +173,7 @@ const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollecti
       </div>
       <div className={styles.reviewContainer}>
         {stadiums.length === 0 ? (
-          <NoneContent />
+          <NoneContent tabType={tabType} />
         ) : (
           <>
             <FilterDropdown
@@ -192,9 +182,9 @@ const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollecti
               onChange={handleChangeFilter}
             />
             <ApiErrorBoundary
-              resetKey={[tapType]}
+              resetKey={[tabType]}
               queryKey={
-                tapType === 'view' ? memberKeys.bookmarks(getCurrentStadiumId()) : reviewKeys.mine()
+                tabType === 'view' ? memberKeys.bookmarks(getCurrentStadiumId()) : reviewKeys.mine()
               }
             >
               <ReviewList
@@ -210,7 +200,7 @@ const ReviewCollection = ({ viewNumber, reviewNumber, stadiums }: ReviewCollecti
       <Portal isOpen={isModalOpen}>
         <DetailReviewModal
           reviewId={reviewId}
-          reviewType={tapType}
+          reviewType={tabType}
           closeModal={() => {
             queryClient.invalidateQueries({
               queryKey: memberKeys.bookmarks(getCurrentStadiumId()),

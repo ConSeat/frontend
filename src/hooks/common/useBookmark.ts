@@ -17,7 +17,7 @@ const useBookMark = (
         postBookmarkMutation.mutate();
       };
 
-      checkAndExecute(addBookmark, '결과 저장을 위해 로그인 / 회원 가입을 진행해주세요');
+      checkAndExecute(addBookmark, '해당 기능은 로그인 후 이용할 수 있어요');
     }
   };
 

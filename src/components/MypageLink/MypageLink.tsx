@@ -4,7 +4,7 @@ import Icon from '../Icon/Icon';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { MouseEventHandler } from 'react';
-import { MY_PAGE_QUERY, VIEW_TAP } from '@/constants/myPage';
+import { VIEW_TAP } from '@/constants/myPage';
 
 const MypageLink = () => {
   const { data: session, status } = useSession();
@@ -19,7 +19,7 @@ const MypageLink = () => {
   };
 
   return (
-    <Link href={`/mypage?${MY_PAGE_QUERY}=${VIEW_TAP}`} onClick={handleClickLink}>
+    <Link href={`/mypage/${VIEW_TAP}`} onClick={handleClickLink}>
       <Icon icon="DefaultProfile" />
     </Link>
   );

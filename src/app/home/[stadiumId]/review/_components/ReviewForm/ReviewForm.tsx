@@ -79,8 +79,7 @@ const ReviewForm = ({ reviewData, dispatch, onSubmit }: ReviewFormProps) => {
     // 유효한 경우: popup
     showPopup({
       title: '후기를 등록하시겠습니까?',
-      subtitle:
-        '등록된 후기는 수정/삭제가 불가합니다. 민감한 정보가 들어간 후기는 관리자에 의해 삭제 처리될 수 있습니다.',
+      subtitle: '등록된 후기는 수정이나 삭제가 불가능하며,\n운영 가이드에 따라 심사 후 게시됩니다.',
       onConfirm: onSubmit,
     });
   };

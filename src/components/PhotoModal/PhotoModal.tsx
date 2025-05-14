@@ -1,5 +1,6 @@
 'use client';
 
+import DelayLoading from '../DelayLoading/DelayLoading';
 import Spacing from '../Spacing/Spacing';
 import styles from './PhotoModal.module.scss';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
@@ -17,12 +18,20 @@ interface PhotoModalProps {
   reviewId: string;
 }
 
-export default function PhotoModal({ stadiumId, seatingId, reviewId }: PhotoModalProps) {
+const PhotoModal = ({ reviewId }: PhotoModalProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const modalPath =
+    typeof window !== 'undefined' ? window.location.pathname + window.location.search : '/home';
+  const fallbackPath =
+    typeof window !== 'undefined'
+      ? window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'))
+      : '/home';
+
   const { closeModal } = useRouterModal({
-    modalPath: `/home/${stadiumId}/single/${seatingId}/${reviewId}`,
-    fallbackPath: `/home/${stadiumId}/single/${seatingId}`,
+    modalPath: modalPath,
+    fallbackPath: fallbackPath,
   });
 
   const rawPidx = searchParams.get('pidx');
@@ -40,10 +49,19 @@ export default function PhotoModal({ stadiumId, seatingId, reviewId }: PhotoModa
   }, [imageIndex]);
 
   if (rawPidx === null) return null;
-  if (isLoading) return <LoadingSpinner />;
+
+  if (isLoading) {
+    return (
+      <DelayLoading>
+        <LoadingSpinner />
+      </DelayLoading>
+    );
+  }
+
   if (!review) {
     notFound();
   }
+
   if (isNaN(initialIdx) || initialIdx < 0 || initialIdx >= total) {
     return null;
   }
@@ -64,4 +82,6 @@ export default function PhotoModal({ stadiumId, seatingId, reviewId }: PhotoModa
       </Modal.Content>
     </Modal>
   );
-}
+};
+
+export default PhotoModal;

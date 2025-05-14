@@ -5,11 +5,9 @@ import SeatDropdownModal from '../SeatDropdownModal/SeatDropdownModal';
 import SortDropdown from '../SortDropdown/SortDropdown';
 import styles from './AllReviewContent.module.scss';
 import { useQueryClient } from '@tanstack/react-query';
-import classNames from 'classnames';
 import Link from 'next/link';
 import { type Dispatch, useEffect } from 'react';
 import useIntersectionObserver from '@/hooks/common/useIntersectionObserver';
-import useScrollDirection from '@/hooks/common/useScrollDirection';
 import { useFetchAllReviewList } from '@/hooks/queries/useFetchSeatingReview';
 import Icon from '@/components/Icon/Icon';
 import ReviewCardList from '@/components/ReviewCardList';
@@ -41,8 +39,6 @@ const AllReviewContent = ({
   stadiumId,
   seatingId,
 }: AllReviewContentProps) => {
-  const scrollDir = useScrollDirection();
-
   const { filteredList, reviewCount, isLoading, status, isLast, handlePage } =
     useFetchAllReviewList(filterData.seatingId, filterData);
   const targetRef = useIntersectionObserver(handlePage);
@@ -54,22 +50,17 @@ const AllReviewContent = ({
 
   useEffect(() => {
     const cleanup = () => {
-      const memberKey = memberKeys.bookmarks(seatingId);
+      const memberKey = memberKeys.bookmarks(stadiumId);
 
       queryClient.invalidateQueries({ queryKey });
-      queryClient.invalidateQueries({ queryKey: memberKey });
+      queryClient.removeQueries({ queryKey: memberKey });
     };
     return cleanup;
   }, []);
 
   return (
     <>
-      <div
-        className={classNames(styles.searchFilterContainer, {
-          [styles.hide]: scrollDir === 'down',
-          [styles.show]: scrollDir === 'up',
-        })}
-      >
+      <div className={styles.searchFilterContainer}>
         <SeatDropdownModal
           seatingIdState={filterData.seatingId}
           dispatch={dispatch}

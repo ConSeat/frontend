@@ -9,13 +9,13 @@
 
   display: inline-flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 28px;
   align-items: center;
   justify-content: center;
 
-  width: 286px;
+  width: 324px;
   padding: 24px 20px 16px;
-  border-radius: 10px;
+  border-radius: 20px;
 
   background: $sub-white;
 }
@@ -24,13 +24,12 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  align-items: center;
   align-self: stretch;
 }
 
 .buttonBox {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
   justify-content: center;
 
@@ -38,19 +37,20 @@
 }
 
 .popupTitle {
-  @include subtitle-3;
+  @include subtitle-1;
 
   color: $sub_gray8;
 }
 
 .popupSubtitle {
-  @include body-6;
+  @include body-1;
 
   color: $sub_gray6;
+  white-space: pre-wrap;
 }
 
 @mixin button-text-base {
-  @include body-3;
+  @include subtitle-3;
 
   text-align: center;
 }
@@ -62,7 +62,7 @@
   justify-content: center;
 
   width: 100%;
-  height: 40px;
+  height: 48px;
   padding: 8px 0;
   border-radius: 100px;
 }

@@ -1,0 +1,78 @@
+@import '@/styles/style';
+
+.dropdownContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.faqDropdownTrigger {
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  align-items: center;
+  align-self: stretch;
+  justify-content: space-between;
+
+  width: 100%;
+  height: 44px;
+  padding: 10px 12px;
+  border-radius: 5px;
+
+  background-color: $sub-gray8;
+
+  .faqDropdownText {
+    color: $sub-gray3;
+    text-align: left;
+
+    @include body-2;
+  }
+}
+
+.faqDropdownTrigger.isOpen {
+  border-radius: 5px 5px 0 0;
+}
+
+.faqDropdownContent {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 0 0 5px 5px;
+
+  color: $sub-gray3;
+
+  background-color: rgb(52 58 64 / 60%);
+
+  @include body-4;
+}
+
+// AnswerBold
+.bold {
+  @include body-3;
+
+  color: $sub-gray1;
+}
+
+// AnswerOfficial
+.officialLink {
+  @include body-3;
+
+  color: $sub-gray1;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// AnswerMail
+.mail {
+  @include body-3;
+
+  color: $sub-gray1;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

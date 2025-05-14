@@ -1,0 +1,26 @@
+@import '@/styles/style';
+
+.faqSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  align-self: stretch;
+
+  width: 100%;
+}
+
+.faqTitle {
+  @include subtitle-1;
+
+  color: $sub-white;
+}
+
+.faqItemContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+
+  width: 100%;
+}
