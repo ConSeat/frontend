@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import ErrorCapture from '@/components/ErrorCapture';
 import KakaoScript from '@/components/KakaoScript';
-import ScrollToTop from '@/components/ScrollToTop/ScrollToTop';
 import { AuthProvider } from '@/providers/AuthProvider';
 import { ErrorProvider } from '@/providers/ErrorProvider';
 import { PopupProvider } from '@/providers/PopupProvider';
@@ -27,7 +26,6 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
-        <ScrollToTop />
         <ErrorProvider>
           <QueryProvider>
             <ToastProvider>
