@@ -10,5 +10,9 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider = ({ children, session }: AuthProviderProps) => {
-  return <SessionProvider session={session}>{children}</SessionProvider>;
+  return (
+    <SessionProvider session={session} basePath="/auth">
+      {children}
+    </SessionProvider>
+  );
 };
