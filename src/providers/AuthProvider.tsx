@@ -11,7 +11,7 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children, session }: AuthProviderProps) => {
   return (
-    <SessionProvider session={session} basePath="/auth">
+    <SessionProvider session={session} basePath="/auth" refetchOnWindowFocus={false}>
       {children}
     </SessionProvider>
   );
