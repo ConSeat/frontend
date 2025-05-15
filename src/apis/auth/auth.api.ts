@@ -14,6 +14,7 @@ export const postLogin = async () => {
   const { headers } = await api.public.post({
     endpoint: API_ENDPOINTS.LOGIN,
     errorMessage: MESSAGES.ERROR.POST_LOGIN,
+    init: { credentials: 'include' },
   });
 
   const accessToken = headers.get('Authorization');

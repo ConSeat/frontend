@@ -10,6 +10,7 @@ export const memberQueries = {
   info: {
     queryKey: memberKeys.all,
     queryFn: getMemberInfo,
+    staleTime: Infinity,
   },
 
   update: {

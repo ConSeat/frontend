@@ -47,6 +47,7 @@ export const getStadiumSeats = async (stadiumId: number) => {
   const { data } = await api.public.get<StadiumSeatingResponse>({
     endpoint: API_ENDPOINTS.STADIUM_SEATS(stadiumId),
     errorMessage: MESSAGES.ERROR.GET_STADIUM_SEATS,
+    init: { cache: 'force-cache' },
   });
   return { data: data.body };
 };
@@ -60,6 +61,7 @@ export const getStadiumFeatures = async () => {
   const { data } = await api.public.get<StadiumFeaturesResponse>({
     endpoint: API_ENDPOINTS.STADIUM_FEATURES,
     errorMessage: MESSAGES.ERROR.GET_STADIUM_FEATURES,
+    init: { cache: 'force-cache' },
   });
   return { data: data.body };
 };
@@ -73,6 +75,7 @@ export const getStadiumObstructions = async () => {
   const { data } = await api.public.get<StadiumObstructionsResponse>({
     endpoint: API_ENDPOINTS.STADIUM_OBSTRUCTIONS,
     errorMessage: MESSAGES.ERROR.GET_STADIUM_OBSTRUCTIONS,
+    init: { cache: 'force-cache' },
   });
   return { data: data.body };
 };
@@ -86,6 +89,7 @@ export const getStadiumSections = async (stadiumId: number) => {
   const { data } = await api.public.get<StadiumSectionsResponse>({
     endpoint: `/stadiums/${stadiumId}/sections`,
     errorMessage: MESSAGES.ERROR.GET_STADIUM_SECTIONS,
+    init: { cache: 'force-cache' },
   });
   return { data: data.body };
 };
@@ -100,6 +104,7 @@ export const getSectionSeatings = async (sectionId: number) => {
   const { data } = await api.public.get<SectionSeatingsResponse>({
     endpoint: `/stadiums/sections/${sectionId}/seating`,
     errorMessage: MESSAGES.ERROR.GET_SECTION_SEATINGS,
+    init: { cache: 'force-cache' },
   });
   return { data: data.body };
 };
