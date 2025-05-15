@@ -12,7 +12,7 @@ import Credentials from 'next-auth/providers/credentials';
 export const { auth, handlers, signIn, signOut } = NextAuth({
   session: {
     strategy: 'jwt',
-    maxAge: 60 * 60 * 24,
+    maxAge: 60 * 60 * 24, // 3일로 수정
   },
 
   providers: [
