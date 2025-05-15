@@ -13,7 +13,7 @@ interface MemberInfoResponse {
 }
 
 export const getMemberInfo = async () => {
-  const { data } = await api.get<MemberInfoResponse>({
+  const { data } = await api.secure.get<MemberInfoResponse>({
     endpoint: API_ENDPOINTS.MEMBERS,
     errorMessage: MESSAGES.ERROR.GET_MEMBER_INFO,
   });
@@ -29,7 +29,7 @@ export const postMemberInfo = async (body: MemberInfoRequestBody) => {
     formData.append('file', body.profileImage.file);
   }
 
-  return await api.post({
+  return await api.secure.post({
     endpoint: API_ENDPOINTS.MEMBERS,
     errorMessage: MESSAGES.ERROR.POST_MEMBER_INFO,
     body: formData,
@@ -37,7 +37,7 @@ export const postMemberInfo = async (body: MemberInfoRequestBody) => {
 };
 
 export const getBookmarkStadiums = async () => {
-  const { data } = await api.get<MyReviewStadiumsResponse>({
+  const { data } = await api.secure.get<MyReviewStadiumsResponse>({
     endpoint: API_ENDPOINTS.MEMBERS_BOOKMARK,
     errorMessage: MESSAGES.ERROR.GET_STADIUMS_BOOKMARK,
   });
@@ -73,7 +73,7 @@ export const getBookmarkReview = async ({
   stadiumId: number;
   lastModifiedAt: string;
 }) => {
-  const { data } = await api.get<MyBookmarkResponse>({
+  const { data } = await api.secure.get<MyBookmarkResponse>({
     endpoint: API_ENDPOINTS.MEMBERS_BOOKMARK_REVIEW(stadiumId, lastModifiedAt),
     errorMessage: MESSAGES.ERROR.GET_BOOKMARK_REVIEW,
   });
@@ -95,7 +95,7 @@ export interface MyBookmarkDetailResponse {
 }
 
 export const getBookmarkDetail = async (reviewId: number) => {
-  const { data } = await api.get<MyBookmarkDetailResponse>({
+  const { data } = await api.secure.get<MyBookmarkDetailResponse>({
     endpoint: API_ENDPOINTS.MEMBERS_BOOKMARK_DETAIL(reviewId),
     errorMessage: MESSAGES.ERROR.GET_BOOKMARK_DETAIL,
   });

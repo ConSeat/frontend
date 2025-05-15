@@ -18,7 +18,7 @@ export interface StadiumListResponse {
 }
 
 export const getStadiumList = async () => {
-  const { data } = await api.get<StadiumListResponse>({
+  const { data } = await api.public.get<StadiumListResponse>({
     endpoint: API_ENDPOINTS.STADIUMS,
     errorMessage: MESSAGES.ERROR.GET_STADIUMS,
   });
@@ -31,20 +31,20 @@ export interface StadiumConcertsResponse {
 }
 
 export const getStadiumConcerts = async (stadiumId: number, query?: string) => {
-  const { data } = await api.get<StadiumConcertsResponse>({
+  const { data } = await api.public.get<StadiumConcertsResponse>({
     endpoint: API_ENDPOINTS.STADIUM_CONCERTS(stadiumId, query),
     errorMessage: MESSAGES.ERROR.GET_STADIUM_CONCERTS,
   });
   return { data: data.body };
 };
 
-// 콘서트장 좌석 조회
+// 콘서트장 정보 조회(좌석)
 export interface StadiumSeatingResponse {
   floors: Floor[];
 }
 
 export const getStadiumSeats = async (stadiumId: number) => {
-  const { data } = await api.get<StadiumSeatingResponse>({
+  const { data } = await api.public.get<StadiumSeatingResponse>({
     endpoint: API_ENDPOINTS.STADIUM_SEATS(stadiumId),
     errorMessage: MESSAGES.ERROR.GET_STADIUM_SEATS,
   });
@@ -57,7 +57,7 @@ export interface StadiumFeaturesResponse {
 }
 
 export const getStadiumFeatures = async () => {
-  const { data } = await api.get<StadiumFeaturesResponse>({
+  const { data } = await api.public.get<StadiumFeaturesResponse>({
     endpoint: API_ENDPOINTS.STADIUM_FEATURES,
     errorMessage: MESSAGES.ERROR.GET_STADIUM_FEATURES,
   });
@@ -70,7 +70,7 @@ export interface StadiumObstructionsResponse {
 }
 
 export const getStadiumObstructions = async () => {
-  const { data } = await api.get<StadiumObstructionsResponse>({
+  const { data } = await api.public.get<StadiumObstructionsResponse>({
     endpoint: API_ENDPOINTS.STADIUM_OBSTRUCTIONS,
     errorMessage: MESSAGES.ERROR.GET_STADIUM_OBSTRUCTIONS,
   });
@@ -83,7 +83,7 @@ export interface StadiumSectionsResponse {
 }
 
 export const getStadiumSections = async (stadiumId: number) => {
-  const { data } = await api.get<StadiumSectionsResponse>({
+  const { data } = await api.public.get<StadiumSectionsResponse>({
     endpoint: `/stadiums/${stadiumId}/sections`,
     errorMessage: MESSAGES.ERROR.GET_STADIUM_SECTIONS,
   });
@@ -97,7 +97,7 @@ export interface SectionSeatingsResponse {
 }
 
 export const getSectionSeatings = async (sectionId: number) => {
-  const { data } = await api.get<SectionSeatingsResponse>({
+  const { data } = await api.public.get<SectionSeatingsResponse>({
     endpoint: `/stadiums/sections/${sectionId}/seating`,
     errorMessage: MESSAGES.ERROR.GET_SECTION_SEATINGS,
   });

@@ -9,7 +9,7 @@ export const postReview = async (
   seatingId: number,
   body: ReviewSubmitRequestBody,
 ) => {
-  return await api.post({
+  return await api.secure.post({
     endpoint: API_ENDPOINTS.REVIEWS_WITH_PARAMS(concertId, seatingId),
     errorMessage: MESSAGES.ERROR.POST_REVIEWS_WITH_PARAMS,
     body,
@@ -26,7 +26,7 @@ export const postReviewImages = async (images: ImageData[]) => {
     formData.append('files', image.file);
   });
 
-  const { data } = await api.post<ReviewImagesResponse>({
+  const { data } = await api.secure.post<ReviewImagesResponse>({
     endpoint: API_ENDPOINTS.REVIEW_IMAGES,
     errorMessage: MESSAGES.ERROR.POST_REVIEW_IMAGES,
     body: formData,
@@ -36,7 +36,7 @@ export const postReviewImages = async (images: ImageData[]) => {
 };
 
 export const getMyReviewStadiums = async () => {
-  const { data } = await api.get<MyReviewStadiumsResponse>({
+  const { data } = await api.secure.get<MyReviewStadiumsResponse>({
     endpoint: API_ENDPOINTS.REVIEW_STADIUMS,
     errorMessage: MESSAGES.ERROR.GET_STADIUMS_MY_REVIEW,
   });
@@ -70,7 +70,7 @@ export interface MyReviewRequest {
 }
 
 export const getMyReview = async ({ stadiumId, lastReviewId }: MyReviewRequest) => {
-  const { data } = await api.get<MyReviewResponse>({
+  const { data } = await api.secure.get<MyReviewResponse>({
     endpoint: API_ENDPOINTS.REVIEWS({ stadiumId, lastReviewId }),
     errorMessage: MESSAGES.ERROR.GET_MY_REVIEW,
   });
@@ -93,7 +93,7 @@ export interface MyReviewDetailResponse {
 }
 
 export const getMyReviewDetail = async (reviewId: number) => {
-  const { data } = await api.get<MyReviewDetailResponse>({
+  const { data } = await api.secure.get<MyReviewDetailResponse>({
     endpoint: API_ENDPOINTS.REVIEW_MY_DETAIL(reviewId),
     errorMessage: MESSAGES.ERROR.GET_MY_REVIEW_DETAIL,
   });
@@ -106,7 +106,7 @@ export interface ReviewImagesResponse {
 }
 
 export const getReviewImages = async (reviewId: number) => {
-  const { data } = await api.get<ReviewImagesResponse>({
+  const { data } = await api.public.get<ReviewImagesResponse>({
     endpoint: API_ENDPOINTS.REVIEW_IMAGES_BY_ID(reviewId),
     errorMessage: MESSAGES.ERROR.GET_REVIEW_IMAGES,
   });
@@ -115,28 +115,28 @@ export const getReviewImages = async (reviewId: number) => {
 };
 
 export const postBookMark = async (reviewId: number) => {
-  return await api.post({
+  return await api.secure.post({
     endpoint: API_ENDPOINTS.REVIEW_BOOKMARK(reviewId),
     errorMessage: MESSAGES.ERROR.POST_REVIEWS_BOOKMARK,
   });
 };
 
 export const deleteBookMark = async (reviewId: number) => {
-  return await api.delete({
+  return await api.secure.delete({
     endpoint: API_ENDPOINTS.REVIEW_BOOKMARK(reviewId),
     errorMessage: MESSAGES.ERROR.DELETE_REVIEWS_BOOKMARK,
   });
 };
 
 export const postLike = async (reviewId: number) => {
-  return await api.post({
+  return await api.secure.post({
     endpoint: API_ENDPOINTS.REVIEW_LIKE(reviewId),
     errorMessage: MESSAGES.ERROR.POST_REVIEWS_LIKE,
   });
 };
 
 export const deleteLike = async (reviewId: number) => {
-  return await api.delete({
+  return await api.secure.delete({
     endpoint: API_ENDPOINTS.REVIEW_LIKE(reviewId),
     errorMessage: MESSAGES.ERROR.DELETE_REVIEWS_LIKE,
   });

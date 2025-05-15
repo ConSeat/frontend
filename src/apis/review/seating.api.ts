@@ -14,7 +14,7 @@ export interface SeatingReviews {
 }
 
 export const getSeatingReviews = async (seatingId: number) => {
-  const { data } = await api.get<SeatingReviews>({
+  const { data } = await api.public.get<SeatingReviews>({
     endpoint: API_ENDPOINTS.REVIEWS_SEATING(seatingId),
     errorMessage: MESSAGES.ERROR.GET_REVIEW_SEATINGS,
   });
@@ -40,7 +40,7 @@ export interface AllReviewListResponse {
 
 export const getAllReviewList = async ({ seatingId, params }: AllReviewListRequest) => {
   const endpoint = API_ENDPOINTS.REVIEW_LIST_WITH_PARAMS(seatingId, params);
-  const { data } = await api.get<AllReviewListResponse>({
+  const { data } = await api.public.get<AllReviewListResponse>({
     endpoint,
     errorMessage: MESSAGES.ERROR.GET_ALL_REVIEW_LIST,
   });
