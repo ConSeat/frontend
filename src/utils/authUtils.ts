@@ -1,4 +1,5 @@
-let tokenCache: string | null = null;
+let tokenCache: { token: string; timestamp: number } | null = null;
+const TOKEN_TTL = 10 * 60 * 1000; // 10분 (ms 단위)
 
 export const getAccessToken = async (): Promise<string> => {
   if (typeof window === 'undefined') {
@@ -6,12 +7,21 @@ export const getAccessToken = async (): Promise<string> => {
     const session = await auth();
     return session?.accessToken ?? '';
   } else {
-    if (tokenCache) {
-      return tokenCache;
+    const now = Date.now();
+
+    if (tokenCache && now - tokenCache.timestamp < TOKEN_TTL) {
+      return tokenCache.token;
     }
+
     const { getSession } = await import('next-auth/react');
     const session = await getSession();
-    tokenCache = session?.accessToken ?? '';
-    return tokenCache;
+    const token = session?.accessToken ?? '';
+
+    tokenCache = {
+      token,
+      timestamp: now,
+    };
+
+    return token;
   }
 };
