@@ -1,12 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
-import { postLogin } from '@/apis/auth/auth.api';
+import { postLoginAndRefresh } from '@/apis/auth/auth.api';
 
 const useMutateAuth = () => {
-  const postLoginMutation = useMutation({
-    mutationFn: postLogin,
+  const postLoginAndRefreshMutation = useMutation({
+    mutationFn: postLoginAndRefresh,
   });
 
-  return { postLoginMutation };
+  return { postLoginAndRefreshMutation };
 };
 
 export default useMutateAuth;
