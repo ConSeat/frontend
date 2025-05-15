@@ -65,6 +65,8 @@ const fetchWithToken = async <T = unknown>(
   const message = response.headers.get('message');
   const data = await parseResponse(response);
 
+  console.log('endpoint', endpoint);
+
   if (!response.ok) {
     if (method === 'GET') {
       throw new ApiRequestError({

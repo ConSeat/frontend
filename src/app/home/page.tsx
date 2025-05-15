@@ -4,13 +4,17 @@ import SecondBackground from '@/components/Background/SecondBackground';
 import { stadiumQueries } from '@/apis/stadium/stadium.query';
 import { createPrefetchedQueryClient } from '@/utils/createPrefetchedQueryClient';
 
-export default async function HomePage() {
+const HomePage = async () => {
   const { dehydratedState } = await createPrefetchedQueryClient([stadiumQueries.list]);
 
   return (
-    <HydrationBoundary state={dehydratedState}>
+    <>
       <SecondBackground />
-      <HomeClient />
-    </HydrationBoundary>
+      <HydrationBoundary state={dehydratedState}>
+        <HomeClient />
+      </HydrationBoundary>
+    </>
   );
-}
+};
+
+export default HomePage;
