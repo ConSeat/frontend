@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
 
-interface SingleLayoutProps {
+interface AllLayoutProps {
   children: ReactNode;
   modal: ReactNode;
 }
 
-const SingleLayout = ({ children, modal }: SingleLayoutProps) => {
+const AllLayout = ({ children, modal }: AllLayoutProps) => {
   return (
     <>
       {children}
@@ -14,4 +14,4 @@ const SingleLayout = ({ children, modal }: SingleLayoutProps) => {
   );
 };
 
-export default SingleLayout;
+export default AllLayout;

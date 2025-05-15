@@ -34,7 +34,9 @@ const ResultReviewCard = ({ review, queryKey }: ResultReviewCardProps) => {
             key={src}
             imageSrc={src}
             onClick={() => {
-              router.push(`${window.location.href}/${review.reviewId}?pidx=${idx}`);
+              router.push(`${window.location.href}/${review.reviewId}?pidx=${idx}`, {
+                scroll: false,
+              });
             }}
           />
         ))}
