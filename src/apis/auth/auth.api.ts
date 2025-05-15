@@ -11,7 +11,7 @@ export const socialLogin = (socialType: SocialType) => {
 };
 
 export const postLogin = async () => {
-  const { headers } = await api.post({
+  const { headers } = await api.public.post({
     endpoint: API_ENDPOINTS.LOGIN,
     errorMessage: MESSAGES.ERROR.POST_LOGIN,
   });
@@ -26,7 +26,7 @@ export const postLogin = async () => {
 };
 
 export const postLogout = async () => {
-  await api.post({
+  await api.secure.post({
     endpoint: API_ENDPOINTS.LOGOUT,
     errorMessage: MESSAGES.ERROR.POST_LOGOUT,
   });
