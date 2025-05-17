@@ -9,12 +9,8 @@ import { getStadiumList } from '@/apis/stadium/stadium.api';
 import { stadiumQueries } from '@/apis/stadium/stadium.query';
 import { createPrefetchedQueryClient } from '@/utils/createPrefetchedQueryClient';
 
-type Props = {
-  params: { stadiumId: string; seatingId: string };
-};
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { stadiumId, seatingId } = params;
+export async function generateMetadata({ params }): Promise<Metadata> {
+  const { stadiumId, seatingId } = await params;
   const { data: stadiumList } = await getStadiumList();
   const seatInfo = await getSeatingReviews(Number(seatingId));
 

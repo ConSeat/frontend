@@ -6,7 +6,14 @@ import styles from './ShareArea.module.scss';
 import Image from 'next/image';
 import { useToast } from '@/providers/ToastProvider';
 
-const ShareArea = () => {
+interface ShareAreaProps {
+  title: string;
+  description: string;
+  imageUrl: string;
+  url: string;
+}
+
+const ShareArea = ({ title, description, imageUrl, url }: ShareAreaProps) => {
   const { activateToast } = useToast();
 
   const handleCopyLink = () => {
@@ -15,13 +22,35 @@ const ShareArea = () => {
   };
 
   const handleShareKakao = () => {
-    window.Kakao.Share.sendScrap({
-      requestUrl: window.location.href,
+    window.Kakao.Link.sendDefault({
+      objectType: 'feed',
+      content: {
+        title,
+        description,
+        imageUrl,
+        link: {
+          mobileWebUrl: url,
+          webUrl: url,
+        },
+      },
+      buttons: [
+        {
+          title: '자세히 보기',
+          link: {
+            mobileWebUrl: url,
+            webUrl: url,
+          },
+        },
+      ],
     });
   };
 
   const handleShareTwitter = () => {
-    window.open(`https://twitter.com/share?url=${window.location.href}`);
+    const text = encodeURIComponent(`${title}\n`);
+    window.open(
+      `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${text}`,
+      '_blank',
+    );
   };
 
   return (
