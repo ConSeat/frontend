@@ -21,6 +21,34 @@ const pretendard = localFont({
 export const metadata: Metadata = {
   title: 'CON:SEAT - See it before you Sit',
   description: '한눈에 확인하는 콘서트장 시야',
+  openGraph: {
+    type: 'website',
+    url: 'https://concertseat.site',
+    title: 'CON:SEAT - See it before you Sit',
+    description: '한눈에 확인하는 콘서트장 시야',
+    siteName: 'CON:SEAT',
+    locale: 'ko_KR',
+    images: [
+      {
+        url: '/og/main-og.svg',
+        width: 1200,
+        height: 630,
+        alt: 'CON:SEAT preview image',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'CON:SEAT - See it before you Sit',
+    description: '한눈에 확인하는 콘서트장 시야',
+    creator: '@con_see_at',
+    images: ['https://concertseat.site/og/main-og.svg'],
+  },
+  icons: {
+    icon: '/logo/main-mark.svg',
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>) => {

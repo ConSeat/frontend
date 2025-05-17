@@ -8,28 +8,42 @@ import Spacing from '@/components/Spacing/Spacing';
 import { getSeatingReviews } from '@/apis/review/seating.api';
 import { seatingReviewQueries } from '@/apis/review/seating.query';
 import { getStadiumList } from '@/apis/stadium/stadium.api';
-import type { StadiumInfo } from '@/types/stadium';
 import { createPrefetchedQueryClient } from '@/utils/createPrefetchedQueryClient';
 
 type Props = {
   params: { stadiumId: string; seatingId: string };
-  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { stadiumId, seatingId } = params;
-  const { data: stadiumData } = await getStadiumList();
-  const data = await getSeatingReviews(Number(seatingId));
+  const { data: stadiumList } = await getStadiumList();
+  const seatInfo = await getSeatingReviews(Number(seatingId));
 
-  const stadium = stadiumData.active?.find((s: StadiumInfo) => s.stadiumId === Number(stadiumId));
+  const stadium = stadiumList.active?.find((s) => s.stadiumId === Number(stadiumId));
+  const areaLabel = [
+    stadium?.stadiumName,
+    seatInfo.floorName,
+    seatInfo.sectionName,
+    seatInfo.seatingName,
+  ]
+    .filter(Boolean)
+    .join(' ');
 
-  const title =
-    `${stadium?.stadiumName}` +
-    `${data.floorName} ${data.sectionName}` +
-    (data.seatingName ? ` ${data.seatingName}` : '');
+  const title = `CON:SEAT - ${areaLabel} 시야`;
   const description = '구역별 콘서트 시야를 확인해보세요';
 
-  return { title, description };
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+    },
+    twitter: {
+      title,
+      description,
+    },
+  };
 }
 
 const ResultPage = async ({ params }) => {
