@@ -1,24 +1,43 @@
+'use client';
+
 import styles from './StadiumItem.module.scss';
 import classNames from 'classnames';
 import Image from 'next/image';
-import Link from 'next/link';
-import { MouseEventHandler } from 'react';
+import { useRouter } from 'next/navigation';
 import { useToast } from '@/providers/ToastProvider';
 
-interface StadiumItemProps {
+interface Props {
   stadiumName: string;
   backgroundImageSrc: string;
   isActive: boolean;
   href: string;
 }
 
-const StadiumItem = ({ stadiumName, isActive, backgroundImageSrc, href }: StadiumItemProps) => {
+export default function StadiumItem({ stadiumName, isActive, backgroundImageSrc, href }: Props) {
+  const router = useRouter();
   const { activateToast } = useToast();
 
-  const handleClickInactive: MouseEventHandler<HTMLAnchorElement> = (e) => {
+  const navigate = () => {
     if (!isActive) {
-      e.preventDefault();
       activateToast('아직 오픈되지 않은 공연장이에요', 'Info');
+      return;
+    }
+    router.push(href);
+  };
+
+  const handlePointerEnter: React.PointerEventHandler<HTMLDivElement> = () => {
+    if (isActive) {
+      router.prefetch(href);
+    }
+  };
+
+  const handleClick: React.MouseEventHandler<HTMLDivElement> = () => {
+    navigate();
+  };
+
+  const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
+    if (e.key === 'Enter') {
+      navigate();
     }
   };
 
@@ -28,19 +47,23 @@ const StadiumItem = ({ stadiumName, isActive, backgroundImageSrc, href }: Stadiu
         [styles.comingSoon]: !isActive,
       })}
     >
-      <Link href={href} className={styles.stadiumItem} onClick={handleClickInactive}>
+      <div
+        role="link"
+        tabIndex={0}
+        className={styles.stadiumItem}
+        onPointerEnter={handlePointerEnter}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+      >
         <Image
           src={backgroundImageSrc}
-          alt={stadiumName + '커버 사진'}
+          alt={`${stadiumName} 커버 사진`}
           fill
-          priority
           sizes="(max-width: 600px) 100vw, 300px"
           style={{ objectFit: 'cover' }}
         />
         <div className={styles.stadiumName}>{stadiumName}</div>
-      </Link>
+      </div>
     </li>
   );
-};
-
-export default StadiumItem;
+}
