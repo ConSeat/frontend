@@ -4,7 +4,7 @@ import ReviewThumbnail from '../ReviewThumnail';
 import SearchEndButton from '../SearchEndButton';
 import styles from './SingleResult.module.scss';
 import { useQueryClient } from '@tanstack/react-query';
-import { notFound, useRouter } from 'next/navigation';
+import { notFound, usePathname, useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useFetchSeating } from '@/hooks/queries/useFetchSeatingReview';
 import { useFetchStadiumList } from '@/hooks/queries/useFetchStadium';
@@ -18,6 +18,7 @@ import { memberKeys, reviewKeys } from '@/apis/common/queryKeys';
 
 const SingleResult = ({ stadiumId, seatingId }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const { data: stadiumList } = useFetchStadiumList();
   const { data: seatingInfo } = useFetchSeating(seatingId);
   const queryClient = useQueryClient();
@@ -85,7 +86,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
           title={`CON:SEAT - ${stadium?.stadiumName} ${areaLabel} 시야`}
           description={'구역별 콘서트 시야를 확인해보세요'}
           imageUrl={seatingInfo.reviews[0].images[0]}
-          url={window.location.href}
+          url={'https://concertseat.site' + pathname}
         />
 
         <Spacing size={100} />
