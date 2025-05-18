@@ -4,8 +4,6 @@ import SecondBackground from '@/components/Background/SecondBackground';
 import { stadiumQueries } from '@/apis/stadium/stadium.query';
 import { createPrefetchedQueryClient } from '@/utils/createPrefetchedQueryClient';
 
-export const revalidate = 60;
-
 const HomePage = async () => {
   const { dehydratedState } = await createPrefetchedQueryClient([stadiumQueries.list]);
 
