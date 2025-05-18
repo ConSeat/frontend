@@ -15,6 +15,7 @@ import ReviewCardList from '@/components/ReviewCardList';
 import ShareArea from '@/components/ShareArea';
 import Spacing from '@/components/Spacing/Spacing';
 import { memberKeys, reviewKeys } from '@/apis/common/queryKeys';
+import { PUBLIC_ENV } from '@/config/env';
 
 const SingleResult = ({ stadiumId, seatingId }) => {
   const router = useRouter();
@@ -86,7 +87,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
           title={`CON:SEAT - ${stadium?.stadiumName} ${areaLabel} 시야`}
           description={'구역별 콘서트 시야를 확인해보세요'}
           imageUrl={seatingInfo.reviews[0].images[0]}
-          url={'https://concertseat.site' + pathname}
+          url={PUBLIC_ENV.siteUrl + pathname}
         />
 
         <Spacing size={100} />

@@ -4,6 +4,7 @@ import localFont from 'next/font/local';
 import ErrorCapture from '@/components/ErrorCapture';
 import KakaoScript from '@/components/KakaoScript';
 import { auth } from '@/auth';
+import { PUBLIC_ENV } from '@/config/env';
 import { AuthProvider } from '@/providers/AuthProvider';
 import { ErrorProvider } from '@/providers/ErrorProvider';
 import { PopupProvider } from '@/providers/PopupProvider';
@@ -19,12 +20,12 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://concertseat.site'),
+  metadataBase: new URL(PUBLIC_ENV.siteUrl!),
   title: 'CON:SEAT - See it before you Sit',
   description: '한눈에 확인하는 콘서트장 시야',
   openGraph: {
     type: 'website',
-    url: 'https://concertseat.site',
+    url: PUBLIC_ENV.siteUrl,
     title: 'CON:SEAT - See it before you Sit',
     description: '한눈에 확인하는 콘서트장 시야',
     siteName: 'CON:SEAT',
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
     title: 'CON:SEAT - See it before you Sit',
     description: '한눈에 확인하는 콘서트장 시야',
     creator: '@con_see_at',
-    images: ['https://concertseat.site/og/main-og.svg'],
+    images: [PUBLIC_ENV.siteUrl + '/og/main-og.svg'],
   },
   icons: {
     icon: '/logo/main-mark.svg',
