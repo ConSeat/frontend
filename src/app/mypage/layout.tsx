@@ -1,5 +1,6 @@
 import styles from './MyPage.module.scss';
 import MyHeader from './_components/MyHeader/MyHeader';
+import ReviewContainer from './_components/ReviewContainer';
 import UserInfoContainer from './_components/UserInfoContainer';
 import { HydrationBoundary } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
@@ -26,7 +27,7 @@ const layout = async ({ panel }: MyPageLayoutProps) => {
         <MyHeader />
         <HydrationBoundary state={dehydratedState}>
           <UserInfoContainer />
-          {panel}
+          <ReviewContainer>{panel}</ReviewContainer>
         </HydrationBoundary>
       </div>
     </div>
