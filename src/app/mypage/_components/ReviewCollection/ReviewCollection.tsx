@@ -5,10 +5,9 @@ import FilterDropdown from '../FilterDropdown';
 import LoadingSpinner from '../LoadingSpinner';
 import styles from './ReviewCollection.module.scss';
 import { useQueryClient } from '@tanstack/react-query';
-import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound, useRouter } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { useState } from 'react';
 import useIntersectionObserver from '@/hooks/common/useIntersectionObserver';
 import useStateModal from '@/hooks/common/useStateModal';
@@ -17,7 +16,6 @@ import { type UseFetchMyReviewList } from '@/hooks/queries/useFetchMyReview';
 import ApiErrorBoundary from '@/components/ApiErrorBoundary';
 import Portal from '@/components/Portal/Portal';
 import { memberKeys, reviewKeys } from '@/apis/common/queryKeys';
-import { REVIEW_TAP, VIEW_TAP } from '@/constants/myPage';
 import { Stadiums } from '@/types/stadium';
 
 interface ReviewCollectionProps {
@@ -113,27 +111,12 @@ const NoneContent = ({ tabType }: { tabType: 'view' | 'review' }) => {
   );
 };
 
-const ReviewCollection = ({
-  reviewNumber,
-  viewNumber,
-  tabType,
-  stadiums,
-  useFetchReview,
-}: ReviewCollectionProps) => {
+const ReviewCollection = ({ tabType, stadiums, useFetchReview }: ReviewCollectionProps) => {
   const [filterValue, setFilterValue] = useState('');
   const [reviewId, setReviewId] = useState(0);
   const { isModalOpen, openModal, closeModal } = useStateModal();
 
-  const router = useRouter();
   const queryClient = useQueryClient();
-
-  const handleRouteView = () => {
-    router.push(`/mypage/view`);
-  };
-
-  const handleRouteReView = () => {
-    router.push(`/mypage/review`);
-  };
 
   const handleChangeFilter = (value: string) => {
     setFilterValue(value);
@@ -152,25 +135,7 @@ const ReviewCollection = ({
   };
 
   return (
-    <div className={styles.collectionContainer}>
-      <div className={styles.reviewTap}>
-        <div
-          className={classNames(styles.tap, {
-            [styles.active]: tabType === VIEW_TAP,
-          })}
-          onClick={handleRouteView}
-        >
-          관심시야 {viewNumber}
-        </div>
-        <div
-          className={classNames(styles.tap, {
-            [styles.active]: tabType === REVIEW_TAP,
-          })}
-          onClick={handleRouteReView}
-        >
-          내후기 {reviewNumber}
-        </div>
-      </div>
+    <>
       <div className={styles.reviewContainer}>
         {stadiums.length === 0 ? (
           <NoneContent tabType={tabType} />
@@ -205,11 +170,14 @@ const ReviewCollection = ({
             queryClient.invalidateQueries({
               queryKey: memberKeys.bookmarks(getCurrentStadiumId()),
             });
+            queryClient.invalidateQueries({
+              queryKey: memberKeys.all,
+            });
             closeModal();
           }}
         />
       </Portal>
-    </div>
+    </>
   );
 };
 

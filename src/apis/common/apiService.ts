@@ -9,6 +9,7 @@ interface ApiProps {
   headers?: Record<string, string>;
   body?: object | null;
   errorMessage?: string;
+  init?: RequestInit;
 }
 
 interface ApiResponse<T> {
@@ -33,6 +34,7 @@ const createRequestInit = (
   headers: Record<string, string>,
   body: object | FormData | null,
   accessToken?: string,
+  init?: RequestInit,
 ): RequestInit => {
   const isFormData = body instanceof FormData;
 
@@ -45,7 +47,7 @@ const createRequestInit = (
   const requestInit: RequestInit = {
     method,
     headers: resolvedHeaders,
-    credentials: 'include',
+    ...(init ?? {}),
   };
 
   if (body) {
@@ -85,9 +87,10 @@ export const apiService = (getAccessToken: () => Promise<string>) => {
     headers = {},
     body = null,
     errorMessage = '',
+    init,
   }: RequestProps): Promise<ApiResponse<T>> => {
     const token = await getAccessToken();
-    const requestInit = createRequestInit(method, headers, body, token);
+    const requestInit = createRequestInit(method, headers, body, token, init);
     return await fetchWithToken<T>(method, endpoint, requestInit, errorMessage);
   };
 

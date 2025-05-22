@@ -1,5 +1,6 @@
 import styles from './StadiumItem.module.scss';
 import classNames from 'classnames';
+import Image from 'next/image';
 import Link from 'next/link';
 import { MouseEventHandler } from 'react';
 import { useToast } from '@/providers/ToastProvider';
@@ -23,12 +24,24 @@ const StadiumItem = ({ stadiumName, isActive, backgroundImageSrc, href }: Stadiu
 
   return (
     <li
-      style={{ backgroundImage: `url('${backgroundImageSrc}')` }}
       className={classNames(styles.stadiumItemLayout, {
         [styles.comingSoon]: !isActive,
       })}
     >
-      <Link href={href} className={styles.stadiumItem} onClick={handleClickInactive}>
+      <Link
+        prefetch={isActive}
+        href={href}
+        className={styles.stadiumItem}
+        onClick={handleClickInactive}
+      >
+        <Image
+          src={backgroundImageSrc}
+          alt={stadiumName + '커버 사진'}
+          fill
+          priority
+          sizes="(max-width: 600px) 100vw, 300px"
+          style={{ objectFit: 'cover' }}
+        />
         <div className={styles.stadiumName}>{stadiumName}</div>
       </Link>
     </li>

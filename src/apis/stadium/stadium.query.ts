@@ -21,21 +21,26 @@ export const stadiumQueries = {
   seats: (stadiumId: number) => ({
     queryKey: stadiumKeys.seats(stadiumId),
     queryFn: () => getStadiumSeats(stadiumId),
+    staleTime: Infinity,
   }),
   features: {
     queryKey: stadiumKeys.features(),
     queryFn: getStadiumFeatures,
+    staleTime: Infinity,
   },
   obstructions: {
     queryKey: stadiumKeys.obstructions(),
     queryFn: getStadiumObstructions,
+    staleTime: Infinity,
   },
   sections: (stadiumId: number) => ({
     queryKey: stadiumKeys.sections(stadiumId),
     queryFn: () => getStadiumSections(stadiumId),
+    staleTime: Infinity,
   }),
   sectionSeating: (sectionId: number) => ({
     queryKey: stadiumKeys.sectionSeating(sectionId),
     queryFn: () => getSectionSeatings(sectionId),
+    staleTime: Infinity,
   }),
 };

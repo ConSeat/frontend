@@ -4,13 +4,20 @@ import Icon from '../Icon/Icon';
 import Spacing from '../Spacing/Spacing';
 import styles from './Modal.module.scss';
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
+import { type ReactNode, useEffect } from 'react';
 
 interface ModalMainProps {
   children: ReactNode;
 }
 
 const ModalMain = ({ children }: ModalMainProps) => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
   return children;
 };
 

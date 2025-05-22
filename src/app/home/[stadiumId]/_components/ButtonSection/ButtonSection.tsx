@@ -16,12 +16,15 @@ const ButtonSection = ({ stadiumId, viewType }: ButtonSectionProps) => {
   const router = useRouter();
   const { checkAndExecute } = useAuth();
 
+  const prevHref = '/home';
+  const nextHref = viewType ? `/home/${stadiumId}/${viewType}` : '';
+
   const handleClickPrevButton = () => {
-    router.push('/home');
+    router.push(prevHref);
   };
 
   const handleClickNextButton = () => {
-    router.push(`/home/${stadiumId}/${viewType}`);
+    router.push(nextHref);
   };
 
   const handleClickReview = () => {
@@ -38,6 +41,9 @@ const ButtonSection = ({ stadiumId, viewType }: ButtonSectionProps) => {
         variant={viewType ? 'primary' : 'inactive'}
         disabled={!viewType}
         onClick={viewType === 'review' ? handleClickReview : handleClickNextButton}
+        onPointerEnter={() => viewType && router.prefetch(nextHref)}
+        onTouchStart={() => viewType && router.prefetch(nextHref)}
+        onFocus={() => viewType && router.prefetch(nextHref)}
       >
         다음
       </Button>

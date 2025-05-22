@@ -1,5 +1,9 @@
 import { apiService } from './apiService';
 import { getAccessToken } from '@/utils/authUtils';
 
-const api = apiService(getAccessToken);
+export const api = {
+  secure: apiService(getAccessToken),
+  public: apiService(async () => ''),
+};
+
 export default api;

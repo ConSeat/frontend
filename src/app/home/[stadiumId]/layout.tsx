@@ -2,6 +2,7 @@ import ClientHeaderWrapper from './_components/ClientHeaderWrapper/ClientHeaderW
 import styles from './page.module.scss';
 import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
+import { API_ENDPOINTS } from '@/apis/common/endpoints';
 import { getStadiumList } from '@/apis/stadium/stadium.api';
 import { PUBLIC_ENV } from '@/config/env';
 import type { StadiumInfo } from '@/types/stadium';
@@ -12,7 +13,7 @@ interface StadiumLayoutProps {
 }
 
 export async function generateStaticParams() {
-  const res = await fetch(`${PUBLIC_ENV.baseUrl}/stadiums`);
+  const res = await fetch(PUBLIC_ENV.baseUrl + API_ENDPOINTS.STADIUMS);
   const { body } = await res.json();
   const { active } = body;
 

@@ -8,10 +8,10 @@ import PageLoading from '@/components/PageLoading';
 
 const OAuthCallbackPage = () => {
   const router = useRouter();
-  const { postLoginMutation } = useMutateAuth();
+  const { postLoginAndRefreshMutation } = useMutateAuth();
 
   useEffect(() => {
-    postLoginMutation.mutate(undefined, {
+    postLoginAndRefreshMutation.mutate(undefined, {
       onSuccess: async (data) => {
         const returnUrl = sessionStorage.getItem('returnUrl') || '/home';
 

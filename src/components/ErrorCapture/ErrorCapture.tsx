@@ -11,6 +11,9 @@ const ErrorCapture = () => {
   useEffect(() => {
     if (!error) return;
 
+    const isSplashPage = window.location.pathname === '/splash';
+    if (isSplashPage) return;
+
     activateToast(error.message, 'Warning');
   }, [error]);
 

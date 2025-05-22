@@ -52,7 +52,7 @@ const AllReviewContent = ({
     const cleanup = () => {
       const memberKey = memberKeys.bookmarks(stadiumId);
 
-      queryClient.invalidateQueries({ queryKey });
+      queryClient.removeQueries({ queryKey });
       queryClient.removeQueries({ queryKey: memberKey });
     };
     return cleanup;
