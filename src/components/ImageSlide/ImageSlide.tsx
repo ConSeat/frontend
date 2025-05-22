@@ -3,6 +3,7 @@
 import Button from '../Button/Button';
 import Icon from '../Icon/Icon';
 import styles from './ImageSlide.module.scss';
+import Image from 'next/image';
 import useSwipe from '@/hooks/common/useSwipe';
 
 interface NavigationButtonsProps {
@@ -10,19 +11,16 @@ interface NavigationButtonsProps {
   onPrev: () => void;
 }
 
-const NavigationButtons = ({ onPrev, onNext }: NavigationButtonsProps) => {
-  return (
-    <>
-      <Button className={styles.prev} onClick={onPrev}>
-        <Icon icon="PrevArrow" />
-      </Button>
-
-      <Button className={styles.next} onClick={onNext}>
-        <Icon icon="NextArrow" />
-      </Button>
-    </>
-  );
-};
+const NavigationButtons = ({ onPrev, onNext }: NavigationButtonsProps) => (
+  <>
+    <Button className={styles.prev} onClick={onPrev} aria-label="이전 슬라이드">
+      <Icon icon="PrevArrow" />
+    </Button>
+    <Button className={styles.next} onClick={onNext} aria-label="다음 슬라이드">
+      <Icon icon="NextArrow" />
+    </Button>
+  </>
+);
 
 interface ImageSlideProps {
   imageSrcArray: string[];
@@ -32,9 +30,15 @@ interface ImageSlideProps {
   onPrev: () => void;
 }
 
-const ImageSlide = ({ currentIndex, imageSrcArray, height, onPrev, onNext }: ImageSlideProps) => {
-  const { handleTouchEnd, handleTouchMove, handleTouchStart } = useSwipe(onNext, onPrev);
-  const totalLength = imageSrcArray.length;
+export default function ImageSlide({
+  imageSrcArray,
+  currentIndex,
+  height,
+  onPrev,
+  onNext,
+}: ImageSlideProps) {
+  const { handleTouchStart, handleTouchMove, handleTouchEnd } = useSwipe(onNext, onPrev);
+  const total = imageSrcArray.length;
 
   return (
     <div
@@ -45,27 +49,29 @@ const ImageSlide = ({ currentIndex, imageSrcArray, height, onPrev, onNext }: Ima
     >
       <div
         style={{
-          width: `${100 * totalLength}%`,
-          height: `${height}px`,
-          transform: `translateX(-${(100 / totalLength) * currentIndex}%)`,
-          transition: `transform 0.5s`,
+          display: 'flex',
+          width: `${100 * total}%`,
+          transform: `translateX(-${(100 / total) * currentIndex}%)`,
+          transition: 'transform 0.5s',
         }}
       >
-        {imageSrcArray.map((src, index) => {
-          return (
-            <img
-              key={index}
+        {imageSrcArray.map((src, idx) => (
+          <div
+            key={idx}
+            className={styles.slideItem}
+            style={{ flex: `0 0 ${100 / total}%`, height: `${height}px` }}
+          >
+            <Image
               src={src}
-              width={`${100 / totalLength}%`}
-              height={height}
+              alt={`slide-${idx}`}
+              fill
               style={{ objectFit: 'cover' }}
+              priority={idx === 0}
             />
-          );
-        })}
+          </div>
+        ))}
       </div>
       <NavigationButtons onPrev={onPrev} onNext={onNext} />
     </div>
   );
-};
-
-export default ImageSlide;
+}

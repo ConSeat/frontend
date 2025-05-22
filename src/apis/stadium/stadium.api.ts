@@ -21,6 +21,7 @@ export const getStadiumList = async () => {
   const { data } = await api.public.get<StadiumListResponse>({
     endpoint: API_ENDPOINTS.STADIUMS,
     errorMessage: MESSAGES.ERROR.GET_STADIUMS,
+    init: { next: { revalidate: 60 } },
   });
   return { data: data.body };
 };

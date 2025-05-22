@@ -10,8 +10,6 @@ const MypageLink = () => {
   const { data: session, status } = useSession();
   const isLogin = status === 'authenticated' && !!session?.user;
 
-  console.log('MypageLink', isLogin); // TODO: 확인 후 제거
-
   const handleClickLink: MouseEventHandler = () => {
     if (!isLogin) {
       sessionStorage.setItem('returnUrl', window.location.href);

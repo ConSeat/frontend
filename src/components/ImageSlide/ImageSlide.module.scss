@@ -7,6 +7,10 @@
   background-color: $sub-black;
 }
 
+.slideItem {
+  position: relative; // Image fill을 위한 필수 설정
+}
+
 @mixin nav-button {
   position: absolute;
   top: 50%;
