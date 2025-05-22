@@ -16,17 +16,9 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   const seatInfo = await getSeatingReviews(Number(seatingId));
 
   const stadium = stadiumList.active?.find((s) => s.stadiumId === Number(stadiumId));
-  const areaLabel = [
-    stadium?.stadiumName,
-    seatInfo.floorName,
-    seatInfo.sectionName,
-    seatInfo.seatingName,
-  ]
-    .filter(Boolean)
-    .join(' ');
 
-  const title = `CON:SEAT - ${areaLabel} 시야`;
-  const description = '구역별 콘서트 시야를 확인해보세요';
+  const title = `[${stadium?.stadiumName}] ${seatInfo.floorName} ${seatInfo.sectionName}${seatInfo.seatingName ? ' ' + seatInfo.seatingName : ''} 시야`;
+  const description = 'CON:SEAT에서 구역별 시야를 확인해보세요';
 
   return {
     title,
