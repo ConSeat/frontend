@@ -7,21 +7,24 @@ import React from 'react';
 import Splitter from '@/components/Splitter/Splitter';
 import { getStadiumList } from '@/apis/stadium/stadium.api';
 import { stadiumQueries } from '@/apis/stadium/stadium.query';
+import { META } from '@/constants/metadata';
 import { createPrefetchedQueryClient } from '@/utils/createPrefetchedQueryClient';
 import { getMetadata } from '@/utils/getMetadata';
 
 export async function generateMetadata({ params }): Promise<Metadata> {
-  const { stadiumId } = await params;
+  const { stadiumId, seatingId } = await params;
   const { data: stadiumList } = await getStadiumList();
   const stadium = stadiumList.active?.find((s) => s.stadiumId === Number(stadiumId));
   if (!stadium) notFound();
 
   const title = `전체 후기 - [${stadium.stadiumName}]`;
   const description = 'CON:SEAT에서 구역별 시야를 확인해보세요';
+  const asPath = `${META.url}/home/${stadiumId}/${seatingId}/all`;
 
   return getMetadata({
     title,
     description,
+    asPath,
   });
 }
 

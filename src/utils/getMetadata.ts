@@ -4,7 +4,7 @@ import { META } from '@/constants/metadata';
 interface GenerateMetadataProps {
   title?: string;
   description?: string;
-  asPath?: string;
+  asPath?: string; // 동적 메타데이터 생성 시 필수 입력
   ogImage?: string;
 }
 
