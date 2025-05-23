@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     locale: 'ko_KR',
     images: [
       {
-        url: '/og/main-og.svg',
+        url: `${PUBLIC_ENV.siteUrl}/og/main-og.png`,
         width: 1200,
         height: 630,
         alt: 'CON:SEAT preview image',
@@ -44,13 +44,19 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'CON:SEAT - See it before you Sit',
     description: '한눈에 확인하는 콘서트장 시야',
+    site: '@con_see_at',
     creator: '@con_see_at',
-    images: [PUBLIC_ENV.siteUrl + '/og/main-og.svg'],
+    images: [`${PUBLIC_ENV.siteUrl}/og/main-og.png`],
   },
   icons: {
     icon: '/logo/main-mark.svg',
     shortcut: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    apple: 'logo/apple-touch-icon.png',
+  },
+  appleWebApp: {
+    capable: true,
+    title: 'CON:SEAT',
+    statusBarStyle: 'default',
   },
 };
 
