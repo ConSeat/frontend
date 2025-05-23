@@ -11,7 +11,7 @@ import { createPrefetchedQueryClient } from '@/utils/createPrefetchedQueryClient
 import { getMetadata } from '@/utils/getMetadata';
 
 export async function generateMetadata({ params }): Promise<Metadata> {
-  const { stadiumId } = params;
+  const { stadiumId } = await params;
   const { data: stadiumList } = await getStadiumList();
   const stadium = stadiumList.active?.find((s) => s.stadiumId === Number(stadiumId));
   if (!stadium) notFound();

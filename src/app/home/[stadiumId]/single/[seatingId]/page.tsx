@@ -12,7 +12,7 @@ import { createPrefetchedQueryClient } from '@/utils/createPrefetchedQueryClient
 import { getMetadata } from '@/utils/getMetadata';
 
 export async function generateMetadata({ params }): Promise<Metadata> {
-  const { stadiumId, seatingId } = params;
+  const { stadiumId, seatingId } = await params;
 
   const { data: stadiumList } = await getStadiumList();
   const seatInfo = await getSeatingReviews(Number(seatingId));
