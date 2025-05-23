@@ -2,36 +2,27 @@ import AllReviewContainer from './_components/AllReviewContainer/AllReviewContai
 import AllReviewHeader from './_components/AllReviewHeader/AllReviewHeader';
 import { HydrationBoundary } from '@tanstack/react-query';
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import React from 'react';
 import Splitter from '@/components/Splitter/Splitter';
 import { getStadiumList } from '@/apis/stadium/stadium.api';
 import { stadiumQueries } from '@/apis/stadium/stadium.query';
-import { metadata } from '@/app/layout';
 import { createPrefetchedQueryClient } from '@/utils/createPrefetchedQueryClient';
+import { getMetadata } from '@/utils/getMetadata';
 
 export async function generateMetadata({ params }): Promise<Metadata> {
-  const { stadiumId } = await params;
+  const { stadiumId } = params;
   const { data: stadiumList } = await getStadiumList();
-
   const stadium = stadiumList.active?.find((s) => s.stadiumId === Number(stadiumId));
+  if (!stadium) notFound();
 
-  const title = `전체 후기 - [${stadium?.stadiumName}]`;
+  const title = `전체 후기 - [${stadium.stadiumName}]`;
   const description = 'CON:SEAT에서 구역별 시야를 확인해보세요';
 
-  return {
+  return getMetadata({
     title,
     description,
-    openGraph: {
-      ...metadata.openGraph,
-      title,
-      description,
-    },
-    twitter: {
-      ...metadata.twitter,
-      title,
-      description,
-    },
-  };
+  });
 }
 
 const AllReviewPage = async ({ params }) => {
