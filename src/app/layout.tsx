@@ -21,7 +21,7 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(PUBLIC_ENV.siteUrl!),
+  metadataBase: PUBLIC_ENV.siteUrl ? new URL(PUBLIC_ENV.siteUrl) : undefined,
   title: 'CON:SEAT - See it before you Sit',
   description: '한눈에 확인하는 콘서트장 시야',
   openGraph: {

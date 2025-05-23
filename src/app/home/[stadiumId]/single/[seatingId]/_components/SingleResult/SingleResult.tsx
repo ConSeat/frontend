@@ -84,8 +84,8 @@ const SingleResult = ({ stadiumId, seatingId }) => {
         <Spacing size={36} />
 
         <ShareArea
-          title={`CON:SEAT - ${stadium?.stadiumName} ${areaLabel} 시야`}
-          description={'구역별 콘서트 시야를 확인해보세요'}
+          title={`[${stadium?.stadiumName}] ${seatingInfo.floorName} ${seatingInfo.sectionName}${seatingInfo.seatingName ? ' ' + seatingInfo.seatingName : ''} 시야`}
+          description="CON:SEAT에서 구역별 시야를 확인해보세요"
           imageUrl={seatingInfo.reviews[0].images[0]}
           url={PUBLIC_ENV.siteUrl + pathname}
         />

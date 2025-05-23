@@ -46,7 +46,7 @@ const ShareArea = ({ title, description, imageUrl, url }: ShareAreaProps) => {
   };
 
   const handleShareTwitter = () => {
-    const text = encodeURIComponent(`${title}\n`);
+    const text = encodeURIComponent(`${title}\n${description}\n`);
     window.open(
       `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${text}`,
       '_blank',
