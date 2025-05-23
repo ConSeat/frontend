@@ -17,7 +17,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   const stadium = stadiumList.active?.find((s) => s.stadiumId === Number(stadiumId));
   if (!stadium) notFound();
 
-  const title = `전체 후기 - [${stadium.stadiumName}]`;
+  const title = `전체 후기 | [${stadium.stadiumName}]`;
   const description = 'CON:SEAT에서 구역별 시야를 확인해보세요';
   const asPath = `${META.url}/home/${stadiumId}/${seatingId}/all`;
 
