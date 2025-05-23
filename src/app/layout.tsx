@@ -4,13 +4,13 @@ import localFont from 'next/font/local';
 import ErrorCapture from '@/components/ErrorCapture';
 import KakaoScript from '@/components/KakaoScript';
 import { auth } from '@/auth';
-import { PUBLIC_ENV } from '@/config/env';
 import { AuthProvider } from '@/providers/AuthProvider';
 import { ErrorProvider } from '@/providers/ErrorProvider';
 import { PopupProvider } from '@/providers/PopupProvider';
 import QueryProvider from '@/providers/QueryProvider';
 import { ToastProvider } from '@/providers/ToastProvider';
 import '@/styles/global.scss';
+import { getMetadata } from '@/utils/getMetadata';
 
 const pretendard = localFont({
   src: '../assets/fonts/PretendardVariable.woff2',
@@ -20,45 +20,7 @@ const pretendard = localFont({
   preload: true,
 });
 
-export const metadata: Metadata = {
-  metadataBase: PUBLIC_ENV.siteUrl ? new URL(PUBLIC_ENV.siteUrl) : undefined,
-  title: 'CON:SEAT - See it before you Sit',
-  description: '한눈에 확인하는 콘서트장 시야',
-  openGraph: {
-    type: 'website',
-    url: PUBLIC_ENV.siteUrl,
-    title: 'CON:SEAT - See it before you Sit',
-    description: '한눈에 확인하는 콘서트장 시야',
-    siteName: 'CON:SEAT',
-    locale: 'ko_KR',
-    images: [
-      {
-        url: `${PUBLIC_ENV.siteUrl}/og/main-og.png`,
-        width: 1200,
-        height: 630,
-        alt: 'CON:SEAT preview image',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'CON:SEAT - See it before you Sit',
-    description: '한눈에 확인하는 콘서트장 시야',
-    site: '@con_see_at',
-    creator: '@con_see_at',
-    images: [`${PUBLIC_ENV.siteUrl}/og/main-og.png`],
-  },
-  icons: {
-    icon: '/logo/main-mark.svg',
-    shortcut: '/favicon.ico',
-    apple: 'logo/apple-touch-icon.png',
-  },
-  appleWebApp: {
-    capable: true,
-    title: 'CON:SEAT',
-    statusBarStyle: 'default',
-  },
-};
+export const metadata: Metadata = getMetadata();
 
 const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const session = await auth();

@@ -8,6 +8,7 @@ import Spacing from '@/components/Spacing/Spacing';
 import { getSeatingReviews } from '@/apis/review/seating.api';
 import { seatingReviewQueries } from '@/apis/review/seating.query';
 import { getStadiumList } from '@/apis/stadium/stadium.api';
+import { metadata } from '@/app/layout';
 import { createPrefetchedQueryClient } from '@/utils/createPrefetchedQueryClient';
 
 export async function generateMetadata({ params }): Promise<Metadata> {
@@ -24,10 +25,13 @@ export async function generateMetadata({ params }): Promise<Metadata> {
     title,
     description,
     openGraph: {
+      ...metadata.openGraph,
+
       title,
       description,
     },
     twitter: {
+      ...metadata.twitter,
       title,
       description,
     },

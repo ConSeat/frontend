@@ -15,7 +15,7 @@ import ReviewCardList from '@/components/ReviewCardList';
 import ShareArea from '@/components/ShareArea';
 import Spacing from '@/components/Spacing/Spacing';
 import { memberKeys, reviewKeys } from '@/apis/common/queryKeys';
-import { PUBLIC_ENV } from '@/config/env';
+import { META } from '@/constants/metadata';
 
 const SingleResult = ({ stadiumId, seatingId }) => {
   const router = useRouter();
@@ -87,7 +87,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
           title={`[${stadium?.stadiumName}] ${seatingInfo.floorName} ${seatingInfo.sectionName}${seatingInfo.seatingName ? ' ' + seatingInfo.seatingName : ''} 시야`}
           description="CON:SEAT에서 구역별 시야를 확인해보세요"
           imageUrl={seatingInfo.reviews[0].images[0]}
-          url={PUBLIC_ENV.siteUrl + pathname}
+          url={META.url + pathname}
         />
 
         <Spacing size={100} />
