@@ -22,7 +22,7 @@ const ShareArea = ({ title, description, imageUrl, url }: ShareAreaProps) => {
   };
 
   const handleShareKakao = () => {
-    window.Kakao.Link.sendDefault({
+    window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
         title,
