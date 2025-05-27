@@ -14,9 +14,11 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   if (!stadium) notFound();
 
   const title = `${stadium.stadiumName} | 구역 선택 `;
+  const asPath = `/home/${stadiumId}/single`;
 
   return getMetadata({
     title,
+    asPath,
   });
 }
 

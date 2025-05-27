@@ -8,7 +8,6 @@ import Spacing from '@/components/Spacing/Spacing';
 import { getSeatingReviews } from '@/apis/review/seating.api';
 import { seatingReviewQueries } from '@/apis/review/seating.query';
 import { getStadiumList } from '@/apis/stadium/stadium.api';
-import { META } from '@/constants/metadata';
 import { createPrefetchedQueryClient } from '@/utils/createPrefetchedQueryClient';
 import { getMetadata } from '@/utils/getMetadata';
 import { findStadiumById } from '@/utils/stadium';
@@ -26,7 +25,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
     seatInfo.seatingName ? ` ${seatInfo.seatingName}` : ''
   }`;
   const description = 'CON:SEAT에서 구역별 시야를 확인해보세요';
-  const asPath = `${META.url}/home/${stadiumId}/single/${seatingId}`;
+  const asPath = `/home/${stadiumId}/single/${seatingId}`;
   const ogImage = seatInfo.reviews?.[0]?.images?.[0];
 
   return getMetadata({

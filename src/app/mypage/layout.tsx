@@ -14,9 +14,11 @@ import { getMetadata } from '@/utils/getMetadata';
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = `${META.shortName} - 마이 페이지`;
+  const asPath = `/mypage`;
 
   return getMetadata({
     title,
+    asPath,
   });
 }
 

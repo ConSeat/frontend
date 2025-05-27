@@ -17,9 +17,11 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   if (!stadium) notFound();
 
   const title = `${stadium.stadiumName} | 시야 정보 선택`;
+  const asPath = `/home/${stadiumId}`;
 
   return getMetadata({
     title,
+    asPath,
   });
 }
 
