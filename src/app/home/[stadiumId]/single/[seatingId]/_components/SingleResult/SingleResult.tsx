@@ -16,6 +16,7 @@ import ShareArea from '@/components/ShareArea';
 import Spacing from '@/components/Spacing/Spacing';
 import { memberKeys, reviewKeys } from '@/apis/common/queryKeys';
 import { META } from '@/constants/metadata';
+import { findStadiumById } from '@/utils/stadium';
 
 const SingleResult = ({ stadiumId, seatingId }) => {
   const router = useRouter();
@@ -28,7 +29,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
     notFound();
   }
 
-  const stadium = stadiumList?.data.active.find((s) => s.stadiumId === Number(stadiumId));
+  const stadium = findStadiumById(stadiumList?.data.active, Number(stadiumId));
   const areaLabel = [seatingInfo.floorName, seatingInfo.sectionName, seatingInfo.seatingName]
     .filter(Boolean)
     .join(' ');

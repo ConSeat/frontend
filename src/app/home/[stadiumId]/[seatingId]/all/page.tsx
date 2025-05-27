@@ -10,11 +10,12 @@ import { stadiumQueries } from '@/apis/stadium/stadium.query';
 import { META } from '@/constants/metadata';
 import { createPrefetchedQueryClient } from '@/utils/createPrefetchedQueryClient';
 import { getMetadata } from '@/utils/getMetadata';
+import { findStadiumById } from '@/utils/stadium';
 
 export async function generateMetadata({ params }): Promise<Metadata> {
   const { stadiumId, seatingId } = await params;
   const { data: stadiumList } = await getStadiumList();
-  const stadium = stadiumList.active?.find((s) => s.stadiumId === Number(stadiumId));
+  const stadium = findStadiumById(stadiumList.active, Number(stadiumId));
   if (!stadium) notFound();
 
   const title = `전체 후기 | [${stadium.stadiumName}]`;
