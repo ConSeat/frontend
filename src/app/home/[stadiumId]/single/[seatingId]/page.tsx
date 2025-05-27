@@ -22,12 +22,12 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 
   if (!stadium) notFound();
 
-  const title = `[${stadium.stadiumName}] ${seatInfo.floorName} ${seatInfo.sectionName}${
+  const title = `${stadium.stadiumName} | ${seatInfo.floorName} ${seatInfo.sectionName}${
     seatInfo.seatingName ? ` ${seatInfo.seatingName}` : ''
-  } 시야`;
+  }`;
   const description = 'CON:SEAT에서 구역별 시야를 확인해보세요';
   const asPath = `${META.url}/home/${stadiumId}/single/${seatingId}`;
-  const ogImage = seatInfo.reviews?.[0]?.images?.[0] || undefined;
+  const ogImage = seatInfo.reviews?.[0]?.images?.[0];
 
   return getMetadata({
     title,
