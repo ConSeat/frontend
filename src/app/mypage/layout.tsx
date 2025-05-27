@@ -3,11 +3,24 @@ import MyHeader from './_components/MyHeader/MyHeader';
 import ReviewContainer from './_components/ReviewContainer';
 import UserInfoContainer from './_components/UserInfoContainer';
 import { HydrationBoundary } from '@tanstack/react-query';
+import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import ThirdBackground from '@/components/Background/ThirdBackground';
 import { memberQueries } from '@/apis/members/member.query';
 import { reviewQueries } from '@/apis/review/review.query';
+import { META } from '@/constants/metadata';
 import { createPrefetchedQueryClient } from '@/utils/createPrefetchedQueryClient';
+import { getMetadata } from '@/utils/getMetadata';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const title = `${META.shortName} - 마이 페이지`;
+  const asPath = `/mypage`;
+
+  return getMetadata({
+    title,
+    asPath,
+  });
+}
 
 interface MyPageLayoutProps {
   panel: ReactNode;

@@ -11,13 +11,15 @@ interface GenerateMetadataProps {
 export const getMetadata = (metadataProps?: GenerateMetadataProps) => {
   const { title, description, asPath, ogImage } = metadataProps || {};
 
+  const metadataBase = new URL(META.url);
+
   const TITLE = title ? title : META.title;
   const DESCRIPTION = description || META.description;
-  const PAGE_URL = asPath ? asPath : META.url;
+  const PAGE_URL = asPath ? new URL(asPath, metadataBase).toString() : metadataBase.toString();
   const OG_IMAGE = ogImage || META.ogImage;
 
   const metadata: Metadata = {
-    metadataBase: new URL(META.url),
+    metadataBase,
     alternates: {
       canonical: PAGE_URL,
     },
@@ -44,7 +46,7 @@ export const getMetadata = (metadataProps?: GenerateMetadataProps) => {
       google: META.googleVerification,
     },
     twitter: {
-      card: 'summary_large_image',
+      card: 'summary',
       site: META.twitterSite,
       creator: META.twitterCreator,
       title: TITLE,
