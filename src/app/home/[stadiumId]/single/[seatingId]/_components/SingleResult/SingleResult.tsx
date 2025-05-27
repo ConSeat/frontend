@@ -85,7 +85,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
         <Spacing size={36} />
 
         <ShareArea
-          title={`[${stadium?.stadiumName}] ${seatingInfo.floorName} ${seatingInfo.sectionName}${seatingInfo.seatingName ? ' ' + seatingInfo.seatingName : ''} 시야`}
+          title={`${stadium?.stadiumName} | ${seatingInfo.floorName} ${seatingInfo.sectionName}${seatingInfo.seatingName ? ' ' + seatingInfo.seatingName : ''}`}
           description="CON:SEAT에서 구역별 시야를 확인해보세요"
           imageUrl={seatingInfo.reviews[0].images[0]}
           url={META.url + pathname}
