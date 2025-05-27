@@ -116,6 +116,10 @@ section {
   display: block;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   overflow: hidden auto;
 
