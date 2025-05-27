@@ -46,7 +46,7 @@ export const getMetadata = (metadataProps?: GenerateMetadataProps) => {
       google: META.googleVerification,
     },
     twitter: {
-      card: 'summary_large_image',
+      card: 'summary',
       site: META.twitterSite,
       creator: META.twitterCreator,
       title: TITLE,
