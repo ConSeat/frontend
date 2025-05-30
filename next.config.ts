@@ -1,6 +1,16 @@
 import type { NextConfig } from 'next';
+import { withPWA } from 'next-pwa';
 import path from 'path';
 
+const isProd = process.env.NODE_ENV === 'production'; // 배포 버전에만 PWA 활성화
+
+const pwaConfig = withPWA({
+  dest: 'public',
+  disable: !isProd,
+  runtimeCaching: [],
+});
+
+/** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   sassOptions: {
@@ -25,4 +35,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default pwaConfig(nextConfig);
