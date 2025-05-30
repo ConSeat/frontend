@@ -1,14 +1,6 @@
 import type { NextConfig } from 'next';
-import { withPWA } from 'next-pwa';
+import nextPwa from 'next-pwa';
 import path from 'path';
-
-const isProd = process.env.NODE_ENV === 'production'; // 배포 버전에만 PWA 활성화
-
-const pwaConfig = withPWA({
-  dest: 'public',
-  disable: !isProd,
-  runtimeCaching: [],
-});
 
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
@@ -35,4 +27,16 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default pwaConfig(nextConfig);
+const withPWA = nextPwa({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  // disable: process.env.NODE_ENV === 'development',
+  runtimeCaching: [],
+});
+
+const config = withPWA({
+  ...nextConfig,
+});
+
+export default config;
