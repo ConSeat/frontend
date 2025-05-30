@@ -1,7 +1,17 @@
-import type { NextConfig } from 'next';
+import withPWA from 'next-pwa';
+import runtimeCaching from 'next-pwa/cache';
 import path from 'path';
 
-const nextConfig: NextConfig = {
+const isProd = process.env.NODE_ENV === 'production'; // 배포 버전에만 PWA 활성화
+
+const pwaConfig = withPWA({
+  dest: 'public',
+  disable: !isProd,
+  runtimeCaching,
+});
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'src', 'styles')],
@@ -15,9 +25,7 @@ const nextConfig: NextConfig = {
       use: [
         {
           loader: '@svgr/webpack',
-          options: {
-            svgo: false,
-          },
+          options: { svgo: false },
         },
       ],
     });
@@ -25,4 +33,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default pwaConfig(nextConfig);

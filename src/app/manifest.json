@@ -1,0 +1,27 @@
+{
+  "theme_color": "#1b1c1e",
+  "background_color": "#1b1c1e",
+  "icons": [
+    {
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "/logo/icon512_maskable.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "/logo/icon512_rounded.png",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "any",
+  "display": "standalone",
+  "dir": "auto",
+  "lang": "ko-KR",
+  "name": "CON:SEAT - See it before you Sit",
+  "short_name": "CON:SEAT",
+  "start_url": "/?app=pwa",
+  "scope": "/",
+  "description": "한눈에 보는 콘서트장 시야 정보 – KSPO DOME 공연장의 실제 후기와 커버 사진을 제공합니다."
+}
