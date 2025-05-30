@@ -21,8 +21,7 @@
   "lang": "ko-KR",
   "name": "CON:SEAT - See it before you Sit",
   "short_name": "CON:SEAT",
-  "start_url": "https://concertseat.site",
-  "scope": "https://concertseat.site",
-  "description": "한눈에 보는 콘서트장 시야 정보 – KSPO DOME 공연장의 실제 후기와 커버 사진을 제공합니다.",
-  "id": "https://concertseat.site"
+  "start_url": "/?app=pwa",
+  "scope": "/",
+  "description": "한눈에 보는 콘서트장 시야 정보 – KSPO DOME 공연장의 실제 후기와 커버 사진을 제공합니다."
 }
