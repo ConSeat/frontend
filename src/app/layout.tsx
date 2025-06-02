@@ -1,5 +1,5 @@
 import styles from './page.module.scss';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import ErrorCapture from '@/components/ErrorCapture';
 import KakaoScript from '@/components/KakaoScript';
@@ -21,6 +21,10 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = getMetadata();
+
+export const viewport: Viewport = {
+  themeColor: '#1b1c1e',
+};
 
 const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const session = await auth();
