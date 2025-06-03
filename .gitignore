@@ -41,9 +41,9 @@ yarn-error.log*
 next-env.d.ts
 
 # metadata
-robots.txt
-sitemap*.xml
+/public/robots.txt
+/public/sitemap*.xml
 
 # pwa
-sw.js
-workbox-*.js
+/public/sw.js
+/public/workbox-*.js
