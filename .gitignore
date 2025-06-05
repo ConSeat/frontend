@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# metadata
+/public/robots.txt
+/public/sitemap*.xml
+
+# pwa
+/public/sw.js
+/public/workbox-*.js

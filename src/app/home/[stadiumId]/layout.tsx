@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 import { API_ENDPOINTS } from '@/apis/common/endpoints';
 import { getStadiumList } from '@/apis/stadium/stadium.api';
 import { PUBLIC_ENV } from '@/config/env';
-import type { StadiumInfo } from '@/types/stadium';
+import { findStadiumById } from '@/utils/stadium';
 
 interface StadiumLayoutProps {
   children: ReactNode;
@@ -28,7 +28,7 @@ const StadiumLayout = async ({ children, params }: StadiumLayoutProps) => {
   const stadiumId = Number((await params).stadiumId);
   const { data } = await getStadiumList();
 
-  const activeStadium = data.active?.find((s: StadiumInfo) => s.stadiumId === stadiumId);
+  const activeStadium = findStadiumById(data.active, stadiumId);
 
   if (!activeStadium) {
     notFound();

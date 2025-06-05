@@ -1,0 +1,71 @@
+import type { Metadata } from 'next';
+import { META } from '@/constants/metadata';
+
+interface GenerateMetadataProps {
+  title?: string;
+  description?: string;
+  asPath?: string; // 동적 메타데이터 생성 시 필수 입력
+  ogImage?: string;
+}
+
+export const getMetadata = (metadataProps?: GenerateMetadataProps) => {
+  const { title, description, asPath, ogImage } = metadataProps || {};
+
+  const metadataBase = new URL(META.url);
+
+  const TITLE = title ? title : META.title;
+  const DESCRIPTION = description || META.description;
+  const PAGE_URL = asPath ? new URL(asPath, metadataBase).toString() : metadataBase.toString();
+  const OG_IMAGE = ogImage || META.ogImage;
+
+  const metadata: Metadata = {
+    metadataBase,
+    alternates: {
+      canonical: PAGE_URL,
+    },
+    title: TITLE,
+    description: DESCRIPTION,
+    keywords: [...META.keyword],
+    openGraph: {
+      title: TITLE,
+      description: DESCRIPTION,
+      siteName: TITLE,
+      locale: 'ko_KR',
+      type: 'website',
+      url: PAGE_URL,
+      images: [
+        {
+          url: OG_IMAGE,
+          width: 1200,
+          height: 630,
+          alt: TITLE,
+        },
+      ],
+    },
+    verification: {
+      google: META.googleVerification,
+    },
+    twitter: {
+      card: 'summary',
+      site: META.twitterSite,
+      creator: META.twitterCreator,
+      title: TITLE,
+      description: DESCRIPTION,
+      images: [
+        {
+          url: OG_IMAGE,
+          width: 1200,
+          height: 630,
+          alt: TITLE,
+        },
+      ],
+    },
+    appleWebApp: {
+      capable: true,
+      title: META.shortName,
+      statusBarStyle: 'default',
+    },
+  };
+
+  return metadata;
+};
