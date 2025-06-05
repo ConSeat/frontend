@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import ErrorCapture from '@/components/ErrorCapture';
 import KakaoScript from '@/components/KakaoScript';
+import RefreshLogin from '@/components/RefreshLogin/RefreshLogin';
 import { auth } from '@/auth';
 import { AuthProvider } from '@/providers/AuthProvider';
 import { ErrorProvider } from '@/providers/ErrorProvider';
@@ -250,6 +251,8 @@ const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>)
               <PopupProvider>
                 <AuthProvider session={session}>
                   <ErrorCapture />
+                  {/* 첫 진입 시 Refresh 요청 */}
+                  <RefreshLogin />
                   <div className={styles.layout}>
                     {children}
                     <div id="portal"></div>

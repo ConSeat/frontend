@@ -1,23 +1,7 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { redirect } from 'next/navigation';
 
 const RootPage = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    const hasVisited = sessionStorage.getItem('visited');
-
-    if (!hasVisited) {
-      sessionStorage.setItem('visited', 'true');
-      router.replace('/splash');
-    } else {
-      router.replace('/home');
-    }
-  }, []);
-
-  return null;
+  redirect('/home');
 };
 
 export default RootPage;
