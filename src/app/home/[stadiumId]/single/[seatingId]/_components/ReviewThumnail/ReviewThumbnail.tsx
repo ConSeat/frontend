@@ -1,6 +1,7 @@
 import styles from './ReviewThumbnail.module.scss';
 import useImageSlide from '@/hooks/common/useImageSlide';
 import ImageSlide from '@/components/ImageSlide';
+import { getDisplayIndex } from '@/utils/getDisplayIndex';
 
 interface ReviewThumbnailProps {
   images: string[];
@@ -12,16 +13,7 @@ const ReviewThumbnail = ({ images }: ReviewThumbnailProps) => {
       totalImageNumber: images.length,
     });
 
-  const originalsLength = images.length;
-
-  const getDisplayIndex = (currentIndex: number, originalsLength: number) => {
-    if (currentIndex === 0) return originalsLength;
-    if (currentIndex === originalsLength + 1) return 1;
-
-    return currentIndex;
-  };
-
-  const displayIndex = getDisplayIndex(imageIndex, originalsLength);
+  const displayIndex = getDisplayIndex(imageIndex, images.length);
 
   return (
     <div className={styles.thumbnailContainer}>

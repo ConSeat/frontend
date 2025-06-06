@@ -11,6 +11,7 @@ import { useFetchReviewImages } from '@/hooks/queries/useFetchSeatingReview';
 import ImageSlide from '@/components/ImageSlide';
 import Modal from '@/components/Modal';
 import LoadingSpinner from '@/app/mypage/_components/LoadingSpinner';
+import { getDisplayIndex } from '@/utils/getDisplayIndex';
 
 interface PhotoModalProps {
   stadiumId: string;
@@ -45,16 +46,7 @@ const PhotoModal = ({ reviewId }: PhotoModalProps) => {
       totalImageNumber: total,
     });
 
-  const originalsLength = total;
-
-  const getDisplayIndex = (currentIndex: number, originalsLength: number) => {
-    if (currentIndex === 0) return originalsLength;
-    if (currentIndex === originalsLength + 1) return 1;
-
-    return currentIndex;
-  };
-
-  const displayIndex = getDisplayIndex(imageIndex, originalsLength);
+  const displayIndex = getDisplayIndex(imageIndex, total);
 
   useEffect(() => {
     router.replace(`?pidx=${displayIndex - 1}`, { scroll: false });
