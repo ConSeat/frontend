@@ -4,6 +4,7 @@ import Button from '../Button/Button';
 import Icon from '../Icon/Icon';
 import styles from './ImageSlide.module.scss';
 import Image from 'next/image';
+import { RefObject } from 'react';
 import useSwipe from '@/hooks/common/useSwipe';
 
 interface NavigationButtonsProps {
@@ -23,22 +24,30 @@ const NavigationButtons = ({ onPrev, onNext }: NavigationButtonsProps) => (
 );
 
 interface ImageSlideProps {
-  imageSrcArray: string[];
+  imageSrcArray: string[]; // [last, ...originals, first]
   currentIndex: number;
   height: number;
   onNext: () => void;
   onPrev: () => void;
+  isTransitioning: boolean;
+  onTransitionEnd?: () => void;
+  slideRef: RefObject<HTMLDivElement | null>;
 }
 
-export default function ImageSlide({
+const ImageSlide = ({
   imageSrcArray,
   currentIndex,
   height,
   onPrev,
   onNext,
-}: ImageSlideProps) {
+  isTransitioning,
+  onTransitionEnd,
+  slideRef,
+}: ImageSlideProps) => {
   const { handleTouchStart, handleTouchMove, handleTouchEnd } = useSwipe(onNext, onPrev);
+
   const total = imageSrcArray.length;
+  const images = [imageSrcArray[total - 1], ...imageSrcArray, imageSrcArray[0]];
 
   return (
     <div
@@ -48,14 +57,16 @@ export default function ImageSlide({
       onTouchEnd={handleTouchEnd}
     >
       <div
+        ref={slideRef}
         style={{
           display: 'flex',
           width: `${100 * total}%`,
           transform: `translateX(-${(100 / total) * currentIndex}%)`,
-          transition: 'transform 0.5s',
+          transition: isTransitioning ? 'transform 0.5s ease' : 'none',
         }}
+        onTransitionEnd={onTransitionEnd}
       >
-        {imageSrcArray.map((src, idx) => (
+        {images.map((src, idx) => (
           <div
             key={idx}
             className={styles.slideItem}
@@ -66,7 +77,7 @@ export default function ImageSlide({
               alt={`slide-${idx}`}
               fill
               style={{ objectFit: 'cover' }}
-              priority={idx === 0}
+              priority={idx === 1}
             />
           </div>
         ))}
@@ -74,4 +85,6 @@ export default function ImageSlide({
       <NavigationButtons onPrev={onPrev} onNext={onNext} />
     </div>
   );
-}
+};
+
+export default ImageSlide;
