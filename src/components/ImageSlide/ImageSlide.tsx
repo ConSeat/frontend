@@ -24,7 +24,7 @@ const NavigationButtons = ({ onPrev, onNext }: NavigationButtonsProps) => (
 );
 
 interface ImageSlideProps {
-  imageSrcArray: string[]; // [last, ...originals, first]
+  imageSrcArray: string[];
   currentIndex: number;
   height: number;
   onNext: () => void;
@@ -47,7 +47,7 @@ const ImageSlide = ({
   const { handleTouchStart, handleTouchMove, handleTouchEnd } = useSwipe(onNext, onPrev);
 
   const total = imageSrcArray.length;
-  const images = [imageSrcArray[total - 1], ...imageSrcArray, imageSrcArray[0]];
+  const images = [imageSrcArray[total - 1], ...imageSrcArray, imageSrcArray[0]]; // [last, ...originals, first]
 
   return (
     <div
