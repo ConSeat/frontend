@@ -11,6 +11,7 @@ import { useFetchReviewImages } from '@/hooks/queries/useFetchSeatingReview';
 import ImageSlide from '@/components/ImageSlide';
 import Modal from '@/components/Modal';
 import LoadingSpinner from '@/app/mypage/_components/LoadingSpinner';
+import { getDisplayIndex } from '@/utils/getDisplayIndex';
 
 interface PhotoModalProps {
   stadiumId: string;
@@ -39,14 +40,17 @@ const PhotoModal = ({ reviewId }: PhotoModalProps) => {
 
   const { data: review, isLoading } = useFetchReviewImages(Number(reviewId));
   const total = review?.images.length ?? 0;
-  const { imageIndex, handleClickNext, handleClickPrev } = useImageSlide({
-    initialIdx: isNaN(initialIdx) ? 0 : initialIdx,
-    totalImageNumber: total,
-  });
+  const { imageIndex, handleClickNext, handleClickPrev, isTransitioning, sliderRef } =
+    useImageSlide({
+      initialIdx: isNaN(initialIdx) ? 0 : initialIdx + 1,
+      totalImageNumber: total,
+    });
+
+  const displayIndex = getDisplayIndex(imageIndex, total);
 
   useEffect(() => {
-    router.replace(`?pidx=${imageIndex}`, { scroll: false });
-  }, [imageIndex]);
+    router.replace(`?pidx=${displayIndex - 1}`, { scroll: false });
+  }, [displayIndex]);
 
   if (rawPidx === null) return null;
 
@@ -70,13 +74,15 @@ const PhotoModal = ({ reviewId }: PhotoModalProps) => {
     <Modal>
       <Modal.Overlay onClick={closeModal} className={styles.overlay} />
       <Modal.Content className={styles.content}>
-        <Modal.Header title={`${imageIndex + 1}/${total}`} onClose={closeModal} />
+        <Modal.Header title={`${displayIndex}/${total}`} onClose={closeModal} />
         <ImageSlide
           imageSrcArray={review.images}
           currentIndex={imageIndex}
           height={400}
           onNext={handleClickNext}
           onPrev={handleClickPrev}
+          isTransitioning={isTransitioning}
+          slideRef={sliderRef}
         />
         <Spacing size={56} />
       </Modal.Content>
