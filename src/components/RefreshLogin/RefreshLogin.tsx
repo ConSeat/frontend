@@ -2,24 +2,28 @@
 
 import { signIn } from 'next-auth/react';
 import { useEffect, useRef } from 'react';
-import useMutateAuth from '@/hooks/mutations/useMutateAuth';
+import { postLoginAndRefresh } from '@/apis/auth/auth.api';
 
 const RefreshLogin = () => {
-  const { postLoginAndRefreshMutation } = useMutateAuth();
   const calledRef = useRef(false);
 
   useEffect(() => {
     if (calledRef.current) return; // 중복 방지
     calledRef.current = true;
 
-    postLoginAndRefreshMutation.mutate(undefined, {
-      onSuccess: async (data) => {
+    const run = async () => {
+      try {
+        const data = await postLoginAndRefresh();
         await signIn('credentials', {
           accessToken: data.accessToken,
           redirect: false,
         });
-      },
-    });
+      } catch {
+        return;
+      }
+    };
+
+    run();
   }, []);
 
   return null;
