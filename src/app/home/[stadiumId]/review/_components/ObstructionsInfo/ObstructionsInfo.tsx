@@ -33,7 +33,6 @@ const ObstructionsInfo = ({ data, dispatch }: ObstructionsInfoProps) => {
           key={info.obstructionId}
           text={info.name}
           onClick={() => toggleObstructionsInfo(info.obstructionId)}
-          variant="dark"
           isSelected={data.includes(info.obstructionId)}
         />
       ))}
