@@ -1,21 +1,31 @@
 'use client';
 
 import * as Sentry from '@sentry/nextjs';
-import { useEffect } from 'react';
-import { useFetchMemberInfo } from '@/hooks/queries/useFetchMember';
+import { useEffect, useState } from 'react';
+import { getMemberInfo } from '@/apis/members/member.api';
 
 const SentryUserInitializer = () => {
-  const { data: memberInfo } = useFetchMemberInfo();
+  const [called, setCalled] = useState(false);
 
   useEffect(() => {
-    if (memberInfo) {
-      Sentry.setUser({
-        id: memberInfo.email,
-        username: memberInfo.nickname,
-        email: memberInfo.email,
-      });
-    }
-  }, [memberInfo]);
+    if (called) return;
+    setCalled(true);
+
+    const fetchAndSetUser = async () => {
+      try {
+        const memberInfo = await getMemberInfo();
+        Sentry.setUser({
+          id: memberInfo.email,
+          username: memberInfo.nickname,
+          email: memberInfo.email,
+        });
+      } catch {
+        Sentry.setUser(null);
+      }
+    };
+
+    fetchAndSetUser();
+  }, [called]);
 
   return null;
 };
