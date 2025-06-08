@@ -1,3 +1,4 @@
+import { withSentryConfig } from '@sentry/nextjs';
 import withPWA from 'next-pwa';
 import runtimeCaching from 'next-pwa/cache';
 import path from 'path';
@@ -33,4 +34,11 @@ const nextConfig = {
   },
 };
 
-export default pwaConfig(nextConfig);
+export default withSentryConfig(pwaConfig(nextConfig), {
+  org: 'conseat',
+  project: 'javascript-nextjs',
+  silent: !process.env.CI,
+  widenClientFileUpload: true,
+  tunnelRoute: '/monitoring',
+  disableLogger: true,
+});
