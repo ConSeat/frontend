@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useReducer } from 'react';
 import useMutateReview from '@/hooks/mutations/useMutateReview';
 import type { ReviewAction, ReviewData, Step } from '@/types/review';
+import { gaEvent } from '@/utils/gtag';
 import { toggleItem } from '@/utils/toggleItem';
 
 const createInitReviewData = (stadiumId: number): ReviewData => {
@@ -166,7 +167,14 @@ const ReviewContainer = ({ stadiumId }: ReviewContainerProps) => {
         body,
       },
       {
-        onSuccess: () => router.push(`/home/${state.stadiumId}/review/complete`),
+        onSuccess: () => {
+          gaEvent({
+            action: '후기 작성 완료',
+            category: 'conversion',
+            label: '후기 등록 버튼 클릭',
+          });
+          router.push(`/home/${state.stadiumId}/review/complete`);
+        },
       },
     );
   };
