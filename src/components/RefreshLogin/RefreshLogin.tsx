@@ -19,6 +19,7 @@ const RefreshLogin = () => {
           redirect: false,
         });
       } catch {
+        localStorage.removeItem('memberInfo');
         return;
       }
     };
