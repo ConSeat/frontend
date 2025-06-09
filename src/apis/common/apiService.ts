@@ -2,7 +2,7 @@ import { PUBLIC_ENV } from '@/config/env';
 import MESSAGES from '@/constants/message';
 import ApiRequestError from '@/utils/ApiRequestError';
 
-type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+export type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 interface ApiProps {
   endpoint: string;
@@ -68,13 +68,14 @@ const fetchWithToken = async <T = unknown>(
   const data = await parseResponse(response);
 
   if (!response.ok) {
-    if (method === 'GET') {
-      throw new ApiRequestError({
-        errorMessage: errorMessage || message || MESSAGES.ERROR.DEFAULT,
-      });
-    }
-
-    throw new Error(errorMessage || message || MESSAGES.ERROR.DEFAULT);
+    throw new ApiRequestError({
+      errorMessage: errorMessage || message || MESSAGES.ERROR.DEFAULT,
+      status: response.status,
+      endpoint,
+      method,
+      errorCode: message ?? undefined,
+      strategy: method === 'GET' ? 'errorBoundary' : 'toast',
+    });
   }
 
   return { data: data ?? response, headers: response.headers };

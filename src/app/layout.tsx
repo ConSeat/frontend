@@ -1,9 +1,12 @@
 import styles from './page.module.scss';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
+import AnalyticsListener from '@/components/AnalyticsListener/AnalyticsListener';
 import ErrorCapture from '@/components/ErrorCapture';
 import KakaoScript from '@/components/KakaoScript';
 import RefreshLogin from '@/components/RefreshLogin/RefreshLogin';
+import SentryUserInitializer from '@/components/SentryUserInitializer/SentryUserInitializer';
 import { auth } from '@/auth';
 import { AuthProvider } from '@/providers/AuthProvider';
 import { ErrorProvider } from '@/providers/ErrorProvider';
@@ -12,6 +15,7 @@ import QueryProvider from '@/providers/QueryProvider';
 import { ToastProvider } from '@/providers/ToastProvider';
 import '@/styles/global.scss';
 import { getMetadata } from '@/utils/getMetadata';
+import { GA_TRACKING_ID } from '@/utils/gtag';
 
 const pretendard = localFont({
   src: '../assets/fonts/PretendardVariable.woff2',
@@ -251,8 +255,8 @@ const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>)
               <PopupProvider>
                 <AuthProvider session={session}>
                   <ErrorCapture />
-                  {/* 첫 진입 시 Refresh 요청 */}
                   <RefreshLogin />
+                  <SentryUserInitializer />
                   <div className={styles.layout}>
                     {children}
                     <div id="portal"></div>
@@ -262,8 +266,10 @@ const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>)
             </ToastProvider>
           </QueryProvider>
         </ErrorProvider>
+        <AnalyticsListener />
+        <GoogleAnalytics gaId={GA_TRACKING_ID} />
+        <KakaoScript />
       </body>
-      <KakaoScript />
     </html>
   );
 };

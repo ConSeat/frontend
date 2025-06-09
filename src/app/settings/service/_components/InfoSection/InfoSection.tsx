@@ -1,6 +1,7 @@
 'use client';
 
 import styles from './InfoSection.module.scss';
+import * as Sentry from '@sentry/nextjs';
 import { signOut } from 'next-auth/react';
 import { Fragment } from 'react';
 import Icon from '@/components/Icon/Icon';
@@ -49,6 +50,8 @@ const InfoSection = () => {
     switch (title) {
       case '로그아웃':
         await postLogout();
+        localStorage.removeItem('memberInfo');
+        Sentry.setUser(null);
         await signOut({ redirectTo: '/home' });
         break;
       case '회원탈퇴':

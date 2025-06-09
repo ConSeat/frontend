@@ -6,6 +6,7 @@ import { useAuth } from '@/hooks/common/useAuth';
 import Button from '@/components/Button/Button';
 import ButtonContainer from '@/components/ButtonContainer/ButtonContainer';
 import type { ViewType } from '@/types/findView';
+import { gaEvent } from '@/utils/gtag';
 
 interface ButtonSectionProps {
   stadiumId: string;
@@ -28,6 +29,11 @@ const ButtonSection = ({ stadiumId, viewType }: ButtonSectionProps) => {
   };
 
   const handleClickReview = () => {
+    gaEvent({
+      action: '후기 작성 시도',
+      category: 'interaction',
+      label: '후기 작성 화면 진입',
+    });
     const popupText = '후기 작성을 위해 로그인 해주세요';
     checkAndExecute(handleClickNextButton, popupText);
   };
