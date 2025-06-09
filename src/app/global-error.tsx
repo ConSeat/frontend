@@ -1,8 +1,11 @@
-"use client";
+'use client';
 
-import * as Sentry from "@sentry/nextjs";
-import NextError from "next/error";
-import { useEffect } from "react";
+import styles from './page.module.scss';
+import * as Sentry from '@sentry/nextjs';
+import Link from 'next/link';
+import { useEffect } from 'react';
+import MainBackground from '@/components/Background/MainBackground';
+import Button from '@/components/Button/Button';
 
 export default function GlobalError({ error }: { error: Error & { digest?: string } }) {
   useEffect(() => {
@@ -12,11 +15,15 @@ export default function GlobalError({ error }: { error: Error & { digest?: strin
   return (
     <html>
       <body>
-        {/* `NextError` is the default Next.js error page component. Its type
-        definition requires a `statusCode` prop. However, since the App Router
-        does not expose status codes for errors, we simply pass 0 to render a
-        generic error message. */}
-        <NextError statusCode={0} />
+        <MainBackground />
+        <div className={styles.notFoundContainer}>
+          <div className={styles.notFoundWrapper}>
+            <h2 className={styles.notFoundText}>알 수 없는 오류가 발생했어요</h2>
+          </div>
+          <Link href="/">
+            <Button>홈으로 가기</Button>
+          </Link>
+        </div>
       </body>
     </html>
   );
