@@ -28,13 +28,11 @@ function makeQueryClient(setError) {
     },
     queryCache: new QueryCache({
       onError: (error: Error | ApiRequestError) => {
-        if (error instanceof ApiRequestError || error instanceof TypeError) return;
-
         setError(error);
       },
     }),
     mutationCache: new MutationCache({
-      onError: (error: Error) => {
+      onError: (error: Error | ApiRequestError) => {
         setError(error);
       },
     }),
