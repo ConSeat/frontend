@@ -41,4 +41,5 @@ export default withSentryConfig(pwaConfig(nextConfig), {
   widenClientFileUpload: true,
   tunnelRoute: '/monitoring',
   disableLogger: true,
+  automaticVercelMonitors: true,
 });

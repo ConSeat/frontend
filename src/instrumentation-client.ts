@@ -4,12 +4,11 @@ const isProd = process.env.NODE_ENV === 'production';
 
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-  integrations: [Sentry.replayIntegration()],
+  integrations: [],
 
-  // Tracing → 전체 요청 중 일부만 추적
-  tracesSampleRate: isProd ? 0.1 : 0.0,
+  tracesSampleRate: 0,
 
-  // Replay → 운영에서는 session replay 꺼두고, 에러 발생 시만 기록
+  // 운영에서는 session replay 꺼두고, 에러 발생 시만 기록
   replaysSessionSampleRate: 0.0,
   replaysOnErrorSampleRate: isProd ? 0.1 : 0.0,
 
