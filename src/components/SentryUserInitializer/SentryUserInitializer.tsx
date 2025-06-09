@@ -2,7 +2,6 @@
 
 import * as Sentry from '@sentry/nextjs';
 import { useEffect, useState } from 'react';
-import { getMemberInfo } from '@/apis/members/member.api';
 
 const SentryUserInitializer = () => {
   const [called, setCalled] = useState(false);
@@ -11,20 +10,16 @@ const SentryUserInitializer = () => {
     if (called) return;
     setCalled(true);
 
-    const fetchAndSetUser = async () => {
-      try {
-        const memberInfo = await getMemberInfo();
-        Sentry.setUser({
-          id: memberInfo.email,
-          username: memberInfo.nickname,
-          email: memberInfo.email,
-        });
-      } catch {
-        Sentry.setUser(null);
-      }
-    };
-
-    fetchAndSetUser();
+    const localUser = localStorage.getItem('memberInfo');
+    if (localUser) {
+      const parsedUser = JSON.parse(localUser);
+      Sentry.setUser({
+        id: parsedUser.email,
+        username: parsedUser.nickname,
+        email: parsedUser.email,
+      });
+      return;
+    }
   }, [called]);
 
   return null;

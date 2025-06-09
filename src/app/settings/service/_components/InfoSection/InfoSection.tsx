@@ -50,6 +50,7 @@ const InfoSection = () => {
     switch (title) {
       case '로그아웃':
         await postLogout();
+        localStorage.removeItem('memberInfo');
         Sentry.setUser(null);
         await signOut({ redirectTo: '/home' });
         break;
