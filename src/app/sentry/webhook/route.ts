@@ -60,7 +60,7 @@ ${culprit}
 **API URL**  
 ${apiInfo}  
 **환경**  
-${osName} ${osVersion} ${browserName} ${browserVersion}`,
+${osName} ${osVersion}, ${browserName} ${browserVersion}`,
     });
 
     console.log('✅ Sent alert to Discord');
