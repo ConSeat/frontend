@@ -1,27 +1,22 @@
 import axios from 'axios';
 import { NextRequest } from 'next/server';
 
-// TODO: 배포 후 console 제거
 export async function POST(req: NextRequest) {
   const payload = await req.json();
 
-  console.log('✅ Received Sentry Webhook:', JSON.stringify(payload, null, 2));
-
   try {
-    const issue = payload?.data?.issue;
+    const event = payload?.data?.event;
 
-    const title = issue?.title || '알 수 없는 오류';
-    const project = issue?.project || '알 수 없는 프로젝트';
-    const culprit = issue?.culprit || '알 수 없는 위치';
-    const permalink = issue?.permalink || '#';
-    const firstSeen = issue?.firstSeen
-      ? new Date(issue.firstSeen).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })
+    const title = event?.title || '알 수 없는 오류';
+    const culprit = event?.culprit || '알 수 없는 위치';
+    const permalink = event?.web_url || '#';
+    const timestamp = event?.timestamp
+      ? new Date(new Date(event.timestamp).getTime()).toLocaleString('ko-KR', {
+          timeZone: 'Asia/Seoul',
+        })
       : '알 수 없음';
-    const lastSeen = issue?.lastSeen
-      ? new Date(issue.lastSeen).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })
-      : '알 수 없음';
-    const count = issue?.count ? `${issue.count}회 발생` : '횟수 알 수 없음';
-    const level = issue?.level || 'error';
+    const level = event?.level || 'error';
+    const message = event?.exception?.values?.[0]?.value || '메시지 없음';
 
     // Severity에 따라 이모지 선택
     const levelEmojiMap: Record<string, string> = {
@@ -37,11 +32,9 @@ export async function POST(req: NextRequest) {
       content: `${emoji} **Sentry 오류 알림**
 
 **📝 오류 제목:** ${title}
-**📌 프로젝트:** ${project}
 **📍 발생 위치:** ${culprit}
-**🕒 최초 발생:** ${firstSeen}
-**🕒 최근 발생:** ${lastSeen}
-**🔢 발생 횟수:** ${count}
+**🕒 발생 시간:** ${timestamp}
+**📝 에러 메시지:** ${message}
 🔗 [Sentry에서 이슈 확인하기](${permalink})`,
     });
 
