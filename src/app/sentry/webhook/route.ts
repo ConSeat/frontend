@@ -7,18 +7,7 @@ export async function POST(req: NextRequest) {
   try {
     const event = payload?.data?.event;
 
-    const title = event?.title || '알 수 없는 오류';
-    const culprit = event?.culprit || '알 수 없는 위치';
-    const permalink = event?.web_url || '#';
-    const timestamp = event?.timestamp
-      ? new Date(new Date(event.timestamp).getTime()).toLocaleString('ko-KR', {
-          timeZone: 'Asia/Seoul',
-        })
-      : '알 수 없음';
     const level = event?.level || 'error';
-    const message = event?.exception?.values?.[0]?.value || '메시지 없음';
-
-    // Severity에 따라 이모지 선택
     const levelEmojiMap: Record<string, string> = {
       fatal: '💀',
       error: '🚨',
@@ -27,15 +16,55 @@ export async function POST(req: NextRequest) {
     };
     const emoji = levelEmojiMap[level] || '🚨';
 
+    const title = event?.title || '알 수 없는 오류';
+    const culprit = event?.culprit || '알 수 없는 위치';
+
+    const tags = event?.tags || [];
+    const getTag = (key: string) =>
+      tags.find(([tagKey]: [string, string]) => tagKey === key)?.[1] || '-';
+
+    const apiEndpoint = getTag('api_endpoint');
+    const apiMethod = getTag('api_method');
+    const apiStatus = getTag('api_status');
+
+    const isApiError = apiEndpoint !== '-';
+
+    const apiInfo = isApiError ? `${apiMethod} ${apiStatus} ${apiEndpoint}` : 'API 오류 아님';
+
+    const timestamp = event?.datetime
+      ? new Date(event.datetime).toLocaleString('ko-KR', {
+          timeZone: 'Asia/Seoul',
+        })
+      : '알 수 없음';
+    const message = event?.exception?.values?.[0]?.value || '메시지 없음';
+    const permalink =
+      event?.web_url || 'https://conseat.sentry.io/issues/?project=4509372106539008';
+
+    const osContext = event?.contexts?.os;
+    const osName = osContext?.name || 'Unknown OS';
+    const osVersion = osContext?.version || 'Unknown Version';
+
+    const browserContext = event?.contexts?.browser;
+    const browserName = browserContext?.name || 'Unknown Browser';
+    const browserVersion = browserContext?.version || 'Unknown Version';
+
     // Discord로 보내기
     await axios.post(process.env.DISCORD_WEBHOOK_URL!, {
-      content: `${emoji} **Sentry 오류 알림**
+      content: `${emoji} [${level.toUpperCase()} Sentry 알림](${permalink})
 
-**📝 오류 제목:** ${title}
-**📍 발생 위치:** ${culprit}
-**🕒 발생 시간:** ${timestamp}
-**📝 에러 메시지:** ${message}
-🔗 [Sentry에서 이슈 확인하기](${permalink})`,
+                **오류 제목** 
+                ${title}
+                **발생 위치** 
+                ${culprit}
+                **발생 시간** 
+                ${timestamp}
+                **API url**
+                ${apiInfo}
+                **에러 메시지** 
+                ${message}
+                **환경** 
+                ${osName} ${osVersion} | ${browserName} ${browserVersion}
+              `,
     });
 
     console.log('✅ Sent alert to Discord');
