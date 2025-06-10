@@ -4,22 +4,14 @@ const isProd = process.env.NODE_ENV === 'production';
 
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-  integrations: [],
-
-  tracesSampleRate: 0,
-
-  // 운영에서는 session replay 꺼두고, 에러 발생 시만 기록
-  replaysSessionSampleRate: 0.0,
-  replaysOnErrorSampleRate: isProd ? 0.1 : 0.0,
-
-  // 개인정보 기본 off → Sentry.setUser()로 명시적으로 설정
-  sendDefaultPii: false,
-
-  // 디버그 로그 → 개발에서는 켜고, 운영에서는 끔
-  debug: !isProd,
-
+  enabled: isProd, // 개발 환경에서는 전송 안 함
+  debug: !isProd, // 개발에서는 debug log만 보기
   environment: process.env.NODE_ENV,
   release: process.env.NEXT_PUBLIC_SENTRY_RELEASE || 'dev',
+  tracesSampleRate: isProd ? 0.1 : 0, // 성능 트레이싱
+  replaysSessionSampleRate: 0.0, // Session Replay
+  replaysOnErrorSampleRate: isProd ? 0.1 : 0.0,
+  sendDefaultPii: false, // 개인정보는 기본 off → setUser로 명시적 설정만 허용
 });
 
 export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
