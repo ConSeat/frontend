@@ -50,21 +50,22 @@ export async function POST(req: NextRequest) {
 
     // Discord로 보내기
     await axios.post(process.env.DISCORD_WEBHOOK_URL!, {
-      content: `${emoji} [${level.toUpperCase()} Sentry 알림](${permalink})
+      content: `${emoji} ${level.toUpperCase()} Sentry Error
 
-                **오류 제목** 
-                ${title}
-                **발생 위치** 
-                ${culprit}
-                **발생 시간** 
-                ${timestamp}
-                **API url**
-                ${apiInfo}
-                **에러 메시지** 
-                ${message}
-                **환경** 
-                ${osName} ${osVersion} | ${browserName} ${browserVersion}
-              `,
+[${title}](${permalink})  
+${message}
+
+**발생 시간** 
+${timestamp}
+
+**url** 
+${culprit}
+
+**API url** 
+${apiInfo}
+
+**환경** 
+${osName} ${osVersion} ${browserName} ${browserVersion}`,
     });
 
     console.log('✅ Sent alert to Discord');
