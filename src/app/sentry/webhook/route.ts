@@ -10,8 +10,8 @@ export async function POST(req: NextRequest) {
     const title = event?.title || '알 수 없는 오류';
     const culprit = event?.culprit || '알 수 없는 위치';
     const permalink = event?.web_url || '#';
-    const timestamp = event?.timestamp
-      ? new Date(new Date(event.timestamp).getTime()).toLocaleString('ko-KR', {
+    const timestamp = event?.datetime
+      ? new Date(event.datetime).toLocaleString('ko-KR', {
           timeZone: 'Asia/Seoul',
         })
       : '알 수 없음';
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 
     // Discord로 보내기
     await axios.post(process.env.DISCORD_WEBHOOK_URL!, {
-      content: `${emoji} **Sentry 오류 알림**
+      content: `${emoji} [${level.toUpperCase()}] Sentry 알림
 
 **📝 오류 제목:** ${title}
 **📍 발생 위치:** ${culprit}
