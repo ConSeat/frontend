@@ -15,8 +15,22 @@ export async function POST(req: NextRequest) {
       info: 'ℹ️',
     };
     const emoji = levelEmojiMap[level] || '🚨';
+
     const title = event?.title || '알 수 없는 오류';
     const culprit = event?.culprit || '알 수 없는 위치';
+
+    const tags = event?.tags || [];
+    const getTag = (key: string) =>
+      tags.find(([tagKey]: [string, string]) => tagKey === key)?.[1] || '-';
+
+    const apiEndpoint = getTag('api_endpoint');
+    const apiMethod = getTag('api_method');
+    const apiStatus = getTag('api_status');
+
+    const isApiError = apiEndpoint !== '-';
+
+    const apiInfo = isApiError ? `${apiMethod} ${apiStatus} ${apiEndpoint}` : 'API 오류 아님';
+
     const timestamp = event?.datetime
       ? new Date(event.datetime).toLocaleString('ko-KR', {
           timeZone: 'Asia/Seoul',
@@ -36,15 +50,21 @@ export async function POST(req: NextRequest) {
 
     // Discord로 보내기
     await axios.post(process.env.DISCORD_WEBHOOK_URL!, {
-      content: `${emoji} [${level.toUpperCase()}] Sentry 알림
+      content: `${emoji} [${level.toUpperCase()} Sentry 알림](${permalink})
 
-**📝 오류 제목:** ${title}
-**📍 발생 위치:** ${culprit}
-**🕒 발생 시간:** ${timestamp}
-**📝 에러 메시지:** ${message}
-**🖥️ OS:** ${osName} ${osVersion}
-**🌐 Browser:** ${browserName} ${browserVersion}
-🔗 [Sentry에서 이슈 확인하기](${permalink})`,
+                **오류 제목** 
+                ${title}
+                **발생 위치** 
+                ${culprit}
+                **발생 시간** 
+                ${timestamp}
+                **API url**
+                ${apiInfo}
+                **에러 메시지** 
+                ${message}
+                **환경** 
+                ${osName} ${osVersion} | ${browserName} ${browserVersion}
+              `,
     });
 
     console.log('✅ Sent alert to Discord');
