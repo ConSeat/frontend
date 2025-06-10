@@ -37,6 +37,7 @@ const nextConfig = {
 export default withSentryConfig(pwaConfig(nextConfig), {
   org: 'conseat',
   project: 'javascript-nextjs',
+  authToken: process.env.SENTRY_AUTH_TOKEN,
   silent: !process.env.CI,
   widenClientFileUpload: true,
   tunnelRoute: '/monitoring',
