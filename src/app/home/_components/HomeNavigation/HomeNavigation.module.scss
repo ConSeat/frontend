@@ -1,3 +1,5 @@
+@import '@/styles/style';
+
 .homeNav {
   display: flex;
   flex-shrink: 0;
@@ -8,4 +10,23 @@
   width: 100%;
   height: 56px;
   padding: 12px 0;
+}
+
+.itemWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 10px;
+
+  transition:
+    transform 0.2s ease,
+    background-color 0s ease;
+
+  &:active {
+    transform: scale(0.96);
+    background-color: $sub-gray7;
+  }
 }
