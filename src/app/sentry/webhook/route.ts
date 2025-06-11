@@ -3,6 +3,8 @@ import { NextRequest } from 'next/server';
 export async function POST(req: NextRequest) {
   const payload = await req.json();
 
+  console.log('✅ Received Sentry Webhook:', JSON.stringify(payload, null, 2));
+
   try {
     const event = payload?.data?.event;
 
