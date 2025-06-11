@@ -84,6 +84,27 @@ const DropdownItem = ({ children, isSelected, className, ...props }: DropdownIte
   );
 };
 
+/**
+ * Dropdown 컴포넌트 예시
+ *
+ * @example
+ * <Dropdown>
+ *   <Dropdown.Trigger
+ *     as={<button>열기</button>}
+ *   />
+ *   {isOpen && (
+ *     <Dropdown.Menu>
+ *       <Dropdown.Item isSelected onClick={() => {}}>
+ *         옵션 1
+ *       </Dropdown.Item>
+ *       <Dropdown.Item isSelected={false} onClick={() => {}}>
+ *         옵션 2
+ *       </Dropdown.Item>
+ *     </Dropdown.Menu>
+ *   )}
+ * </Dropdown>
+ */
+
 const Dropdown = Object.assign(DropdownMain, {
   Trigger: DropdownTrigger,
   Menu: DropdownMenu,
