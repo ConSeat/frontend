@@ -25,11 +25,7 @@
 
 .selectItemWrapper {
   width: 100%;
-<<<<<<< HEAD
   transition: transform 0.2s ease;
-=======
-  transition: transform 0.1s ease;
->>>>>>> fc2c351 (feat: 버튼 애니메이션 추가)
 
   &:active {
     transform: scale(0.96);
