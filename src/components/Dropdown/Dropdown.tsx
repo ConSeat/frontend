@@ -31,14 +31,13 @@ const DropdownTrigger = ({ as }: DropdownTriggerProps) => {
 };
 
 // DropdownMenu
-interface DropdownMenuProps {
+interface DropdownMenuProps extends HTMLAttributes<HTMLUListElement> {
   children: ReactNode;
-  className?: string;
 }
 
-const DropdownMenu = ({ children, className }: DropdownMenuProps) => {
+const DropdownMenu = ({ children, className, ...props }: DropdownMenuProps) => {
   return (
-    <ul className={classNames(styles.dropdownMenu, className)} role="listbox">
+    <ul className={classNames(styles.dropdownMenu, className)} {...props}>
       {children}
     </ul>
   );
@@ -67,20 +66,18 @@ const DropdownModal = ({ isOpen, controls, children, ref, ...props }: DropdownMo
 };
 
 // DropdownItem
-interface DropdownItemProps {
+interface DropdownItemProps extends HTMLAttributes<HTMLLIElement> {
   children: string;
   isSelected: boolean;
-  onClick: () => void;
-  className?: string;
 }
 
-const DropdownItem = ({ children, isSelected, onClick, className }: DropdownItemProps) => {
+const DropdownItem = ({ children, isSelected, className, ...props }: DropdownItemProps) => {
   return (
     <li
       className={classNames(styles.dropdownItem, className, { selected: isSelected })}
       role="option"
       aria-selected={isSelected}
-      onClick={onClick}
+      {...props}
     >
       {children}
     </li>
