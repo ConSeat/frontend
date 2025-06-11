@@ -16,6 +16,7 @@ import ShareArea from '@/components/ShareArea';
 import Spacing from '@/components/Spacing/Spacing';
 import { memberKeys, reviewKeys } from '@/apis/common/queryKeys';
 import { META } from '@/constants/metadata';
+import { gaEvent } from '@/utils/gtag';
 import { findStadiumById } from '@/utils/stadium';
 
 const SingleResult = ({ stadiumId, seatingId }) => {
@@ -69,7 +70,15 @@ const SingleResult = ({ stadiumId, seatingId }) => {
           </div>
           <Button
             className={styles.moreButton}
-            onClick={() => router.push(`/home/${stadiumId}/${seatingId}/all`)}
+            onClick={() => {
+              gaEvent({
+                action: '후기 더보기 버튼 클릭',
+                category: 'interaction',
+                label: '후기 더보기 클릭',
+              });
+
+              router.push(`/home/${stadiumId}/${seatingId}/all`);
+            }}
           >
             더보기 {'>'}
           </Button>

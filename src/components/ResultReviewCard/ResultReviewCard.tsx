@@ -6,6 +6,7 @@ import useBookMark from '@/hooks/common/useBookmark';
 import useLike from '@/hooks/common/useLike';
 import ReviewCard from '@/components/ReviewCard';
 import type { SeatingReview } from '@/types/review';
+import { gaEvent } from '@/utils/gtag';
 
 interface ResultReviewCardProps {
   review: SeatingReview;
@@ -16,6 +17,18 @@ const ResultReviewCard = ({ review, queryKey }: ResultReviewCardProps) => {
   const router = useRouter();
   const { handleClickBookMark } = useBookMark(review.isBookmarked, review.reviewId, queryKey);
   const { handleClickLike } = useLike(review.isLiked, review.reviewId, queryKey);
+
+  const handleImageClick = (idx: number) => {
+    gaEvent({
+      action: '후기 카드 이미지 클릭',
+      category: 'interaction',
+      label: '후기 썸네일 클릭',
+    });
+
+    router.push(`${window.location.href}/${review.reviewId}?pidx=${idx}`, {
+      scroll: false,
+    });
+  };
 
   return (
     <ReviewCard className={styles.container}>
@@ -30,15 +43,7 @@ const ResultReviewCard = ({ review, queryKey }: ResultReviewCardProps) => {
 
       <ReviewCard.ImageList>
         {review.images.map((src, idx) => (
-          <ReviewCard.ImageItem
-            key={src}
-            imageSrc={src}
-            onClick={() => {
-              router.push(`${window.location.href}/${review.reviewId}?pidx=${idx}`, {
-                scroll: false,
-              });
-            }}
-          />
+          <ReviewCard.ImageItem key={src} imageSrc={src} onClick={() => handleImageClick(idx)} />
         ))}
       </ReviewCard.ImageList>
 

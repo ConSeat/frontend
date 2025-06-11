@@ -5,6 +5,7 @@ import Icon from '../Icon/Icon';
 import styles from './ShareArea.module.scss';
 import Image from 'next/image';
 import { useToast } from '@/providers/ToastProvider';
+import { gaEvent } from '@/utils/gtag';
 
 interface ShareAreaProps {
   title: string;
@@ -22,6 +23,11 @@ const ShareArea = ({ title, description, imageUrl, url }: ShareAreaProps) => {
   };
 
   const handleShareKakao = () => {
+    gaEvent({
+      action: '후기 공유 버튼 클릭',
+      category: 'share',
+      label: '카카오',
+    });
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
@@ -46,6 +52,11 @@ const ShareArea = ({ title, description, imageUrl, url }: ShareAreaProps) => {
   };
 
   const handleShareTwitter = () => {
+    gaEvent({
+      action: '후기 공유 버튼 클릭',
+      category: 'share',
+      label: '트위터',
+    });
     const text = encodeURIComponent(`${title}\n${description}\n`);
     window.open(
       `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${text}`,
