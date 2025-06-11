@@ -37,6 +37,7 @@ const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>)
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
       <head>
+        <link rel="apple-touch-icon" sizes="180x180" href="/icon.png" />
         <link
           rel="apple-touch-startup-image"
           media="screen and (device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
