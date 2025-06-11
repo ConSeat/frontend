@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest) {
@@ -49,18 +48,21 @@ export async function POST(req: NextRequest) {
     const browserVersion = browserContext?.version || 'Unknown Version';
 
     // Discord로 보내기
-    await axios.post(process.env.DISCORD_WEBHOOK_URL!, {
-      content: `${emoji} ${level.toUpperCase()} Sentry Error  
-[${title}](${permalink})  
-${message}  
-**발생 시간**  
-${timestamp}  
-**URL**  
-${culprit}  
-**API URL**  
-${apiInfo}  
-**환경**  
-${osName} ${osVersion}, ${browserName} ${browserVersion}`,
+    await fetch(process.env.DISCORD_WEBHOOK_URL!, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        content:
+          `${emoji} ${level.toUpperCase()} Sentry 알림\n` +
+          `[${title}](${permalink})\n` +
+          `${message}\n` +
+          `**발생 시간**\n${timestamp}\n` +
+          `**URL**\n${culprit}\n` +
+          `**API URL**\n${apiInfo}\n` +
+          `**환경**\n${osName} ${osVersion}, ${browserName} ${browserVersion}`,
+      }),
     });
 
     console.log('✅ Sent alert to Discord');
