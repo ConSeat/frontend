@@ -2,10 +2,13 @@
 
 import styles from './SeatDropdown.module.scss';
 import classNames from 'classnames';
+import { useId } from 'react';
 import useDropdown from '@/hooks/common/useDropdown';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import Icon from '@/components/Icon/Icon';
 import Splitter from '@/components/Splitter/Splitter';
+
+// 추가
 
 interface DropdownOption {
   label: string;
@@ -23,12 +26,14 @@ interface SeatDropdownProps {
 
 const SeatDropdown = ({ value, onChange, options, placeholder, disabled }: SeatDropdownProps) => {
   const { isDropdownOpen, handleToggleDropdown, dropdownRef } = useDropdown();
+  const id = useId();
 
   return (
     <Dropdown ref={dropdownRef} className={styles.dropdownContainer}>
       <Dropdown.Trigger
         as={
           <button
+            id={`${id}-button`}
             type="button"
             onClick={handleToggleDropdown}
             className={classNames(styles.seatDropdownTrigger, {
@@ -36,14 +41,21 @@ const SeatDropdown = ({ value, onChange, options, placeholder, disabled }: SeatD
               [styles.disable]: disabled,
             })}
             disabled={disabled}
+            aria-expanded={isDropdownOpen}
+            aria-controls={`${id}-listbox`}
           >
             <span className={styles.seatDropdownText}>{value || placeholder}</span>
             {isDropdownOpen ? <Icon icon="UpArrow" /> : <Icon icon="DownArrow" />}
           </button>
         }
       />
+
       {isDropdownOpen && (
-        <Dropdown.Menu className={styles.seatDropdownMenu}>
+        <Dropdown.Menu
+          className={styles.seatDropdownMenu}
+          id={`${id}-listbox`}
+          aria-labelledby={`${id}-button`}
+        >
           {options.map((option, index) => (
             <div key={option.value} className={styles.seatDropdownItemWrapper}>
               <Dropdown.Item
@@ -57,6 +69,7 @@ const SeatDropdown = ({ value, onChange, options, placeholder, disabled }: SeatD
                     handleToggleDropdown();
                   }
                 }}
+                aria-selected={value === option.value}
               >
                 {option.label}
               </Dropdown.Item>

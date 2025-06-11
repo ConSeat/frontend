@@ -5,6 +5,7 @@ import styles from './Dropdown.module.scss';
 import classNames from 'classnames';
 import React, { type HTMLAttributes, ReactNode, type Ref } from 'react';
 
+// DropdownMain
 interface DropdownProps {
   className?: string;
   children?: ReactNode;
@@ -19,6 +20,8 @@ const DropdownMain = ({ className, children, ref }: DropdownProps) => {
   );
 };
 
+// DropdownTrigger
+// 사용하는 곳에서 aria-haspopup / aria-expanded / aria-controls 구현
 interface DropdownTriggerProps {
   as: ReactNode;
 }
@@ -27,15 +30,20 @@ const DropdownTrigger = ({ as }: DropdownTriggerProps) => {
   return as;
 };
 
-interface DropdownMenuProps {
+// DropdownMenu
+interface DropdownMenuProps extends HTMLAttributes<HTMLUListElement> {
   children: ReactNode;
-  className?: string;
 }
 
-const DropdownMenu = ({ children, className }: DropdownMenuProps) => {
-  return <ul className={classNames(styles.dropdownMenu, className)}>{children}</ul>;
+const DropdownMenu = ({ children, className, ...props }: DropdownMenuProps) => {
+  return (
+    <ul className={classNames(styles.dropdownMenu, className)} role="listbox" {...props}>
+      {children}
+    </ul>
+  );
 };
 
+// DropdownModal
 interface DropdownModalProps extends HTMLAttributes<HTMLDivElement> {
   isOpen: boolean;
   controls?: ReactNode;
@@ -57,23 +65,45 @@ const DropdownModal = ({ isOpen, controls, children, ref, ...props }: DropdownMo
   );
 };
 
-interface DropdownItemProps {
+// DropdownItem
+interface DropdownItemProps extends HTMLAttributes<HTMLLIElement> {
   children: string;
   isSelected: boolean;
-  onClick: () => void;
-  className?: string;
 }
 
-const DropdownItem = ({ children, isSelected, onClick, className }: DropdownItemProps) => {
+const DropdownItem = ({ children, isSelected, className, ...props }: DropdownItemProps) => {
   return (
     <li
       className={classNames(styles.dropdownItem, className, { selected: isSelected })}
-      onClick={onClick}
+      role="option"
+      aria-selected={isSelected}
+      {...props}
     >
       {children}
     </li>
   );
 };
+
+/**
+ * Dropdown 컴포넌트 예시
+ *
+ * @example
+ * <Dropdown>
+ *   <Dropdown.Trigger
+ *     as={<button>열기</button>}
+ *   />
+ *   {isOpen && (
+ *     <Dropdown.Menu>
+ *       <Dropdown.Item isSelected onClick={() => {}}>
+ *         옵션 1
+ *       </Dropdown.Item>
+ *       <Dropdown.Item isSelected={false} onClick={() => {}}>
+ *         옵션 2
+ *       </Dropdown.Item>
+ *     </Dropdown.Menu>
+ *   )}
+ * </Dropdown>
+ */
 
 const Dropdown = Object.assign(DropdownMain, {
   Trigger: DropdownTrigger,

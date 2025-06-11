@@ -4,6 +4,7 @@ import type { FilterAction } from '../../_types/filter';
 import styles from './SortDropdown.module.scss';
 import classNames from 'classnames';
 import type { Dispatch } from 'react';
+import { useId } from 'react';
 import useDropdown from '@/hooks/common/useDropdown';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import Icon from '@/components/Icon/Icon';
@@ -22,6 +23,7 @@ interface SortDropdownProps {
 
 const SortDropdown = ({ sort, dispatch }: SortDropdownProps) => {
   const { isDropdownOpen, handleToggleDropdown, dropdownRef } = useDropdown();
+  const id = useId();
 
   const handleClickItem = (value: ListSort) => {
     dispatch({
@@ -36,11 +38,14 @@ const SortDropdown = ({ sort, dispatch }: SortDropdownProps) => {
       <Dropdown.Trigger
         as={
           <button
+            id={`${id}-button`}
             type="button"
             onClick={handleToggleDropdown}
             className={classNames(styles.sortDropdownTrigger, {
               [styles.isOpen]: isDropdownOpen,
             })}
+            aria-expanded={isDropdownOpen}
+            aria-controls={`${id}-listbox`}
           >
             <span className={styles.sortDropdownText}>
               {SortData.find((option) => option.value === sort)?.name ?? ''}
@@ -50,13 +55,18 @@ const SortDropdown = ({ sort, dispatch }: SortDropdownProps) => {
         }
       />
       {isDropdownOpen && (
-        <Dropdown.Menu className={styles.sortDropdownMenu}>
+        <Dropdown.Menu
+          className={styles.sortDropdownMenu}
+          id={`${id}-listbox`}
+          aria-labelledby={`${id}-button`}
+        >
           {SortData.map((option, index) => (
             <div key={option.value} className={styles.sortDropdownItemWrapper}>
               <Dropdown.Item
                 className={styles.sortDropdownItem}
                 isSelected={sort === option.value}
                 onClick={() => handleClickItem(option.value)}
+                aria-selected={sort === option.value}
               >
                 {option.name}
               </Dropdown.Item>

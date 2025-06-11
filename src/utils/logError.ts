@@ -12,7 +12,7 @@ const getSentryLevelByStatus = (status: number): SentryLevel | null => {
   return 'warning';
 };
 
-export const logErrorToSentry = (error: Error) => {
+export const logError = (error: Error) => {
   if (process.env.NODE_ENV !== 'production') return;
 
   if (error instanceof ApiRequestError) {

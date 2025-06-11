@@ -2,7 +2,7 @@
 
 import styles from './ReviewDropdownInput.module.scss';
 import classNames from 'classnames';
-import { Fragment } from 'react';
+import { Fragment, useId } from 'react';
 import useDropdown from '@/hooks/common/useDropdown';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import Icon from '@/components/Icon/Icon';
@@ -27,6 +27,7 @@ const ReviewDropdownInput = ({
   selectedId,
 }: ReviewDropdownInputProps) => {
   const { isDropdownOpen, handleOpenDropdown, handleCloseDropdown, dropdownRef } = useDropdown();
+  const id = useId();
 
   return (
     <Dropdown ref={dropdownRef}>
@@ -38,6 +39,7 @@ const ReviewDropdownInput = ({
             })}
           >
             <input
+              id={`${id}-input`}
               className={styles.reviewDropdownInput}
               type="text"
               value={value}
@@ -52,13 +54,21 @@ const ReviewDropdownInput = ({
                   e.preventDefault();
                 }
               }}
+              role="combobox"
+              aria-expanded={isDropdownOpen}
+              aria-controls={`${id}-listbox`}
+              aria-autocomplete="list"
             />
             <span>{isDropdownOpen ? <Icon icon="UpArrow" /> : <Icon icon="DownArrow" />}</span>
           </div>
         }
       />
       {isDropdownOpen && (
-        <Dropdown.Menu className={styles.reviewDropdownMenu}>
+        <Dropdown.Menu
+          className={styles.reviewDropdownMenu}
+          id={`${id}-listbox`}
+          aria-labelledby={`${id}-input`}
+        >
           {options.map((option, index) => (
             <Fragment key={option.concertId}>
               <Dropdown.Item
@@ -68,6 +78,7 @@ const ReviewDropdownInput = ({
                   onChange(option);
                   handleCloseDropdown();
                 }}
+                aria-selected={selectedId === option.concertId}
               >
                 {option.concertName}
               </Dropdown.Item>
