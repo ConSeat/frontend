@@ -71,12 +71,30 @@ interface DropdownItemProps extends HTMLAttributes<HTMLLIElement> {
   isSelected: boolean;
 }
 
-const DropdownItem = ({ children, isSelected, className, ...props }: DropdownItemProps) => {
+const DropdownItem = ({
+  children,
+  isSelected,
+  className,
+  onClick,
+  ...props
+}: DropdownItemProps) => {
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault(); // 기본 스크롤/페이지 이동 방지
+      if (onClick) {
+        onClick(event as unknown as React.MouseEvent<HTMLLIElement>);
+      }
+    }
+  };
+
   return (
     <li
       className={classNames(styles.dropdownItem, className, { selected: isSelected })}
       role="option"
       aria-selected={isSelected}
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
       {...props}
     >
       {children}
