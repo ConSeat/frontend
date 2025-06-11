@@ -5,6 +5,7 @@ import styles from './Dropdown.module.scss';
 import classNames from 'classnames';
 import React, { type HTMLAttributes, ReactNode, type Ref } from 'react';
 
+// DropdownMain
 interface DropdownProps {
   className?: string;
   children?: ReactNode;
@@ -19,6 +20,8 @@ const DropdownMain = ({ className, children, ref }: DropdownProps) => {
   );
 };
 
+// DropdownTrigger
+// 사용하는 곳에서 aria-haspopup / aria-expanded / aria-controls 구현
 interface DropdownTriggerProps {
   as: ReactNode;
 }
@@ -27,15 +30,21 @@ const DropdownTrigger = ({ as }: DropdownTriggerProps) => {
   return as;
 };
 
+// DropdownMenu
 interface DropdownMenuProps {
   children: ReactNode;
   className?: string;
 }
 
 const DropdownMenu = ({ children, className }: DropdownMenuProps) => {
-  return <ul className={classNames(styles.dropdownMenu, className)}>{children}</ul>;
+  return (
+    <ul className={classNames(styles.dropdownMenu, className)} role="listbox">
+      {children}
+    </ul>
+  );
 };
 
+// DropdownModal
 interface DropdownModalProps extends HTMLAttributes<HTMLDivElement> {
   isOpen: boolean;
   controls?: ReactNode;
@@ -57,6 +66,7 @@ const DropdownModal = ({ isOpen, controls, children, ref, ...props }: DropdownMo
   );
 };
 
+// DropdownItem
 interface DropdownItemProps {
   children: string;
   isSelected: boolean;
@@ -68,6 +78,8 @@ const DropdownItem = ({ children, isSelected, onClick, className }: DropdownItem
   return (
     <li
       className={classNames(styles.dropdownItem, className, { selected: isSelected })}
+      role="option"
+      aria-selected={isSelected}
       onClick={onClick}
     >
       {children}
