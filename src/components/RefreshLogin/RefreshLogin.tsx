@@ -1,6 +1,6 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 import { useEffect, useRef } from 'react';
 import { postLoginAndRefresh } from '@/apis/auth/auth.api';
 
@@ -20,6 +20,7 @@ const RefreshLogin = () => {
         });
       } catch {
         localStorage.removeItem('memberInfo');
+        await signOut({ redirect: false });
         return;
       }
     };
