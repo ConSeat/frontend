@@ -12,8 +12,15 @@ const getSentryLevelByStatus = (status: number): SentryLevel | null => {
   return 'warning';
 };
 
+// Sentry 중복 전송 방지용 WeakSet
+// ErrorCapture → throw → GlobalError 흐름에서 logError가 두 번 호출되는 케이스가 있어 방지합니다.
+const sentErrorSet = new WeakSet<Error>();
+
 export const logError = (error: Error) => {
   if (process.env.NODE_ENV !== 'production') return;
+
+  if (sentErrorSet.has(error)) return;
+  sentErrorSet.add(error);
 
   if (error instanceof ApiRequestError) {
     const level = getSentryLevelByStatus(error.status);

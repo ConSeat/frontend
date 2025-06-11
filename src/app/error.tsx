@@ -2,11 +2,17 @@
 
 import styles from './page.module.scss';
 import Link from 'next/link';
+import { useEffect } from 'react';
 import MainBackground from '@/components/Background/MainBackground';
 import Button from '@/components/Button/Button';
+import { logError } from '@/utils/logError';
 
 const GlobalError = ({ error }: { error: Error & { digest?: string } }) => {
-  console.error(error.message);
+  useEffect(() => {
+    if (!error) return;
+
+    logError(error);
+  }, [error]);
 
   return (
     <>
