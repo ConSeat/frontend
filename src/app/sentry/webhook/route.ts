@@ -8,6 +8,10 @@ export async function POST(req: NextRequest) {
   try {
     const event = payload?.data?.event;
 
+    const tags = event?.tags || [];
+    const getTag = (key: string) =>
+      tags.find(([tagKey]: [string, string]) => tagKey === key)?.[1] || '-';
+
     const level = event?.level || 'error';
     const levelEmojiMap: Record<string, string> = {
       fatal: '💀',
@@ -18,11 +22,7 @@ export async function POST(req: NextRequest) {
     const emoji = levelEmojiMap[level] || '🚨';
 
     const title = event?.title || '알 수 없는 오류';
-    const culprit = event?.culprit || '알 수 없는 위치';
-
-    const tags = event?.tags || [];
-    const getTag = (key: string) =>
-      tags.find(([tagKey]: [string, string]) => tagKey === key)?.[1] || '-';
+    const url = getTag('url') || getTag('page_url') || event?.request?.url || '알 수 없는 위치';
 
     const apiEndpoint = getTag('api_endpoint');
     const apiMethod = getTag('api_method');
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
 
     const isApiError = apiEndpoint !== '-';
 
-    const apiInfo = isApiError ? `${apiMethod} ${apiStatus} ${apiEndpoint}` : 'API 오류 아님';
+    const apiInfo = isApiError ? `${apiMethod} ${apiStatus} ${apiEndpoint}` : 'API 알 수 없음';
 
     const timestamp = event?.datetime
       ? new Date(event.datetime).toLocaleString('ko-KR', {
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
           `[${title}](${permalink})\n` +
           `${message}\n` +
           `**발생 시간**\n${timestamp}\n` +
-          `**URL**\n${culprit}\n` +
+          `**URL**\n${url}\n` +
           `**API URL**\n${apiInfo}\n` +
           `**환경**\n${osName} ${osVersion}, ${browserName} ${browserVersion}`,
       }),

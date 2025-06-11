@@ -27,7 +27,7 @@ const sendLogToSentry = ({ level = 'error', error }: SendLogToSentry) => {
         requestBody: requestBody ? JSON.stringify(requestBody) : '',
       });
 
-      Sentry.captureMessage(`${errorCode ?? 'UnknownApiError'} - ${message}`);
+      Sentry.captureMessage(`${errorCode ?? 'UnknownApiError'}: ${message}`);
     } else {
       const { name, message } = error;
 
