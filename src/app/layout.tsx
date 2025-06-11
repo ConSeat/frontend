@@ -8,6 +8,7 @@ import KakaoScript from '@/components/KakaoScript';
 import RefreshLogin from '@/components/RefreshLogin/RefreshLogin';
 import SentryUserInitializer from '@/components/SentryUserInitializer/SentryUserInitializer';
 import { auth } from '@/auth';
+import { PUBLIC_ENV } from '@/config/env';
 import { AuthProvider } from '@/providers/AuthProvider';
 import { ErrorProvider } from '@/providers/ErrorProvider';
 import { PopupProvider } from '@/providers/PopupProvider';
@@ -15,7 +16,6 @@ import QueryProvider from '@/providers/QueryProvider';
 import { ToastProvider } from '@/providers/ToastProvider';
 import '@/styles/global.scss';
 import { getMetadata } from '@/utils/getMetadata';
-import { GA_TRACKING_ID } from '@/utils/gtag';
 
 const pretendard = localFont({
   src: '../assets/fonts/PretendardVariable.woff2',
@@ -267,7 +267,7 @@ const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>)
           </QueryProvider>
         </ErrorProvider>
         <AnalyticsListener />
-        <GoogleAnalytics gaId={GA_TRACKING_ID} />
+        <GoogleAnalytics gaId={PUBLIC_ENV.gaId} />
         <KakaoScript />
       </body>
     </html>

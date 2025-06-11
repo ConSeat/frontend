@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server';
+import { PUBLIC_ENV } from '@/config/env';
 
 export async function POST(req: NextRequest) {
   const payload = await req.json();
@@ -50,7 +51,7 @@ export async function POST(req: NextRequest) {
     const browserVersion = browserContext?.version || 'Unknown Version';
 
     // Discord로 보내기
-    await fetch(process.env.DISCORD_WEBHOOK_URL!, {
+    await fetch(PUBLIC_ENV.discordWebhookUrl!, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

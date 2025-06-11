@@ -1,9 +1,10 @@
 import * as Sentry from '@sentry/nextjs';
+import { PUBLIC_ENV } from '@/config/env';
 
 const isProd = process.env.NODE_ENV === 'production';
 
 Sentry.init({
-  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  dsn: PUBLIC_ENV.sentryDsn,
   tracesSampleRate: 0.1,
   sendDefaultPii: false,
   enabled: isProd, // 개발 환경에서는 전송 안 함
