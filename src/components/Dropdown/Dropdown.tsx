@@ -37,7 +37,7 @@ interface DropdownMenuProps extends HTMLAttributes<HTMLUListElement> {
 
 const DropdownMenu = ({ children, className, ...props }: DropdownMenuProps) => {
   return (
-    <ul className={classNames(styles.dropdownMenu, className)} {...props}>
+    <ul className={classNames(styles.dropdownMenu, className)} role="listbox" {...props}>
       {children}
     </ul>
   );
