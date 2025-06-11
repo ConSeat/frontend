@@ -1,20 +1,17 @@
 'use client';
 
 import styles from './page.module.scss';
-import * as Sentry from '@sentry/nextjs';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import MainBackground from '@/components/Background/MainBackground';
 import Button from '@/components/Button/Button';
-import ApiRequestError from '@/utils/ApiRequestError';
+import { logError } from '@/utils/logError';
 
 export default function GlobalError({ error }: { error: Error & { digest?: string } }) {
   useEffect(() => {
-    if (error instanceof ApiRequestError) {
-      return;
-    }
+    if (!error) return;
 
-    Sentry.captureException(error);
+    logError(error);
   }, [error]);
 
   return (

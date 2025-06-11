@@ -5,4 +5,7 @@ export const PUBLIC_ENV = {
   kakaoApiKey: process.env.NEXT_PUBLIC_KAKAO_API_KEY,
   nextAuthSecret: process.env.AUTH_SECRET,
   nextAuthUrl: process.env.AUTH_URL,
+  sentryDsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  discordWebhookUrl: process.env.DISCORD_WEBHOOK_URL,
+  gaId: process.env.NEXT_PUBLIC_GA_ID!,
 };
