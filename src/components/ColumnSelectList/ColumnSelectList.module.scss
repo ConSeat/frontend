@@ -25,6 +25,11 @@
 
 .selectItemWrapper {
   width: 100%;
+  transition: transform 0.1s ease;
+
+  &:active {
+    transform: scale(0.96);
+  }
 }
 
 .selectItemLayout {

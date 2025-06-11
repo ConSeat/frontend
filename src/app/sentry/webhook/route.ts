@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({
         content:
-          `${emoji} ${level.toUpperCase()} Sentry 알림\n` +
+          `${emoji} **${level.toUpperCase()} Sentry 알림**\n` +
           `[${title}](${permalink})\n` +
           `${message}\n` +
           `**발생 시간**\n${timestamp}\n` +
