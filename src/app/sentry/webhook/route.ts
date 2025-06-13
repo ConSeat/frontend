@@ -21,24 +21,24 @@ export async function POST(req: NextRequest) {
     const emoji = levelEmojiMap[level] || '🚨';
 
     const title = event?.title || '알 수 없는 오류';
-    const url = getTag('url') || getTag('page_url') || event?.request?.url || '알 수 없는 위치';
+    const permalink =
+      event?.web_url || 'https://conseat.sentry.io/issues/?project=4509372106539008';
 
-    const apiEndpoint = getTag('api_endpoint');
-    const apiMethod = getTag('api_method');
-    const apiStatus = getTag('api_status');
-
-    const isApiError = apiEndpoint !== '-';
-
-    const apiInfo = isApiError ? `${apiMethod} ${apiStatus} ${apiEndpoint}` : 'API 알 수 없음';
+    const message = event?.exception?.values?.[0]?.value || '메시지 없음';
 
     const timestamp = event?.datetime
       ? new Date(event.datetime).toLocaleString('ko-KR', {
           timeZone: 'Asia/Seoul',
         })
-      : '알 수 없음';
-    const message = event?.exception?.values?.[0]?.value || '메시지 없음';
-    const permalink =
-      event?.web_url || 'https://conseat.sentry.io/issues/?project=4509372106539008';
+      : '-';
+
+    const url = getTag('url') || getTag('page_url') || event?.request?.url || event?.culprit || '-';
+
+    const apiEndpoint = getTag('api_endpoint');
+    const apiMethod = getTag('api_method');
+    const apiStatus = getTag('api_status');
+    const isApiError = apiEndpoint !== '-';
+    const apiInfo = isApiError ? `${apiMethod} ${apiStatus} ${apiEndpoint}` : '-';
 
     const osContext = event?.contexts?.os;
     const osName = osContext?.name || 'Unknown OS';
