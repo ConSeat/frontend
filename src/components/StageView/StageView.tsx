@@ -22,7 +22,6 @@ const injectFilter = (raw: string): string => {
           <feFuncG type="linear" slope="2.5"/>
           <feFuncB type="linear" slope="2.5"/>
         </feComponentTransfer>
-        <feDropShadow dx="10" dy="10" stdDeviation="20" flood-color="rgba(0,0,0,0.7)"/>
       </filter>
     </defs>`;
   return raw.replace(/<svg([^>]*)>/, `<svg$1>${filterDefs}`);
