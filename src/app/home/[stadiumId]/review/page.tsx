@@ -35,8 +35,6 @@ const ReviewPage = async ({ params }) => {
     stadiumQueries.obstructions,
   ]);
 
-  console.log("dehydratedState", dehydratedState)
-
   return (
     <HydrationBoundary state={dehydratedState}>
       <ReviewContainer stadiumId={Number(stadiumId)} />
