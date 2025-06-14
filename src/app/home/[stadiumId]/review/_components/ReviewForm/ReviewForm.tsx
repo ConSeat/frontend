@@ -163,7 +163,7 @@ const ReviewForm = ({ reviewData, dispatch, onSubmit, status }: ReviewFormProps)
             )
           }
         >
-          <ReviewSection.Title title={REVIEW.MESSAGE.SCREEN_DISTANCE.TITLE} />
+          <ReviewSection.Title title={REVIEW.MESSAGE.STAGE_DISTANCE.TITLE} />
           <DistanceInfoSelect
             name="stageDistance"
             options={STAGE_DISTANCE_INFO}
