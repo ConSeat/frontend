@@ -55,11 +55,18 @@ const ReviewDropdownInput = ({
                 }
               }}
               role="combobox"
+              autoComplete="off"
               aria-expanded={isDropdownOpen}
               aria-controls={`${id}-listbox`}
               aria-autocomplete="list"
             />
-            <span>{isDropdownOpen ? <Icon icon="UpArrow" /> : <Icon icon="DownArrow" />}</span>
+            <span>
+              {isDropdownOpen ? (
+                <Icon icon="UpArrow" onClick={handleCloseDropdown} />
+              ) : (
+                <Icon icon="DownArrow" onClick={handleOpenDropdown} />
+              )}
+            </span>
           </div>
         }
       />

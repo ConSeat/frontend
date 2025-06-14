@@ -4,7 +4,7 @@ import { NONE_SELECT } from '../../_constants/info';
 import { REVIEW } from '../../_constants/review';
 import ReviewForm from '../ReviewForm';
 import { useRouter } from 'next/navigation';
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import useMutateReview from '@/hooks/mutations/useMutateReview';
 import type { ReviewAction, ReviewData, Step } from '@/types/review';
 import { gaEvent } from '@/utils/gtag';
@@ -142,44 +142,62 @@ const ReviewContainer = ({ stadiumId }: ReviewContainerProps) => {
   const [state, dispatch] = useReducer(reviewReducer, createInitReviewData(stadiumId));
   const { postReviewMutation, postReviewImagesMutation } = useMutateReview();
   const router = useRouter();
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
   const handleSubmitReview = async () => {
-    const { data: uploadImage } = await postReviewImagesMutation.mutateAsync(state.images);
+    if (status === 'sending') return; // 중복 방지
 
-    const uploadImageUrls = uploadImage.originalImage;
+    setStatus('sending');
+    try {
+      const { data: uploadImage } = await postReviewImagesMutation.mutateAsync(state.images);
+      const uploadImageUrls = uploadImage.originalImage;
 
-    const sanitize = (arr: number[]) => (arr.includes(-1) ? [] : arr);
+      const sanitize = (arr: number[]) => (arr.includes(-1) ? [] : arr);
 
-    const body = {
-      features: sanitize(state.features),
-      images: uploadImageUrls,
-      stageDistance: state.stageDistance,
-      thrustStageDistance: state.thrustStageDistance,
-      screenDistance: state.screenDistance,
-      obstructions: sanitize(state.obstructions),
-      contents: state.contents,
-    };
+      const body = {
+        features: sanitize(state.features),
+        images: uploadImageUrls,
+        stageDistance: state.stageDistance,
+        thrustStageDistance: state.thrustStageDistance,
+        screenDistance: state.screenDistance,
+        obstructions: sanitize(state.obstructions),
+        contents: state.contents,
+      };
 
-    postReviewMutation.mutate(
-      {
-        concertId: state.concertId,
-        seatingId: state.seatingId,
-        body,
-      },
-      {
-        onSuccess: () => {
-          gaEvent({
-            action: '후기 작성 완료',
-            category: 'conversion',
-            label: '후기 등록 버튼 클릭',
-          });
-          router.push(`/home/${state.stadiumId}/review/complete`);
+      postReviewMutation.mutate(
+        {
+          concertId: state.concertId,
+          seatingId: state.seatingId,
+          body,
         },
-      },
-    );
+        {
+          onSuccess: () => {
+            gaEvent({
+              action: '후기 작성 완료',
+              category: 'conversion',
+              label: '후기 등록 버튼 클릭',
+            });
+            setStatus('success');
+            router.push(`/home/${state.stadiumId}/review/complete`);
+          },
+          onError: () => {
+            setStatus('error');
+          },
+        },
+      );
+    } catch {
+      setStatus('error');
+    }
   };
 
-  return <ReviewForm reviewData={state} dispatch={dispatch} onSubmit={handleSubmitReview} />;
+  return (
+    <ReviewForm
+      reviewData={state}
+      dispatch={dispatch}
+      onSubmit={handleSubmitReview}
+      status={status}
+    />
+  );
 };
 
 export default ReviewContainer;
