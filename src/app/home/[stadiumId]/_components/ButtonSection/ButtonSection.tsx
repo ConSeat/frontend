@@ -47,9 +47,6 @@ const ButtonSection = ({ stadiumId, viewType }: ButtonSectionProps) => {
         variant={viewType ? 'primary' : 'inactive'}
         disabled={!viewType}
         onClick={viewType === 'review' ? handleClickReview : handleClickNextButton}
-        onPointerEnter={() => viewType && router.prefetch(nextHref)}
-        onTouchStart={() => viewType && router.prefetch(nextHref)}
-        onFocus={() => viewType && router.prefetch(nextHref)}
       >
         다음
       </Button>

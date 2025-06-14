@@ -2,6 +2,7 @@
 
 import ButtonSection from '../ButtonSection/ButtonSection';
 import styles from './SelectMenu.module.scss';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useState } from 'react';
 import ColumnSelectList from '@/components/ColumnSelectList';
@@ -16,10 +17,12 @@ interface SelectMenuProps {
 }
 
 const SelectMenu = ({ stadiumId }: SelectMenuProps) => {
+  const router = useRouter();
   const [viewType, setViewType] = useState<ViewType | undefined>(undefined);
 
   const handleClickSelectItem = (type: ViewType) => {
     setViewType(type);
+    router.prefetch(`/home/${stadiumId}/${type}`);
   };
 
   return (

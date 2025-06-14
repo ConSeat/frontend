@@ -3,7 +3,7 @@ import withPWA from 'next-pwa';
 import runtimeCaching from 'next-pwa/cache';
 import path from 'path';
 
-const isProd = process.env.NODE_ENV === 'production'; // 배포 버전에만 PWA 활성화
+const isProd = process.env.NODE_ENV === 'production';
 
 const pwaConfig = withPWA({
   dest: 'public',
@@ -30,6 +30,12 @@ const nextConfig = {
         },
       ],
     });
+
+    config.module.rules.push({
+      test: /\.webm$/,
+      type: 'asset/resource',
+    });
+
     return config;
   },
 };

@@ -22,6 +22,7 @@ import React, { Dispatch, useRef, useState } from 'react';
 import Button from '@/components/Button/Button';
 import SmallStageView from '@/components/SmallStageView';
 import Spacing from '@/components/Spacing/Spacing';
+import { ReviewComplete, ReviewLoading } from '@/assets';
 import { usePopup } from '@/providers/PopupProvider';
 import { useToast } from '@/providers/ToastProvider';
 import type { ReviewAction, ReviewData } from '@/types/review';
@@ -87,6 +88,9 @@ const ReviewForm = ({ reviewData, dispatch, onSubmit, status }: ReviewFormProps)
 
   return (
     <form className={styles.reviewFormLayout}>
+      <video src={ReviewLoading} autoPlay loop muted />
+      <video src={ReviewComplete} autoPlay loop muted />
+
       {/* 콘서트 선택 */}
       {isRender(REVIEW.STEPS.CONCERT_SELECT) && (
         <ReviewSection
