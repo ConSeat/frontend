@@ -12,7 +12,10 @@ interface Props {
 }
 
 const hiddenPathPatterns = [
-  /^\/home\/[^/]+\/review\/complete$/, // 리뷰 작성 완료
+  /^\/home\/[^/]+\/review\/submit$/, // 리뷰 제출 중
+  /^\/home\/[^/]+\/review\/success$/, // 리뷰 제출 성공
+  /^\/home\/[^/]+\/review\/error$/, // 리뷰 제출 실패
+
   /^\/home\/[^/]+\/[^/]+\/all$/, // 후기 전체보기
   /^\/home\/[^/]+\/[^/]+\/all\/[^/]+$/, // 후기 전체보기 뒤에 추가적인 경로가 있는 경우
 ];

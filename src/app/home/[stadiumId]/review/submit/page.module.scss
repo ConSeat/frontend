@@ -1,13 +1,13 @@
 @import '@/styles/style';
 
-.completeContainer {
+.successContainer {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   justify-content: space-between;
 }
 
-.completeWrapper {
+.successWrapper {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -17,15 +17,14 @@
   margin: auto;
 }
 
-.completeText {
+.successText {
   @include subtitle-1;
 
   color: $sub-gray2;
 }
 
-.completeLink {
+.successSubtext {
   @include body-2;
 
   color: $sub-gray4;
-  text-decoration: underline;
 }
