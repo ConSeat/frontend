@@ -3,8 +3,10 @@
 import { NONE_SELECT } from '../../_constants/info';
 import { REVIEW } from '../../_constants/review';
 import ReviewForm from '../ReviewForm';
+import SubmittingModal from '../SubmittingModal/SubmittingModal';
 import { useRouter } from 'next/navigation';
 import { useReducer, useState } from 'react';
+import useStateModal from '@/hooks/common/useStateModal';
 import useMutateReview from '@/hooks/mutations/useMutateReview';
 import type { ReviewAction, ReviewData, Step } from '@/types/review';
 import { gaEvent } from '@/utils/gtag';
@@ -139,6 +141,7 @@ interface ReviewContainerProps {
 }
 
 const ReviewContainer = ({ stadiumId }: ReviewContainerProps) => {
+  const { isModalOpen, openModal } = useStateModal();
   const [state, dispatch] = useReducer(reviewReducer, createInitReviewData(stadiumId));
   const { postReviewMutation, postReviewImagesMutation } = useMutateReview();
   const router = useRouter();
@@ -147,7 +150,9 @@ const ReviewContainer = ({ stadiumId }: ReviewContainerProps) => {
   const handleSubmitReview = async () => {
     if (status === 'sending') return; // 중복 방지
 
+    openModal();
     setStatus('sending');
+
     try {
       const { data: uploadImage } = await postReviewImagesMutation.mutateAsync(state.images);
       const uploadImageUrls = uploadImage.originalImage;
@@ -178,10 +183,11 @@ const ReviewContainer = ({ stadiumId }: ReviewContainerProps) => {
               label: '후기 등록 버튼 클릭',
             });
             setStatus('success');
-            router.push(`/home/${state.stadiumId}/review/complete`);
+            router.push(`/home/${state.stadiumId}/review/success`);
           },
           onError: () => {
             setStatus('error');
+            router.push(`/home/${state.stadiumId}/review/error`);
           },
         },
       );
@@ -191,12 +197,15 @@ const ReviewContainer = ({ stadiumId }: ReviewContainerProps) => {
   };
 
   return (
-    <ReviewForm
-      reviewData={state}
-      dispatch={dispatch}
-      onSubmit={handleSubmitReview}
-      status={status}
-    />
+    <>
+      <ReviewForm
+        reviewData={state}
+        dispatch={dispatch}
+        onSubmit={handleSubmitReview}
+        status={status}
+      />
+      <SubmittingModal isModalOpen={isModalOpen} />
+    </>
   );
 };
 
