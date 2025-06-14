@@ -10,7 +10,6 @@ export function useAutoScroll<Keys>(
     const stepToKey: Record<number, Keys> = {
       [REVIEW.STEPS.SEAT_INFO_SELECT]: 'seatingId' as Keys,
       [REVIEW.STEPS.FEATURES_INFO_SELECT]: 'features' as Keys,
-      [REVIEW.STEPS.DISTANCE_INFO_SELECT]: 'stageDistance' as Keys,
       [REVIEW.STEPS.OBSTRUCTIONS_SELECT]: 'obstructions' as Keys,
     } as const;
 

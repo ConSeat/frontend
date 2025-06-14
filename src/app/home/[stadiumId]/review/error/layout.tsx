@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
 import MainBackground from '@/components/Background/MainBackground';
 
-interface CompleteLayoutProps {
+interface ErrorLayoutProps {
   children: ReactNode;
 }
 
-const CompleteLayout = ({ children }: CompleteLayoutProps) => {
+const ErrorLayout = ({ children }: ErrorLayoutProps) => {
   return (
     <>
       <MainBackground />
@@ -14,4 +14,4 @@ const CompleteLayout = ({ children }: CompleteLayoutProps) => {
   );
 };
 
-export default CompleteLayout;
+export default ErrorLayout;

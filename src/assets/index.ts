@@ -36,6 +36,8 @@ export { default as Seat } from '@/assets/icons/stadiumPage/seat.svg';
 
 /**************** icons - reviewPage ****************/
 export { default as ChoiceCircle } from '@/assets/icons/reviewPage/btn-choiceCircle.svg';
+export { default as ReviewComplete } from '@/assets/icons/reviewPage/review-complete.webm';
+export { default as ReviewLoading } from '@/assets/icons/reviewPage/review-loading.webm';
 
 /**************** logos ****************/
 export { default as MainLogo } from '@/assets/logos/main-logo.svg';
