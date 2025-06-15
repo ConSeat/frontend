@@ -32,6 +32,7 @@ interface ImageSlideProps {
   isTransitioning: boolean;
   onTransitionEnd?: () => void;
   slideRef: RefObject<HTMLDivElement | null>;
+  onImageClick?: (index: number) => void;
 }
 
 const ImageSlide = ({
@@ -43,6 +44,7 @@ const ImageSlide = ({
   isTransitioning,
   onTransitionEnd,
   slideRef,
+  onImageClick,
 }: ImageSlideProps) => {
   const { handleTouchStart, handleTouchMove, handleTouchEnd } = useSwipe(onNext, onPrev);
 
@@ -66,23 +68,27 @@ const ImageSlide = ({
         }}
         onTransitionEnd={onTransitionEnd}
       >
-        {images.map((src, idx) => (
-          <div
-            key={idx}
-            className={styles.slideItem}
-            style={{ flex: `0 0 ${100 / total}%`, height: `${height}px` }}
-          >
-            <Image
-              src={src}
-              alt={`slide-${idx}`}
-              fill
-              style={{ objectFit: 'cover' }}
-              priority={idx === 1}
-            />
-          </div>
-        ))}
+        {images.map((src, idx) => {
+          const actualIndex = (idx + total - 1) % total;
+          return (
+            <div
+              key={idx}
+              className={styles.slideItem}
+              style={{ flex: `0 0 ${100 / total}%`, height: `${height}px` }}
+              onClick={() => onImageClick?.(actualIndex)}
+            >
+              <Image
+                src={src}
+                alt={`slide-${idx}`}
+                fill
+                style={{ objectFit: 'cover' }}
+                priority={idx === 1}
+              />
+            </div>
+          );
+        })}
       </div>
-      <NavigationButtons onPrev={onPrev} onNext={onNext} />
+      {imageSrcArray.length > 1 && <NavigationButtons onPrev={onPrev} onNext={onNext} />}
     </div>
   );
 };
