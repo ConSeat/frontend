@@ -69,7 +69,7 @@ const ReviewList = ({ stadium, stadiumId, onClick, useFetchReview }: ReviewListP
             >
               <div className={styles.reviewImage}>
                 <Image
-                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   width={100}
                   height={120}
                   alt="후기 이미지"
