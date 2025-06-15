@@ -4,23 +4,17 @@ import { getReviewImages } from '@/apis/review/review.api';
 import { getSeatingReviews } from '@/apis/review/seating.api';
 
 const DetailPage = async ({ params }) => {
-  const { stadiumId, seatingId, reviewId } = params;
+  const { stadiumId, seatingId, reviewId } = await params;
 
   if (!stadiumId || !seatingId || !reviewId) {
     notFound();
   }
 
-  const seatInfo = await getSeatingReviews(Number(seatingId));
-  if (!seatInfo) {
-    notFound();
-  }
+  await getSeatingReviews(Number(seatingId));
 
-  const reviewImages = await getReviewImages(Number(reviewId));
-  if (!reviewImages) {
-    notFound();
-  }
+  await getReviewImages(Number(reviewId));
 
-  return <PhotoModal stadiumId={stadiumId} seatingId={seatingId} reviewId={reviewId} />;
+  return <PhotoModal reviewId={reviewId} />;
 };
 
 export default DetailPage;

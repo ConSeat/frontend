@@ -14,8 +14,6 @@ import LoadingSpinner from '@/app/mypage/_components/LoadingSpinner';
 import { getDisplayIndex } from '@/utils/getDisplayIndex';
 
 interface PhotoModalProps {
-  stadiumId: string;
-  seatingId: string;
   reviewId: string;
 }
 
@@ -49,7 +47,15 @@ const PhotoModal = ({ reviewId }: PhotoModalProps) => {
   const displayIndex = getDisplayIndex(imageIndex, total);
 
   useEffect(() => {
-    router.replace(`?pidx=${displayIndex - 1}`, { scroll: false });
+    if (typeof window === 'undefined') return;
+
+    const current = searchParams.get('pidx');
+    const next = String(displayIndex - 1);
+
+    // 이미 있는 값이면 replace 하지 않음
+    if (current !== next) {
+      router.replace(`?pidx=${next}`, { scroll: false });
+    }
   }, [displayIndex]);
 
   if (rawPidx === null) return null;
