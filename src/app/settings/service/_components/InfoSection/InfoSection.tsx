@@ -4,9 +4,31 @@ import styles from './InfoSection.module.scss';
 import * as Sentry from '@sentry/nextjs';
 import { signOut } from 'next-auth/react';
 import { Fragment } from 'react';
+import useMutateAuth from '@/hooks/mutations/useMutateAuth';
 import Icon from '@/components/Icon/Icon';
 import Splitter from '@/components/Splitter/Splitter';
-import { postLogout } from '@/apis/auth/auth.api';
+import { useToast } from '@/providers/ToastProvider';
+
+const sections = [
+  {
+    title: '앱 설정',
+    items: [{ type: 'info', title: '현재버전 1.0', description: '최신버전을 사용 중이에요' }],
+  },
+  {
+    title: '약관 및 방침',
+    items: [
+      { type: 'button', title: '이용약관' },
+      { type: 'button', title: '개인정보처리방침' },
+    ],
+  },
+  {
+    title: '관리',
+    items: [
+      { type: 'button', title: '로그아웃' },
+      { type: 'button', title: '회원탈퇴' },
+    ],
+  },
+];
 
 const SectionTitle = ({ children }) => <div className={styles.title}>{children}</div>;
 
@@ -25,35 +47,26 @@ const ButtonItem = ({ title, onClick }) => (
 );
 
 const InfoSection = () => {
-  const sections = [
-    {
-      title: '앱 설정',
-      items: [{ type: 'info', title: '현재버전 1.0', description: '최신버전을 사용 중이에요' }],
-    },
-    {
-      title: '약관 및 방침',
-      items: [
-        { type: 'button', title: '이용약관' },
-        { type: 'button', title: '개인정보처리방침' },
-      ],
-    },
-    {
-      title: '관리',
-      items: [
-        { type: 'button', title: '로그아웃' },
-        { type: 'button', title: '회원탈퇴' },
-      ],
-    },
-  ];
+  const { postLogoutMutation } = useMutateAuth();
+  const { activateToast } = useToast();
 
   const handleClick = async (title: string) => {
     switch (title) {
       case '로그아웃':
-        await postLogout();
-        localStorage.removeItem('memberInfo');
-        Sentry.setUser(null);
-        await signOut({ redirectTo: '/home' });
+        postLogoutMutation.mutate(undefined, {
+          onSuccess: async () => {
+            localStorage.removeItem('memberInfo');
+            Sentry.setUser(null);
+            await signOut({ redirect: false });
+            activateToast('로그아웃되었습니다.', 'Success');
+            window.location.href = '/home';
+          },
+          onError: () => {
+            activateToast('로그아웃 중 문제가 발생했어요.', 'Warning');
+          },
+        });
         break;
+
       case '회원탈퇴':
         break;
       case '이용약관':
