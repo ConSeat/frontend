@@ -79,6 +79,7 @@ const AllDropdownModal = ({
           role="dialog"
           aria-modal="true"
           aria-labelledby={`${id}-title`}
+          className={styles.modalBodyContent}
         >
           <div className={styles.modalTextContainer}>
             <p id={`${id}-title`} className={styles.modalTextTitle}>
