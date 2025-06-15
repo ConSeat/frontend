@@ -17,7 +17,7 @@ const UserInfo = ({ email, nickname, profileImage }: UserInfoProps) => {
     <div className={styles.userInfoContainer}>
       <div className={styles.profileContainer}>
         <div className={styles.imageContainer}>
-          <Image src={profileImage} width={64} height={64} alt="프로필사진" />
+          <Image src={profileImage} width={64} height={64} alt="프로필사진" priority />
         </div>
         <Link href={'/settings/account'}>
           <Button className={styles.editButton}>
