@@ -14,18 +14,18 @@ const sections = [
     title: '앱 설정',
     items: [{ type: 'info', title: '현재버전 1.0', description: '최신버전을 사용 중이에요' }],
   },
-  {
-    title: '약관 및 방침',
-    items: [
-      { type: 'button', title: '이용약관' },
-      { type: 'button', title: '개인정보처리방침' },
-    ],
-  },
+  // {
+  //   title: '약관 및 방침',
+  //   items: [
+  //     { type: 'button', title: '이용약관' },
+  //     { type: 'button', title: '개인정보처리방침' },
+  //   ],
+  // },
   {
     title: '관리',
     items: [
       { type: 'button', title: '로그아웃' },
-      { type: 'button', title: '회원탈퇴' },
+      // { type: 'button', title: '회원탈퇴' },
     ],
   },
 ];
