@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import React from 'react';
 import Splitter from '@/components/Splitter/Splitter';
+import { getSeatingReviews } from '@/apis/review/seating.api';
 import { getStadiumList } from '@/apis/stadium/stadium.api';
 import { stadiumQueries } from '@/apis/stadium/stadium.query';
 import { createPrefetchedQueryClient } from '@/utils/createPrefetchedQueryClient';
@@ -30,6 +31,13 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 
 const AllReviewPage = async ({ params }) => {
   const { stadiumId, seatingId } = await params;
+
+  if (!stadiumId || !seatingId) {
+    notFound();
+  }
+
+  await getSeatingReviews(Number(seatingId));
+
   const { dehydratedState } = await createPrefetchedQueryClient([
     stadiumQueries.features,
     stadiumQueries.obstructions,
