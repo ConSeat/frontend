@@ -8,9 +8,9 @@ export type PrefetchableQuery = {
 export const createPrefetchedQueryClient = async (queries: PrefetchableQuery[]) => {
   const queryClient = new QueryClient();
 
-  for (const { queryKey, queryFn } of queries) {
-    await queryClient.prefetchQuery({ queryKey, queryFn });
-  }
+  await Promise.all(
+    queries.map(({ queryKey, queryFn }) => queryClient.prefetchQuery({ queryKey, queryFn })),
+  );
 
   return {
     queryClient,

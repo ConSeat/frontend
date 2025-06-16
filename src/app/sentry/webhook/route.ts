@@ -32,11 +32,12 @@ export async function POST(req: NextRequest) {
         })
       : '-';
 
-    const url = getTag('url') || getTag('page_url') || event?.request?.url || event?.culprit || '-';
+    const url = getTag('page_url') || getTag('url') || event?.request?.url || event?.culprit || '-';
 
-    const apiEndpoint = getTag('api_endpoint');
-    const apiMethod = getTag('api_method');
-    const apiStatus = getTag('api_status');
+    const apiContext = event?.contexts?.api || {};
+    const apiEndpoint = getTag('api_endpoint') || apiContext.endpoint || '-';
+    const apiMethod = getTag('api_method') || apiContext.method || '-';
+    const apiStatus = getTag('api_status') || apiContext.status || '-';
     const isApiError = apiEndpoint !== '-';
     const apiInfo = isApiError ? `${apiMethod} ${apiStatus} ${apiEndpoint}` : '-';
 

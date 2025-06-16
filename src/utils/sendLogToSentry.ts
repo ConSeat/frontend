@@ -8,7 +8,13 @@ type SendLogToSentry = {
   error: Error;
 };
 
+// 중복 전송 방지용
+const sentErrorSet = new WeakSet<Error>();
+
 const sendLogToSentry = ({ level = 'error', error }: SendLogToSentry) => {
+  if (sentErrorSet.has(error)) return;
+  sentErrorSet.add(error);
+
   Sentry.withScope((scope) => {
     scope.setLevel(level);
     scope.setTag('environment', process.env.NODE_ENV ?? 'unknown');
@@ -24,16 +30,24 @@ const sendLogToSentry = ({ level = 'error', error }: SendLogToSentry) => {
         api_method: method,
         api_strategy: strategy,
         errorCode: errorCode ?? '',
+      });
+
+      scope.setContext('api', {
+        status: status.toString(),
+        endpoint,
+        method,
+        strategy,
+        errorCode,
         requestBody: requestBody ? JSON.stringify(requestBody) : '',
       });
 
-      Sentry.captureMessage(`${errorCode ?? 'UnknownApiError'}: ${message}`);
-    } else {
-      const { name, message } = error;
+      scope.setExtra('custom_message', message);
 
+      Sentry.captureException(error);
+    } else {
       scope.setTags({
-        name,
-        message,
+        name: error.name,
+        message: error.message,
       });
 
       Sentry.captureException(error);

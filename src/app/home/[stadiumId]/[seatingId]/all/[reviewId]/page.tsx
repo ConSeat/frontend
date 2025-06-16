@@ -2,25 +2,19 @@ import { notFound } from 'next/navigation';
 import PhotoModal from '@/components/PhotoModal/PhotoModal';
 import { getReviewImages } from '@/apis/review/review.api';
 import { getSeatingReviews } from '@/apis/review/seating.api';
+import { fetchOrHandle } from '@/utils/fetchOrHandle';
 
 const DetailPage = async ({ params }) => {
-  const { stadiumId, seatingId, reviewId } = params;
+  const { stadiumId, seatingId, reviewId } = await params;
 
   if (!stadiumId || !seatingId || !reviewId) {
     notFound();
   }
 
-  const seatInfo = await getSeatingReviews(Number(seatingId));
-  if (!seatInfo) {
-    notFound();
-  }
+  await fetchOrHandle(() => getSeatingReviews(Number(seatingId)));
+  await fetchOrHandle(() => getReviewImages(Number(reviewId)));
 
-  const reviewImages = await getReviewImages(Number(reviewId));
-  if (!reviewImages) {
-    notFound();
-  }
-
-  return <PhotoModal stadiumId={stadiumId} seatingId={seatingId} reviewId={reviewId} />;
+  return <PhotoModal reviewId={reviewId} />;
 };
 
 export default DetailPage;

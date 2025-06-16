@@ -14,8 +14,6 @@ import LoadingSpinner from '@/app/mypage/_components/LoadingSpinner';
 import { getDisplayIndex } from '@/utils/getDisplayIndex';
 
 interface PhotoModalProps {
-  stadiumId: string;
-  seatingId: string;
   reviewId: string;
 }
 

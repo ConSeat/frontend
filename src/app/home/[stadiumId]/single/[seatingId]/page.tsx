@@ -19,7 +19,9 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   const seatInfo = await getSeatingReviews(Number(seatingId));
   const stadium = findStadiumById(stadiumList.active, Number(stadiumId));
 
-  if (!stadium || !seatInfo) notFound();
+  if (!stadium || !seatInfo) {
+    notFound();
+  }
 
   const title = `${stadium.stadiumName} | ${seatInfo.floorName} ${seatInfo.sectionName}${
     seatInfo.seatingName ? ` ${seatInfo.seatingName}` : ''
@@ -38,19 +40,13 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 
 const ResultPage = async ({ params }) => {
   const { stadiumId, seatingId } = await params;
+  const { dehydratedState } = await createPrefetchedQueryClient([
+    seatingReviewQueries.seating(seatingId),
+  ]);
 
   if (!stadiumId || !seatingId) {
     notFound();
   }
-
-  const seatInfo = await getSeatingReviews(Number(seatingId));
-  if (!seatInfo) {
-    notFound();
-  }
-
-  const { dehydratedState } = await createPrefetchedQueryClient([
-    seatingReviewQueries.seating(seatingId),
-  ]);
 
   return (
     <>
