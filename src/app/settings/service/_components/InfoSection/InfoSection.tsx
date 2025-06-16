@@ -61,12 +61,15 @@ const InfoSection = () => {
             activateToast('로그아웃되었습니다.', 'Success');
             window.location.href = '/home';
           },
-          onError: () => {
+          onError: async () => {
+            localStorage.removeItem('memberInfo');
+            Sentry.setUser(null);
+            await signOut({ redirect: false });
             activateToast('로그아웃 중 문제가 발생했어요.', 'Warning');
+            window.location.href = '/home';
           },
         });
         break;
-
       case '회원탈퇴':
         break;
       case '이용약관':
