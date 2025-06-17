@@ -31,7 +31,7 @@ const ClientHeaderWrapper = ({ onBack }: Props) => {
   return (
     <Header
       left={<Icon icon="LeftArrow" onClick={onBack ?? defaultBack} />}
-      title={'로고'}
+      center={<button onClick={() => router.push('/home')}>로고</button>}
       right={<MypageLink />}
     />
   );

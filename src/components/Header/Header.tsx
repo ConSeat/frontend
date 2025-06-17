@@ -5,15 +5,15 @@ import { type HTMLAttributes } from 'react';
 
 interface HeaderProps extends HTMLAttributes<HTMLDivElement> {
   left?: React.ReactNode;
-  title?: string;
+  center?: React.ReactNode;
   right?: React.ReactNode;
 }
 
-const Header = ({ title, left, right, ...props }: HeaderProps) => {
+const Header = ({ left, center, right, ...props }: HeaderProps) => {
   return (
     <header className={styles.header} {...props}>
       <div className={styles.left}>{left}</div>
-      <h1 className={styles.title}>{title}</h1>
+      <h1 className={styles.center}>{center}</h1>
       <div className={styles.right}>{right}</div>
     </header>
   );

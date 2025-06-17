@@ -12,7 +12,7 @@ const MyHeader = () => {
   return (
     <Header
       left={<Icon icon="LeftArrow" onClick={() => router.push('/home')} />}
-      title="마이 페이지"
+      center="마이 페이지"
       right={
         <Link href="/settings/service">
           <Icon icon="Gear" />
