@@ -2,7 +2,7 @@
 
 import type { FilterAction } from '../../_types/filter';
 import AllCheckbox from '../AllCheckbox/AllCheckbox';
-import DetailDropdownModal from '../AllDropdownModal/AllDropdownModal';
+import AllDropdownModal from '../AllDropdownModal/AllDropdownModal';
 import styles from './FeatureDropdownModal.module.scss';
 import { useState } from 'react';
 import { useFetchStadiumFeatures } from '@/hooks/queries/useFetchStadium';
@@ -32,7 +32,7 @@ const FeatureDropdownModal = ({ features, dispatch }: FeatureDropdownModalProps)
   };
 
   return (
-    <DetailDropdownModal
+    <AllDropdownModal
       label={`특이사항 ${features.length > 0 ? features.length : ''}`}
       isSelected={features.length > 0}
       title="특이사항"
@@ -49,7 +49,7 @@ const FeatureDropdownModal = ({ features, dispatch }: FeatureDropdownModalProps)
           />
         ))}
       </div>
-    </DetailDropdownModal>
+    </AllDropdownModal>
   );
 };
 

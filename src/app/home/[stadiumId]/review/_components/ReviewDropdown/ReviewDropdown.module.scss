@@ -21,6 +21,7 @@
 
 .reviewDropdownText {
   @include subtitle-4;
+  @include single-line-elliptical-text;
 
   &.placeholder {
     color: rgba($sub-white, 0.5);

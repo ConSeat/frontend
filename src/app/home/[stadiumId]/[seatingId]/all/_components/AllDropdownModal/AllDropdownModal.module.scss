@@ -56,6 +56,7 @@
   z-index: z-index(modal-content);
   bottom: 0;
 
+  overflow: hidden;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
