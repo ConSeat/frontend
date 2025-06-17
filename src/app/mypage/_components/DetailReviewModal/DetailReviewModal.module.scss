@@ -1,14 +1,26 @@
 @import '@/styles/style';
 
 .content {
+  scrollbar-width: none;
+
   position: fixed;
   z-index: z-index(modal-content);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
+  overflow-y: auto;
+
   width: 85vw;
   max-width: 500px;
   max-height: 80vh;
   margin: 0 auto;
+  border: 1px solid $sub-gray6;
+  border-radius: 10px;
+
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
