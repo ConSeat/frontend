@@ -15,11 +15,7 @@ const ContactSection = () => {
       confirmText: '문의하기',
       cancelText: '취소',
       onConfirm: () => {
-        window.open(
-          'https://x.com/messages/1568567420574662658-1914300317010968576',
-          '_blank',
-          'noopener,noreferrer',
-        );
+        window.open('https://x.com/con_see_at', '_blank', 'noopener,noreferrer');
       },
     });
   };
