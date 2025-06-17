@@ -1,11 +1,7 @@
-import ClientHeaderWrapper from './_components/ClientHeaderWrapper/ClientHeaderWrapper';
 import styles from './page.module.scss';
-import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
 import { API_ENDPOINTS } from '@/apis/common/endpoints';
-import { getStadiumList } from '@/apis/stadium/stadium.api';
 import { PUBLIC_ENV } from '@/config/env';
-import { findStadiumById } from '@/utils/stadium';
 
 interface StadiumLayoutProps {
   children: ReactNode;
@@ -24,22 +20,8 @@ export async function generateStaticParams() {
 
 export const dynamicParams = false;
 
-const StadiumLayout = async ({ children, params }: StadiumLayoutProps) => {
-  const stadiumId = Number((await params).stadiumId);
-  const { data } = await getStadiumList();
-
-  const activeStadium = findStadiumById(data.active, stadiumId);
-
-  if (!activeStadium) {
-    notFound();
-  }
-
-  return (
-    <div className={styles.stadiumLayout}>
-      <ClientHeaderWrapper stadium={activeStadium} />
-      {children}
-    </div>
-  );
+const StadiumLayout = async ({ children }: StadiumLayoutProps) => {
+  return <div className={styles.stadiumLayout}>{children}</div>;
 };
 
 export default StadiumLayout;

@@ -5,39 +5,33 @@ import { useCallback } from 'react';
 import Header from '@/components/Header/Header';
 import Icon from '@/components/Icon/Icon';
 import MypageLink from '@/components/MypageLink';
-import type { StadiumInfo } from '@/types/stadium';
 
 interface Props {
-  stadium: StadiumInfo;
+  stadiumId?: number;
+  onBack?: () => void;
 }
 
-const hiddenPathPatterns = [
-  /^\/home\/[^/]+\/review\/submit$/, // 리뷰 제출 중
-  /^\/home\/[^/]+\/review\/success$/, // 리뷰 제출 성공
-  /^\/home\/[^/]+\/review\/error$/, // 리뷰 제출 실패
-
-  /^\/home\/[^/]+\/[^/]+\/all$/, // 후기 전체보기
-  /^\/home\/[^/]+\/[^/]+\/all\/[^/]+$/, // 후기 전체보기 뒤에 추가적인 경로가 있는 경우
-];
-
-const ClientHeaderWrapper = ({ stadium }: Props) => {
+const ClientHeaderWrapper = ({ onBack }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const onBack = useCallback(() => {
+  // TODO: 로고 변경할 예정, 아직 미정이라 주석 처리 해놓습니다.
+  // const { data } = useFetchStadiumList();
+  // const activeStadium = findStadiumById(data?.data.active, stadiumId);
+  // if (!activeStadium) {
+  //   notFound();
+  // }
+
+  const defaultBack = useCallback(() => {
     const idx = pathname.lastIndexOf('/');
     const newPath = pathname.slice(0, idx);
     router.push(newPath);
   }, [pathname]);
 
-  const isHeaderHidden = hiddenPathPatterns.some((regex) => regex.test(pathname));
-
-  if (isHeaderHidden) return null;
-
   return (
     <Header
-      left={<Icon icon="LeftArrow" onClick={onBack} />}
-      title={stadium.stadiumName}
+      left={<Icon icon="LeftArrow" onClick={onBack ?? defaultBack} />}
+      title={'로고'}
       right={<MypageLink />}
     />
   );

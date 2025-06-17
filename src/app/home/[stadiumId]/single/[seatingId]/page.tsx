@@ -1,3 +1,4 @@
+import ClientHeaderWrapper from '../../_components/ClientHeaderWrapper/ClientHeaderWrapper';
 import ProgressBar from '../../_components/ProgressBar/ProgressBar';
 import { SINGLE_FUNNEL_STEPS } from '../_constants/funnelSteps';
 import SingleResult from './_components/SingleResult';
@@ -50,6 +51,7 @@ const ResultPage = async ({ params }) => {
 
   return (
     <>
+      <ClientHeaderWrapper stadiumId={Number(stadiumId)} />
       <ProgressBar steps={SINGLE_FUNNEL_STEPS} currentStep="Result" />
       <Spacing size={45} />
       <HydrationBoundary state={dehydratedState}>
