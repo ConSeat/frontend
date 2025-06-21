@@ -15,13 +15,6 @@ const ClientHeaderWrapper = ({ onBack }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  // TODO: 로고 변경할 예정, 아직 미정이라 주석 처리 해놓습니다.
-  // const { data } = useFetchStadiumList();
-  // const activeStadium = findStadiumById(data?.data.active, stadiumId);
-  // if (!activeStadium) {
-  //   notFound();
-  // }
-
   const defaultBack = useCallback(() => {
     const idx = pathname.lastIndexOf('/');
     const newPath = pathname.slice(0, idx);
@@ -31,7 +24,7 @@ const ClientHeaderWrapper = ({ onBack }: Props) => {
   return (
     <Header
       left={<Icon icon="LeftArrow" onClick={onBack ?? defaultBack} />}
-      center={<button onClick={() => router.push('/home')}>로고</button>}
+      center={<Icon icon="SubLogo" onClick={() => router.push('/home')} />}
       right={<MypageLink />}
     />
   );

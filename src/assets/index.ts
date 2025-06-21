@@ -40,6 +40,7 @@ export { default as ReviewLoading } from '@/assets/icons/reviewPage/review-loadi
 
 /**************** logos ****************/
 export { default as MainLogo } from '@/assets/logos/main-logo.svg';
+export { default as SubLogo } from '@/assets/logos/sub-logo.svg';
 export { default as LargeC } from '@/assets/logos/large-C.svg';
 export { default as LargeO } from '@/assets/logos/large-O.svg';
 export { default as LargeT } from '@/assets/logos/large-T.svg';
