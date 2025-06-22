@@ -4,7 +4,6 @@ import DetailReviewModal from '../DetailReviewModal';
 import FilterDropdown from '../FilterDropdown';
 import LoadingSpinner from '../LoadingSpinner';
 import styles from './ReviewCollection.module.scss';
-import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -116,8 +115,6 @@ const ReviewCollection = ({ tabType, stadiums, useFetchReview }: ReviewCollectio
   const [reviewId, setReviewId] = useState(0);
   const { isModalOpen, openModal, closeModal } = useStateModal();
 
-  const queryClient = useQueryClient();
-
   const handleChangeFilter = (value: string) => {
     setFilterValue(value);
   };
@@ -163,19 +160,7 @@ const ReviewCollection = ({ tabType, stadiums, useFetchReview }: ReviewCollectio
         )}
       </div>
       <Portal isOpen={isModalOpen}>
-        <DetailReviewModal
-          reviewId={reviewId}
-          reviewType={tabType}
-          closeModal={() => {
-            queryClient.invalidateQueries({
-              queryKey: memberKeys.bookmarks(getCurrentStadiumId()),
-            });
-            queryClient.invalidateQueries({
-              queryKey: memberKeys.all,
-            });
-            closeModal();
-          }}
-        />
+        <DetailReviewModal reviewId={reviewId} reviewType={tabType} closeModal={closeModal} />
       </Portal>
     </>
   );
