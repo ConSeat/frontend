@@ -4,7 +4,7 @@ import styles from './ZoomInButton.module.scss';
 import React from 'react';
 
 interface ZoomInButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const ZoomInButton = ({ onClick }: ZoomInButtonProps) => {

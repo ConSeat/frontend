@@ -1,11 +1,11 @@
-export const GA_TRACKING_ID = 'G-3DM8X82SXT';
+import { PUBLIC_ENV } from '@/config/env';
 
 export const pageview = (url: string) => {
   if (typeof window === 'undefined' || typeof window.gtag !== 'function') {
     return;
   }
 
-  window.gtag('config', GA_TRACKING_ID, {
+  window.gtag('config', PUBLIC_ENV.gaId, {
     page_path: url,
   });
 };

@@ -72,6 +72,10 @@
   @include layout-width;
 }
 
+.modalBodyContent {
+  width: 100%;
+}
+
 .modalTextContainer {
   display: flex;
   flex-direction: column;

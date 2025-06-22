@@ -17,9 +17,9 @@ const SmallStageView = ({ stadiumId }: SmallStageViewProps) => {
   });
 
   return (
-    <div className={styles.stageContainer}>
+    <div className={styles.stageContainer} onClick={openModal}>
       <Image src={getStadiumAssetUrl(stadiumId)} width={79} height={73} alt="" />
-      <ZoomInButton onClick={openModal} />
+      <ZoomInButton />
     </div>
   );
 };

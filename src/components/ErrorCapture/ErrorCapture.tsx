@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useErrorContext } from '@/providers/ErrorProvider';
 import { useToast } from '@/providers/ToastProvider';
 import ApiRequestError from '@/utils/ApiRequestError';
-import { logErrorToSentry } from '@/utils/logErrorToSentry';
+import { logError } from '@/utils/logError';
 
 const ErrorCapture = () => {
   const { error } = useErrorContext();
@@ -13,7 +13,7 @@ const ErrorCapture = () => {
   useEffect(() => {
     if (!error) return;
 
-    logErrorToSentry(error);
+    logError(error);
 
     const isApiRequestError = error instanceof ApiRequestError;
     const strategy = isApiRequestError ? error.strategy : 'errorBoundary';

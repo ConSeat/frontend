@@ -30,9 +30,10 @@ interface ReviewFormProps {
   reviewData: ReviewData;
   dispatch: Dispatch<ReviewAction>;
   onSubmit: () => void;
+  status: 'idle' | 'sending' | 'success' | 'error';
 }
 
-const ReviewForm = ({ reviewData, dispatch, onSubmit }: ReviewFormProps) => {
+const ReviewForm = ({ reviewData, dispatch, onSubmit, status }: ReviewFormProps) => {
   const [triedSubmit, setTriedSubmit] = useState(false);
   const { showPopup } = usePopup();
   const { activateToast } = useToast();
@@ -162,7 +163,7 @@ const ReviewForm = ({ reviewData, dispatch, onSubmit }: ReviewFormProps) => {
             )
           }
         >
-          <ReviewSection.Title title={REVIEW.MESSAGE.SCREEN_DISTANCE.TITLE} />
+          <ReviewSection.Title title={REVIEW.MESSAGE.STAGE_DISTANCE.TITLE} />
           <DistanceInfoSelect
             name="stageDistance"
             options={STAGE_DISTANCE_INFO}
@@ -218,8 +219,18 @@ const ReviewForm = ({ reviewData, dispatch, onSubmit }: ReviewFormProps) => {
         <Button
           variant={getInvalidFields(reviewData).length > 0 ? 'inactive' : 'primary'}
           onClick={handleSubmitButton}
+          disabled={status === 'sending' || status === 'success'}
+          style={{
+            cursor: status === 'sending' || status === 'success' ? 'not-allowed' : 'pointer',
+          }}
         >
-          <span className={styles.submitButtonText}>작성완료</span>
+          <span className={styles.submitButtonText}>
+            {status === 'sending'
+              ? '제출 중...'
+              : status === 'success'
+                ? '제출 완료! 페이지로 이동 중이에요.'
+                : '작성완료'}
+          </span>
         </Button>
         <pre className={styles.reviewRule}>{REVIEW.MESSAGE.REVIEW_RULE.TEXT}</pre>
       </div>

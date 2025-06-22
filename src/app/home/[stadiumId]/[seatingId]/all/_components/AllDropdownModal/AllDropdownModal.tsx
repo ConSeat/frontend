@@ -3,6 +3,7 @@
 import styles from './AllDropdownModal.module.scss';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
+import { useId } from 'react';
 import useDropdown from '@/hooks/common/useDropdown';
 import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
@@ -28,6 +29,7 @@ const AllDropdownModal = ({
   onConfirm,
 }: DropdownModalProps) => {
   const { isDropdownOpen, handleToggleDropdown, dropdownRef } = useDropdown();
+  const id = useId();
 
   return (
     <Dropdown>
@@ -38,6 +40,8 @@ const AllDropdownModal = ({
               [styles.selected]: isSelected,
             })}
             onClick={handleToggleDropdown}
+            aria-expanded={isDropdownOpen}
+            aria-controls={`${id}-content`} // 고유 id 연결
           >
             {label}
             <Icon
@@ -70,14 +74,22 @@ const AllDropdownModal = ({
           </div>
         }
       >
-        <>
+        <div
+          id={`${id}-content`} // 고유 id 연결
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={`${id}-title`}
+          className={styles.modalBodyContent}
+        >
           <div className={styles.modalTextContainer}>
-            <p className={styles.modalTextTitle}>{title}</p>
+            <p id={`${id}-title`} className={styles.modalTextTitle}>
+              {title}
+            </p>
             {subTitle && <span className={styles.modalTextSubTitle}>{subTitle}</span>}
           </div>
 
           {children}
-        </>
+        </div>
       </Dropdown.Modal>
     </Dropdown>
   );

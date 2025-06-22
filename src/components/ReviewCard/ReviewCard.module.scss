@@ -70,6 +70,12 @@
   min-width: 120px;
   height: 120px;
   border-radius: 5px;
+
+  transition: transform 0.2s ease;
+
+  &:active {
+    transform: scale(0.96);
+  }
 }
 
 // ImageList

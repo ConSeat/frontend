@@ -39,10 +39,16 @@
   background-position: center;
   background-size: cover;
 
+  transition: transform 0.2s ease;
+
   &::before {
     @include item-border;
 
     background: linear-gradient(to right, #00f7ff, #fff3);
+  }
+
+  &:active {
+    transform: scale(0.96);
   }
 
   &.comingSoon {

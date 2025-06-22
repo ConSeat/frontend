@@ -1,6 +1,6 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import useMutateAuth from '@/hooks/mutations/useMutateAuth';
@@ -33,7 +33,10 @@ const OAuthCallbackPage = () => {
 
         router.replace(returnUrl);
       },
-      onError: () => router.replace('/signin'),
+      onError: async () => {
+        await signOut({ redirectTo: '/home' });
+        router.replace('/signin');
+      },
     });
   }, []);
 

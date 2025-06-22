@@ -5,6 +5,7 @@ import styles from './Dropdown.module.scss';
 import classNames from 'classnames';
 import React, { type HTMLAttributes, ReactNode, type Ref } from 'react';
 
+// DropdownMain
 interface DropdownProps {
   className?: string;
   children?: ReactNode;
@@ -19,6 +20,8 @@ const DropdownMain = ({ className, children, ref }: DropdownProps) => {
   );
 };
 
+// DropdownTrigger
+// 사용하는 곳에서 aria-haspopup / aria-expanded / aria-controls 구현
 interface DropdownTriggerProps {
   as: ReactNode;
 }
@@ -27,15 +30,20 @@ const DropdownTrigger = ({ as }: DropdownTriggerProps) => {
   return as;
 };
 
-interface DropdownMenuProps {
+// DropdownMenu
+interface DropdownMenuProps extends HTMLAttributes<HTMLUListElement> {
   children: ReactNode;
-  className?: string;
 }
 
-const DropdownMenu = ({ children, className }: DropdownMenuProps) => {
-  return <ul className={classNames(styles.dropdownMenu, className)}>{children}</ul>;
+const DropdownMenu = ({ children, className, ...props }: DropdownMenuProps) => {
+  return (
+    <ul className={classNames(styles.dropdownMenu, className)} role="listbox" {...props}>
+      {children}
+    </ul>
+  );
 };
 
+// DropdownModal
 interface DropdownModalProps extends HTMLAttributes<HTMLDivElement> {
   isOpen: boolean;
   controls?: ReactNode;
@@ -57,23 +65,63 @@ const DropdownModal = ({ isOpen, controls, children, ref, ...props }: DropdownMo
   );
 };
 
-interface DropdownItemProps {
+// DropdownItem
+interface DropdownItemProps extends HTMLAttributes<HTMLLIElement> {
   children: string;
   isSelected: boolean;
-  onClick: () => void;
-  className?: string;
 }
 
-const DropdownItem = ({ children, isSelected, onClick, className }: DropdownItemProps) => {
+const DropdownItem = ({
+  children,
+  isSelected,
+  className,
+  onClick,
+  ...props
+}: DropdownItemProps) => {
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault(); // 기본 스크롤/페이지 이동 방지
+      if (onClick) {
+        onClick(event as unknown as React.MouseEvent<HTMLLIElement>);
+      }
+    }
+  };
+
   return (
     <li
       className={classNames(styles.dropdownItem, className, { selected: isSelected })}
+      role="option"
+      aria-selected={isSelected}
+      tabIndex={0}
       onClick={onClick}
+      onKeyDown={handleKeyDown}
+      {...props}
     >
       {children}
     </li>
   );
 };
+
+/**
+ * Dropdown 컴포넌트 예시
+ *
+ * @example
+ * <Dropdown>
+ *   <Dropdown.Trigger
+ *     as={<button>열기</button>}
+ *   />
+ *   {isOpen && (
+ *     <Dropdown.Menu>
+ *       <Dropdown.Item isSelected onClick={() => {}}>
+ *         옵션 1
+ *       </Dropdown.Item>
+ *       <Dropdown.Item isSelected={false} onClick={() => {}}>
+ *         옵션 2
+ *       </Dropdown.Item>
+ *     </Dropdown.Menu>
+ *   )}
+ * </Dropdown>
+ */
 
 const Dropdown = Object.assign(DropdownMain, {
   Trigger: DropdownTrigger,

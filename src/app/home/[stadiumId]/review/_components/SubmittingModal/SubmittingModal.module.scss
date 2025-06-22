@@ -1,0 +1,40 @@
+@import '@/styles/style';
+
+.submittingModalContainer {
+  z-index: z-index(modal-content);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background-color: $sub-bg-black;
+
+  @include fixed-centered-fullscreen;
+}
+
+.submittingModalWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  padding: 32px 24px;
+  border-radius: 16px;
+
+  background-color: $sub-bg-black;
+}
+
+.submittingModalText {
+  @include subtitle-1;
+
+  color: $sub-gray2;
+}
+
+.submittingModalSubtext {
+  @include body-2;
+
+  color: $sub-gray4;
+}

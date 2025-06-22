@@ -1,6 +1,6 @@
 import styles from './FilterDropdown.module.scss';
 import classNames from 'classnames';
-import { Fragment } from 'react';
+import { Fragment, useId } from 'react';
 import useDropdown from '@/hooks/common/useDropdown';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import Icon from '@/components/Icon/Icon';
@@ -14,17 +14,21 @@ interface FilterDropdown {
 
 const FilterDropdown = ({ value, options, onChange }: FilterDropdown) => {
   const { isDropdownOpen, handleToggleDropdown, dropdownRef } = useDropdown();
+  const id = useId();
 
   return (
     <Dropdown ref={dropdownRef} className={styles.dropDownContainer}>
       <Dropdown.Trigger
         as={
           <button
+            id={`${id}-button`}
             type="button"
             onClick={handleToggleDropdown}
             className={classNames(styles.reviewDropdownTrigger, {
               [styles.isOpen]: isDropdownOpen,
             })}
+            aria-expanded={isDropdownOpen}
+            aria-controls={`${id}-listbox`}
           >
             <span
               className={classNames(styles.reviewDropdownText, {
@@ -38,7 +42,11 @@ const FilterDropdown = ({ value, options, onChange }: FilterDropdown) => {
         }
       />
       {isDropdownOpen && (
-        <Dropdown.Menu className={styles.reviewDropdownMenu}>
+        <Dropdown.Menu
+          className={styles.reviewDropdownMenu}
+          id={`${id}-listbox`}
+          aria-labelledby={`${id}-button`}
+        >
           {options.map((option, index) => (
             <Fragment key={option}>
               <Dropdown.Item
@@ -48,6 +56,7 @@ const FilterDropdown = ({ value, options, onChange }: FilterDropdown) => {
                   onChange(option);
                   handleToggleDropdown();
                 }}
+                aria-selected={value === option}
               >
                 {option}
               </Dropdown.Item>

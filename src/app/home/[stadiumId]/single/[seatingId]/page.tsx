@@ -19,7 +19,9 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   const seatInfo = await getSeatingReviews(Number(seatingId));
   const stadium = findStadiumById(stadiumList.active, Number(stadiumId));
 
-  if (!stadium) notFound();
+  if (!stadium || !seatInfo) {
+    notFound();
+  }
 
   const title = `${stadium.stadiumName} | ${seatInfo.floorName} ${seatInfo.sectionName}${
     seatInfo.seatingName ? ` ${seatInfo.seatingName}` : ''
@@ -49,7 +51,6 @@ const ResultPage = async ({ params }) => {
   return (
     <>
       <ProgressBar steps={SINGLE_FUNNEL_STEPS} currentStep="Result" />
-
       <Spacing size={45} />
       <HydrationBoundary state={dehydratedState}>
         <SingleResult stadiumId={stadiumId} seatingId={seatingId} />

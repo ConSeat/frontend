@@ -7,8 +7,12 @@ import MypageLink from '@/components/MypageLink';
 const HomeNavigation = () => {
   return (
     <nav className={styles.homeNav}>
-      <MypageLink />
-      <FAQPageLink />
+      <div className={styles.itemWrapper}>
+        <MypageLink />
+      </div>
+      <div className={styles.itemWrapper}>
+        <FAQPageLink />
+      </div>
     </nav>
   );
 };
