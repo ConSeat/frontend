@@ -2,8 +2,9 @@
 
 import LoadingSpinner from '../LoadingSpinner';
 import styles from './MyViewCard.module.scss';
+import { useQueryClient } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
-import React from 'react';
+import React, { useEffect } from 'react';
 import useBookMark from '@/hooks/common/useBookmark';
 import { useFetchBookMarkDetail } from '@/hooks/queries/useFetchMember';
 import Button from '@/components/Button/Button';
@@ -15,8 +16,17 @@ const MyViewCard = ({ reviewId, closeModal }) => {
   const { data: review, isLoading } = useFetchBookMarkDetail(reviewId);
   const isBookmarked = !!review?.isBookmarked;
   const queryKey = memberKeys.bookmarkDetail(reviewId);
+  const queryClient = useQueryClient();
 
   const { handleClickBookMark } = useBookMark(isBookmarked, reviewId, queryKey);
+
+  useEffect(() => {
+    return () => {
+      queryClient.invalidateQueries({
+        queryKey: memberKeys.all,
+      });
+    };
+  }, []);
 
   if (isLoading) return <LoadingSpinner />;
 
