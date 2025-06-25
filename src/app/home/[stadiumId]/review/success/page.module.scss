@@ -31,3 +31,10 @@
   color: $sub-gray4;
   text-align: center;
 }
+
+.successBtnContainer {
+  z-index: z-index(floating);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
