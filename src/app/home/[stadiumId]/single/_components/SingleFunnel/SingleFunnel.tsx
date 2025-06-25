@@ -1,5 +1,6 @@
 'use client';
 
+import ClientHeaderWrapper from '../../../_components/ClientHeaderWrapper/ClientHeaderWrapper';
 import ProgressBar from '../../../_components/ProgressBar/ProgressBar';
 import { NONE_SELECT } from '../../../review/_constants/info';
 import { SINGLE_FUNNEL_STEPS } from '../../_constants/funnelSteps';
@@ -7,6 +8,7 @@ import type { SingleFunnelData, Step } from '../../_types/funnel';
 import SingleSeatingStep from '../SingleSeatingStep/SingleSeatingStep';
 import SingleSectionStep from '../SingleSectionStep/SingleSectionStep';
 import React from 'react';
+import { useCallback } from 'react';
 import useFunnel from '@/hooks/common/useFunnel';
 import Spacing from '@/components/Spacing/Spacing';
 
@@ -24,8 +26,23 @@ const SingleFunnel = ({ stadiumId }: SingleFunnelProps) => {
     },
   });
 
+  // 현재 step의 index
+  const stepIndex = SINGLE_FUNNEL_STEPS.findIndex((s) => s === step);
+
+  // 이전 단계로 이동하는 onBack
+  const handleBack = useCallback(() => {
+    if (stepIndex > 0) {
+      setStep(SINGLE_FUNNEL_STEPS[stepIndex - 1]);
+    }
+  }, [stepIndex, setStep]);
+
   return (
     <>
+      <ClientHeaderWrapper
+        stadiumId={stadiumId}
+        onBack={stepIndex === 0 ? undefined : handleBack}
+      />
+
       <ProgressBar steps={SINGLE_FUNNEL_STEPS} currentStep={step} />
 
       <Spacing size={45} />

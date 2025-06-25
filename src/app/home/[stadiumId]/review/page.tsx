@@ -1,7 +1,11 @@
+import ClientHeaderWrapper from '../_components/ClientHeaderWrapper/ClientHeaderWrapper';
 import ReviewContainer from './_components/ReviewContainer';
+import styles from './page.module.scss';
 import { HydrationBoundary } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Spacing from '@/components/Spacing/Spacing';
+import Splitter from '@/components/Splitter/Splitter';
 import { getStadiumList } from '@/apis/stadium/stadium.api';
 import { stadiumQueries } from '@/apis/stadium/stadium.query';
 import { createPrefetchedQueryClient } from '@/utils/createPrefetchedQueryClient';
@@ -36,9 +40,16 @@ const ReviewPage = async ({ params }) => {
   ]);
 
   return (
-    <HydrationBoundary state={dehydratedState}>
-      <ReviewContainer stadiumId={Number(stadiumId)} />
-    </HydrationBoundary>
+    <>
+      <ClientHeaderWrapper stadiumId={Number(stadiumId)} />
+      <Splitter color="sub-gray8" />
+      <Spacing size={32} />
+      <main className={styles.reviewLayout}>
+        <HydrationBoundary state={dehydratedState}>
+          <ReviewContainer stadiumId={Number(stadiumId)} />
+        </HydrationBoundary>
+      </main>
+    </>
   );
 };
 

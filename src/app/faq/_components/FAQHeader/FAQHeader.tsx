@@ -11,7 +11,7 @@ const FAQHeader = () => {
   return (
     <Header
       left={<Icon icon="LeftArrow" onClick={() => router.push('/home')} />}
-      title="자주 묻는 질문"
+      center="자주 묻는 질문"
     />
   );
 };

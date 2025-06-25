@@ -10,7 +10,7 @@ const ServiceHeader = () => {
 
   return (
     <Header
-      title="앱 설정"
+      center="앱 설정"
       right={<Icon icon="Close" size={24} onClick={() => router.replace('/mypage/view')} />}
     />
   );

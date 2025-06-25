@@ -2,15 +2,16 @@
 
 .dropdownContainer {
   width: 100%;
+  max-width: 100%;
 }
 
 .seatDropdownTrigger {
   display: flex;
+  gap: 1rem;
   align-items: center;
   justify-content: space-between;
 
   width: 100%;
-  min-width: 104px;
   height: 44px;
   padding: 10px;
   border-radius: 5px;
@@ -28,6 +29,7 @@
 
 .seatDropdownText {
   @include subtitle-4;
+  @include single-line-elliptical-text;
 
   color: $sub-gray1;
 }

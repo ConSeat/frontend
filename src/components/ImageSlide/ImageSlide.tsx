@@ -5,7 +5,8 @@ import Icon from '../Icon/Icon';
 import styles from './ImageSlide.module.scss';
 import Image from 'next/image';
 import { RefObject } from 'react';
-import useSwipe from '@/hooks/common/useSwipe';
+
+// import useSwipe from '@/hooks/common/useSwipe';
 
 interface NavigationButtonsProps {
   onNext: () => void;
@@ -46,7 +47,8 @@ const ImageSlide = ({
   slideRef,
   onImageClick,
 }: ImageSlideProps) => {
-  const { handleTouchStart, handleTouchMove, handleTouchEnd } = useSwipe(onNext, onPrev);
+  // TODO: 아이폰 스크롤 튕겨지는 이슈 때문에 잠시 주석처리 해둠
+  // const { handleTouchStart, handleTouchMove, handleTouchEnd } = useSwipe(onNext, onPrev);
 
   const total = imageSrcArray.length;
   const images = [imageSrcArray[total - 1], ...imageSrcArray, imageSrcArray[0]]; // [last, ...originals, first]
@@ -54,9 +56,9 @@ const ImageSlide = ({
   return (
     <div
       className={styles.slideContainer}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
+      // onTouchStart={handleTouchStart}
+      // onTouchMove={handleTouchMove}
+      // onTouchEnd={handleTouchEnd}
     >
       <div
         ref={slideRef}

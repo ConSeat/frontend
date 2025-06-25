@@ -27,7 +27,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 }
 
 const AllReviewPage = async ({ params }) => {
-  const { stadiumId, seatingId } = params;
+  const { stadiumId, seatingId } = await params;
 
   if (!stadiumId || !seatingId) notFound();
 

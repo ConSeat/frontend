@@ -9,13 +9,13 @@ export const DISTANCE_VALUE = {
 };
 
 export const STAGE_DISTANCE_INFO = [
-  { value: DISTANCE_VALUE.FAR, name: '안 보여요' },
+  { value: DISTANCE_VALUE.FAR, name: '멀어요' },
   { value: DISTANCE_VALUE.AVERAGE, name: '보통이에요' },
   { value: DISTANCE_VALUE.CLOSE, name: '가까워요' },
 ] as const;
 
 export const THRUST_STAGE_DISTANCE_INFO = [
-  { value: DISTANCE_VALUE.FAR, name: '안 보여요' },
+  { value: DISTANCE_VALUE.FAR, name: '멀어요' },
   { value: DISTANCE_VALUE.AVERAGE, name: '보통이에요' },
   { value: DISTANCE_VALUE.CLOSE, name: '가까워요' },
 ] as const;

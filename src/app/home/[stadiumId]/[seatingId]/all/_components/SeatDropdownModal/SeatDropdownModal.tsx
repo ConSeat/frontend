@@ -1,7 +1,7 @@
 'use client';
 
 import type { FilterAction } from '../../_types/filter';
-import DetailDropdownModal from '../AllDropdownModal/AllDropdownModal';
+import AllDropdownModal from '../AllDropdownModal/AllDropdownModal';
 import SeatDropdown from '../SeatDropdown/SeatDropdown';
 import styles from './SeatDropdownModal.module.scss';
 import { useState } from 'react';
@@ -71,7 +71,7 @@ const SeatDropdownModal = ({
   };
 
   return (
-    <DetailDropdownModal
+    <AllDropdownModal
       label={label}
       isSelected={!!seatingIdState}
       title="좌석선택"
@@ -147,7 +147,7 @@ const SeatDropdownModal = ({
           disabled={seatInfo.floor === FLOOR || seatInfo.sectionId === NONE_SELECT}
         />
       </div>
-    </DetailDropdownModal>
+    </AllDropdownModal>
   );
 };
 

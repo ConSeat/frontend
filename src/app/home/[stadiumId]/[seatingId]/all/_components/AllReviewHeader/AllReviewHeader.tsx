@@ -15,7 +15,7 @@ const AllReviewHeader = ({ stadiumId, seatingId }: AllReviewHeaderProps) => {
 
   return (
     <Header
-      title="후기 전체보기"
+      center="후기 전체보기"
       right={
         <Icon
           icon="Close"

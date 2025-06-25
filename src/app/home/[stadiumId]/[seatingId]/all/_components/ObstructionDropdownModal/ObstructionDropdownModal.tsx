@@ -2,7 +2,7 @@
 
 import type { FilterAction } from '../../_types/filter';
 import AllCheckbox from '../AllCheckbox/AllCheckbox';
-import DetailDropdownModal from '../AllDropdownModal/AllDropdownModal';
+import AllDropdownModal from '../AllDropdownModal/AllDropdownModal';
 import styles from './ObstructionDropdownModal.module.scss';
 import { useState } from 'react';
 import { useFetchStadiumObstructions } from '@/hooks/queries/useFetchStadium';
@@ -34,7 +34,7 @@ const ObstructionDropdownModal = ({ obstructions, dispatch }: ObstructionDropdow
   };
 
   return (
-    <DetailDropdownModal
+    <AllDropdownModal
       label={`시야방해 ${obstructions.length > 0 ? obstructions.length : ''}`}
       isSelected={obstructions.length > 0}
       title="시야방해"
@@ -51,7 +51,7 @@ const ObstructionDropdownModal = ({ obstructions, dispatch }: ObstructionDropdow
           />
         ))}
       </div>
-    </DetailDropdownModal>
+    </AllDropdownModal>
   );
 };
 

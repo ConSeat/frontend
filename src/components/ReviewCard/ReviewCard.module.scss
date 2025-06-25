@@ -1,5 +1,10 @@
 @import '@/styles/style';
 
+.myReviewCard {
+  border: 1px solid $sub-gray6;
+  border-radius: 10px;
+}
+
 // Container
 .reviewCardContainer {
   display: flex;
@@ -9,7 +14,6 @@
 
   width: 100%;
   padding: 28px 20px 20px;
-  border-radius: 10px;
 }
 
 // Header
@@ -20,6 +24,8 @@
 
   width: 100%;
   height: 39px;
+
+  overflow-wrap: break-word;
 }
 
 // UserInfo
@@ -100,6 +106,7 @@
   @include subtitle-4;
 
   color: $sub-gray2;
+  overflow-wrap: break-word;
 }
 
 // ConcertDescription
@@ -107,6 +114,7 @@
   @include body-2;
 
   color: $sub-gray2;
+  overflow-wrap: break-word;
 }
 
 // KeywordItem

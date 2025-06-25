@@ -1,3 +1,4 @@
+import ClientHeaderWrapper from './_components/ClientHeaderWrapper/ClientHeaderWrapper';
 import SelectMenu from './_components/SelectMenu/SelectMenu';
 import styles from './page.module.scss';
 import type { Metadata } from 'next';
@@ -30,6 +31,7 @@ const StadiumPage = async ({ params }) => {
 
   return (
     <>
+      <ClientHeaderWrapper stadiumId={Number(stadiumId)} />
       <Splitter color="sub-gray8" />
       <Spacing size={49} />
       <main className={styles.stadiumMain}>

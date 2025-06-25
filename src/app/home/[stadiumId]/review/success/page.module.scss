@@ -5,6 +5,8 @@
   flex-direction: column;
   flex-grow: 1;
   justify-content: space-between;
+
+  padding: 0 24px;
 }
 
 .successWrapper {
@@ -28,4 +30,11 @@
 
   color: $sub-gray4;
   text-align: center;
+}
+
+.successBtnContainer {
+  z-index: z-index(floating);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }

@@ -18,7 +18,7 @@ const SigninContent = () => {
         <Icon icon="Close" size={19} onClick={() => router.back()} />
       </div>
 
-      <Icon icon="MainLogo" />
+      <Icon icon="SubLogo" size={183} />
 
       <div className={styles.signinContainer}>
         <div className={styles.buttonContainer}>

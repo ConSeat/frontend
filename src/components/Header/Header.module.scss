@@ -1,8 +1,6 @@
 @import '@/styles/style';
 
 .header {
-  cursor: pointer;
-
   position: sticky;
   z-index: z-index(header);
   top: 0;
@@ -37,11 +35,17 @@
   }
 }
 
-.title {
+.center {
   @include subtitle-1;
 
   display: flex;
   flex-grow: 1;
   align-items: center;
   justify-content: center;
+
+  transition: transform 0.2s ease;
+
+  &:active {
+    transform: scale(0.96);
+  }
 }

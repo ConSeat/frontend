@@ -35,37 +35,41 @@ const MyViewCard = ({ reviewId, closeModal }) => {
   }
 
   return (
-    <ReviewCard className={styles.myViewCardContainer}>
-      <ReviewCard.Header>
-        <ReviewCard.UserInfo
-          profileSrc={review.writerSrc}
-          userName={review.writerNickname}
-          uploadTime={review.createdAt}
-        />
-        <ReviewCard.Bookmark isSaved={review.isBookmarked} onClick={handleClickBookMark} />
-      </ReviewCard.Header>
+    <div className={styles.myViewCard}>
+      <div className={styles.myViewCardScroll}>
+        <ReviewCard>
+          <ReviewCard.Header>
+            <ReviewCard.UserInfo
+              profileSrc={review.writerSrc}
+              userName={review.writerNickname}
+              uploadTime={review.createdAt}
+            />
+            <ReviewCard.Bookmark isSaved={review.isBookmarked} onClick={handleClickBookMark} />
+          </ReviewCard.Header>
 
-      <ReviewCard.ImageList>
-        {review.images.map((src, index) => (
-          <ReviewCard.ImageItem key={index + src} imageSrc={src} />
-        ))}
-      </ReviewCard.ImageList>
+          <ReviewCard.ImageList>
+            {review.images.map((src, index) => (
+              <ReviewCard.ImageItem key={index + src} imageSrc={src} />
+            ))}
+          </ReviewCard.ImageList>
 
-      <ReviewCard.ConcertTitle concertName={review.concertName} />
+          <ReviewCard.ConcertTitle concertName={review.concertName} />
 
-      <ReviewCard.ConcertDescription contents={review.contents} />
+          <ReviewCard.ConcertDescription contents={review.contents} />
 
-      <div className={styles.reviewKeywordList}>
-        <ReviewCard.KeywordList keywordArray={review.features} isPrimary={true} />
-        <ReviewCard.KeywordList keywordArray={review.obstructions} isPrimary={false} />
+          <div className={styles.reviewKeywordList}>
+            <ReviewCard.KeywordList keywordArray={review.features} isPrimary={true} />
+            <ReviewCard.KeywordList keywordArray={review.obstructions} isPrimary={false} />
+          </div>
+
+          <Splitter color="sub-bg-black" height="12px" />
+
+          <Button className={styles.closeButton} onClick={closeModal}>
+            닫기
+          </Button>
+        </ReviewCard>
       </div>
-
-      <Splitter color="sub-bg-black" height="12px" />
-
-      <Button className={styles.closeButton} onClick={closeModal}>
-        닫기
-      </Button>
-    </ReviewCard>
+    </div>
   );
 };
 
