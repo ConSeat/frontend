@@ -101,6 +101,36 @@
   }
 }
 
+// StadiumBadge
+.stadiumBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 8px;
+
+  color: $sub-black;
+
+  background-color: $sub-gray1;
+
+  @include subtitle-4;
+}
+
+// SeatingBadge
+.seatingBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 8px;
+
+  color: $sub-gray8;
+
+  background-color: $main-mint1;
+
+  @include subtitle-4;
+}
+
 // ConcertTitle
 .concertTitle {
   @include subtitle-4;

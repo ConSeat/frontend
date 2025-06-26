@@ -36,6 +36,12 @@ const MyReviewCard = ({ reviewId, closeModal }) => {
             ))}
           </ReviewCard.ImageList>
 
+          {/* TODO: 데이터 변경하기 */}
+          <div className={styles.badgeContainer}>
+            <ReviewCard.StadiumBadge stadiumName="콘서트장 이름" />
+            <ReviewCard.SeatingBadge seatingName="구역 이름" />
+          </div>
+
           <ReviewCard.ConcertTitle concertName={review.concertName} />
 
           <ReviewCard.ConcertDescription contents={review.contents} />

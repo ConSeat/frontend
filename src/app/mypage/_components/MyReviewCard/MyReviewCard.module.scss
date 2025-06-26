@@ -25,6 +25,13 @@
   }
 }
 
+.badgeContainer {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  align-self: stretch;
+}
+
 .reviewKeywordList {
   display: flex;
   flex-wrap: wrap;

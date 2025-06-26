@@ -79,6 +79,24 @@ const ImageList = ({ children }: ImageListProps) => {
   return <div className={styles.reviewImageList}>{children}</div>;
 };
 
+// StadiumBadge
+interface StadiumBadgeProps {
+  stadiumName: string;
+}
+
+const StadiumBadge = ({ stadiumName }: StadiumBadgeProps) => {
+  return <div className={styles.stadiumBadge}>{stadiumName}</div>;
+};
+
+// SeatingBadge
+interface SeatingBadgeProps {
+  seatingName: string;
+}
+
+const SeatingBadge = ({ seatingName }: SeatingBadgeProps) => {
+  return <div className={styles.seatingBadge}>{seatingName}</div>;
+};
+
 // ConcertTitle
 interface ConcertTitleProps {
   concertName: string;
@@ -186,6 +204,8 @@ const ReviewCard = Object.assign(Container, {
   UserInfo,
   ImageItem,
   ImageList,
+  StadiumBadge,
+  SeatingBadge,
   ConcertTitle,
   ConcertDescription,
   KeywordList,
