@@ -7,7 +7,6 @@ import ErrorCapture from '@/components/ErrorCapture';
 import KakaoScript from '@/components/KakaoScript';
 import RefreshLogin from '@/components/RefreshLogin/RefreshLogin';
 import SentryUserInitializer from '@/components/SentryUserInitializer/SentryUserInitializer';
-import { auth } from '@/auth';
 import { PUBLIC_ENV } from '@/config/env';
 import { AuthProvider } from '@/providers/AuthProvider';
 import { ErrorProvider } from '@/providers/ErrorProvider';
@@ -32,8 +31,6 @@ export const viewport: Viewport = {
 };
 
 const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>) => {
-  const session = await auth();
-
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
@@ -41,7 +38,7 @@ const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>)
           <QueryProvider>
             <ToastProvider>
               <PopupProvider>
-                <AuthProvider session={session}>
+                <AuthProvider>
                   <ErrorCapture />
                   <RefreshLogin />
                   <SentryUserInitializer />
