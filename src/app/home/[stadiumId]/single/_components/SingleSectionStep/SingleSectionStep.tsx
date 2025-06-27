@@ -1,7 +1,9 @@
 import { NONE_SELECT } from '../../../review/_constants/info';
 import type { SingleFunnelData, Step } from '../../_types/funnel';
+import FindLoadingModal from '../FindLoadingModal/FindLoadingModal';
 import styles from './SingleSectionStep.module.scss';
 import { useRouter } from 'next/navigation';
+import useStateModal from '@/hooks/common/useStateModal';
 import Button from '@/components/Button/Button';
 import ButtonContainer from '@/components/ButtonContainer/ButtonContainer';
 import Highlight from '@/components/Highlight/Highlight';
@@ -18,6 +20,7 @@ interface SingleSectionStepProps {
 
 const SingleSectionStep = ({ stadiumId, setStep, data, setData }: SingleSectionStepProps) => {
   const router = useRouter();
+  const { isModalOpen, openModal } = useStateModal();
 
   return (
     <>
@@ -64,6 +67,7 @@ const SingleSectionStep = ({ stadiumId, setStep, data, setData }: SingleSectionS
               if (!data.sectionName) return;
 
               if (data.sectionName.includes('floor')) {
+                openModal();
                 router.push(`/home/${stadiumId}/single/${data.seatingId}`);
               } else {
                 setStep('Seating');
@@ -74,6 +78,7 @@ const SingleSectionStep = ({ stadiumId, setStep, data, setData }: SingleSectionS
           </Button>
         </ButtonContainer>
       </div>
+      <FindLoadingModal isModalOpen={isModalOpen} />
     </>
   );
 };
