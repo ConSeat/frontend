@@ -58,7 +58,7 @@ const ReviewList = ({ stadium, stadiumId, onClick, useFetchReview }: ReviewListP
     <>
       <ul className={styles.reviewList}>
         {data?.map((elem) => {
-          const { reviewId, seatingName, floorName, sectionName, thumbnailUrl } = elem;
+          const { reviewId, seatingName, sectionName, thumbnailUrl } = elem;
 
           return (
             <li
@@ -78,10 +78,9 @@ const ReviewList = ({ stadium, stadiumId, onClick, useFetchReview }: ReviewListP
               <div className={styles.reviewText}>
                 <div className={styles.title}>{stadium}</div>
                 <div className={styles.seat}>
-                  {floorName +
-                    ' ' +
-                    sectionName +
-                    `${seatingName === 'FLOOR' ? '' : ' ' + seatingName}`}
+                  {seatingName === 'FLOOR'
+                    ? `${seatingName} ${sectionName}`
+                    : `${sectionName} ${seatingName}`}
                 </div>
               </div>
               {elem?.status && <ReviewStatusTag status={elem.status} />}
@@ -119,7 +118,7 @@ const ReviewCollection = ({ tabType, stadiums, useFetchReview }: ReviewCollectio
     setFilterValue(value);
   };
 
-  const handelClickReviewItem = (reviewId) => {
+  const handelClickReviewItem = (reviewId: number) => {
     setReviewId(reviewId);
     openModal();
   };

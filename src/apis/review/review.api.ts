@@ -79,17 +79,23 @@ export const getMyReview = async ({ stadiumId, lastReviewId }: MyReviewRequest) 
 };
 
 export interface MyReviewDetailResponse {
-  images: string[];
-  features: string[];
-  obstructions: string[];
-  reviewId: number;
-  writerNickname: string;
-  writerSrc: string;
   concertName: string;
   contents: string;
   createdAt: string;
-  status: '심사대기' | '승인' | '반려' | '재심사';
+  features: string[];
+  images: string[];
+  obstructions: string[];
   rejectReason: string | null;
+  reviewId: number;
+  seatingId: number;
+  seatingName: string;
+  sectionId: number;
+  sectionName: string;
+  stadiumId: number;
+  stadiumName: string;
+  status: '심사대기' | '승인' | '반려' | '재심사';
+  writerNickname: string;
+  writerSrc: string;
 }
 
 export const getMyReviewDetail = async (reviewId: number) => {

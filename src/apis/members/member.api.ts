@@ -83,6 +83,12 @@ export const getBookmarkReview = async ({
 
 export interface MyBookmarkDetailResponse {
   reviewId: number;
+  seatingId: number;
+  seatingName: string;
+  sectionId: number;
+  sectionName: string;
+  stadiumId: number;
+  stadiumName: string;
   writerNickname: string;
   writerSrc: string;
   concertName: string;
