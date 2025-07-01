@@ -40,6 +40,29 @@
   align-self: stretch;
 }
 
+.buttonWrapper {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.goToReviewButton {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  padding: 8px 0;
+  border-radius: 100px;
+
+  color: $sub-bg-black;
+
+  background-color: $sub-gray5;
+
+  @include subtitle-4;
+}
+
 .closeButton {
   display: flex;
   gap: 10px;
@@ -52,7 +75,7 @@
 
   color: $sub-gray4;
 
-  background: $sub-gray8;
+  background-color: $sub-gray8;
 
   @include subtitle-4;
 }
