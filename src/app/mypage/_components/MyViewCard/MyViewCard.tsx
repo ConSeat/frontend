@@ -3,7 +3,7 @@
 import LoadingSpinner from '../LoadingSpinner';
 import styles from './MyViewCard.module.scss';
 import { useQueryClient } from '@tanstack/react-query';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import useBookMark from '@/hooks/common/useBookmark';
 import { useFetchBookMarkDetail } from '@/hooks/queries/useFetchMember';
@@ -13,6 +13,7 @@ import Splitter from '@/components/Splitter/Splitter';
 import { memberKeys } from '@/apis/common/queryKeys';
 
 const MyViewCard = ({ reviewId, closeModal }) => {
+  const router = useRouter();
   const { data: review, isLoading } = useFetchBookMarkDetail(reviewId);
   const isBookmarked = !!review?.isBookmarked;
   const queryKey = memberKeys.bookmarkDetail(reviewId);
@@ -53,6 +54,18 @@ const MyViewCard = ({ reviewId, closeModal }) => {
             ))}
           </ReviewCard.ImageList>
 
+          <div className={styles.badgeContainer}>
+            <ReviewCard.StadiumBadge stadiumName={review.stadiumName} />
+
+            <ReviewCard.SeatingBadge
+              seatingName={
+                review.seatingName === 'FLOOR'
+                  ? `${review.seatingName} ${review.sectionName}`
+                  : `${review.sectionName} ${review.seatingName}`
+              }
+            />
+          </div>
+
           <ReviewCard.ConcertTitle concertName={review.concertName} />
 
           <ReviewCard.ConcertDescription contents={review.contents} />
@@ -64,9 +77,17 @@ const MyViewCard = ({ reviewId, closeModal }) => {
 
           <Splitter color="sub-bg-black" height="12px" />
 
-          <Button className={styles.closeButton} onClick={closeModal}>
-            닫기
-          </Button>
+          <div className={styles.buttonWrapper}>
+            <Button
+              className={styles.goToReviewButton}
+              onClick={() => router.replace(`/home/${review.stadiumId}/single/${review.seatingId}`)}
+            >
+              후기 보러가기
+            </Button>
+            <Button className={styles.closeButton} onClick={closeModal}>
+              닫기
+            </Button>
+          </div>
         </ReviewCard>
       </div>
     </div>

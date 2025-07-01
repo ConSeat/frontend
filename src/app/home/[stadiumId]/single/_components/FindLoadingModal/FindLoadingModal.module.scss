@@ -1,0 +1,47 @@
+@import '@/styles/style';
+
+.overlay {
+  position: fixed;
+  z-index: z-index(modal-overlay);
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  overflow: hidden;
+
+  height: 100lvh;
+
+  @include layout-width;
+}
+
+.content {
+  @include fixed-centered-fullscreen;
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+}
+
+.findLoadingModalText {
+  @include subtitle-1;
+
+  color: $sub-gray2;
+}
+
+.findLoadingModalSubtext {
+  @include body-2;
+
+  color: $sub-gray4;
+}

@@ -2,7 +2,7 @@
 
 import LoadingSpinner from '../LoadingSpinner';
 import styles from './MyReviewCard.module.scss';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import React from 'react';
 import { useFetchMyReviewDetail } from '@/hooks/queries/useFetchMyReview';
 import Button from '@/components/Button/Button';
@@ -10,6 +10,7 @@ import ReviewCard from '@/components/ReviewCard';
 import Splitter from '@/components/Splitter/Splitter';
 
 const MyReviewCard = ({ reviewId, closeModal }) => {
+  const router = useRouter();
   const { data: review, isLoading } = useFetchMyReviewDetail(reviewId);
 
   if (isLoading) return <LoadingSpinner />;
@@ -36,6 +37,18 @@ const MyReviewCard = ({ reviewId, closeModal }) => {
             ))}
           </ReviewCard.ImageList>
 
+          <div className={styles.badgeContainer}>
+            <ReviewCard.StadiumBadge stadiumName={review.stadiumName} />
+
+            <ReviewCard.SeatingBadge
+              seatingName={
+                review.seatingName === 'FLOOR'
+                  ? `${review.seatingName} ${review.sectionName}`
+                  : `${review.sectionName} ${review.seatingName}`
+              }
+            />
+          </div>
+
           <ReviewCard.ConcertTitle concertName={review.concertName} />
 
           <ReviewCard.ConcertDescription contents={review.contents} />
@@ -51,9 +64,17 @@ const MyReviewCard = ({ reviewId, closeModal }) => {
 
           <Splitter color="sub-bg-black" height="12px" />
 
-          <Button className={styles.closeButton} onClick={closeModal}>
-            닫기
-          </Button>
+          <div className={styles.buttonWrapper}>
+            <Button
+              className={styles.goToReviewButton}
+              onClick={() => router.replace(`/home/${review.stadiumId}/single/${review.seatingId}`)}
+            >
+              후기 보러가기
+            </Button>
+            <Button className={styles.closeButton} onClick={closeModal}>
+              닫기
+            </Button>
+          </div>
         </ReviewCard>
       </div>
     </div>
