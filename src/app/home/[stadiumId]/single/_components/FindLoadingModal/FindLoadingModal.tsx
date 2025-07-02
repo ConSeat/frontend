@@ -1,9 +1,14 @@
+'use client';
+
 import loading from '../../../../../../../public/lottie/loading.json';
 import styles from './FindLoadingModal.module.scss';
-import React from 'react';
-import Lottie from 'react-lottie-player';
+import dynamic from 'next/dynamic';
 import Modal from '@/components/Modal';
 import Portal from '@/components/Portal';
+
+const Lottie = dynamic(() => import('react-lottie-player'), {
+  ssr: false,
+});
 
 const FindLoadingModal = ({ isModalOpen }) => {
   return (
