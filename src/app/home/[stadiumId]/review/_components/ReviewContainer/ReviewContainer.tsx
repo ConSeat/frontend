@@ -5,9 +5,10 @@ import { REVIEW } from '../../_constants/review';
 import ReviewForm from '../ReviewForm';
 import SubmittingModal from '../SubmittingModal/SubmittingModal';
 import { useRouter } from 'next/navigation';
-import { useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import useStateModal from '@/hooks/common/useStateModal';
 import useMutateReview from '@/hooks/mutations/useMutateReview';
+import { ReviewLoading } from '@/assets';
 import type { ReviewAction, ReviewData, Step } from '@/types/review';
 import { gaEvent } from '@/utils/gtag';
 import { toggleItem } from '@/utils/toggleItem';
@@ -146,6 +147,15 @@ const ReviewContainer = ({ stadiumId }: ReviewContainerProps) => {
   const { postReviewMutation, postReviewImagesMutation } = useMutateReview();
   const router = useRouter();
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+  useEffect(() => {
+    // 컴포넌트 mount 시점에 미리 preload
+    const preloadVideo = document.createElement('link');
+    preloadVideo.rel = 'preload';
+    preloadVideo.as = 'video';
+    preloadVideo.href = ReviewLoading;
+    document.head.appendChild(preloadVideo);
+  }, []);
 
   const handleSubmitReview = async () => {
     if (status === 'sending') return; // 중복 방지
