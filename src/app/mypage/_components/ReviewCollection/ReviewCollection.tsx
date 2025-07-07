@@ -159,7 +159,7 @@ const ReviewCollection = ({ tabType, stadiums, useFetchReview }: ReviewCollectio
         )}
       </div>
       <Portal isOpen={isModalOpen}>
-        <DetailReviewModal reviewId={reviewId} reviewType={tabType} closeModal={closeModal} />
+        <DetailReviewModal reviewId={reviewId} reviewType={tabType} closeReviewModal={closeModal} />
       </Portal>
     </>
   );

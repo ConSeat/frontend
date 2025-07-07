@@ -12,7 +12,7 @@ import ReviewCard from '@/components/ReviewCard';
 import Splitter from '@/components/Splitter/Splitter';
 import { memberKeys } from '@/apis/common/queryKeys';
 
-const MyViewCard = ({ reviewId, closeModal }) => {
+const MyViewCard = ({ reviewId, closeModal, handleClickImage }) => {
   const router = useRouter();
   const { data: review, isLoading } = useFetchBookMarkDetail(reviewId);
   const isBookmarked = !!review?.isBookmarked;
@@ -50,7 +50,11 @@ const MyViewCard = ({ reviewId, closeModal }) => {
 
           <ReviewCard.ImageList>
             {review.images.map((src, index) => (
-              <ReviewCard.ImageItem key={index + src} imageSrc={src} />
+              <ReviewCard.ImageItem
+                key={index + src}
+                imageSrc={src}
+                onClick={() => handleClickImage(index)}
+              />
             ))}
           </ReviewCard.ImageList>
 
