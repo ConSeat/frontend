@@ -31,7 +31,7 @@ const ReviewThumbnail = ({ images, disableModalView = true }: ReviewThumbnailPro
         <ImageSlide
           imageSrcArray={images}
           currentIndex={imageIndex}
-          height={240}
+          height={'240px'}
           onNext={handleClickNext}
           onPrev={handleClickPrev}
           isTransitioning={isTransitioning}
