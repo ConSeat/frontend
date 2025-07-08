@@ -6,7 +6,6 @@ import useImageSlide from '@/hooks/common/useImageSlide';
 import { useFetchReviewImages } from '@/hooks/queries/useFetchSeatingReview';
 import ImageSlide from '@/components/ImageSlide';
 import Modal from '@/components/Modal';
-import Spacing from '@/components/Spacing/Spacing';
 import LoadingSpinner from '@/app/mypage/_components/LoadingSpinner';
 import { getDisplayIndex } from '@/utils/getDisplayIndex';
 
@@ -47,13 +46,11 @@ const PhotoModal = ({ reviewId, initialIdx, closeModal }: PhotoModalProps) => {
         <ImageSlide
           imageSrcArray={review.images}
           currentIndex={imageIndex}
-          height={400}
           onNext={handleClickNext}
           onPrev={handleClickPrev}
           isTransitioning={isTransitioning}
           slideRef={sliderRef}
         />
-        <Spacing size={56} />
       </Modal.Content>
     </Modal>
   );

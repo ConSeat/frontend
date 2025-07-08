@@ -1,7 +1,6 @@
 'use client';
 
 import DelayLoading from '../DelayLoading/DelayLoading';
-import Spacing from '../Spacing/Spacing';
 import styles from './PhotoModal.module.scss';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
@@ -76,13 +75,11 @@ const PhotoModal = ({ reviewId }: PhotoModalProps) => {
         <ImageSlide
           imageSrcArray={review.images}
           currentIndex={imageIndex}
-          height={400}
           onNext={handleClickNext}
           onPrev={handleClickPrev}
           isTransitioning={isTransitioning}
           slideRef={sliderRef}
         />
-        <Spacing size={56} />
       </Modal.Content>
     </Modal>
   );
