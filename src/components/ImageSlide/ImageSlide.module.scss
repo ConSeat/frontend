@@ -2,13 +2,20 @@
 
 .slideContainer {
   position: relative;
+
   overflow: hidden;
+  flex-grow: 1;
+
+  height: 100%;
   margin: 0 -24px;
+
   background-color: $sub-black;
 }
 
 .slideItem {
   position: relative; // Image fill을 위한 필수 설정
+  display: flex;
+  align-items: center;
 }
 
 @mixin nav-button {

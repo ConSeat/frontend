@@ -9,7 +9,7 @@ import Button from '@/components/Button/Button';
 import ReviewCard from '@/components/ReviewCard';
 import Splitter from '@/components/Splitter/Splitter';
 
-const MyReviewCard = ({ reviewId, closeModal }) => {
+const MyReviewCard = ({ reviewId, closeModal, handleClickImage }) => {
   const router = useRouter();
   const { data: review, isLoading } = useFetchMyReviewDetail(reviewId);
 
@@ -33,7 +33,11 @@ const MyReviewCard = ({ reviewId, closeModal }) => {
 
           <ReviewCard.ImageList>
             {review.images.map((src, index) => (
-              <ReviewCard.ImageItem key={index + src} imageSrc={src} />
+              <ReviewCard.ImageItem
+                key={index + src}
+                imageSrc={src}
+                onClick={() => handleClickImage(index)}
+              />
             ))}
           </ReviewCard.ImageList>
 

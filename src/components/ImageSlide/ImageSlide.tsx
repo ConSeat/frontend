@@ -3,7 +3,6 @@
 import Button from '../Button/Button';
 import Icon from '../Icon/Icon';
 import styles from './ImageSlide.module.scss';
-import Image from 'next/image';
 import { RefObject } from 'react';
 
 // import useSwipe from '@/hooks/common/useSwipe';
@@ -27,7 +26,7 @@ const NavigationButtons = ({ onPrev, onNext }: NavigationButtonsProps) => (
 interface ImageSlideProps {
   imageSrcArray: string[];
   currentIndex: number;
-  height: number;
+  height?: string;
   onNext: () => void;
   onPrev: () => void;
   isTransitioning: boolean;
@@ -39,7 +38,7 @@ interface ImageSlideProps {
 const ImageSlide = ({
   imageSrcArray,
   currentIndex,
-  height,
+  height = '100%',
   onPrev,
   onNext,
   isTransitioning,
@@ -64,6 +63,7 @@ const ImageSlide = ({
         ref={slideRef}
         style={{
           display: 'flex',
+          height,
           width: `${100 * total}%`,
           transform: `translateX(-${(100 / total) * currentIndex}%)`,
           transition: isTransitioning ? 'transform 0.5s ease' : 'none',
@@ -76,15 +76,16 @@ const ImageSlide = ({
             <div
               key={idx}
               className={styles.slideItem}
-              style={{ flex: `0 0 ${100 / total}%`, height: `${height}px` }}
+              style={{ flex: `0 0 ${100 / total}%` }}
               onClick={() => onImageClick?.(actualIndex)}
             >
-              <Image
+              <img
                 src={src}
                 alt={`slide-${idx}`}
-                fill
-                style={{ objectFit: 'cover' }}
-                priority={idx === 1}
+                style={{
+                  width: '100%',
+                  objectFit: 'cover',
+                }}
               />
             </div>
           );

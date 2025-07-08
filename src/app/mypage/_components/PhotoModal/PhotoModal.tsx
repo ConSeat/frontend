@@ -1,11 +1,8 @@
 'use client';
 
-import DelayLoading from '../DelayLoading/DelayLoading';
 import styles from './PhotoModal.module.scss';
-import { notFound, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { notFound } from 'next/navigation';
 import useImageSlide from '@/hooks/common/useImageSlide';
-import useRouterModal from '@/hooks/common/useRouterModal';
 import { useFetchReviewImages } from '@/hooks/queries/useFetchSeatingReview';
 import ImageSlide from '@/components/ImageSlide';
 import Modal from '@/components/Modal';
@@ -13,28 +10,12 @@ import LoadingSpinner from '@/app/mypage/_components/LoadingSpinner';
 import { getDisplayIndex } from '@/utils/getDisplayIndex';
 
 interface PhotoModalProps {
-  reviewId: string;
+  reviewId: number;
+  initialIdx: number;
+  closeModal: () => void;
 }
 
-const PhotoModal = ({ reviewId }: PhotoModalProps) => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const modalPath =
-    typeof window !== 'undefined' ? window.location.pathname + window.location.search : '/home';
-  const fallbackPath =
-    typeof window !== 'undefined'
-      ? window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'))
-      : '/home';
-
-  const { closeModal } = useRouterModal({
-    modalPath: modalPath,
-    fallbackPath: fallbackPath,
-  });
-
-  const rawPidx = searchParams.get('pidx');
-  const initialIdx = rawPidx !== null ? parseInt(rawPidx, 10) : NaN;
-
+const PhotoModal = ({ reviewId, initialIdx, closeModal }: PhotoModalProps) => {
   const { data: review, isLoading } = useFetchReviewImages(Number(reviewId));
   const total = review?.images.length ?? 0;
   const { imageIndex, handleClickNext, handleClickPrev, isTransitioning, sliderRef } =
@@ -45,18 +26,8 @@ const PhotoModal = ({ reviewId }: PhotoModalProps) => {
 
   const displayIndex = getDisplayIndex(imageIndex, total);
 
-  useEffect(() => {
-    router.replace(`?pidx=${displayIndex - 1}`, { scroll: false });
-  }, [displayIndex]);
-
-  if (rawPidx === null) return null;
-
   if (isLoading) {
-    return (
-      <DelayLoading>
-        <LoadingSpinner />
-      </DelayLoading>
-    );
+    return <LoadingSpinner />;
   }
 
   if (!review) {
