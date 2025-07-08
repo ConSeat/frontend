@@ -2,7 +2,6 @@ import styles from './ImageModal.module.scss';
 import useImageSlide from '@/hooks/common/useImageSlide';
 import ImageSlide from '@/components/ImageSlide';
 import Modal from '@/components/Modal';
-import Spacing from '@/components/Spacing/Spacing';
 import { getDisplayIndex } from '@/utils/getDisplayIndex';
 
 const ImageModal = ({ images, startIndex, onClose }) => {
@@ -20,13 +19,11 @@ const ImageModal = ({ images, startIndex, onClose }) => {
         <ImageSlide
           imageSrcArray={images}
           currentIndex={imageIndex}
-          height={400}
           onNext={handleClickNext}
           onPrev={handleClickPrev}
           isTransitioning={isTransitioning}
           slideRef={sliderRef}
         />
-        <Spacing size={56} />
       </Modal.Content>
     </Modal>
   );
