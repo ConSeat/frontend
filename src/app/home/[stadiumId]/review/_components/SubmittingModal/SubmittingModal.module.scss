@@ -27,6 +27,11 @@
   background-color: $sub-bg-black;
 }
 
+.submittingModalImage {
+  width: 120px;
+  height: 120px;
+}
+
 .submittingModalText {
   @include subtitle-1;
 

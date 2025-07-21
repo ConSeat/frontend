@@ -7,7 +7,7 @@ const SuccessPage = () => {
   return (
     <div className={styles.successContainer}>
       <div className={styles.successWrapper}>
-        <img src="/logo/review-complete.gif" alt="gif 예시" />
+        <img src="/logo/review-complete.gif" alt="후기 등록 성공 gif" />
         <h2 className={styles.successText}>후기 등록 성공!</h2>
         <p className={styles.successSubtext}>등록한 후기는{'\n'}마이페이지에서 확인해주세요</p>
       </div>
