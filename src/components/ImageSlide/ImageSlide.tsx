@@ -52,11 +52,15 @@ const ImageSlide = ({
   const total = imageSrcArray.length;
   const images = [imageSrcArray[total - 1], ...imageSrcArray, imageSrcArray[0]]; // [last, ...originals, first]
 
+  const handleTouchMove = (e: React.TouchEvent) => {
+    e.preventDefault(); // 스크롤 방지
+  };
+
   return (
     <div
       className={styles.slideContainer}
+      onTouchMove={handleTouchMove}
       // onTouchStart={handleTouchStart}
-      // onTouchMove={handleTouchMove}
       // onTouchEnd={handleTouchEnd}
     >
       <div

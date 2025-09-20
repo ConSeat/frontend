@@ -1,15 +1,21 @@
 @import '@/styles/style';
 
 .slideContainer {
+  // 터치 스크롤 방지 (확대는 허용)
+  touch-action: pinch-zoom;
+
   position: relative;
 
   overflow: hidden;
+  overscroll-behavior: none;
   flex-grow: 1;
 
   height: 100%;
   margin: 0 -24px;
 
   background-color: $sub-black;
+
+  -webkit-overflow-scrolling: touch;
 }
 
 .slideItem {
