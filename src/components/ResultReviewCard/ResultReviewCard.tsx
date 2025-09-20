@@ -1,9 +1,11 @@
 'use client';
 
 import styles from './ResultReviewCard.module.scss';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import useBookMark from '@/hooks/common/useBookmark';
 import useLike from '@/hooks/common/useLike';
+import useStateModal from '@/hooks/common/useStateModal';
+import ImageModal from '@/components/ImageModal';
 import ReviewCard from '@/components/ReviewCard';
 import type { SeatingReview } from '@/types/review';
 import { gaEvent } from '@/utils/gtag';
@@ -14,9 +16,10 @@ interface ResultReviewCardProps {
 }
 
 const ResultReviewCard = ({ review, queryKey }: ResultReviewCardProps) => {
-  const router = useRouter();
   const { handleClickBookMark } = useBookMark(review.isBookmarked, review.reviewId, queryKey);
   const { handleClickLike } = useLike(review.isLiked, review.reviewId, queryKey);
+  const { isModalOpen, openModal, closeModal } = useStateModal();
+  const [modalIndex, setModalIndex] = useState<number | null>(null);
 
   const handleImageClick = (idx: number) => {
     gaEvent({
@@ -25,13 +28,13 @@ const ResultReviewCard = ({ review, queryKey }: ResultReviewCardProps) => {
       label: '후기 썸네일 클릭',
     });
 
-    router.push(`${window.location.href}/${review.reviewId}?pidx=${idx}`, {
-      scroll: false,
-    });
+    setModalIndex(idx + 1);
+    openModal();
   };
 
   return (
-    <ReviewCard className={styles.container}>
+    <>
+      <ReviewCard className={styles.container}>
       <ReviewCard.Header>
         <ReviewCard.UserInfo
           profileSrc={review.writerSrc}
@@ -39,6 +42,7 @@ const ResultReviewCard = ({ review, queryKey }: ResultReviewCardProps) => {
           uploadTime={review.createdAt}
         />
         <ReviewCard.Bookmark isSaved={review.isBookmarked} onClick={handleClickBookMark} />
+        
       </ReviewCard.Header>
 
       <ReviewCard.ImageList>
@@ -63,7 +67,19 @@ const ResultReviewCard = ({ review, queryKey }: ResultReviewCardProps) => {
           onClick={handleClickLike}
         />
       </div>
-    </ReviewCard>
+      </ReviewCard>
+
+      {isModalOpen && modalIndex !== null && (
+        <ImageModal
+          images={review.images}
+          startIndex={modalIndex}
+          onClose={() => {
+            setModalIndex(null);
+            closeModal();
+          }}
+        />
+      )}
+    </>
   );
 };
 
