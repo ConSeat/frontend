@@ -5,11 +5,13 @@ import SearchEndButton from '../SearchEndButton';
 import styles from './SingleResult.module.scss';
 import { useQueryClient } from '@tanstack/react-query';
 import { notFound, usePathname, useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFetchSeating } from '@/hooks/queries/useFetchSeatingReview';
 import { useFetchStadiumList } from '@/hooks/queries/useFetchStadium';
 import Button from '@/components/Button/Button';
+import DelayLoading from '@/components/DelayLoading/DelayLoading';
 import Highlight from '@/components/Highlight/Highlight';
+import LoadingSpinner from '@/components/LoadingSpinner';
 import PageExplanation from '@/components/PageExplanation';
 import ReviewCardList from '@/components/ReviewCardList';
 import ShareArea from '@/components/ShareArea';
@@ -25,6 +27,7 @@ const SingleResult = ({ stadiumId, seatingId }) => {
   const { data: stadiumList } = useFetchStadiumList();
   const { data: seatingInfo } = useFetchSeating(seatingId);
   const queryClient = useQueryClient();
+  const [isNavigating, setIsNavigating] = useState(false);
 
   if (!seatingInfo) {
     notFound();
@@ -80,10 +83,17 @@ const SingleResult = ({ stadiumId, seatingId }) => {
                 label: '후기 더보기 클릭',
               });
 
+              setIsNavigating(true);
               router.push(`/home/${stadiumId}/${seatingId}/all`);
             }}
           >
-            더보기 {'>'}
+            {isNavigating ? (
+              <DelayLoading>
+                <LoadingSpinner size={16} />
+              </DelayLoading>
+            ) : (
+              <>더보기 {'>'}</>
+            )}
           </Button>
         </div>
 
