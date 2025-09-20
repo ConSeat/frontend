@@ -1,8 +1,8 @@
-import ImageModal from '../ImageModal/ImageModal';
 import styles from './ReviewThumbnail.module.scss';
 import { useState } from 'react';
 import useImageSlide from '@/hooks/common/useImageSlide';
 import useStateModal from '@/hooks/common/useStateModal';
+import ImageModal from '@/components/ImageModal';
 import ImageSlide from '@/components/ImageSlide';
 import { getDisplayIndex } from '@/utils/getDisplayIndex';
 
