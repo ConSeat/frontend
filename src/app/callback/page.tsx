@@ -34,8 +34,12 @@ const OAuthCallbackPage = () => {
         router.replace(returnUrl);
       },
       onError: async () => {
-        await signOut({ redirectTo: '/home' });
-        router.replace('/signin');
+        try {
+          await signOut({ redirectTo: '/home' });
+        } catch (signOutError) {
+          console.warn('SignOut failed, continuing...', signOutError);
+          window.location.href = '/signin';
+        }
       },
     });
   }, []);
